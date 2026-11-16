@@ -1,0 +1,329 @@
+{
+  "model_combinations": 40,
+  "times_per_combination": 502,
+  "max_closed_form_ode_error": 1.0524914273446484e-13,
+  "all_checks_passed": true,
+  "scope": "Closed-form deterministic affine ODE checks; no discrete or neural guarantee.",
+  "results": [
+    {
+      "beta": 1.01,
+      "k": 1.0,
+      "tau": 0.01,
+      "slow_rate": 0.00990098039216639,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.0,
+      "tau": 0.1,
+      "slow_rate": 0.009090157216914469,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.0,
+      "tau": 1.0,
+      "slow_rate": 0.004987500078124028,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.0,
+      "tau": 10.0,
+      "slow_rate": 0.0009016332815986372,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.0,
+      "tau": 100.0,
+      "slow_rate": 9.804864072151708e-05,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.01,
+      "tau": 0.01,
+      "slow_rate": 0.009999000001000008,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.01,
+      "tau": 0.1,
+      "slow_rate": 0.009172706104052722,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.01,
+      "tau": 1.0,
+      "slow_rate": 0.005012188522242716,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.01,
+      "tau": 10.0,
+      "slow_rate": 0.00090243226854684,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.01,
+      "k": 1.01,
+      "tau": 100.0,
+      "slow_rate": 9.805806755131734e-05,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.0,
+      "tau": 0.01,
+      "slow_rate": 0.19801591206949318,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.0,
+      "tau": 0.1,
+      "slow_rate": 0.1815131263423734,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.0,
+      "tau": 1.0,
+      "slow_rate": 0.09501243788791096,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.0,
+      "tau": 10.0,
+      "slow_rate": 0.015571122977523978,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.0,
+      "tau": 100.0,
+      "slow_rate": 0.0016551566475437255,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.2,
+      "tau": 0.01,
+      "slow_rate": 0.23714746569881073,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.2,
+      "tau": 0.1,
+      "slow_rate": 0.2137853292847362,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.2,
+      "tau": 1.0,
+      "slow_rate": 0.10268178212292625,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.2,
+      "tau": 10.0,
+      "slow_rate": 0.015745401074676903,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 1.2,
+      "k": 1.2,
+      "tau": 100.0,
+      "slow_rate": 0.0016570661159397207,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 1.0,
+      "tau": 0.01,
+      "slow_rate": 0.9900009998000501,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 1.0,
+      "tau": 0.1,
+      "slow_rate": 0.9009804864072152,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 1.0,
+      "tau": 1.0,
+      "slow_rate": 0.38196601125010515,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 1.0,
+      "tau": 10.0,
+      "slow_rate": 0.048750780274960714,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 1.0,
+      "tau": 100.0,
+      "slow_rate": 0.0049875000781240235,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 2.0,
+      "tau": 0.01,
+      "slow_rate": 1.9600159872127856,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 2.0,
+      "tau": 0.1,
+      "slow_rate": 1.6148351928654958,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 2.0,
+      "tau": 1.0,
+      "slow_rate": 0.4384471871911697,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 2.0,
+      "tau": 10.0,
+      "slow_rate": 0.049375097625744345,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 2.0,
+      "k": 2.0,
+      "tau": 100.0,
+      "slow_rate": 0.0049937500097655945,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 1.0,
+      "tau": 0.01,
+      "slow_rate": 3.9587804026310023,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 1.0,
+      "tau": 0.1,
+      "slow_rate": 3.4688711258507254,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 1.0,
+      "tau": 1.0,
+      "slow_rate": 0.7639320225002103,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 1.0,
+      "tau": 10.0,
+      "slow_rate": 0.0796761345928749,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 1.0,
+      "tau": 100.0,
+      "slow_rate": 0.007996796157441852,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 5.0,
+      "tau": 0.01,
+      "slow_rate": 18.839377008567546,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 5.0,
+      "tau": 0.1,
+      "slow_rate": 7.192235935955849,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 5.0,
+      "tau": 1.0,
+      "slow_rate": 0.793444384266297,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 5.0,
+      "tau": 10.0,
+      "slow_rate": 0.07993584619549762,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    },
+    {
+      "beta": 5.0,
+      "k": 5.0,
+      "tau": 100.0,
+      "slow_rate": 0.007999359846379523,
+      "old_risk_limit": 0.0648,
+      "last_old_risk": 0.0648
+    }
+  ]
+}

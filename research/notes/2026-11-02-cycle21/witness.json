@@ -1,0 +1,12 @@
+{
+  "1": {
+    "initial_mse": "5/32",
+    "post_mse": "0",
+    "change": "-5/32"
+  },
+  "-1": {
+    "initial_mse": "5/32",
+    "post_mse": "5/8",
+    "change": "15/32"
+  }
+}

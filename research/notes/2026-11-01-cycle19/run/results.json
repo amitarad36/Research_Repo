@@ -1,0 +1,417 @@
+{
+  "status": "complete",
+  "updates": 160,
+  "batches": [
+    {
+      "index": 0,
+      "rows": [
+        455,
+        456
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008134578740626901,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 1,
+      "rows": [
+        457,
+        458
+      ],
+      "gradient_norm": 6.409408047304111,
+      "gradient_gate": 0.00072531963185983,
+      "output_rms": 0.009481739983443791,
+      "output_gate": 1e-06,
+      "passes": true,
+      "sign_changes": 1,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 6.409408047304111,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 4.440892098500626e-16,
+      "parameter_difference": 0.0008292085954651264
+    },
+    {
+      "index": 2,
+      "rows": [
+        459,
+        460
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0003404725282731198,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 3,
+      "rows": [
+        461,
+        462
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00036356401446948223,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 4,
+      "rows": [
+        463,
+        464
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0005388811469864755,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 5,
+      "rows": [
+        465,
+        466
+      ],
+      "gradient_norm": 7.600991538034284,
+      "gradient_gate": 0.00039496063372730975,
+      "output_rms": 0.006159661895121098,
+      "output_gate": 1e-06,
+      "passes": true,
+      "sign_changes": 1,
+      "jac_changes": 1,
+      "mask_bits_changed": 1,
+      "sign_term": 8.087384867107174,
+      "jac_term": 0.48934367138174856,
+      "cancellation": 0.9757370004546386,
+      "decomposition_error": 6.661338147750939e-16,
+      "parameter_difference": 0.0005108575087736607
+    },
+    {
+      "index": 6,
+      "rows": [
+        467,
+        468
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00011805279584908311,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 7,
+      "rows": [
+        469,
+        470
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00017737181896516715,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 8,
+      "rows": [
+        471,
+        472
+      ],
+      "gradient_norm": 3.466000824540661,
+      "gradient_gate": 0.00031201915242527685,
+      "output_rms": 0.004278207397702695,
+      "output_gate": 1e-06,
+      "passes": true,
+      "sign_changes": 1,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 3.4660008245406613,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 3.3306690738754696e-16,
+      "parameter_difference": 0.00025270313772794603
+    },
+    {
+      "index": 9,
+      "rows": [
+        473,
+        474
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00022383150445204764,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 10,
+      "rows": [
+        475,
+        476
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0004953443025677582,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 11,
+      "rows": [
+        477,
+        478
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0006179018495347908,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 12,
+      "rows": [
+        479,
+        480
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0004926469951366554,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 13,
+      "rows": [
+        481,
+        482
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00027141392977523074,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 14,
+      "rows": [
+        483,
+        484
+      ],
+      "gradient_norm": 0.410150703863531,
+      "gradient_gate": 6.603434147110501e-05,
+      "output_rms": 0.0002775674478664781,
+      "output_gate": 1e-06,
+      "passes": true,
+      "sign_changes": 1,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.4101507038635309,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 8.326672684688674e-17,
+      "parameter_difference": 1.9824288023059418e-05
+    },
+    {
+      "index": 15,
+      "rows": [
+        485,
+        486
+      ],
+      "gradient_norm": 6.127125786462141,
+      "gradient_gate": 0.00030635628932310706,
+      "output_rms": 0.004412227003320661,
+      "output_gate": 1e-06,
+      "passes": true,
+      "sign_changes": 2,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 6.127125786462141,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 4.440892098500626e-16,
+      "parameter_difference": 0.0002808354465262165
+    },
+    {
+      "index": 16,
+      "rows": [
+        487,
+        488
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00021532757042447775,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 17,
+      "rows": [
+        489,
+        490
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0007422978642687747,
+      "output_rms": 0.0,
+      "output_gate": 1.1760106441101265e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 18,
+      "rows": [
+        491,
+        492
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0006436878249057201,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 19,
+      "rows": [
+        493,
+        494
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00012541445215032658,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    }
+  ],
+  "torch": "2.9.0+cpu",
+  "script_sha256": "598d4397798b71c357080f51b4e1ccabf75a36405499ca14d387caab2445ae31",
+  "arm_order": [
+    "current-connected",
+    "cached-connected",
+    "current-stopped",
+    "cached-stopped"
+  ],
+  "count": 5,
+  "outcome": "measurable",
+  "cpu_seconds_after_load_including_trace_save": 3.53125
+}

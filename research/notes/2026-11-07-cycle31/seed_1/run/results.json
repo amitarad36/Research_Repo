@@ -1,0 +1,419 @@
+{
+  "status": "complete",
+  "updates": 160,
+  "batches": [
+    {
+      "index": 0,
+      "rows": [
+        455,
+        456
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00031160975146091467,
+      "output_rms": 0.0,
+      "output_gate": 1.0953269932052525e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 1,
+      "rows": [
+        457,
+        458
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00030787710652640236,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 2,
+      "rows": [
+        459,
+        460
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008670320131115242,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 3,
+      "rows": [
+        461,
+        462
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.001020235759367591,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 4,
+      "rows": [
+        463,
+        464
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0007592581447784495,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 5,
+      "rows": [
+        465,
+        466
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0010904847454636264,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 6,
+      "rows": [
+        467,
+        468
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008381133775465337,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 7,
+      "rows": [
+        469,
+        470
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00017764003610521318,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 8,
+      "rows": [
+        471,
+        472
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0009848412381869996,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 9,
+      "rows": [
+        473,
+        474
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.00035386491133996135,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 10,
+      "rows": [
+        475,
+        476
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008394673425818412,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 11,
+      "rows": [
+        477,
+        478
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.000684010118256009,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 12,
+      "rows": [
+        479,
+        480
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0001569028297991418,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 13,
+      "rows": [
+        481,
+        482
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0004658090784292238,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 14,
+      "rows": [
+        483,
+        484
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0002661970310678714,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 15,
+      "rows": [
+        485,
+        486
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0006554997758107854,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 16,
+      "rows": [
+        487,
+        488
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0006443615260492122,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 17,
+      "rows": [
+        489,
+        490
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0004257872232492888,
+      "output_rms": 0.0,
+      "output_gate": 1.166105686351186e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 18,
+      "rows": [
+        491,
+        492
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008350299280805951,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    },
+    {
+      "index": 19,
+      "rows": [
+        493,
+        494
+      ],
+      "gradient_norm": 0.0,
+      "gradient_gate": 0.0008937303953456745,
+      "output_rms": 0.0,
+      "output_gate": 1e-06,
+      "passes": false,
+      "sign_changes": 0,
+      "jac_changes": 0,
+      "mask_bits_changed": 0,
+      "sign_term": 0.0,
+      "jac_term": 0.0,
+      "cancellation": 0.0,
+      "decomposition_error": 0.0,
+      "parameter_difference": 0.0
+    }
+  ],
+  "torch": "2.9.0+cpu",
+  "script_sha256": "f5d4592dc4f1ee7bba937211553d7be8ff194c9b1d7306030c886ad5044ab829",
+  "seed": 1,
+  "cpu_budget": 60.0,
+  "arm_order": [
+    "current-connected",
+    "cached-connected",
+    "current-stopped",
+    "cached-stopped"
+  ],
+  "count": 0,
+  "outcome": "reject_this_setting",
+  "cpu_seconds_after_load_including_trace_save": 3.578125
+}

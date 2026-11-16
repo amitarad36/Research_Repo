@@ -1,0 +1,6 @@
+{
+  "full_architecture_gradient_check_cases": 5,
+  "max_absolute_error": 3.1918773180095172e-12,
+  "seed": 42,
+  "finite_difference_epsilon": 1e-06
+}

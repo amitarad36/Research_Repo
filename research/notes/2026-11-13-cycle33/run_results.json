@@ -1,0 +1,37 @@
+{
+  "status": "complete",
+  "updates": 480,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "checks": {
+    "baseline": 0.0,
+    "reset_theta": 0.0,
+    "common_start_theta": 0.0,
+    "set_start_counter": 0.0,
+    "set_start_moments": 0.0,
+    "replay_before_theta": 0.0,
+    "replay_before_m": 0.0,
+    "replay_before_v": 0.0,
+    "replay_before_step": 0.0,
+    "replay_gradient": 0.0,
+    "numpy_adam_theta": 5.551115123125783e-17,
+    "numpy_adam_m": 4.440892098500626e-16,
+    "numpy_adam_v": 2.220446049250313e-16,
+    "numpy_adam_step": 0.0,
+    "replay_after_theta": 0.0,
+    "replay_after_m": 0.0,
+    "replay_after_v": 0.0,
+    "replay_after_step": 0.0,
+    "numpy_forward": 6.661338147750939e-16,
+    "replay_final_output": 0.0,
+    "zero_history_equal": 0.0,
+    "shared_initial_gradient": 0.0
+  },
+  "torch": "2.9.0+cpu",
+  "registration_sha256": "a804fed2b92b8aa55bb243c747a3d2c027e848ae9c88236209ee8b2b869cbaf3",
+  "cpu_seconds": 5.109375
+}

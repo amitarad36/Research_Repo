@@ -1,0 +1,18 @@
+{
+  "revision": "100524001d890efc08911f3cba8f45f51f4aa7d1",
+  "retrieved_at": "2026-10-31T08:18:27.908737+00:00",
+  "items": {
+    "it3_tree.json": {
+      "url": "https://api.github.com/repos/nikitadurasov/ittt/git/trees/100524001d890efc08911f3cba8f45f51f4aa7d1?recursive=1",
+      "resolved_url": "https://api.github.com/repos/nikitadurasov/ittt/git/trees/100524001d890efc08911f3cba8f45f51f4aa7d1?recursive=1",
+      "sha256": "8277389e9857c9a8fd72a5dd8175e0988297ce0bc8ae1a08970b3085e6983068",
+      "bytes": 5580
+    },
+    "it3_README.md": {
+      "url": "https://raw.githubusercontent.com/nikitadurasov/ittt/100524001d890efc08911f3cba8f45f51f4aa7d1/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/nikitadurasov/ittt/100524001d890efc08911f3cba8f45f51f4aa7d1/README.md",
+      "sha256": "386013f2b98f6ae77e902e586a97c7b53e1c1e088418ae1a3a9f1576b313c1b4",
+      "bytes": 7467
+    }
+  }
+}

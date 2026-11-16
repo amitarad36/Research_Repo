@@ -1,0 +1,6 @@
+{
+  "status": "complete",
+  "qualified": true,
+  "training_steps": 450,
+  "cpu_seconds": 8.0625
+}

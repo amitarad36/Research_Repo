@@ -1,0 +1,1068 @@
+% Standalone source; the open editor compiles this file in place.
+% Research status: bounded paper decision complete, 29 October 2026, cycle 13. Certificate target conditional; novelty unverified.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt,topsep=4pt}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\title{Backward Rules and Moving References\\in Continual Test-Time Adaptation\\[0.4em]
+\large A research proposal on stability, tracking, and current predictive risk}
+\author{Amit Arad\\[0.3em]
+\small Advisor: Assaf Shocher (Faculty of Data and Decision Sciences)}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+How do the backward rule, discrepancy loss, and reference update schedule
+determine useful behavior in continual test-time adaptation? We study a
+specified dual-input IT$^3$ surrogate, separating freezing reference
+parameters from detaching its output. Current predictive risk is primary;
+retention and recovery require separately stated task and information budgets.
+
+Constructed smooth models establish a directional stability distinction.
+In a small trained-model study, holding the reference's prediction input
+fixed removes at least $88.5\%$ of excess terminal error in all four primary
+seeds under squared loss. An untuned affine approximation predicts early
+output separation within $1.51\%$, but fails at later times in one seed.
+The control still loses initial accuracy, so it is not a safe adapter.
+With absolute discrepancy, stopped and cached fields instead coincide
+within common sign regions; the finite-time risk comparison fails its
+step-size gate and remains unresolved.
+
+A nonsmooth analysis now identifies a separate modeling requirement.
+Independent intervals for zero residual signs can invent trajectories for
+the stopped rule, even with a globally idempotent frozen reference.
+For smooth full-gradient and cached-input fields, classical generalized
+gradient calculus makes that interval image exact. These checked
+applications delimit which dynamics may be analyzed; they do not establish
+neural convergence or novelty. A bounded prior-art comparison places this
+nonsmooth analysis in the supporting background. The selected conditional
+target is a computable finite-step error bound for the prediction-input
+intervention: can it certify the range of the successful early forecast?
+A first-paper claim requires a nonvacuous bound and implementation relevance.
+\end{abstract}
+
+\section{Question, setting, and scope}
+The value of a consistency loss does not specify its learning dynamics:
+freezing a network's parameters and detaching its output can preserve the
+same forward values while changing the update direction. A moving reference
+adds feedback between the two models. This proposal asks whether that
+feedback admits an interpretable stability boundary that predicts useful
+adaptation behavior, beyond a generic statement that a linearized system
+must be stable.
+
+The learner starts from supervised pretraining and observes an unlabeled
+stream $x_t\sim\rho_t$. The adaptive state $\theta_t$ and reference state
+$\phi_t$ may persist across batches. Labels are available only to the
+evaluator after pretraining. The primary quantity is current task risk
+$R_t(\theta)=\E_{(x,y)\sim\mu_t}\ell(q_\theta(x),y)$, evaluated before each
+batch's adaptation; post-update risk is reported separately. The initial geometry test uses the source distribution. The first dynamics
+test also keeps a fixed empirical distribution stationary; covariate changes with one
+unchanged labeling function and compatible recurring domains follow only
+if the mechanism is supported. Arbitrary changes in hidden
+labels cannot be identified from unlabeled inputs alone.
+
+The local anonymous position manuscript \emph{Forgetting is not Catastrophic,
+Our Benchmarks are} motivates evaluating the presently relevant task.
+It remains private reading context; its authors and public publication
+status are unverified. Its discussion of streams with labels does not
+provide an unlabeled-TTA guarantee. Accordingly, old-task retention is an
+objective only when those tasks remain relevant. Accuracy loss, recovery
+after new adaptation, and preservation of information are different claims.
+
+\section{What the literature and implementation already establish}
+IT$^3$ introduces a dual-input predictor and already includes online
+adaptation with an EMA reference; its online discussion allows deterioration
+on the original distribution~\cite{it3}. Online carry-over and gradient
+alignment were also studied in original TTT~\cite{ttt}. Neither online
+adaptation nor the observation that aligned gradients improve task loss
+is proposed as a new contribution.
+
+The closest continual-adaptation baselines constrain the claim. CoTTA
+combines weight/augmentation averaging with stochastic restoration to
+pretrained weights~\cite{cotta}; EATA uses sample selection and
+importance-weighted regularization against forgetting~\cite{eata}.
+RMT studies consistency-loss gradient properties and teacher-based
+continual adaptation~\cite{rmt}. PeTTA already considers recurring
+environments and analyzes a tractable collapse model~\cite{petta}.
+Recent work explicitly compares frozen and moving teachers~\cite{fixedteacher}
+and combines dynamic EMA with source anchoring~\cite{desa}. Thus ``EMA can
+fail,'' ``a fixed teacher helps,'' and an $A\to B\to A$ experiment are
+insufficient paper claims. Nonstationary adaptation guarantees and recovery
+complexity also have existing treatments~\cite{realign,recovery}.
+
+\paragraph{What the closest analyses do and do not cover.}
+The bounded audit uses PeTTA v4 (Theorem~1 and Appendix~B.3), RMT v2
+(Section~3.1, Eqs.~(2)--(6)), and the fixed-teacher preprint v1
+(Section~5.2, Eqs.~(3)--(5)). PeTTA bounds a scalar class-mean recurrence;
+RMT compares loss derivatives with a fixed teacher probability;
+the fixed-teacher paper explicitly describes error feedback through EMA.
+These support rejecting generic feedback failure as a distinct contribution,
+but do not directly certify our dual-input neural dynamics.
+The inspected official RMT and fixed-teacher consistency paths feed images
+to the teacher, without a student-prediction input. Exact revisions and code
+locations are retained in the research notes; no benchmark was executed.
+This limited comparison does not certify novelty~\cite{petta,rmt,fixedteacher}.
+
+\paragraph{Version and graph audit.}
+The bibliography uses the ICML 2025 IT$^3$ record. This research pass compared
+arXiv v1 and v2; it did not establish byte identity between the supplied
+local PDF, arXiv v2, and the proceedings PDF. The official repository was
+inspected at commit \texttt{100524001d89}\footnote{Full revision:
+\href{https://github.com/nikitadurasov/ittt/tree/100524001d890efc08911f3cba8f45f51f4aa7d1}{\texttt{100524001d890efc08911f3cba8f45f51f4aa7d1}}.}.
+The tabular, airfoil, and age regression notebooks pass an undetached student
+prediction into a reference excluded from the student optimizer. They use
+absolute discrepancies. The CIFAR notebook instead reuses a shared
+trainable model across the two adaptation passes and uses Jensen--Shannon
+divergence. The linked \texttt{torch-ttt} implementation also reuses its
+model. There is therefore no universal ``IT$^3$ backward graph.'' This
+proposal selects the regression-style reference-input path and a squared
+surrogate explicitly. The inspected repository did not reveal a reproducible
+online EMA schedule; our ordering and optimizer-state policy must be declared
+as experimental choices. A focused recheck of the pinned tabular notebook
+confirms a mean over all absolute residual entries (cell 13, line 38),
+an undetached reference input, and student-only Adam. Its stored model
+definition uses ReLU layers, one output and default auxiliary input 50
+(cells 5 and 12). Our two-output tanh model with zero auxiliary input
+remains an explicit surrogate. These are static audits, not reproduced results.
+
+\section{The specified dynamics}
+Write $q_\theta(x)=f_\theta(x,0)$ and $T_\phi(x,q)=f_\phi(x,q)$. With
+$r=T_\phi(x,q_\theta(x))-q_\theta(x)$, define
+\begin{equation}
+ D(\theta,\phi;\rho)=\tfrac12\E_\rho\norm{r}^2,
+ \qquad J_q=\partial_\theta q_\theta(x).
+ \label{eq:discrepancy}
+\end{equation}
+Holding reference parameters fixed during the student derivative retains
+the reference-input Jacobian. Detaching the entire reference output removes it:
+\begin{align}
+ G_{\rm input}&=\E_\rho[J_q^\top(\partial_qT_\phi-I)^\top r],
+ \label{eq:input}\\
+ G_{\rm stop}&=-\E_\rho[J_q^\top r].
+ \label{eq:stop}
+\end{align}
+These are chain-rule calculations for \eqref{eq:discrepancy}, not results
+for every IT$^3$ implementation. $G_{\rm stop}$ is a controlled comparison.
+Frozen parameters during differentiation do not imply a reference that
+stays fixed over the stream.
+
+We first study $\dot\theta=-G(\theta,\phi;\rho_t)$ and
+$\dot\phi=(\theta-\phi)/\tau$, with $\tau>0$. Even for $G_{\rm input}$,
+a fixed-distribution calculation gives
+\begin{equation}
+ \dot D=-\norm{\nabla_\theta D}^2
+ +\tau^{-1}\langle\nabla_\phi D,\theta-\phi\rangle.
+ \label{eq:energy}
+\end{equation}
+The second term has no prescribed sign. Distribution drift adds a time
+derivative, or a jump in the evaluated objective at a switch. For
+$G_{\rm stop}$ the first term is instead
+$-\langle\nabla_\theta D,G_{\rm stop}\rangle$.
+
+\paragraph{Discrete algorithm.}
+The first study uses gradient descent and a student-first EMA,
+\begin{equation}
+ \theta_{n+1}=\theta_n-\eta G(\theta_n,\phi_n;\rho_n),\qquad
+ \phi_{n+1}=\alpha\phi_n+(1-\alpha)\theta_{n+1},\quad 0<\alpha<1.
+ \label{eq:discrete}
+\end{equation}
+Both states start from the pretrained model. Batch statistics are specified
+and held fixed in the first comparison; there is no replay or source-label
+access during adaptation. Adam, normalization updates, and alternative EMA
+orderings are later robustness checks. Resetting weights without resetting
+optimizer state is not treated as an equivalent baseline.
+
+\section{Ranked directions and the provisional leading target}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Leading target: coupled dynamics and predictive amplification.}
+Determine when reference-input geometry is insufficient to describe the
+student--reference parameter dynamics, and whether those dynamics predict
+finite-time changes in useful outputs. The constructed stability boundary
+is an existence result; its strong rotational mechanism was absent from
+the first trained-model screen. Finite-time tests support EMA amplification
+but reject a uniform backward-rule ordering. A matrix diagnostic also
+rejects the necessity of student/reference derivative mismatch for the
+local growing modes. The closest-work audit demotes generic EMA failure
+as a paper claim. A realizable cached-input control now removes most
+excess terminal error in all four primary seeds, while leaving substantial
+residual deterioration. An untuned initial-affine forecast passes the
+early output-separation gate but has a finite validity range. The
+absolute-loss audit rejects transferring that stopped/cached local block
+difference unchanged: sign-region structure and the backward rule matter.
+The finite-time absolute-loss test confirms sign-triggered separation
+but leaves the accuracy effect numerically unresolved. A scalar
+nonsmooth baseline now distinguishes an ill-posed pointwise ODE from a
+unique inclusion and bounds its discrete approximation. The multivariate
+closure audit now identifies a stopped-field modeling trap and a smooth
+partial-gradient equality result. The completed paper decision demotes
+this branch to supporting background and selects a finite-step certificate
+for the prediction-input intervention as the next conditional target. A thesis can develop the audit, qualified theorem, and empirical
+test; a first paper requires a distinct mechanism and evidence beyond
+existing teacher-adaptation analyses.
+\item \textbf{Second: a compatible-task failure and a justified correction.}
+Use a diagnosed shared-parameter direction to explain loss on an earlier
+still-relevant task at matched current-task progress. Propose a correction
+only if its information budget is explicit and it differs substantively
+from restoration, anchoring, or protected-gradient methods~\cite{ogd}.
+The appendix baseline alone does not meet this threshold.
+\item \textbf{Third: recovery and information access.}
+Test whether reference lag predicts recovery under a fixed adaptation and
+probe budget. This requires separating recovery from relearning and from
+already studied representation shifts~\cite{spurious}. It follows only
+after the first mechanism is established.
+\end{enumerate}
+
+\subsection{A constructed useful equilibrium and a stability distinction}
+The earlier absolute model $f_W(x,z)=Wx+A_xz$ has a limitation: strict
+stability of its homogeneous dynamics implies zero predictions. To test
+whether a useful equilibrium is possible, consider instead the smooth
+shared architecture
+\begin{equation}
+ f_W(x,z)=h(x)+Wx+
+ A_x(z-h(x))\frac{h(x)^\top z}{\norm{h(x)}^2},
+ \qquad h(x)\ne0.
+ \label{eq:realization}
+\end{equation}
+Here $h$ is a fixed pretrained baseline; $W$ is adapted and $V$ is its EMA.
+Then $q_W(x)=f_W(x,0)=h(x)+Wx$, while $f_0(x,h(x))=h(x)$ and
+$\partial_z f_0(x,h(x))=A_x$. On two equally likely inputs
+$x_1=(1,0)^\top$, $x_2=(3/5,4/5)^\top$, set
+$h(x_1)=(1,0)^\top$ and $h(x_2)=(0,1)^\top$, with evaluation labels
+equal to $h$. Thus $W=V=0$ represents correct, distinct nonzero
+predictions, not collapse. Correctness is planted in the baseline;
+the learner receives no labels during adaptation.
+
+Writing $B_x=I-A_x$, the residual is
+$Vx-B_xWx+O(\norm{W}^2)$. For column vectorizations $w,v$, the local
+Jacobian is
+\begin{equation}
+ M=\begin{pmatrix}-H&K\\I/\tau&-I/\tau\end{pmatrix},
+ \label{eq:block}
+\end{equation}
+where the two backward rules yield
+\begin{align}
+ H_{\rm input}&=\E[xx^\top\otimes B_x^\top B_x],&
+ K_{\rm input}&=\E[xx^\top\otimes B_x^\top],\nonumber\\
+ H_{\rm stop}&=\E[xx^\top\otimes B_x],&
+ K_{\rm stop}&=\E[xx^\top\otimes I].
+ \label{eq:blocks}
+\end{align}
+The covariance eigenvalues are $1/5$ and $4/5$, so current risk
+$R(W)=\tfrac12\E\norm{Wx}^2$ is positive definite in $W$.
+A Hurwitz $M$ therefore gives local exponential recovery to useful
+predictions in this construction. Monotone risk is not implied.
+
+\paragraph{An exact boundary and a noncommuting witness.}
+Let
+\[
+ J=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad B_0=\tfrac12 I+J.
+\]
+For $B_{x_1}=B_{x_2}=B_0$, an exact mode calculation gives local
+exponential stability of the input-gradient rule for every finite
+$\tau>0$, whereas the stopped-output rule is locally exponentially
+stable exactly when $\tau>10$. At $\tau=10$ its linearization has
+imaginary roots. This is a linear stability crossing, not a proved
+nonlinear Hopf bifurcation. The two rules are consequently more than
+a scalar change of speed; noncommutation across inputs is not necessary
+for this distinction.
+
+For $B_{x_1}=B_0$ and $B_{x_2}=B_0+\tfrac1{10}\operatorname{diag}(1,-1)$,
+the matrices do not commute. Exact rational Routh certificates give the
+classifications below. For the student-first discrete update, use
+$\eta=1/10$ and $\alpha=\tau/(\tau+\eta)$, with Jacobian
+\begin{equation}
+ J_{\eta,\alpha}=\begin{pmatrix}
+ I-\eta H&\eta K\\
+ (1-\alpha)(I-\eta H)&\alpha I+(1-\alpha)\eta K
+ \end{pmatrix}.
+ \label{eq:discreteblock}
+\end{equation}
+\begin{center}
+\begin{tabular}{lrrr}
+Rule & $\tau$ & $\max\Re\lambda(M)$ & $\rho(J_{\eta,\alpha})$\\ \hline
+Input gradient & 1 & $-0.09933$ & $0.99024$\\
+Stopped output & 1 & $+0.16592$ & $1.01767$\\
+Input gradient & 20 & $-0.02134$ & $0.99786$\\
+Stopped output & 20 & $-0.02156$ & $0.99782$
+\end{tabular}
+\end{center}
+The displayed eigenvalues are rounded diagnostics. The underlying
+continuous classifications use exact characteristic polynomials and
+Routh signs; the discrete classifications use the exact bilinear
+transformation of the characteristic polynomial and the same test.
+The unstable cases have four unstable modes. No interval-wide threshold
+is claimed for this noncommuting perturbation. Nonlinear simulations
+from matched small student/reference perturbations agree with the
+predicted recovery or growth, including a halved-step check.
+
+\paragraph{What the construction establishes.}
+A task-correct equilibrium and a directional stability distinction are
+mathematically realizable in one smooth dual-input model. The result
+does not show that neural pretraining learns this model or that it adapts
+successfully to an unseen distribution shift. At exact initialization
+it stays fixed; the experiments test recovery from parameter perturbations.
+The chosen $A_x$ are not idempotent projections. A genuinely idempotent
+differentiable reference on a neighborhood would satisfy $A_x^2=A_x$
+at its fixed point, so measured projection-like Jacobians could invalidate
+this particular mechanism. Classical feedback stability tests are not
+the proposed novelty. Full derivations, exact certificates, and verification
+scripts are recorded in the research notes.
+
+\subsection{Assumptions, tracking, and rejection criteria}
+A theorem beyond the constructed example must connect a smooth trained
+model to a justified task-correct reference point or equilibrium family,
+and control the identifiable directions. Any extension to drift must specify how an
+equilibrium $z_t^\star$ moves. A bound of the form
+$\norm{e(t)}\le C e^{-\gamma t}\norm{e(0)}+
+C\sup_s\norm{\dot z_s^\star}/\gamma$
+requires a uniform stability estimate and a justified forcing bound;
+it is a target template, not a proved result here. Pointwise stable
+Jacobians alone do not justify arbitrary switching. Converting state
+tracking to predictive risk additionally needs local output regularity
+and a task-alignment or correctness assumption.
+
+Reject or narrow the leading direction if the stable state is useless;
+if the two rules reduce to time rescaling; if the condition assumes
+contraction without explaining its origin; if a correction duplicates
+the closest prior work; or if predicted behavior fails inside its stated
+regime in small nonlinear tests. A counterexample to a proposed certificate
+is a useful result, but should not be relabeled a positive theorem.
+
+\section{Minimal experiment and near-term milestones}
+\paragraph{Completed neural geometry gate.}
+A fixed five-seed experiment trained a $4\to16\to2$ tanh regressor on
+256 source inputs using equal-weight zero/label input supervision inspired
+by IT$^3$~\cite{it3}. It used a smooth, nonconstant two-output labeling
+function, squared losses, 6000 Adam steps per seed, and 256 independent
+evaluation inputs. No architecture search or checkpoint selection was
+performed. The fit gate required both auxiliary-input versions to have
+normalized mean squared error at most $0.05$, where normalization divides
+by total evaluation-label variance.
+\begin{center}
+\begin{tabular}{rrrr}
+Seed & Zero-input NMSE & Label-input NMSE & Fit gate\\ \hline
+0 & $0.01203$ & $0.00405$ & pass\\
+1 & $0.06620$ & $0.01435$ & fail\\
+2 & $0.03434$ & $0.00698$ & pass\\
+3 & $0.01708$ & $0.00612$ & pass\\
+4 & $0.00719$ & $0.00146$ & pass
+\end{tabular}
+\end{center}
+Four seeds passed, but no evaluation point in any seed met the prescribed
+strong-rotation screen, at either predicted or true-label auxiliary input.
+The screen required eigenvalues $a\pm i\omega$ with $0<a<1$ and
+$\omega^2>a(1-a)$, with a numerical margin; for the normal family this is
+the fast-reference separation underlying the construction. For general
+nonnormal matrices it is only a screen, not a stability criterion.
+The test therefore fails to support that particular explanation in this
+model. It does not rule out rotation in other IT$^3$ settings.
+Nor does it justify assuming projection geometry: across the four passing
+seeds, median relative defects
+$\norm{A_x^2-A_x}_F/(\norm{A_x}_F+10^{-12})$ range from $0.46$ to $0.94$.
+All sampled prediction-input operator norms are below $0.902$, which does
+not imply stability of the coupled parameter updates.
+
+The actual full parameter fields were also differentiated, retaining
+nonzero-residual terms. Both rules have positive instantaneous spectral
+abscissae at the tested $\tau=1,20$, but the checkpoints have nonzero
+velocity: these spectra are not equilibrium stability certificates or
+predictions of sustained risk growth. Moreover, 32 of 114 student
+parameters multiply the always-zero auxiliary input and receive exactly
+zero gradient. With matched initialization those coordinates remain fixed
+in both copies; removing them preserves the measured maximal real
+eigenvalues. A strict full-parameter Hurwitz target is inappropriate.
+Finite-difference gradient checks agree within $2.5\times10^{-10}$, and
+halving the full-field differentiation step changes entries by less than
+$1.3\times10^{-10}$. Protocol, all checkpoints, derivatives, and results
+are retained in the research notes. This is a synthetic mechanism test,
+not an official-implementation or distribution-shift reproduction.
+
+\paragraph{Completed finite-time response test.}
+The same five checkpoints were tested without retraining; seeds 0,2,3,4
+were primary and seed 1 a declared sensitivity case. Adaptation repeatedly
+used 64 unlabeled inputs, with a separate 192-input evaluator. This is a
+stationary empirical-distribution stress test, not a fresh-sample stream.
+Both rules were compared with fixed reference, EMA at $\tau=1,20$, and
+no adaptation. The specified student-first update used $\eta=.02$ for
+1000 steps ($T=20$), with one halved-step comparison at the same horizon.
+Labels entered only the evaluator.
+
+Two student-only initial perturbation directions were fixed per seed:
+the student component of a local growing mode, shared across configurations,
+and one seeded random direction. Both lie in the 82 non-fixed coordinates;
+the reference initially remains unchanged. Prediction sensitivity was
+normalized by its initial value for the same direction. The modal probe
+deliberately stresses the dynamics; it is not typical noise or a worst-case
+singular-value calculation. At $\tau=1$, the primary modal results are:
+\begin{center}
+\begin{tabular}{rrrrr}
+ & \multicolumn{2}{c}{Prediction sensitivity gain}
+ & \multicolumn{2}{c}{Final NMSE}\\
+Seed & Input gradient & Stopped output & Input gradient & Stopped output\\ \hline
+0 & $4.832$ & $5.316$ & $1.703$ & $3.810$\\
+2 & $645.165$ & $51.875$ & $54.111$ & $249.731$\\
+3 & $23.352$ & $63.814$ & $3.091$ & $9.749$\\
+4 & $1.859$ & $1.912$ & $0.516$ & $0.672$
+\end{tabular}
+\end{center}
+Initial primary NMSE ranges from $.00752$ to $.03673$; fixed-reference
+final NMSE is $.00685$--$.03697$. The evaluator normalization differs
+from the earlier 256-point geometry test. The predefined amplification
+gate passes in three of four primary seeds: stopped-output fast-EMA gain
+at least 2, with fixed-reference gain at most 1.25. The prediction that
+stopped-output gain exceeds input-gradient gain by at least 25\% in three
+seeds fails; only seed 3 meets it. Seed 2 illustrates why sensitivity and
+risk rankings must remain separate. Slow EMA is less damaging over this
+horizon but is not a guarantee: stopped-output seed 2 still deteriorates
+materially. Fast-EMA consistency discrepancy increases in these runs;
+monotone consistency improvement is not claimed.
+
+The actual time-dependent tangent recurrence predicts paired nonlinear
+prediction differences with maximum relative error $1.28\times10^{-5}$
+at perturbation size $10^{-5}$. Halving the step changes final modal gains
+by at most $2.40\%$ and NMSE by $0.52\%$. These checks support a finite-time
+observation, not an equilibrium or ODE-limit theorem. The tangent product
+is an established chain-rule tool; its successful implementation is not
+novelty. All 30 configurations, including the failed-fit seed, are retained
+in the research notes. No distribution drift or retention test was run.
+
+\paragraph{Completed local feedback decomposition.}
+At the same five initial checkpoints, write
+$J=\partial_\theta f_\theta(x,0)$,
+$L=\partial_\phi f_\phi(x,q)$ with $q$ held fixed, and
+$B=I-\partial_qT_\phi$. The input-gradient zero-residual blocks of
+the student velocity are $-\E[J^\top B^\top BJ]$ and
+$\E[J^\top B^\top L]$; the stopped-output blocks are
+$-\E[J^\top BJ]$ and $\E[J^\top L]$.
+The full derivatives additionally differentiate the prefactor multiplying
+the residual. These product-rule remainders were checked independently
+against the saved full derivatives, with maximum entry error
+$1.58\times10^{-10}$. Dropping them does not make the actual checkpoint
+an equilibrium.
+
+The frozen protocol compared full, zero-residual, and additionally
+$L=J$ matrices on the 82 non-fixed coordinates per copy, for both rules
+and $\tau=1,20$. A positive observable mode requires
+$\Re\lambda>10^{-6}$ and
+$\norm{J_{\rm eval}u}/(\norm{u}\norm{J_{\rm eval}}_2)\ge10^{-3}$.
+Here $u$ is the student component of the mode.
+All four primary seeds retain such a mode in every setting under both
+diagnostics. Removing residual terms changes the leading observable rate
+by at most $7.34\%$, passing the predefined $10\%$ comparison.
+Additionally setting $L=J$ changes it by up to $34.12\%$, failing that
+quantitative comparison despite preserving positive modes.
+
+Thus neither residual terms nor derivative mismatch are necessary for
+this local signature. The $L=J$ replacement is a matrix diagnostic, not
+a demonstrated neural intervention; it does not explain the complete
+nonlinear risk trajectory or show that mismatch is irrelevant. These
+are nonstationary checkpoints, so equilibrium stability is still not
+established. All 60 matrices, including the failed-fit seed, and the
+independent checks are retained in the research notes.
+
+\paragraph{Completed control: hold the prediction input fixed.}
+The reference target $T_\phi(x,q_\theta(x))$ can change with the student
+even when $\phi$ is fixed. Detaching its output still recomputes that
+target after every update. To remove this forward path, the control
+caches $c(x)=q_{\theta_0}(x)$ once and uses
+\[
+ r_c=T_\phi(x,c(x))-q_\theta(x),\qquad
+ \dot\theta=\E[J^\top r_c].
+\]
+Both backward rules coincide for the control. Its initial target and
+velocity equal those of the original stopped-output rule. With
+$S=\partial_\theta\dot\theta$, $T=\partial_\phi\dot\theta$ and
+$A=\partial_qT_\phi$, the exact initial full-block differences are
+$S_{\rm stop}-S_c=\E[J^\top A J]$ and $T_{\rm stop}-T_c=0$.
+The residual-weighted prefactor terms cancel at initialization; the
+remaining difference has no prescribed sign. Independent differentiation
+verified these identities within $6.51\times10^{-11}$.
+
+The unchanged protocol reused all five checkpoints and the 64/192
+adaptation/evaluation split. It compared original stopped-output,
+original full input-gradient, and cached-input dynamics, each with fixed
+reference or $\tau=1$ EMA, at $\eta=.02$ and $.01$, both to $T=20$.
+All 60 trajectories completed without retraining or tuning. Labels were
+evaluation-only. Every condition allocated the same 128-number prediction
+cache (1024 bytes); only the control read it during updates. This is
+retained information associated with the repeated inputs, not a proposed
+fresh-input online method.
+
+Let $R_0,R_e,R_c$ denote initial, original stopped-output/EMA, and
+cached-input/EMA terminal NMSE. The predeclared gate required
+$R_e\ge2R_0$, $R_e-R_0\ge.01$, and
+$\max(R_c-R_0,0)\le.25(R_e-R_0)$ in at least three of four primary seeds
+at both step sizes. All four pass. Main-step results are:
+\begin{center}
+\begin{tabular}{rrrrr}
+Seed & Initial $R_0$ & Original $R_e$ & Cached $R_c$ & Excess removed\\ \hline
+0 & $.01234$ & $3.80976$ & $.19615$ & $95.16\%$\\
+2 & $.03673$ & $249.73110$ & $.11633$ & $99.97\%$\\
+3 & $.01722$ & $9.74948$ & $.07419$ & $99.41\%$\\
+4 & $.00752$ & $.67178$ & $.08344$ & $88.57\%$
+\end{tabular}
+\end{center}
+The minimum reduction across both step sizes is $88.55\%$. All original
+endpoints exactly reproduce the earlier baseline. Halving the step changes
+terminal NMSE by at most $.517\%$ across every condition, below the $5\%$
+numerical gate. The failed-fit seed 1 is retained as a sensitivity case
+and also meets the numerical/effect inequalities, without entering the
+primary count. All states, targets, metrics and derivative checks are
+preserved in the research notes.
+
+This supports a large effect of the forward input path under the declared
+intervention. It does not establish a safe correction: every cached/EMA
+primary run still ends above its initial risk. Cached/EMA discrepancy is
+lower at the endpoint despite this accuracy loss; monotonicity is not
+claimed. Reference targets remain exactly constant in the fixed-weight,
+cached-input control; caching alone leaves weight-driven target changes.
+The intervention preserves the reference update rule, not the subsequent
+realized reference weights between arms. Neither a general stability
+theorem nor novelty follows from the reduction.
+
+\paragraph{Completed early prediction and its limits.}
+An analysis fixed before computing the approximation tested whether
+initial full derivatives predict the output difference between original
+stopped-output/EMA and cached-input/EMA. This reuses the existing
+trajectories after their terminal results were known; it is not an
+independent experiment. Let $u,v$ denote student/reference displacements
+on the 82 non-fixed coordinates, $F_0$ their common initial student
+velocity, and $S,T$ each arm's full initial student/reference derivative
+blocks. Starting from $u_0=v_0=0$, the forecast uses
+\begin{align*}
+ u_{n+1}&=u_n+\eta(F_0+Su_n+Tv_n),\\
+ v_{n+1}&=\alpha v_n+(1-\alpha)u_{n+1},\qquad
+ \alpha=(1+\eta)^{-1}.
+\end{align*}
+The predicted output separation is
+$\widehat{\Delta q}_n=J_{\rm eval,0}(u_{{\rm stop},n}-u_{c,n})$.
+All derivatives remain fixed at initialization; no trajectory fitting
+or labels enter this calculation. The nonzero forcing $F_0$ matters:
+these checkpoints are not equilibria. The first affine steps agree,
+and the second student steps differ exactly by
+$\eta^2(S_{\rm stop}-S_c)F_0$. This is an affine-map identity, not an
+exact finite-step identity for the nonlinear model.
+
+The fixed gate required at most $25\%$ relative RMS prediction error
+at $T=2$, with non-negligible true separation, in at least three of four
+primary seeds at both step sizes. All four pass:
+\begin{center}
+\begin{tabular}{rrrr}
+Seed & Actual separation RMS, $\eta=.02$ & Error, $\eta=.02$ & Error, $\eta=.01$\\ \hline
+0 & $.001403$ & $.5850\%$ & $.5836\%$\\
+2 & $.005074$ & $.4531\%$ & $.4517\%$\\
+3 & $.001313$ & $1.5078\%$ & $1.5039\%$\\
+4 & $.001547$ & $.6380\%$ & $.6356\%$
+\end{tabular}
+\end{center}
+All numerical checks pass: evaluator-Jacobian finite differences agree
+within $4.54\times10^{-11}$, and two independent affine propagations
+agree within $7.86\times10^{-14}$ relative state error. An independent
+audit checks all 510 saved output comparisons. No nonlinear adaptation
+or training was rerun.
+
+This early forecast cannot be extrapolated uniformly. In primary seed 2,
+the first saved error above $25\%$ occurs at $T=10.4$ at both step sizes;
+by $T=20$ its relative error exceeds $240$ (over $24{,}000\%$). The
+failed-fit sensitivity seed crosses the threshold at $T=8$ and is retained.
+These are sampled diagnostics at intervals of $.4$, not certified exit
+times. The other primary seeds remain below $25\%$ on the saved grid.
+No current-risk, asymptotic-stability, retention or recovery guarantee
+follows. A full-matrix affine forecast is useful evidence, but classical
+linearization itself is not a novel mechanism theorem.
+
+\paragraph{Completed absolute-loss audit: a limit on transfer.}
+The local explanation changes when the squared surrogate is replaced by
+the absolute discrepancy used in the selected regression path. For $N$
+inputs and $d$ output coordinates, set
+\[
+ D_1=\frac1{Nd}\sum_{i,o}|r_{io}|,\quad
+ \sigma_i=\operatorname{sign}(r_i),\quad B_i=I-A_i.
+\]
+The negative student-gradient fields are
+\begin{align*}
+ F_{\rm input}&=\frac1d\E[J^\top B^\top\sigma],\\
+ F_{\rm stop}&=\frac1d\E[J^\top\sigma],\\
+ F_c&=\frac1d\E[J^\top\operatorname{sign}(r_c)].
+\end{align*}
+The $1/d$ factor implements the mean over all entries; here $d=2$.
+We specify $\operatorname{sign}(0)=0$, without claiming a classical
+derivative at zero. No smoothing or gradient rescaling was used.
+
+At matched initialization with $c=q_{\theta_0}$, suppose all residual
+components are nonzero. Continuity on a finite batch gives a neighborhood
+where original and cached residuals share one fixed sign array $\sigma_0$.
+For smooth model maps their stopped/cached fields agree throughout this
+neighborhood, and the full derivative blocks satisfy
+\[
+ S_{\rm stop}=S_c=\frac1{Nd}\sum_{i,o}\sigma_{0,io}
+ \nabla_\theta^2 q_{io},\qquad T_{\rm stop}=T_c=0.
+\]
+Thus the squared-loss difference $\E[J^\top A J]$ does not transfer to
+this absolute-loss comparison. The weighted output Hessian remains;
+it is the derivative of the residual sign that vanishes locally.
+Matched deterministic trajectories remain equal while their residual
+signs agree at shared states, but sign changes can invalidate this
+agreement. No absolute-loss trajectories were run in this audit.
+
+The original full input-gradient rule still differentiates $J$ and $A$
+inside a sign region. In particular, for a reference perturbation $v$,
+\[
+ T_{\rm input}[v]=-\frac1d\E[J^\top(D_\phi A[v])^\top\sigma_0],
+\]
+which need not vanish. It would be incorrect to infer absence of local
+reference feedback for all absolute-loss rules.
+
+All five checkpoints pass the declared local checks without changing
+finite-difference step $10^{-5}$. Every initial residual is nonzero;
+the smallest magnitude is $3.01\times10^{-5}$. All 10,260 loss/field
+derivative probes preserve signs. Independent product-rule assembly
+matches gradients and full derivatives within $1.01\times10^{-11}$.
+Stopped/cached blocks match exactly numerically, while full input-gradient
+reference-block Frobenius norms range from $.449$ to $.847$ across all
+five seeds. A separate closed-form tanh Hessian check agrees within
+$8.33\times10^{-17}$. The coordinate probes do not certify a whole
+neighborhood radius. This verifies a local calculus distinction in the
+synthetic checkpoints, not a new stability theorem or an official benchmark.
+
+\paragraph{Completed absolute-loss trajectories: an unresolved risk result.}
+The unchanged protocol reused all five checkpoints, the 64/192 split,
+and the three backward/input conditions with fixed reference or
+$\tau=1$ EMA. All 60 trajectories and 90,000 updates completed at
+$\eta=.02/.01$ to $T=20$, without smoothing, rescaling or retuning.
+Labels remained evaluator-only, and every arm retained the same
+128-number cache. The numerical gate required at most $5\%$ terminal
+NMSE change under step halving in every primary stopped/cached condition,
+measured as $|R_{\eta}-R_{\eta/2}|/\max(|R_{\eta/2}|,.01)$.
+Fifteen of sixteen fail; the largest discrepancy is $152.28\%$.
+The cached/EMA discrepancies alone range from $55.88\%$ to $93.14\%$.
+Thus the primary risk inference is \emph{numerically unresolved},
+not an established positive replication or negative effect finding.
+
+For the EMA arms, the recorded terminal NMSE is:
+\begin{center}
+\begin{tabular}{rrrrr}
+Seed & Original $.02$ & Cached $.02$ & Original $.01$ & Cached $.01$\\ \hline
+0 & $22.27344$ & $.73696$ & $50.82051$ & $3.54438$\\
+2 & $161.21032$ & $3.14709$ & $160.90436$ & $7.13295$\\
+3 & $11.14135$ & $1.69339$ & $9.03343$ & $4.14852$\\
+4 & $.83037$ & $.16184$ & $6.06859$ & $2.35862$
+\end{tabular}
+\end{center}
+The previous $75\%$ excess-removal inequalities hold in all four seeds
+at $.02$, but only seeds 0 and 2 at both steps. This is descriptive
+because the numerical gate failed. Every cached/EMA endpoint remains
+worse than initial accuracy. Six of eight full input-gradient secondary
+checks also fail; those arms do not rescue the primary comparison.
+All sensitivity-seed results remain available without entering its count.
+
+The onset result is narrower and independently checked. In all 20
+stopped/cached pairs, states remain exactly equal before the first
+residual-sign disagreement. The weighted field difference is nonzero
+at that event, and parameter states separate on the next update.
+For a shared state at step $n_*$,
+\[
+ \theta_{{\rm stop},n_*+1}-\theta_{c,n_*+1}
+ =\frac{\eta}{Nd}\sum_i J_i^\top
+       (\sigma_{{\rm stop},i}-\sigma_{c,i}).
+\]
+This is an exact discrete identity; a general sign disagreement can
+cancel under the weighted sum. Primary first sign disagreements occur
+at times $.02$--$.04$ for the main step and $.01$--$.05$ for the fine
+step. These are grid events, not converged continuous crossing times.
+No residual is exactly zero at a sampled update, which does not exclude
+crossings between updates. Sign changes alone do not explain terminal
+risk or prove a particular nonsmooth limiting evolution.
+
+An independent saved-data audit reproduces all 3,060 metric records and
+targets exactly, checks 20 archives and 60 event snapshots, and verifies
+the onset fields within $3.89\times10^{-16}$ and first-step separation
+within $1.61\times10^{-16}$. Fixed-weight cached targets stay constant.
+These checks validate the recorded algorithms, not step-size robustness.
+
+\paragraph{Completed scalar boundary analysis.}
+The solution concept matters for absolute discrepancy. As a declared
+diagnostic, take $f_\theta(z)=h+\theta+az$, with $h=1$, $a=1/4$ and
+$\theta_0=\phi_0=0$. Correct initial prediction $h$ is planted; this
+is not an idempotence-trained model. Write $c=ah=1/4$ and
+$e=\theta-\phi$. With cached input $q_0=h$, the residual is $c-e$.
+The student-first discrete dynamics give exactly
+\[
+ e_{n+1}=\alpha\{e_n+\eta\operatorname{sign}(c-e_n)\},\qquad
+ \phi_{n+1}-\phi_n=\frac{\eta}{\tau}e_{n+1},\quad
+ \alpha=\frac{\tau}{\tau+\eta}.
+\]
+For a fixed reference, constant-step updates reach the residual root
+only if it lies on their update grid; otherwise they enter a two-cycle.
+At $\eta=1/10$, the cached example alternates between $1/5$ and $3/10$.
+
+For moving reference and $0<c<\tau$, the formal pointwise lag ODE
+$\dot e=\operatorname{sign}(c-e)-e/\tau$, with
+$\operatorname{sign}(0)=0$, reaches $e=c$ at
+$t_*=-\tau\log(1-c/\tau)$ but admits no absolutely continuous
+continuation satisfying that ODE almost everywhere. Indeed, starting
+at the boundary, $V=(e-c)^2/2$ satisfies
+\[
+ \dot V\le -(1-c/\tau)|e-c|-(e-c)^2/\tau\le0.
+\]
+It must remain zero, contradicting the pointwise value $\dot e=-c/\tau$.
+This is an obstruction to that solution concept, not to the discrete
+algorithm. Standard discontinuous-system theory distinguishes it from
+the Filippov extension~\cite{cortes}.
+
+With $\operatorname{Sign}(0)=[-1,1]$, the explicitly declared inclusion
+$\dot e\in\operatorname{Sign}(c-e)-e/\tau$ has the unique solution
+\[
+ e(t)=\min\{\tau(1-e^{-t/\tau}),c\}.
+\]
+Monotonicity gives contraction between any two lag solutions; the
+potential $|e-c|+e^2/(2\tau)$ places this scalar example within the
+established maximal-monotone framework~\cite{benilanbrezis}.
+After contact, the selected student velocity is $c/\tau$, so both
+parameter copies keep moving while their discrepancy is zero.
+Lag contraction therefore does not preserve the initially correct output.
+
+An elementary bound now connects the exact cached discrete algorithm to
+this inclusion. From the matched zero initialization, for every $\eta>0$
+and grid time $t_n=n\eta$, with $C=1+c/\tau$,
+\begin{align*}
+ |e_n-e(t_n)|&\le C\eta,\\
+ |\phi_n-\phi(t_n)|&\le\eta(Ct_n/\tau+c/\tau),\\
+ |\theta_n-\theta(t_n)|&\le\eta\{C(1+t_n/\tau)+c/\tau\}.
+\end{align*}
+The proof bounds the pre-contact implicit-Euler lag error by $\eta/2$,
+then uses the invariant interval
+$[\alpha(c-\eta),\alpha(c+\eta)]$ and the exact reference-sum identity.
+The parameter bounds are for fixed horizons, not uniform in time;
+they do not certify derivatives, crossing times or neural accuracy.
+Exact rational checks of 72 scalar updates at the sole prescribed
+$\eta=1/10$ support the algebra. Full proofs and source locations are
+saved in the research notes; no neural experiment was rerun.
+
+\paragraph{Completed multivariate closure audit.}
+The vector extension must preserve joint sign constraints. Let the actual
+state be $z\in\R^p$, let $r:U\to\R^m$ be $C^1$, and let $M,b$ be
+continuous, with $F=b+M\operatorname{sign}(r)$ and
+$\operatorname{sign}(0)=0$. Here $m=Nd$; for the stopped student the
+student block of $M$ is $J_q^\top/m$. Frozen reference weights are
+parameters; moving reference weights belong to $z$, with their continuous
+EMA drift in $b$. At $z_0$, let $\mathcal S(z_0)$ contain those joint
+sign arrays in $\{-1,0,1\}^m$ that occur on a set of positive
+$p$-dimensional measure in \emph{every} neighborhood of $z_0$. Then
+the exact Filippov closure is
+\[
+ \mathcal K[F](z_0)=b_0+M_0\operatorname{co}\mathcal S(z_0).
+\]
+There are finitely many patterns: the nonessential ones can be removed
+by one local null set, while every essential one persists after any such
+removal. Continuity of $M,b$ proves the displayed identity. Zero entries
+must be retained if a residual vanishes on positive measure.
+
+Let $\mathcal B(r_0)$ fix the nonzero signs and replace each zero sign
+independently by $[-1,1]$. Always
+$\mathcal K[F](z_0)\subseteq b_0+M_0\mathcal B(r_0)$.
+If $Z=\{j:r_j(z_0)=0\}$ and $D_zr_Z(z_0)$ has full row rank, local
+submersion coordinates make every active sign orthant essential, so
+equality holds. This sufficient condition is classical
+Filippov calculus~\cite{padensastry,cortes}, not a new theorem.
+Rank must be computed in the actual state space. It is not necessary:
+the matrix $M_0$ may collapse the extra sign choices.
+
+\paragraph{Why true partial gradients are different.}
+For $C^1$ residuals, $D_1(z)=m^{-1}\sum_j|r_j(z)|$ is a finite maximum
+of smooth signed sums. Its Clarke generalized gradient is exactly
+\[
+ \partial D_1(z_0)=m^{-1}D_zr(z_0)^\top\mathcal B(r_0).
+\]
+Let $P$ keep student coordinates and zero reference coordinates
+($P=I$ for a frozen reference). The specified pointwise field agrees
+almost everywhere with $b-P\nabla D_1$. The standard gradient-closure,
+continuous-matrix and finite-maximum rules therefore give
+\[
+ \mathcal K[b-P\nabla D_1](z_0)=b_0-P\partial D_1(z_0).
+\]
+Thus the independent-sign \emph{velocity image} is exact for the original
+full input-gradient and cached-input rules, without a rank assumption,
+for smooth finite-batch maps and continuous reference drift.
+For these rules $D_\theta r=(A-I)J_q$ and
+$D_\theta r_c=-J_q$, respectively. The stopped field has a different
+coefficient and does not inherit this conclusion. These are applications
+of established calculus~\cite{padensastry,cortes}; they do not address
+ReLU activation boundaries, Adam, solution uniqueness or useful adaptation.
+
+\paragraph{An idempotent reference with a spurious interval-model path.}
+Consider one input, two outputs, and the shared architecture
+\[
+ f_w(z)=h+w+Az,\qquad
+ h=\begin{pmatrix}1\\-1\end{pmatrix},\quad
+ A=\begin{pmatrix}0&0\\1&1\end{pmatrix}.
+\]
+Take $\phi=0$ fixed, $\theta=(u,v)$, $q_\theta=f_\theta(0)$ and
+matched initialization $\theta_0=\phi_0=0$. Since $A^2=A$ and $Ah=0$,
+$f_0\circ f_0=f_0$ globally. The evaluation target $h$ is planted and
+never used in an update. The original residual and stopped field are
+\[
+ r=(-u,u)^\top,\qquad D_1=|u|,\qquad
+ F_{\rm stop}=\tfrac12(-\operatorname{sign}u,\operatorname{sign}u)^\top.
+\]
+At $u=0$, its true closure is the segment
+$\{(-\lambda/2,\lambda/2):|\lambda|\le1\}$, whereas independent signs
+give the square $[-1/2,1/2]^2$. Every true solution obeys
+$(u+v)'=0$ and $(u^2/2)'=-|u|/2$ almost everywhere. From the origin
+it is uniquely stationary; the sign-zero discrete algorithm also remains
+there for every step size. The enlarged square instead permits
+$\theta(t)=(0,t/2)$, with zero discrepancy and evaluator risk
+$R(t)=\norm{q_\theta-h}^2/2=t^2/8$. This apparent deterioration is an
+artifact of the enlarged model, not a failure of the actual algorithm.
+
+On the same model the full input-gradient closure is
+$[-1,1]\times\{0\}$, exactly the independent-sign image despite rank
+deficiency. Cached input gives $r_c=(-u,-v)$ and a full-rank residual
+map. If the reference instead moves with state $\phi=(p,q)$, then
+$r=(p-u,q+u)$ has rank two with respect to $(u,v,p,q)$, so the stopped
+interval image is exact in that full state space. The frozen-reference
+counterexample is not an EMA counterexample. Nor is it a bug in the
+audited regression implementation, which retains the input gradient.
+
+Exact-fraction checks verify the idempotence identities, all three fields
+at 25 rational substitutions, the closure images, the invariant and
+the analytic spurious path. No neural trajectories were rerun. A Lyapunov
+inequality valid for \emph{every} velocity in an outer model remains
+sufficient for the true closure, but an individual outer-model trajectory
+need not be realizable. Neither closure equality nor this counterexample
+resolves the failed neural numerical gate.
+
+\paragraph{Completed paper decision and a narrower target.}
+The nonsmooth closure results remain thesis background; they do not yet
+support a first paper. Bolte--Pauwels already analyze automatic
+differentiation using conservative derivative fields, including ordinary
+nonsmooth networks~\cite{boltepauwels}. Their assumptions do not justify
+an arbitrary stopped-output rule as a derivative of the same forward loss,
+nor do they provide a guarantee for our constant-step EMA dynamics or
+the audited Adam implementation.
+Patsenker--Li--Kluger's BELAY already couples model and averaged weights
+through direct parameter mixing~\cite{belay}. Its printed Algorithm~1
+updates the reference from the old student; our reference uses the updated
+student. General feedback or a damped-spring interpretation is consequently
+insufficient novelty. Our prediction-input intervention is a different
+operation, whose practical and theoretical value still needs validation.
+
+The selected conditional question is: \emph{can computable finite-step
+error bounds predict the output effect of prediction-input feedback and
+certify the range over which that prediction is reliable?} Start with the
+existing smooth squared-loss comparison, whose early forecast succeeds
+empirically but lacks a certified validity range. The intended result is
+an explicit domain and output-error enclosure, with no evaluator labels
+used to obtain it. Standard Taylor estimates are tools, not the novelty.
+
+For each arm $a$, let $\Phi_a$ denote its exact joint discrete update and
+let $u^a_{n+1}=c_a+A_a u^a_n$ be the initial affine approximation, with
+$c_a=\Phi_a(z_0)-z_0$ and $A_a=D\Phi_a(z_0)$.
+The next analysis must bound the nonlinear state remainder on a declared
+ball, prove that the iterates stay inside it, and propagate that error
+through the output map. Supremum derivative bounds cannot be replaced by
+sampled derivatives or constants fitted to the observed trajectory.
+This is a proposed certificate, not an established bound for the networks.
+
+The first nonvacuity test reuses all five existing checkpoints, with
+seeds 0, 2, 3, 4 primary, $\tau=1$, $\eta=.02/.01$, the same 64/192
+input split and matched cache budget. No new training, adaptation or labels
+are needed. At the unchanged $T=2$ horizon, at least three of four primary
+seeds must pass at both steps: a valid RMS output-difference error bound
+$B\le .20\norm{\widehat{\Delta Q}}$, with separation above the saved
+scale floor. The reverse triangle inequality then gives at most $25\%$
+error relative to the true separation. The radius is fixed in advance as
+twice the largest affine state displacement over this horizon; the norm
+and coordinates are unchanged. Details and a 60-CPU-second calculation
+cap are saved in the next protocol.
+
+Invalid containment or a bound too loose to pass rejects this certificate
+route in its present form. Do not tune the radius, horizon, seeds or
+threshold after outcomes. This is retrospective analysis of existing data;
+a pass would justify planning a separate prospective test on an audited
+implementation. Output separation alone does not certify current-task
+accuracy. Absolute-loss/ReLU/Adam transfer, risk evaluation and a distinct
+contribution beyond standard perturbation theory remain separate gates.
+A compatible $A\to B\to A$ stream follows only after those gates.
+
+For that subsequent stream study, compare no adaptation, episodic reset,
+carried student with a fixed
+reference, carried student with EMA, and the explicit output-detachment
+comparison. Select the closest established restoration/anchoring comparator
+after the mechanism is identified. Report trainable parameters, reference
+copies, source statistics, replay memory, teacher batch statistics, and
+update counts; match these budgets or disclose differences. Report current
+pre-update risk, post-update risk, discrepancy, reference lag, and boundary
+prediction errors. On compatible recurring domains, also report earlier
+risk and recovery relative to both no adaptation and a fresh source reset
+under equal new-data/update budgets. Compare retention at matched current
+risk so that slower learning is not mistaken for protection.
+
+\paragraph{Four milestones, subject to the rejection gates.}
+The constructed feedback family, useful fixed point, and discrete
+certificates complete the first milestone. The first neural geometry gate
+is also complete, with a negative result for strong rotation. The finite-time
+gate now supports EMA amplification but rejects uniform backward-rule
+ordering. The completed local decomposition rejects mismatch as a
+necessary explanation, while the $L=J$ rates are not uniformly
+accurate. The closest-prior-art claim map is complete and rules out
+generic feedback failure as a sufficient paper claim. The predeclared
+prediction-input control is complete and passes in all primary seeds,
+while failing to preserve initial accuracy. The early output forecast
+now passes in all primary seeds, with a documented long-horizon failure.
+The local absolute-loss audit is also complete: it separates the
+stopped/cached sign-region identity from nonzero full-gradient reference
+feedback. The finite-time absolute-loss protocol is complete, with a
+verified separation onset but a failed numerical gate for risk. The
+scalar nonsmooth analysis supplies both an obstruction to the pointwise
+ODE and a bound for the correct inclusion. The multivariate closure audit
+now gives an exact joint-sign formula, a standard rank condition, and
+a checked idempotent-reference counterexample for the stopped rule.
+Its smooth partial-gradient corollary does not cover the official
+ReLU/Adam graph; the failed neural protocol has not been retuned.
+The final milestone is reproduction of one selected implementation graph
+and robustness to its loss and optimizer. An affine approximation alone is not a novel theorem.
+The bounded claim decision is complete: the closure branch remains
+background, and a nonvacuous finite-step forecast certificate is the next
+gate. A failed certificate test will be retained without numerical retuning.
+No publication outcome is assumed.
+
+\paragraph{Existing work and limits.}
+The earlier scalar learned-predictor certificate remains a checked local
+research artifact, useful for proof practice. Its PEIRA-inspired predictor
+tracks an optimizer, whereas the present reference tracks the student;
+the earlier result does not prove anything about EMA adaptation. Likewise,
+function-space stop-gradient convergence results require their own operator
+and regularity assumptions~\cite{stopgrads}. The project currently has a source/code audit, the appendix calculation,
+constructed local stability results, and reproducible synthetic neural
+geometry, finite-time response, local feedback decomposition, and a
+paired frozen-input intervention with a checked early output forecast,
+plus local and finite-time absolute-loss audits, a scalar nonsmooth
+baseline, and a faithful-closure audit that delimit its transfer.
+It has no general trained-network stability theorem,
+distribution-drift guarantee, official-implementation reproduction,
+or verified novelty claim.
+
+\medskip
+\noindent{\small\textit{Acknowledgments.} This proposal has developed through ongoing discussion and collaboration with Shoham Grunblat.}
+
+\appendix
+\section{A checked affine diagnostic, not a paper claim}
+Take unit features $x_A,x_B\in\R^2$ with $0<|c|<1$, where
+$c=x_A^\top x_B$. Let $f_\theta(x,z)=\theta^\top x+a(x)z$,
+$a(x_A)=0$, and $a(x_B)=1-b$ for $b>1$. Start with
+$\theta_0=\phi_0$, let $y_A=\theta_0^\top x_A$ and $y_B=0$, and use
+these labels only for evaluation. During the $B$ phase, write
+$u=\theta^\top x_B$, $v=\phi^\top x_B$, and $u_0\ne0$. Then
+\begin{equation}
+ \dot u=k(v-bu),\qquad \tau\dot v=u-v,
+ \qquad k=b\ \text{for }G_{\rm input},\quad k=1\ \text{for }G_{\rm stop}.
+ \label{eq:toy}
+\end{equation}
+The two reduced eigenvalues are negative for every $\tau,k>0$; the
+orthogonal student component is conserved. In fact $u$ is a positive
+weighted sum of two decaying exponentials times $u_0$. Consequently
+\begin{equation}
+ D=\tfrac12(v-bu)^2\downarrow0,\qquad
+ R_B=\tfrac12u^2\downarrow0,\qquad
+ R_A=\tfrac12c^2(u_0-u)^2\uparrow\tfrac12c^2u_0^2.
+ \label{eq:toyresult}
+\end{equation}
+Both tasks are jointly realizable. The limiting state is
+$\theta_\infty=\phi_\infty=\theta_0-u_0x_B$, independent of the finite
+EMA timescale. Returning to $A$ from that limit provides zero consistency
+signal and hence no recovery. A finite-time return can recover partially
+through reference lag. Full derivations and verification are stored in
+the research notes; 40 parameter combinations at 502 times each passed
+the closed-form checks, with maximum ODE residual about $1.1\times10^{-13}$.
+Numerical checks support the algebra; they are not a neural experiment.
+
+This diagnostic shows that useful current adaptation can coexist with loss
+on a compatible earlier task, and that a slow EMA need not preserve it
+indefinitely. Its two backward rules only change speed and have identical
+retention at equal $B$ progress. The deliberately chosen feedback and label
+are not established empirical IT$^3$ properties. The result motivates the
+vector study and its falsification gates; it is not an independent novelty
+claim. Protecting the old feature direction would require retained
+information and overlaps with established projected-update ideas~\cite{ogd}.
+
+\begin{thebibliography}{99}\small
+\bibitem{it3} N. Durasov et al. \emph{IT$^3$: Idempotent Test-Time Training}.
+ICML, PMLR 267:14867--14883, 2025.
+\href{https://proceedings.mlr.press/v267/durasov25a.html}{Published record};
+\href{https://arxiv.org/abs/2410.04201}{arXiv:2410.04201, v1/v2}.
+\bibitem{ttt} Y. Sun et al. \emph{Test-Time Training with Self-Supervision
+for Generalization under Distribution Shifts}. ICML, 2020.
+\href{https://proceedings.mlr.press/v119/sun20b.html}{PMLR 119}.
+\bibitem{cotta} Q. Wang et al. \emph{Continual Test-Time Domain Adaptation}.
+CVPR, 2022.
+\href{https://openaccess.thecvf.com/content/CVPR2022/html/Wang_Continual_Test-Time_Domain_Adaptation_CVPR_2022_paper.html}{Primary paper}.
+\bibitem{eata} S. Niu et al. \emph{Efficient Test-Time Model Adaptation
+without Forgetting}. ICML, 2022.
+\href{https://proceedings.mlr.press/v162/niu22a.html}{PMLR 162}.
+\bibitem{rmt} M. Doebler, R. A. Marsden, and B. Yang. \emph{Robust Mean
+Teacher for Continual and Gradual Test-Time Adaptation}. CVPR, 2023.
+\href{https://arxiv.org/abs/2211.13081}{arXiv:2211.13081}.
+\bibitem{petta} T.-H. Hoang, D. M. Vo, and M. N. Do. \emph{Persistent
+Test-time Adaptation in Recurring Testing Scenarios}. NeurIPS, 2024.
+\href{https://arxiv.org/abs/2311.18193}{arXiv:2311.18193}.
+\bibitem{fixedteacher} D. Sojka et al. \emph{Rethinking the Teacher-Student
+Framework for Test-Time Adaptation}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.02507}{arXiv:2609.02507}.
+\bibitem{desa} A. Belal et al. \emph{DESA-TTA: Dynamic EMA and Source
+Anchoring for Test-Time Adaptation}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.01795}{arXiv:2609.01795}.
+\bibitem{realign} Z.-Y. Zhang et al. \emph{Test-time Adaptation in
+Non-stationary Environments via Adaptive Representation Alignment}.
+NeurIPS, 2024.
+\href{https://papers.neurips.cc/paper_files/paper/2024/hash/abe31a12e83111fdf2cfd54deed5a2ce-Abstract-Conference.html}{Proceedings}.
+\bibitem{recovery} Z. Zhou et al. \emph{On the Learnability of Test-Time
+Adaptation: A Recovery Complexity Perspective}. ICML, 2026.
+\href{https://arxiv.org/abs/2605.28057}{arXiv:2605.28057}.
+\bibitem{ogd} M. Farajtabar et al. \emph{Orthogonal Gradient Descent for
+Continual Learning}. AISTATS, 2020.
+\href{https://proceedings.mlr.press/v108/farajtabar20a.html}{PMLR 108}.
+\bibitem{spurious} V. Palit et al. \emph{When Forgetting is not Catastrophic:
+On the Mechanics of Spurious Forgetting}. Preprint, 2026.
+\href{https://arxiv.org/abs/2610.08718}{arXiv:2610.08718}.
+\bibitem{stopgrads} M. W. Shen et al. \emph{How I learned to stop worrying
+and love StopGrads: Stationarity, Convergence, and a case study on Flow Map
+Learning}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.16222}{arXiv:2609.16222}.
+\bibitem{boltepauwels} J. Bolte and E. Pauwels.
+\emph{Conservative set valued fields, automatic differentiation,
+stochastic gradient methods and deep learning}.
+\href{https://arxiv.org/abs/1909.10300v4}{Inspected arXiv v4, 2020},
+Section 5.2, Theorem 8 and Corollary 5.
+\bibitem{belay} J. Patsenker, H. Li and Y. Kluger.
+\emph{Exponential weight averaging as damped harmonic motion}.
+ICML Workshop on New Frontiers in Learning, Control, and Dynamical Systems, 2023.
+\href{https://arxiv.org/abs/2310.13854v1}{arXiv v1}; Section 3 and Algorithm 1.
+\bibitem{padensastry} B. E. Paden and S. S. Sastry.
+\emph{A Calculus for Computing Filippov's Differential Inclusion with
+Application to the Variable Structure Control of Robot Manipulators}.
+25th IEEE Conference on Decision and Control, 1986.
+Theorem 1, printed p.579; inspected conference version.
+\href{https://doi.org/10.1109/CDC.1986.267369}{Conference DOI}.
+\bibitem{cortes} J. Cort\'es. \emph{Discontinuous Dynamical Systems:
+A tutorial on solutions, nonsmooth analysis, and stability}.
+IEEE Control Systems Magazine 28(3):36--73, 2008.
+\href{https://arxiv.org/abs/0901.3583v1}{Inspected arXiv v1};
+\href{https://doi.org/10.1109/MCS.2008.919306}{Published DOI}.
+\bibitem{benilanbrezis} P. B\'enilan and H. Br\'ezis.
+\emph{Solutions faibles d'\'equations d'\'evolution dans les espaces de Hilbert}.
+Annales de l'Institut Fourier 22(2):311--329, 1972.
+\href{https://aif.centre-mersenne.org/item/AIF_1972__22_2_311_0/}{Primary article},
+Definition 1.1, Lemma 1.1 and Proposition 1.1.
+\end{thebibliography}
+\end{document}

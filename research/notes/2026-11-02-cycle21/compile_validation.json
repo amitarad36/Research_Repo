@@ -1,0 +1,8 @@
+{
+  "kind": "success",
+  "compiler": "compile_latex_document",
+  "source": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research_proposal_main.tex",
+  "sha256": "17819206D00795B610295DAE32E80A4D5EA10C15C2DA3AF1E987922CA7854F66",
+  "witness": "exact arithmetic passed",
+  "audit": "IT3 v2 and RMT v2"
+}

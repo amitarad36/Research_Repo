@@ -1,0 +1,133 @@
+{
+  "verifier_sha256": "125a5ea395d1eca54d892b986d8dcc8463049ff8ca69f21de8b85e39ec23bd10",
+  "results_sha256": "6e1b291b6c1550a1378d02382407cfaeaad51121dd7ff931e5a801959d50f563",
+  "records_checked": 510,
+  "max_actual_array_difference": 0.0,
+  "max_predicted_array_difference": 5.820766091346741e-11,
+  "max_relative_metric_difference": 7.275957614183426e-12,
+  "max_map_coefficient_error": 5.551115123125783e-15,
+  "max_evaluator_jacobian_error": 4.535027908758593e-11,
+  "max_independent_propagation_relative_error": 7.854936839012648e-14,
+  "max_second_step_identity_error": 2.848148285142585e-20,
+  "primary_success_seeds": [
+    0,
+    2,
+    3,
+    4
+  ],
+  "table": [
+    {
+      "seed": 0,
+      "primary": true,
+      "eta": 0.02,
+      "T2_error_percent": 0.5849996745336259,
+      "T2_actual_rms": 0.0014033583336248811,
+      "T2_predicted_rms": 0.0014014379094424644,
+      "T2_cosine": 0.9999838029303875,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 8.534518422281694
+    },
+    {
+      "seed": 0,
+      "primary": true,
+      "eta": 0.01,
+      "T2_error_percent": 0.5836304123148095,
+      "T2_actual_rms": 0.001396269842009538,
+      "T2_predicted_rms": 0.0013943722986336203,
+      "T2_cosine": 0.9999838703095181,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 8.520576853621677
+    },
+    {
+      "seed": 1,
+      "primary": false,
+      "eta": 0.02,
+      "T2_error_percent": 0.271404325429042,
+      "T2_actual_rms": 0.0069600389608721475,
+      "T2_predicted_rms": 0.00696840657859608,
+      "T2_cosine": 0.9999970432264877,
+      "first_saved_error_above_25_percent": 8.0,
+      "T20_error_percent": 2499198.3441161467
+    },
+    {
+      "seed": 1,
+      "primary": false,
+      "eta": 0.01,
+      "T2_error_percent": 0.26616184819121314,
+      "T2_actual_rms": 0.006991919345529852,
+      "T2_predicted_rms": 0.007000015960606211,
+      "T2_cosine": 0.9999971316924582,
+      "first_saved_error_above_25_percent": 8.0,
+      "T20_error_percent": 2514996.361809365
+    },
+    {
+      "seed": 2,
+      "primary": true,
+      "eta": 0.02,
+      "T2_error_percent": 0.45307789591775033,
+      "T2_actual_rms": 0.005074324283850353,
+      "T2_predicted_rms": 0.005054856981524044,
+      "T2_cosine": 0.9999970839407051,
+      "first_saved_error_above_25_percent": 10.4,
+      "T20_error_percent": 24391.802424224028
+    },
+    {
+      "seed": 2,
+      "primary": true,
+      "eta": 0.01,
+      "T2_error_percent": 0.4516671706521617,
+      "T2_actual_rms": 0.005067414168770766,
+      "T2_predicted_rms": 0.005048044318124881,
+      "T2_cosine": 0.9999970942278733,
+      "first_saved_error_above_25_percent": 10.4,
+      "T20_error_percent": 24265.148057145037
+    },
+    {
+      "seed": 3,
+      "primary": true,
+      "eta": 0.02,
+      "T2_error_percent": 1.5077700325482595,
+      "T2_actual_rms": 0.001313310900810395,
+      "T2_predicted_rms": 0.0012974424384021859,
+      "T2_cosine": 0.9999588309705405,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 15.5808778248263
+    },
+    {
+      "seed": 3,
+      "primary": true,
+      "eta": 0.01,
+      "T2_error_percent": 1.503890203763717,
+      "T2_actual_rms": 0.0013076309179095133,
+      "T2_predicted_rms": 0.001291867769953644,
+      "T2_cosine": 0.9999590807951094,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 15.456024302059419
+    },
+    {
+      "seed": 4,
+      "primary": true,
+      "eta": 0.02,
+      "T2_error_percent": 0.638036567580204,
+      "T2_actual_rms": 0.0015467867578823182,
+      "T2_predicted_rms": 0.0015481518796280362,
+      "T2_cosine": 0.999980052521791,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 9.57334834040145
+    },
+    {
+      "seed": 4,
+      "primary": true,
+      "eta": 0.01,
+      "T2_error_percent": 0.6356218033619689,
+      "T2_actual_rms": 0.0015400331398953036,
+      "T2_predicted_rms": 0.0015413793286950849,
+      "T2_cosine": 0.9999801986065611,
+      "first_saved_error_above_25_percent": null,
+      "T20_error_percent": 9.56175864333199
+    }
+  ],
+  "cpu_seconds": 1.078125,
+  "wall_seconds": 1.8200798000907525,
+  "initial_attempt_failure": "ValueError: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 0, the array at index 0 has size 192 and the array at index 1 has size 64"
+}

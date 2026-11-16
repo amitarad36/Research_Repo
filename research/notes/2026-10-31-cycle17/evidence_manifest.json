@@ -1,0 +1,14 @@
+{
+  "fetch_evidence.py": "715b6133eb8ffaf5b435326b86acce326478271d5b7e5ce86841de3ad32b2a10",
+  "it3_tree.json": "8277389e9857c9a8fd72a5dd8175e0988297ce0bc8ae1a08970b3085e6983068",
+  "it3_README.md": "386013f2b98f6ae77e902e586a97c7b53e1c1e088418ae1a3a9f1576b313c1b4",
+  "fetch_manifest.json": "09891da83bd8cb715eaff9326b3eaa0a1c97891f6c6701b93881cf6ee6d43b30",
+  "fetch_data.py": "9bbd855a3a4d5dc75a2b5e89dd54c1d3c4124b09b59a803a176a26ee77ee87b9",
+  "data_commit.json": "7b147a78b64e1e9b468050214b9d4ef2728f4db8196d69adc81f2d5dd685b3e0",
+  "bostonHousing.txt": "baadf72995725d76efe787b664e1f083388c79ba21ef9a7990d87f774184735a",
+  "data_manifest.json": "fe8e022efedb6bb4eb3549c201a0617199eb0e2224b57f380114d260c8e8f905",
+  "TRAINING_PROTOCOL.md": "2fbc25fe4814beb51305212823ced4ca146932ad8d1b5c52ed34b1e616018802",
+  "train_registered.py": "cb8cdb7553b5d2e67595ffcee3ef3be09eb82313da37dbf2b30da5b23e491f7f",
+  "Artifact_Decision.md": "d1afcd760c1097ca57b8d15f5be312bc37949d6a3c6e0cccd15b2f8af37c8a75",
+  "PROTOCOL.md": "cb0c8a0058c5a4726a22d6bce5a010c438d03e8556549e71003c0ca8520700ab"
+}

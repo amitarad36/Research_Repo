@@ -1,0 +1,13 @@
+{
+  "kind": "success",
+  "tool": "compile_latex_document",
+  "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research_proposal_main.tex",
+  "source_sha256": "58c9229666820e10fb8d0c2665a95145904bfb2393dba3801b0dcd46260fb1e4",
+  "evidence_files_verified": 14,
+  "backup_sha256": [
+    "32ee63260a246cd559f959bacb24c42d0550580a4241b8074b183cb821701640",
+    "c24d20814197885d4523d682437ae9fc4b8df26089c4d75bd18afedd06c1e2eb",
+    "9b53d43e2b1a310c9adfb2259822274c13cb382f815c67835d1bc07a9b2c3c8a"
+  ],
+  "next_analysis_protocol_sha256": "991ac18a54beb2d9c2ed97d347e6db55bd813d892ecf56aab2c8261c6fd58f01"
+}

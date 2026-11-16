@@ -1,0 +1,810 @@
+ZERO-BASED CELL 0
+   1: import torch
+   2: import torch.nn as nn
+   3: 
+   4: from torch import Tensor
+   5: import random
+   6: import numpy as np
+   7: 
+   8: def set_seed(seed_value):
+   9:     """ Set seed for reproducibility. """
+  10:     random.seed(seed_value)       # Python random module.
+  11:     np.random.seed(seed_value)    # Numpy module.
+  12:     torch.manual_seed(seed_value)
+  13: 
+  14: new_zz = False
+  15: 
+  16: K1 = 30
+  17: K2 = 20
+  18: K3 = 10
+  19: 
+  20: class ZigZag(nn.Module):
+  21:     def __init__(self, in_features: int, out_features: int, k) -> None:
+  22:         super().__init__()
+  23:         self.type = 'zigzag'
+  24:         self.out_features = out_features
+  25:         self.input = nn.Linear(in_features+out_features, K1)
+  26:         self.hidden1 = nn.Linear(K1, K2)
+  27:         self.hidden2 = nn.Linear(K2, K3)
+  28:         self.output = nn.Linear(K3, out_features)
+  29: 
+  30:         self.activation = nn.ReLU()
+  31: 
+  32:         self.k = k
+  33: 
+  34:     def forward(self, x: Tensor, y: Tensor = None) -> Tensor:
+  35:         if y is None:
+  36:             batch = x.shape[0]
+  37:             y = self.k*torch.ones((batch, self.out_features),device=x.device)
+  38: 
+  39:         x = torch.cat([x, y], dim=1)
+  40: 
+  41:         x = self.activation(self.input(x))
+  42:         x = self.activation(self.hidden1(x))
+  43:         x = self.activation(self.hidden2(x))
+  44:         return self.output(x)
+  45: 
+  46:     def uncertainty(self, x: Tensor) -> Tensor:
+  47:         y1 = self.forward(x)
+  48:         if new_zz: return torch.abs(self.forward(x,y1)) # new zigzag
+  49:         else: return torch.abs(self.forward(x,y1)-y1) # original zigzag
+  50: 
+  51:     def call_recursively(self, x: Tensor) -> Tensor:
+  52:         y1 = self.forward(x)
+  53:         if new_zz: return y1+self.forward(x,y1) # new zigzag
+  54:         else: return self.forward(x,y1) # original zigzag
+
+ZERO-BASED CELL 1
+   1: !wget https://raw.githubusercontent.com/cvlab-epfl/zigzag/main/exps/data/bostonHousing.txt
+
+ZERO-BASED CELL 2
+   1: # @title dataset utilities
+   2: import os
+   3: 
+   4: from torch.utils.data import Dataset, Subset
+   5: 
+   6: import numpy as np
+   7: import matplotlib.pyplot as plt
+   8: 
+   9: def read_txt(fname: str) -> tuple:
+  10:     array = np.loadtxt(fname, dtype=float)
+  11:     x = array[:,:-1]
+  12:     y = array[:,-1]
+  13:     return torch.Tensor(x), torch.Tensor(y).unsqueeze(1)
+  14: 
+  15: def normalize(tensor: Tensor) -> tuple:
+  16:     mean = tensor.mean(dim=0)
+  17:     std = tensor.std(dim=0)
+  18:     normalized_tensor = tensor - mean
+  19:     return normalized_tensor / std, mean, std
+  20: 
+  21: class UCIDataset(Dataset):
+  22:     def __init__(self, fname: str) -> None:
+  23:         super(UCIDataset).__init__()
+  24:         x, y = read_txt(fname)
+  25:         self.x, self.x_mean, self.x_std = normalize(x)
+  26:         self.y, self.y_mean, self.y_std = normalize(y)
+  27: 
+  28:     def __len__(self) -> int:
+  29:         return self.x.shape[0]
+  30: 
+  31:     def __getitem__(self, index: int) -> tuple:
+  32:         return self.x[index], self.y[index]
+  33: 
+  34:     def corner_plot(self, fig_dir: str = None) -> None:
+  35:         n_vars = self.x.shape[1]
+  36: 
+  37:         fig, axs = plt.subplots(n_vars, n_vars, figsize=(10,10),layout='constrained')
+  38:         for i in range(n_vars):
+  39:             for j in range(n_vars):
+  40:                 if i == j:
+  41:                     axs[i,j].hist(self.x[:,i], bins=15, color='skyblue', edgecolor='black',
+  42:                                   histtype='stepfilled')
+  43: 
+  44:                 else:
+  45:                     if j<i:
+  46:                        pcm = axs[i,j].scatter(self.x[:,i], self.x[:,j], c=self.y , alpha=1.0,
+  47:                                         cmap='GnBu',s=5)
+  48:                     else:
+  49:                         axs[i,j].axis('off')
+  50:                 if i<n_vars-1:
+  51:                     axs[i,j].xaxis.set_visible(False)
+  52:                 if j > 0:
+  53:                     axs[i, j].yaxis.set_visible(False)
+  54:         for i in range(n_vars):
+  55:             axs[i,0].set_ylabel(f'var {i+1}')
+  56:             axs[-1,i].set_xlabel(f'var {i+1}')
+  57:             axs[-1,i].set_xlim(axs[-1,i].get_xlim())
+  58: 
+  59:         fig.colorbar(pcm, ax=axs[0:2,-1], label=r'$y$')
+  60: 
+  61:         if fig_dir is not None:
+  62:             plt.savefig(os.path.join(fig_dir,'corner_plot.png'), dpi=300)
+  63:         else: plt.show()
+  64: 
+  65:     def hist_single_var(self, idx:int, mask=None,fig_dir: str = None) -> None:
+  66:         fig,ax = plt.subplots()
+  67:         if idx == -1:
+  68:             var = self.y.T
+  69:             if mask is not None:
+  70:                 var = var[:,mask]
+  71:         else:
+  72:             var = self.x[:,idx]
+  73:             if mask is not None:
+  74:                 var = var[mask]
+  75: 
+  76: 
+  77:         ax.hist(var, bins='auto', color='skyblue', edgecolor='black', density=False,
+  78:                         histtype='stepfilled')
+  79: 
+  80:         ax.set_ylabel(r'counts')
+  81:         if fig_dir is not None:
+  82:             plt.savefig(os.path.join(fig_dir, 'y_hist.png'), dpi=160)
+  83:         else: plt.show()
+
+ZERO-BASED CELL 3
+   1: dataset = UCIDataset("bostonHousing.txt")
+   2: dataset.corner_plot() # plotting the corner plot can take some time for large datasets
+
+ZERO-BASED CELL 4
+   1: # from torch.utils.data import random_split, DataLoader, Dataset
+   2: 
+   3: # def split_by_single_variable(dataset: Dataset, var_idx: int, interval: list) -> tuple:
+   4: #     var = dataset.x[:,var_idx]
+   5: #     train_cond = (var > interval[0]) * (var < interval[1])
+   6: 
+   7: #     train_idx = torch.nonzero(train_cond).squeeze()
+   8: #     test_idx = torch.nonzero( ~train_cond).squeeze()
+   9: #     train_data = Subset(dataset, train_idx)
+  10: #     test_data = Subset(dataset, test_idx)
+  11: #     return train_data, test_data
+  12: 
+  13: # var = 8 # index: START FROM 0!
+  14: 
+  15: # id_data, ood_data = split_by_single_variable(dataset, var, [-10.,0.5 ]) # adjust the parameters depending on the dataset
+  16: # print(f'number of id samples : {len(id_data)}')
+  17: # print(f'number of ood samples: {len(ood_data)}')
+  18: 
+  19: # N_split = int(0.9 * len(id_data))
+  20: # train_data, test_data = Subset(id_data, range(N_split)),  Subset(id_data, range(N_split, len(id_data))) #random_split(id_data, [0.9, 0.1])
+  21: # batch_size = 32
+  22: # train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+  23: # test_loader = DataLoader(test_data, batch_size=1, shuffle=False)
+  24: 
+  25: # id_data.dataset.hist_single_var(var, mask=id_data.indices)
+  26: # ood_data.dataset.hist_single_var(var, mask=ood_data.indices)
+  27: 
+  28: from torch.utils.data import random_split, DataLoader, Dataset
+  29: 
+  30: def split_by_single_variable(dataset: Dataset, var_idx: int, interval: list) -> tuple:
+  31:     var = dataset.x[:,var_idx]
+  32:     train_cond = (var > interval[0]) * (var < interval[1])
+  33: 
+  34:     train_idx = torch.nonzero(train_cond).squeeze()
+  35:     test_idx = torch.nonzero( ~train_cond).squeeze()
+  36:     train_data = Subset(dataset, train_idx)
+  37:     test_data = Subset(dataset, test_idx)
+  38:     return train_data, test_data
+  39: 
+  40: # var = 8 # index: START FROM 0!
+  41: 
+  42: # id_data, ood_data = split_by_single_variable(dataset, var, [-10.,0.5 ]) # adjust the parameters depending on the dataset
+  43: # print(f'number of id samples : {len(id_data)}')
+  44: # print(f'number of ood samples: {len(ood_data)}')
+  45: 
+  46: N_split = int(0.9 * len(dataset))
+  47: train_data, test_data = Subset(dataset, range(N_split)),  Subset(dataset, range(N_split, len(dataset))) #random_split(id_data, [0.9, 0.1])
+  48: batch_size = 32
+  49: train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+  50: test_loader = DataLoader(test_data, batch_size=1, shuffle=False)
+
+ZERO-BASED CELL 5
+   1: class SingleMLP(nn.Module):
+   2:     def __init__(self, in_features, out_features) -> None:
+   3:         super().__init__()
+   4:         self.type = 'simple_mlp'
+   5:         self.out_features = out_features
+   6:         self.input = nn.Linear(in_features, K1)
+   7:         self.hidden1 = nn.Linear(K1, K2)
+   8:         self.hidden2 = nn.Linear(K2, K3)
+   9:         self.output = nn.Linear(K3, out_features)
+  10: 
+  11:         self.activation = nn.ReLU()
+  12: 
+  13:     def forward(self, x):
+  14:         x = self.activation(self.input(x))
+  15:         x = self.activation(self.hidden1(x))
+  16:         x = self.activation(self.hidden2(x))
+  17:         return self.output(x)
+  18: 
+  19: class Ensemble():
+  20:     def __init__(self, n_models:int, in_features:int, out_features:int):
+  21:         self.model_list = []
+  22:         self.type = 'ensemble'
+  23:         for i in range(n_models):
+  24:             self.model_list.append(SingleMLP(in_features, out_features))
+  25: 
+  26:     def __call__(self, x):
+  27:         y_list = []
+  28:         for model in self.model_list:
+  29:             y_list.append(model(x))
+  30: 
+  31:         return torch.stack(y_list).mean(dim=0)
+  32: 
+  33:     def uncertainty(self, x):
+  34:         y_list = []
+  35:         for model in self.model_list:
+  36:             y_list.append(model(x))
+  37:         return torch.stack(y_list).var(dim=0)
+  38: 
+  39:     def cpu(self):
+  40:         for model in self.model_list:
+  41:             model.cpu()
+  42: 
+  43: class MCDropout(nn.Module):
+  44:     def __init__(self, in_features, out_features, p=0.2) -> None:
+  45:         super().__init__()
+  46:         self.type = 'dropout'
+  47:         self.out_features = out_features
+  48:         self.input = nn.Linear(in_features, K1)
+  49:         self.hidden1 = nn.Linear(K1, K2)
+  50:         self.hidden2 = nn.Linear(K2, K3)
+  51:         self.output = nn.Linear(K3, out_features)
+  52: 
+  53:         self.activation = nn.ReLU()
+  54:         self.dropout = nn.Dropout(p=p)
+  55: 
+  56:     def forward(self, x):
+  57:         x = self.activation(self.input(x))
+  58:         x = self.dropout(x)
+  59:         x = self.activation(self.hidden1(x))
+  60:         x = self.dropout(x)
+  61:         x = self.activation(self.hidden2(x))
+  62:         x = self.dropout(x)
+  63:         return self.output(x)
+  64: 
+  65:     def uncertainty(self, x, T):
+  66:         self.train()
+  67:         N = x.shape[0]
+  68:         preds = torch.zeros(T,N)
+  69:         for t in range(T):
+  70:             preds[t,:] = self.forward(x).squeeze()
+  71:         return torch.var(preds, dim=0).unsqueeze(1)
+  72: 
+  73: 
+  74: new_zz = False
+  75: 
+  76: K1 = 30
+  77: K2 = 20
+  78: K3 = 10
+  79: 
+  80: import torch.nn.init as init
+  81: 
+  82: class ZigZag(nn.Module):
+  83:     def __init__(self, in_features: int, out_features: int, k) -> None:
+  84:         super().__init__()
+  85:         self.type = 'zigzag'
+  86:         self.out_features = out_features
+  87:         self.input = nn.Linear(in_features+out_features, K1)
+  88:         self.hidden1 = nn.Linear(K1, K2)
+  89:         self.hidden2 = nn.Linear(K2, K3)
+  90:         self.output = nn.Linear(K3, out_features)
+  91: 
+  92:         self.activation = nn.ReLU()
+  93: 
+  94:         self.k = k
+  95: 
+  96:         self.init_weights()
+  97: 
+  98:     def forward(self, x: Tensor, y: Tensor = None) -> Tensor:
+  99:         if y is None:
+ 100:             batch = x.shape[0]
+ 101:             # y = torch.zeros((batch, self.out_features),device=x.device)
+ 102:             y = self.k*torch.ones((batch, self.out_features),device=x.device)
+ 103: 
+ 104:         x = torch.cat([x, y], dim=1)
+ 105: 
+ 106:         x = self.activation(self.input(x))
+ 107:         x = self.activation(self.hidden1(x))
+ 108:         x = self.activation(self.hidden2(x))
+ 109:         return self.output(x)
+ 110: 
+ 111:     def init_weights(self):
+ 112:         # Set the standard deviation for the initialization
+ 113:         std_dev = 0.01  # This can be adjusted to increase the variance
+ 114: 
+ 115:         # Initialize weights for each linear layer
+ 116:         for m in self.modules():
+ 117:             if isinstance(m, nn.Linear):
+ 118:                 # Use a normal distribution with a higher standard deviation
+ 119:                 # init.normal_(m.weight, mean=0.0, std=std_dev)
+ 120:                 if m.bias is not None:
+ 121:                     init.constant_(m.bias, 0)  # Initialize biases to zero
+ 122: 
+ 123:     def uncertainty(self, x: Tensor) -> Tensor:
+ 124:         y1 = self.forward(x)
+ 125:         if new_zz: return torch.abs(self.forward(x,y1)) # new zigzag
+ 126:         else: return torch.abs(self.forward(x,y1)-y1) # original zigzag
+ 127: 
+ 128:     def call_recursively(self, x: Tensor) -> Tensor:
+ 129:         y1 = self.forward(x)
+ 130:         if new_zz: return y1+self.forward(x,y1) # new zigzag
+ 131:         else: return self.forward(x,y1) # original zigzag
+
+ZERO-BASED CELL 6
+   1: # @title training utilities
+   2: from torch.optim.lr_scheduler import ReduceLROnPlateau
+   3: from tqdm import tqdm
+   4: 
+   5: def get_available_device():
+   6:     return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+   7: 
+   8: def mean(lst: list) -> float:
+   9:     return sum(lst)/len(lst)
+  10: 
+  11: def train_epoch(model, dataset, optimizer, loss_fn, device):
+  12:     model.train()
+  13:     current_loss = 0.0
+  14:     for batch in dataset:
+  15:         x,y = batch
+  16:         x = x.to(device)
+  17:         y = y.to(device)
+  18: 
+  19:         if model.type == 'simple_mlp' or model.type == 'dropout':
+  20:             pred = model(x)
+  21:             loss = loss_fn(pred, y)
+  22: 
+  23:         elif model.type == 'zigzag':
+  24:             pred0 = model(x)
+  25:             pred1 = model(x,y )
+  26:             if new_zz: loss = loss_fn(pred0,y) + loss_fn(pred1, torch.zeros_like(y)) # new zigzag
+  27:             else: loss = loss_fn(pred0,y) + loss_fn(pred1, y) # original zigzag
+  28: 
+  29:         optimizer.zero_grad()
+  30:         loss.backward()
+  31:         optimizer.step()
+  32: 
+  33:         current_loss += loss.item()
+  34: 
+  35:     return current_loss / len(dataset), loss
+  36: 
+  37: def test_epoch(model, dataset, metrics, device):
+  38:     model.eval()
+  39:     with torch.no_grad():
+  40:         res_list = [0. for metric in metrics]
+  41:         N = len(dataset)
+  42:         for batch in dataset:
+  43:             x,y = batch
+  44:             x = x.to(device)
+  45:             y = y.to(device)
+  46:             pred = model(x)
+  47:             for i, metric in enumerate(metrics):
+  48:                 res_list[i] += metric(pred, y)/N
+  49:     return res_list
+  50: 
+  51: def plot_history(training_history, test_history, model_type, fig_dir=None):
+  52:     if model_type == 'ensemble':
+  53:         epochs = len(training_history[0])
+  54:         test_history = torch.Tensor(test_history)
+  55:         training_history = torch.Tensor(training_history)
+  56:     else:
+  57:         epochs = len(training_history)
+  58:         test_history = torch.Tensor(test_history).unsqueeze(0)
+  59:         training_history = torch.Tensor(training_history).unsqueeze(0)
+  60: 
+  61:     fig, ax = plt.subplots()
+  62:     for i in range(training_history.shape[0]):
+  63:         # 1) train / test
+  64:         ax.semilogy(range(1, epochs+1), training_history[i],
+  65:                     color='tab:blue',linewidth=1, alpha=0.5)
+  66:         ax.semilogy(range(1, epochs+1), test_history[i,:,0],
+  67:                     color='black',linewidth=1, alpha=0.5)
+  68:     ax.semilogy(range(1, epochs+1), training_history.mean(dim=0), color='tab:blue', label='Training')
+  69:     ax.semilogy(range(1, epochs+1), test_history.mean(dim=0)[:,0], 'k--', label='Test')
+  70:     ax.set_xlim([1,epochs])
+  71:     ax.set_xlabel(r'epoch')
+  72:     ax.set_ylabel(r'$\ell$')
+  73:     ax.set_title(f'Training history; {model_type}')
+  74:     ax.legend()
+  75:     if fig_dir is not None:
+  76:         fname = os.path.join(fig_dir, f'training_history_{model_type}.png')
+  77:         plt.savefig(fname, dpi=160)
+  78:     else: plt.show()
+  79: 
+  80:     # 2) test metrics
+  81:     n_metrics = test_history.shape[2]
+  82:     fig, axs = plt.subplots(1, n_metrics, layout='constrained')
+  83:     if n_metrics == 1:
+  84:         for i in range(training_history.shape[0]):
+  85:             axs.semilogy(range(1,epochs+1), test_history[i,:],
+  86:                          color='tab:blue',linewidth=1, alpha=0.5)
+  87:         axs.semilogy(range(1,epochs+1), test_history.mean(dim=0)[:], color='tab:blue')
+  88:         axs.set_xlim([1,epochs])
+  89:         axs.set_xlabel('epoch')
+  90:         axs.set_title(f'Metric')
+  91:         axs.set_ylabel('metric')
+  92:     else:
+  93:         for i in range(n_metrics):
+  94:             axs[i].semilogy(range(1,epochs+1), test_history[:,i])
+  95:             axs[i].set_xlim([1,epochs])
+  96:             axs[i].set_xlabel('epoch')
+  97:             axs[i].set_title(f'Metric {i+1}')
+  98:         axs[0].set_ylabel('metric')
+  99:     if fig_dir is not None:
+ 100:         fname = os.path.join(fig_dir, f'test_history_{model_type}.png')
+ 101:         plt.savefig(fname, dpi=160)
+ 102:     else: plt.show()
+ 103: 
+ 104: 
+ 105: def train_model(model, train_data, test_data, optimizer, loss_fn, metrics, epochs, fig_dir=None):
+ 106:     print('+---------------------+')
+ 107:     print('|   Training start    |')
+ 108:     print('+---------------------+')
+ 109: 
+ 110:     device = get_available_device()
+ 111:     model.to(device)
+ 112: 
+ 113:     training_history = []
+ 114:     testing_history = []
+ 115:     lr_scheduler = ReduceLROnPlateau(optimizer, factor=0.5)
+ 116:     for epoch in tqdm(range(epochs)):
+ 117:         current_loss, train_loss = train_epoch(model, train_data, optimizer, loss_fn,
+ 118:                                                device)
+ 119:         training_history.append(current_loss)
+ 120:         testing_history.append(test_epoch(model, test_data, metrics, device))
+ 121:         lr_scheduler.step(train_loss)
+ 122: 
+ 123:     print('\n')
+ 124:     print('+---------------------+')
+ 125:     print('|   Training ended    |')
+ 126:     print('+---------------------+')
+ 127: 
+ 128:     plot_history(training_history, testing_history, model.type, fig_dir)
+ 129: 
+ 130:     return model
+ 131: 
+ 132: def train_ensemble(ensemble, train_data, test_data, lr, loss_fn, metrics, epochs, fig_dir=None):
+ 133:     print('+---------------------+')
+ 134:     print('|   Training start    |')
+ 135:     print('+---------------------+')
+ 136:     training_history_list = []
+ 137:     testing_history_list = []
+ 138:     device = get_available_device()
+ 139: 
+ 140:     for model in ensemble.model_list:
+ 141:         model.to(device)
+ 142:         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+ 143:         lr_scheduler = ReduceLROnPlateau(optimizer, factor=0.5)
+ 144:         training_history = []
+ 145:         testing_history = []
+ 146:         for epoch in tqdm(range(epochs)):
+ 147:             current_loss, train_loss = train_epoch(model, train_data, optimizer, loss_fn,
+ 148:                                                    device)
+ 149:             training_history.append(current_loss)
+ 150:             testing_history.append(test_epoch(model, test_data, metrics,device))
+ 151:             lr_scheduler.step(train_loss)
+ 152:         training_history_list.append(training_history)
+ 153:         testing_history_list.append(testing_history)
+ 154: 
+ 155:     print('\n')
+ 156:     print('+---------------------+')
+ 157:     print('|   Training ended    |')
+ 158:     print('+---------------------+')
+ 159: 
+ 160:     plot_history(training_history_list, testing_history_list, ensemble.type, fig_dir)
+ 161: 
+ 162:     return ensemble
+
+ZERO-BASED CELL 8
+   1: set_seed(42)
+
+ZERO-BASED CELL 9
+   1: from tqdm import tqdm
+   2: 
+   3: # set_seed(1)
+   4: 
+   5: in_features = 13
+   6: out_features = 1
+   7: n_models = 1
+   8: # p = 0.2 # dropout probability
+   9: 
+  10: # zigzag = ZigZag(in_features, out_features, k=50)
+  11: ensemble = Ensemble(n_models, in_features, out_features)
+  12: # dropout = MCDropout(in_features, out_features, p)
+  13: 
+  14: lr = 1e-3
+  15: epochs = 30
+  16: metrics = [nn.MSELoss()]
+  17: 
+  18: # optimizer = torch.optim.Adam(zigzag.parameters(), lr=lr)
+  19: loss_fn = nn.MSELoss()
+  20: 
+  21: # zigzag = train_model(zigzag, train_loader, test_loader,
+  22: #                     optimizer, loss_fn, metrics, epochs)
+  23: 
+  24: ensemble = train_ensemble(ensemble, train_loader, test_loader,
+  25:                           lr, loss_fn, metrics, epochs)
+  26: 
+  27: # optimizer = torch.optim.Adam(dropout.parameters(), lr=lr)
+  28: # dropout = train_model(dropout, train_loader, test_loader,
+  29: #                     optimizer, loss_fn, metrics, epochs)
+
+ZERO-BASED CELL 10
+   1: from sklearn.metrics import r2_score
+   2: 
+   3: # set_seed(1)
+   4: 
+   5: ensemble.cpu()
+   6: 
+   7: x_train, y_train = train_data[:]
+   8: x_test, y_test = test_data[:]
+   9: 
+  10: dropout_probs = [0.0, 0.05, 0.10, 0.15, 0.20]
+  11: 
+  12: errors = []
+  13: for p in dropout_probs:
+  14:     # Generate a mask that keeps (1 - p) proportion of values
+  15:     mask = torch.rand_like(x_test) > p
+  16:     
+  17:     # Apply the mask to zero out p% of values
+  18:     x_test_corrupted = x_test * mask
+  19:     pred_test = ensemble(x_test_corrupted)
+  20:     
+  21:     err_array = torch.abs(y_test - pred_test).ravel().tolist()
+  22:     errors.append(err_array)
+  23: 
+  24: vanilla_errors = np.array(errors)
+
+ZERO-BASED CELL 12
+   1: from tqdm import tqdm
+   2: 
+   3: # set_seed(1)
+   4: 
+   5: in_features = 13
+   6: out_features = 1
+   7: n_models = 1
+   8: 
+   9: zigzag = ZigZag(in_features, out_features, k=50)
+  10: 
+  11: lr = 1e-3
+  12: epochs = 30
+  13: metrics = [nn.MSELoss()]
+  14: 
+  15: optimizer = torch.optim.Adam(zigzag.parameters(), lr=lr)
+  16: loss_fn = nn.MSELoss()
+  17: 
+  18: zigzag = train_model(zigzag, train_loader, test_loader,
+  19:                      optimizer, loss_fn, metrics, epochs)
+
+ZERO-BASED CELL 13
+   1: from copy import deepcopy
+   2: import torch.optim as optim
+   3: import tqdm
+   4: from torch.utils.data import TensorDataset
+   5: 
+   6: device="cuda"
+   7: 
+   8: ittt_results = {}
+   9: for bs in [2, 5, 8]:
+  10: 
+  11:     dropout_probs = [0.0, 0.05, 0.10, 0.15, 0.20]
+  12:     
+  13:     errors = []
+  14:     for p in dropout_probs:
+  15:     
+  16:         x_test, y_test = test_data[:]
+  17:         
+  18:         mask = torch.rand_like(x_test) > p
+  19:         x_test = x_test * mask
+  20:         dataset = TensorDataset(x_test, y_test)
+  21:         zigzag_test_loader = DataLoader(dataset, batch_size=bs, shuffle=False)
+  22:         
+  23:         def noise_uncertainty(model, model_original, data):
+  24:         #     y_1 = model(data.cuda())
+  25:         #     copy_data = deepcopy(data)
+  26:         #     batch_mask = data.batch
+  27:             
+  28:         #     for i in range(len(y_1)):
+  29:         #         #copy_data.x[batch_mask == i, 2] = y_1[i].detach() / 500.0
+  30:         #         copy_data.x[batch_mask == i, 2] = y_1[i] / 500.0
+  31:                 
+  32:         #     y_2 = model_original(copy_data.cuda())
+  33:         #     return (y_1 - y_2).abs().mean(), y_2, y_1
+  34:             x, y = data
+  35:             x = x.to(device)
+  36:             y1 = model.forward(x)
+  37:             y2 = model_original.forward(x,y1)
+  38:             return (y1 - y2).abs().mean(), y2, y1 # original zigzag
+  39:         
+  40:         
+  41:         def ttt_one_instance(x, f_ttt, f, optimizer, n_steps, n_classes=10):
+  42:           f_ttt.load_state_dict(f.state_dict())  # reset f_ttt to f
+  43:           f_ttt.train()
+  44:           f.eval()
+  45:           for step in range(n_steps):
+  46:             loss, y_1, y_2 = noise_uncertainty(f_ttt, f, x)
+  47:         #     if y[0].item() != y_1[0].argmax().item() and (step == 0 or step == n_steps - 1):
+  48:         #       print(f'step {step}: loss={loss.item()}')
+  49:         #       print(y_0[0].argmax().item(), y_1[0].argmax().item(), y_2[0].argmax().item(), y[0].item())
+  50:             #print(loss, y_1, y_2)
+  51:             optimizer.zero_grad()
+  52:             loss.backward()
+  53:         #     if f_ttt.f2.fc2.weight.grad.var() == 0:
+  54:         #       print('zero grad')
+  55:             optimizer.step()
+  56:           f_ttt.eval()
+  57:           _, y_1, y_2 = noise_uncertainty(f_ttt, f, x)
+  58:           return y_1, y_2
+  59:         
+  60:         
+  61:         def ttt(f, test_loader, n_steps, lr):
+  62:             f_ttt = deepcopy(f)
+  63:             f.eval()
+  64:             optimizer = optim.Adam(f_ttt.parameters(), lr=lr)
+  65:             
+  66:         #     # List of layers to optimize
+  67:         #     layers_to_optimize = [
+  68:         #         f_ttt.block1,
+  69:         # #         f_ttt.block2,
+  70:         # #         f_ttt.block3,
+  71:         # #         f_ttt.block4,
+  72:         # #         f_ttt.block5,
+  73:                 
+  74:         # #         f_ttt.fc1,
+  75:         # #         f_ttt.fc2,
+  76:         # #         f_ttt.fc3,
+  77:         # #         f_ttt.fc4
+  78:         #     ]
+  79:         
+  80:             # Extract parameters from those layers
+  81:         #     params_to_optimize = []
+  82:         #     for layer in layers_to_optimize:
+  83:         #         params_to_optimize += list(layer.parameters())
+  84:             
+  85:         #     optimizer = optim.Adam(params_to_optimize, lr=lr)
+  86:         
+  87:             t = tqdm.trange(len(test_loader), desc='Current Loss = ', leave=True)
+  88:             errors = []
+  89:             targets = []
+  90:             for _, batch in zip(t, test_loader):
+  91:         #         print(batch[0].shape)
+  92:                 y_hat_1, y_hat_2 = ttt_one_instance(batch, f_ttt, f, optimizer, n_steps)
+  93:         #         print(y_hat_2[:, 0].detach().cpu().shape, batch.y.shape)
+  94:         #         print(y_hat_2[:, 0].detach().cpu().shape, batch[1][:, 0].cpu().shape)
+  95:                 mae = torch.abs(y_hat_2[:, 0].detach().cpu() - batch[1][:, 0].cpu()).numpy().ravel().tolist()
+  96:         #         print(len(mae))
+  97:                 targets += batch[1].ravel().tolist()
+  98:                 errors += mae #.append(mae)
+  99:                 t.set_description(f"Current Loss = {sum(errors) / len(errors)}", refresh=True)
+ 100:         
+ 101:             return np.array(errors), np.array(targets)
+ 102:         
+ 103:         err_array, _ = ttt(zigzag.to(device), zigzag_test_loader, n_steps=2, lr=1e-4)
+ 104:         errors.append(err_array.ravel().tolist())
+ 105:     ittt_errors = np.array(errors)
+ 106:     ittt_results[bs] = ittt_errors
+
+ZERO-BASED CELL 15
+   1: from torch_ttt.engine.actmad_engine import ActMADEngine
+
+ZERO-BASED CELL 16
+   1: engine = ActMADEngine(
+   2:     model = ensemble.model_list[0],
+   3:     features_layer_names="hidden1",
+   4:     optimization_parameters = {
+   5:         "num_steps": 2,
+   6:         "lr": 1e-4
+   7:     } 
+   8: )
+
+ZERO-BASED CELL 17
+   1: # compute statistic for actmad
+   2: engine.compute_statistics(DataLoader(x_train))
+
+ZERO-BASED CELL 18
+   1: from torch.utils.data import TensorDataset
+   2: 
+   3: x_test, y_test = test_data[:]
+   4: # x_ood, y_ood = ood_data[:]
+   5: 
+   6: # set_seed(1)
+   7: 
+   8: actmad_results = {}
+   9: for bs in [2, 5, 8]:
+  10: 
+  11:     dropout_probs = [0.0, 0.05, 0.10, 0.15, 0.20]
+  12:     
+  13:     errors = []
+  14:     for p in dropout_probs:
+  15: 
+  16:         # Generate a mask that keeps (1 - p) proportion of values
+  17:         mask = torch.rand_like(x_test) > p
+  18:         
+  19:         # Apply the mask to zero out p% of values
+  20:         x_test = x_test * mask
+  21: 
+  22:         
+  23:         dataset = TensorDataset(x_test, y_test)
+  24:         zigzag_test_loader = DataLoader(dataset, batch_size=bs, shuffle=False)
+  25: 
+  26:         import tqdm
+  27:         
+  28:         def ttt_actmad(f, test_loader):
+  29:             f.eval()
+  30:         
+  31:             t = tqdm.trange(len(test_loader), desc='Current Loss = ', leave=True)
+  32:             errors = []
+  33:             targets = []
+  34:             for _, batch in zip(t, test_loader):
+  35:                 y_hat_1, _ = engine(batch[0])
+  36:         #         print(y_hat_1)
+  37:                 mae = torch.abs(y_hat_1[:, 0].detach().cpu() - batch[1][:, 0].cpu()).numpy().ravel().tolist()
+  38:                 targets += batch[1].ravel().tolist()
+  39:                 errors += mae #.append(mae)
+  40:                 t.set_description(f"Current Loss = {sum(errors) / len(errors)}", refresh=True)
+  41:         
+  42:             return np.array(errors), np.array(targets)
+  43:         
+  44:         err_array, _ = ttt_actmad(engine, zigzag_test_loader)
+  45:         errors.append(err_array.ravel().tolist())
+  46:         actmad_errors = np.array(errors)
+  47:     actmad_results[bs] = actmad_errors
+
+ZERO-BASED CELL 19
+   1: M = len(vanilla_errors[0]) # number of samples
+   2: NOT_OPTIMIZED = [s for t in vanilla_errors for s in t][M:]
+   3: 
+   4: ITTT_BATCH_2 = [s for t in ittt_results[2] for s in t][M:]
+   5: ITTT_BATCH_5 = [s for t in ittt_results[5] for s in t][M:]
+   6: ITTT_BATCH_8 = [s for t in ittt_results[8] for s in t][M:]
+   7: 
+   8: ACTMAD_2_batch = [s for t in actmad_results[2] for s in t][M:]
+   9: ACTMAD_5_batch = [s for t in actmad_results[5] for s in t][M:]
+  10: ACTMAD_8_batch = [s for t in actmad_results[8] for s in t][M:]
+
+ZERO-BASED CELL 20
+   1: import seaborn as sns
+   2: import pandas as pd
+   3: import matplotlib.pyplot as plt
+   4: # Example extended data (more data points for each combination)
+   5: 
+   6: fontsize = 20
+   7: 
+   8: data = {
+   9:     'Method': ['Not Optimized'] * len(NOT_OPTIMIZED) + ["ActMAD (batch=2)"] * len(ACTMAD_2_batch) + ["ActMAD (batch=5)"] * len(ACTMAD_5_batch) + ["ActMAD (batch=8)"] * len(ACTMAD_8_batch) + ['$IT^3$ (batch=2)'] * len(ITTT_BATCH_2) + ['$IT^3$ (batch=5)'] * len(ITTT_BATCH_5) + ["$IT^3$ (batch=8)"] * len(ITTT_BATCH_8),
+  10:     'Out-of-distribution Level': ([1] * M + [2] * M + [3] * M + [4] * M) * 7,
+  11:     'Accuracy': NOT_OPTIMIZED + ACTMAD_2_batch + ACTMAD_5_batch + ACTMAD_8_batch + ITTT_BATCH_2 + ITTT_BATCH_5 + ITTT_BATCH_8
+  12: }
+  13: # Convert the dictionary to a Pandas DataFrame
+  14: df = pd.DataFrame(data)
+  15: # Define custom colors for each method
+  16: custom_palette = {
+  17:     'Not Optimized': '#96CAC1',      # Green
+  18:     "ActMAD (batch=2)": "#022db8e3",
+  19:     "ActMAD (batch=5)": "#2647b5e3",
+  20:     "ActMAD (batch=8)": "#475fade3",
+  21: #     'ITTT (batch=1)': '#FFDAB9', # Yellow
+  22: #     'ITTT (batch=4)': '#C1BED6',   # Violet
+  23: #     'ITTT (batch=8)': '#EA8E83'   # Red
+  24:     '$IT^3$ (batch=2)': '#5304a8e3', # Yellow
+  25:     '$IT^3$ (batch=5)': '#69349ee3', # Yellow
+  26:     '$IT^3$ (batch=8)': '#7e5ca1e3', # Yellow
+  27: }
+  28: # Create the seaborn boxplot with custom colors
+  29: plt.figure(figsize=(9, 5))
+  30: sns.boxplot(x='Out-of-distribution Level', y='Accuracy', hue='Method', data=df, palette=custom_palette, showfliers=False)
+  31: # Customize the plot
+  32: # plt.title('Accuracy by Method and Severity', fontsize=fontsize)
+  33: plt.xlabel('Out-of-distribution Level', fontsize=fontsize)
+  34: plt.ylabel('MAE', fontsize=fontsize)
+  35: plt.xticks(fontsize=fontsize)
+  36: plt.yticks(fontsize=fontsize)
+  37: plt.legend(fontsize=fontsize-7, ncol=3, framealpha=0.4)
+  38: 
+  39: plt.grid(True, axis='y', linestyle='--') 
+  40: plt.gca().spines['top'].set_visible(False)
+  41: plt.gca().spines['right'].set_visible(False)
+  42: plt.gca().spines['left'].set_visible(False)
+  43: plt.gca().spines['bottom'].set_visible(False)
+  44: 
+  45: plt.tight_layout()

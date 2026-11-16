@@ -1,0 +1,22 @@
+{
+  "recorded_at_utc": "2026-10-28T07:29:07.263545+00:00",
+  "compiler_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"path\":\"C:\\\\Users\\\\amita\\\\source\\\\repos\\\\Detach Proposal Presentation\\\\research_proposal_main.tex\",\"mainDocument\":\"C:\\\\Users\\\\amita\\\\source\\\\repos\\\\Detach Proposal Presentation/research_proposal_main.tex\",\"kind\":\"success\",\"message\":\"The current source compiled successfully with the desktop editor's compiler.\"}"
+      }
+    ],
+    "isError": false
+  },
+  "source_sha256": "1c5adb2204361cf4c4ac9230ea682e3427b00c637db6871317663d6a997d1ea1",
+  "evidence_manifest_sha256": "418796ebeaac890469539a2c633993427da9dbecba471b581eec5291b77338ab",
+  "verified_evidence_files": 10,
+  "verified_backups": 3,
+  "next_protocol_sha256": "de3ba9bdeb11255b2cfad7e891b4650291d53805da9feb2cece5d4244d2a2f53",
+  "updated_metadata_sha256": {
+    "research/RESEARCH_STATE.md": "dac0e5f232146cdd34d4dd8ad0ac15b6156b41be7a087bbdfc19c59b13bbf942",
+    "research/RESEARCH_LOG.md": "8d0113b41477a4ab17ff8b37e675fa64dc957cea8b6f28a8c58653ecb450e071"
+  },
+  "state": "complete; one bounded analysis cycle; no neural retuning"
+}

@@ -1,0 +1,1 @@
+User-approved cover revision: clearer research aim, tighter subtitle, explicit fixed/EMA reference choice, removed defensive cover scope note. Main title retained. Abstract and all subsequent content unchanged; continue page-by-page review with the abstract. Original source backed up.

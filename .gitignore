@@ -1,0 +1,5 @@
+# Reproducible build output and Python caches
+/build/
+__pycache__/
+*.pyc
+*.pyo

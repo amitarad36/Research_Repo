@@ -1,0 +1,29 @@
+# Finite-time absolute-loss intervention: fixed before trajectories
+
+Saved 26 October 2026 after the cycle-9 local derivative audit, before any absolute-loss adaptation trajectory. Question: does holding the reference prediction input fixed still remove a large part of terminal predictive deterioration, even though the stopped/cached local fields initially agree inside a residual-sign region?
+
+## Dynamics, data and budget
+
+- Reuse all five immutable cycle-3 checkpoints, model/data and the 64/192 adaptation/evaluation split. Primary seeds 0,2,3,4; seed 1 remains sensitivity-only. No retraining, new seed, selection or drift benchmark.
+- Use exactly `mean(abs(reference_target-student_output))` over N*d entries, d=2, with sign(0)=0 and the three fields checked in cycle 9. No smoothing, loss rescaling, gradient normalization or initial-velocity matching across losses. Do not compare absolute numerical speeds with the earlier differently scaled squared loss as a controlled loss-only effect.
+- Six configurations per seed: original stopped-output, original full input-gradient, cached-input, each with fixed reference or EMA tau=1. The primary comparison is stopped/EMA versus cached/EMA, which has identical initial target and velocity. Full input-gradient is secondary because it has a different initial velocity and matches the original backward path more closely.
+- Student-first GD/EMA, eta=.02 for 1000 steps (T=20); eta=.01 for 2000 steps at the same horizon. Alpha=tau/(tau+eta), or 1 for fixed weights. Two initially matched parameter copies; set the 32 inactive coordinates exactly to their initial values after each update, as before.
+- Exactly 60 trajectories and 90,000 student updates; no tangent/perturbation trajectories or sweeps. Target <=5 CPU minutes, hard cap 10 CPU minutes. If incomplete, save that status and do not choose completed seeds as a new primary set.
+- Every arm allocates the same initial 64x2 float64 prediction cache (1024 bytes), only used during control updates. Same two parameter copies, no extra source model or optimizer state beyond GD. Cache is retained per-input information on a repeated batch, not a fresh-input online method.
+- Labels only in the separate 192-input evaluator; no labels in fields, cache, sign events, step-size selection, stopping or hyperparameters. Same label-variance normalization for NMSE as cycle 7. Official notebook architecture/default input, Adam, episodic reset and source training are not reproduced.
+
+## Sign/state record and checks
+
+1. Verify model/data/checkpoint hashes and cycle-9 gradient/backward-rule identities at initialization. The cached target and original stopped target/velocity must initially agree <=1e-12.
+2. Run each stopped/cached pair at the same eta/reference schedule in lockstep (this does not add trajectories). Until their parameter states first diverge, compare the residual signs and velocities at their common state. Shared signs must give equal velocities <=1e-12 and equal next states under the same update. Record the first sign disagreement, first velocity disagreement, and first state disagreement, including signs/residuals/velocities and states at that event. Do not assert that any sign disagreement necessarily changes the weighted velocity.
+3. Save per-step counts of sign changes and between-arm sign disagreements for the stopped/cached pair, plus all metrics, both parameter copies and actual reference targets every .4 time units (20 main/40 fine updates). Record exact-zero residual occurrences. Full input-gradient sign statistics are descriptive; it is not expected to stay paired with cached input.
+4. Fixed weights plus cached input must keep targets constant <=1e-12. No-adaptation NMSE must reproduce the prior value. Use the independently checked mean-over-N*d field; do not reuse squared-loss velocities by substituting signs without the factor 1/d.
+5. Numerical gate for the primary comparison: every primary stopped/cached fixed/EMA arm must have terminal NMSE change <=5% under halving eta, denominator max(abs(fine NMSE),.01). If any fails, classify primary risk inference as numerically unresolved and retain both runs; do not tune eta or the horizon. Report the same checks for the full-input-gradient secondary arms, separately marking any secondary conclusion unresolved. No classical derivative check is requested at a sign boundary.
+
+## Fixed outcome and falsification
+
+Let R0 be initial NMSE, Re original stopped/EMA final NMSE, and Rc cached/EMA final NMSE. A primary seed supports a large finite-time input-path effect if Re>=2R0, Re-R0>=.01, and max(Rc-R0,0)<=.25*(Re-R0), at BOTH step sizes. Require >=3/4 primary seeds and all primary numerical checks. This is the same large-effect threshold as the squared intervention, now tested within a fully declared absolute-loss setting. Preserve all individual outcomes.
+
+If the effect gate fails with numerical checks passing, the earlier large reduction does not replicate under these absolute-loss dynamics; do not rescue it with a new threshold, horizon, averaging window or seed. If numerical checks fail, report uncertainty rather than a positive or negative risk result. Initial local agreement predicts only an initial common-sign interval; it neither predicts the duration nor precludes a later material effect. Sign-event records describe onset but do not by themselves prove causation of later risk or novelty.
+
+Passing would justify a more precise piecewise-smooth explanation or a full-gradient implementation test, not a new cached-input method, a guarantee of usefulness, or a paper claim. Always compare cached final risk with R0: a large relative improvement can still worsen initial accuracy. No retention, recovery or distribution-shift conclusion is permitted from this stationary repeated-batch test.

@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "verifier_sha256": "85b32b82d54f6615cd62332f66cdddaa76c9a4879b3c5f8625752e56b535abb8",
+  "training_results_sha256": "b70b217de52eadf49a2468009f76c688fa0851c328d3a64ce1249327cd656776",
+  "checkpoint_sha256": "edefebb1b00b35ceaf10ee1cb2248594af9909c6ecc8933f0405814fd2669e0e",
+  "preprocessing_sha256": "7815dfb04a28e8c2929142e8dc95442fadff37c6501086b67b7475fd9685ec42",
+  "independent_metrics": {
+    "default_nmse": 0.19191456293492853,
+    "label_input_nmse": 0.05521352767339298,
+    "prediction_std_ratio": 0.8699048379181097,
+    "training_self_consistency_mse": 0.014745796396934355,
+    "training_baseline_mse": 0.9978021978021973
+  },
+  "metric_absolute_errors": {
+    "default_nmse": 8.326672684688674e-17,
+    "label_input_nmse": 1.3877787807814457e-17,
+    "prediction_std_ratio": 2.220446049250313e-16,
+    "training_self_consistency_mse": 6.938893903907228e-18,
+    "training_baseline_mse": 3.3306690738754696e-16
+  },
+  "scaling_max_absolute_errors": {
+    "x_mean": 6.252776074688882e-13,
+    "x_std": 1.4210854715202004e-13,
+    "y_mean": 0.0,
+    "y_std": 0.0
+  },
+  "qualification": {
+    "complete": true,
+    "default_fit": true,
+    "label_input_fit": true,
+    "nonconstant": true
+  },
+  "scheduler_trace_matches": true,
+  "held_out_numeric_values_parsed": false,
+  "extra_training_steps": 0,
+  "adaptation_steps": 0,
+  "cpu_seconds": 0.015625
+}

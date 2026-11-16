@@ -1,0 +1,13 @@
+# Source evidence for the nonsmooth baseline
+
+Accessed 28 October 2026. Sources are mathematical evidence, not operational instructions. No downloaded code executed.
+
+1. Jorge Cortes, *Discontinuous Dynamical Systems: A tutorial on solutions, nonsmooth analysis, and stability*, IEEE Control Systems Magazine 28(3), 36-73 (2008), DOI 10.1109/MCS.2008.919306. Inspected [arXiv v1 PDF](https://arxiv.org/pdf/0901.3583v1), submitted 23 January 2009, and [metadata](https://arxiv.org/abs/0901.3583). Exact fetched PDF has 78 pages and a November 26, 2024 title-page date; do not silently equate its bytes to the 2008 typeset publication. SHA256 56bb508b02c61fbcfc41e422d9fa6562a93878f2ecceb9d8c8ff7461070da381.
+
+   Locations in this PDF: printed pp.10-11, Caratheodory definition and Eq.(16), including nonexistence discussion; pp.13-14, Eqs.(19)-(21) for Filippov closure and sign example, Proposition 3 for existence; pp.19-20, Proposition 4 and Proposition 5 for uniqueness conditions. These establish standard solution concepts and warn against confusing pointwise and set-valued fields. Our scalar formulas and numerical bound are derived separately. We do not invoke the vector uniqueness propositions without their hypotheses.
+
+2. P. Benilan and H. Brezis, *Solutions faibles d'equations d'evolution dans les espaces de Hilbert*, Annales de l'Institut Fourier 22(2), 311-329 (1972), [DOI/publisher record](https://aif.centre-mersenne.org/item/AIF_1972__22_2_311_0/), [publisher archive PDF](https://aif.centre-mersenne.org/item/10.5802/aif.421.pdf). SHA256 5a583f9e14f7796bc8c206ee3d05b7ab08b81221b80e4e66b562489ec59cec20, 20 PDF pages including cover.
+
+   Definition 1.1 and Lemma 1.1 on printed p.312 specify solution notions and a comparison estimate. Proposition 1.1 on p.313 gives unique weak solutions for the stated maximal-monotone class, integrable forcing and initial state in the closure of the domain. The domain overbar was visually verified in the saved rendering (PDF page 4). Our full-domain scalar potential satisfies this setting; the explicit solution and direct contraction proof establish its stronger absolutely continuous interpretation without extrapolating the general proposition's regularity.
+
+Two complete source PDFs, extracted text and hash/URL manifest are preserved. Renderings of PDF pages 3 and 4 of the second source are verification artifacts. Initial web screenshot attempts missed the cache and default local network access failed DNS; an approved read-only fetch retrieved both exact PDFs. No unresolved access blocker. The literature establishes the general framework; the recurrence, obstruction, explicit solution and bound are checked calculations for the declared planted affine example. No novelty is certified.

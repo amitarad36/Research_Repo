@@ -1,0 +1,60 @@
+--- cycle19
++++ cycle31
+@@ -8,9 +8,17 @@
+ import numpy as np
+ import torch as t
+ from torch import nn
+-D=Path(__file__).resolve().parent
+-OLD=D.parent/'2026-10-31-cycle18'
+-DATA=D.parent/'2026-10-31-cycle17'/'bostonHousing.txt'
++import argparse
++parser=argparse.ArgumentParser()
++parser.add_argument("--seed",type=int,choices=(1,2,3),required=True)
++parser.add_argument("--budget",type=float,required=True)
++args=parser.parse_args()
++assert 0 < args.budget <= 60
++ROOT=Path(__file__).resolve().parent
++D=ROOT/("seed_"+str(args.seed))
++COHORT=Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-11-07-cycle30')
++OLD=COHORT/("seed_"+str(args.seed))
++DATA=Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt')
+ def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p): return json.loads(p.read_text())
+ def arr(x): return x.detach().numpy().copy()
+@@ -39,13 +47,14 @@
+     return {'theta':flat(pp),'m':flat(field('exp_avg',p) for p in pp),'v':flat(field('exp_avg_sq',p) for p in pp),
+             'step':np.array([int(o.state.get(p,{}).get('step',0)) for p in pp])}
+ def main():
+-    assert sha(Path(__file__))==(D/'registered.sha256').read_text().strip().lower()
+-    assert sha(OLD/'evidence_manifest.json')=='48e5b85306b1f315b95f81fa543c9ec9ece160930858b61227876b160296579b'
+-    for k,v in read(OLD/'evidence_manifest.json').items(): assert sha(OLD/k)==v
++    assert sha(Path(__file__))==(ROOT/'registered.sha256').read_text().strip().lower()
++    assert sha(COHORT/'evidence_manifest.json')=='56ae87921643246515d56fa370d5ada649ae42a0eb28396453cffadd98cc8f34'
++    for k,v in read(COHORT/'evidence_manifest.json').items(): assert sha(COHORT/k)==v
+     assert read(OLD/'verification_results.json')['status']=='passed' and read(OLD/'training_results.json')['qualified']
+     assert sha(DATA)=='baadf72995725d76efe787b664e1f083388c79ba21ef9a7990d87f774184735a'
++    D.mkdir()
+     out=D/'run';out.mkdir()
+-    report={'status':'running','updates':0,'batches':[],'torch':str(t.__version__),'script_sha256':sha(Path(__file__)),'arm_order':['current-connected','cached-connected','current-stopped','cached-stopped']}
++    report={'status':'running','updates':0,'batches':[],'torch':str(t.__version__),'script_sha256':sha(Path(__file__)),'seed':args.seed,'cpu_budget':args.budget,'arm_order':['current-connected','cached-connected','current-stopped','cached-stopped']}
+     trace=defaultdict(list); start=None
+     try:
+         assert t.__version__=='2.9.0+cpu';t.set_num_threads(1)
+@@ -57,7 +66,7 @@
+         with np.load(OLD/'preprocessing.npz',allow_pickle=False) as sc: X=t.from_numpy((X-sc['x_mean'])/sc['x_std'])
+         ref.requires_grad_(False)
+         start=time.process_time()
+-        def cap(): assert time.process_time()-start<60,'CPU cap'
++        def cap(): assert time.process_time()-start<args.budget,'CPU cap'
+         history=None
+         for batch,x in enumerate(X.split(2)):
+             q0=arr(ref(x));trace['noadapt'].append(q0); results=[]
+@@ -114,7 +123,7 @@
+         np.savez_compressed(out/'trace.npz',**trace)
+         if start is not None:
+             report['cpu_seconds_after_load_including_trace_save']=time.process_time()-start
+-            if time.process_time()-start>=60:report.update(status='invalid',failure='CPU cap')
++            if time.process_time()-start>=args.budget:report.update(status='invalid',failure='CPU cap')
+         (out/'results.json').write_text(json.dumps(report,indent=2,allow_nan=False))
+     print(json.dumps({k:v for k,v in report.items() if k!='batches'}))
+     assert report['status']=='complete'

@@ -1,0 +1,23 @@
+{
+  "diagnostic.py": "f5d4592dc4f1ee7bba937211553d7be8ff194c9b1d7306030c886ad5044ab829",
+  "harness_changes.diff": "9c9062c1d34db185f54d8e7ba29d1361faf411baf4735c01b234818adef26136",
+  "locked_predictions.json": "35fbe8f6c983cbb391d5d1e46c84bc3c4570f643316cd4d99ff31dca68f3bfde",
+  "NEXT_REPLICATION_EVALUATION.md": "89c4f71213d40ddb446fc4de1abd649a5b2739764cf5858ec91178f38924f090",
+  "registered.sha256": "bc2ce36c8fee92055978db185edb7d154f9546da3d60a0b64fbbfd0fa61b83ca",
+  "Replication_Result.md": "f35f39177a5c9b42621d3a38b0c62236de76eb4730e996a275bdb900664fd979",
+  "RESEARCH_LOG.md.before": "ada5ff8262562c5efbcaa40bf908eb5f50a2edcc26e21bd2d818a90251ee45e8",
+  "research_proposal_main.tex.before": "0539b57e425cef8bfa79edc8b37e163c4a17567d0a6521b97af2d26be38f8806",
+  "RESEARCH_STATE.md.before": "8377ed98d56fefe1850154007514a7c5184b33ba9f2cfe9546025c02fb73d2ab",
+  "risk_results.json": "4dbea3c992b90d1f78051f0c3d2b6adf91997758e2fc6799752d0ed8839c4d70",
+  "score.py": "6aa1556016b7fe64890a4d40c12597ef851ad7607399cbbdb29439b90f288034",
+  "score.sha256": "c70c3552fc74c9d395f1d6321d7d4fd79588603aef44e9f5dc9fe5ffd22c56c4",
+  "seed_1/run/results.json": "4899a7abe8d296daf3909e5fe2c0869aa3eebbc3791750a56e3527aad99ca3cf",
+  "seed_1/run/trace.npz": "8d5beb25bfeebd2cbc20f0358d0bb6e7a3bf7d2a8da77895d92a6131e65800f6",
+  "seed_1_console.txt": "dc4cd6f7f1b512becf4da931cb23259a1079543fa5a7fe0f89c2321e0051c70a",
+  "seed_2/run/results.json": "6f14fac8902e98db8561a77c4bfc5ac60d09ec0b860c4b91e30f6f968f7a8d00",
+  "seed_2/run/trace.npz": "6065cc31cb23e5242d35b57546457e9e922a18e644b8d01d622a33731d8152e9",
+  "seed_2_console.txt": "90e34dba92b854c9e520d13173d7ef42f132dfea5576695d54e2583698f30c81",
+  "seed_3/run/results.json": "125d3abee2a3b173186eae0e724c26799fcc839b428b5c0da314218e2d4918ab",
+  "seed_3/run/trace.npz": "27e56a96ccdb8583952ee37fb8fc6654a7ae8e872b79c5c4e3a2e9cb07ef54a6",
+  "seed_3_console.txt": "48479e352e9c96d67250b27d0270485098ebcb004e3e585c9e20b46656a0a233"
+}

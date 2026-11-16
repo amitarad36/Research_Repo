@@ -1,0 +1,79 @@
+{
+  "cases": 12,
+  "endpoint_derivative_checks": 24,
+  "all_assertions_passed": true,
+  "results": [
+    {
+      "delta": "1/8",
+      "coefficient": "0",
+      "cached_field": "1",
+      "fresh_field": "1"
+    },
+    {
+      "delta": "1/8",
+      "coefficient": "1",
+      "cached_field": "1",
+      "fresh_field": "2"
+    },
+    {
+      "delta": "1/8",
+      "coefficient": "-2",
+      "cached_field": "1",
+      "fresh_field": "-1"
+    },
+    {
+      "delta": "1/10000",
+      "coefficient": "0",
+      "cached_field": "1",
+      "fresh_field": "1"
+    },
+    {
+      "delta": "1/10000",
+      "coefficient": "1",
+      "cached_field": "1",
+      "fresh_field": "2"
+    },
+    {
+      "delta": "1/10000",
+      "coefficient": "-2",
+      "cached_field": "1",
+      "fresh_field": "-1"
+    },
+    {
+      "delta": "1/1000000000",
+      "coefficient": "0",
+      "cached_field": "1",
+      "fresh_field": "1"
+    },
+    {
+      "delta": "1/1000000000",
+      "coefficient": "1",
+      "cached_field": "1",
+      "fresh_field": "2"
+    },
+    {
+      "delta": "1/1000000000",
+      "coefficient": "-2",
+      "cached_field": "1",
+      "fresh_field": "-1"
+    },
+    {
+      "delta": "10000/100000001",
+      "coefficient": "0",
+      "cached_field": "1",
+      "fresh_field": "1"
+    },
+    {
+      "delta": "10000/100000001",
+      "coefficient": "1",
+      "cached_field": "1",
+      "fresh_field": "2"
+    },
+    {
+      "delta": "10000/100000001",
+      "coefficient": "-2",
+      "cached_field": "1",
+      "fresh_field": "-1"
+    }
+  ]
+}

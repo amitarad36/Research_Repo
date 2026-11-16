@@ -1,0 +1,503 @@
+PDF PAGE 1
+WP8 - 4:OO 
+Proceedings of 25th Conference 
+on Decl6lOn  and  Control 
+Alhenr, Greece  December  1988 
+A Calculus for Computing Filippov's Differential 
+Inclusion  with  Application to the Variable Structure 
+Control of Robot  Manipulators 
+Bad E. Paden  and  Shankar S. Sastry' 
+University of California, Berkeley 
+ABSTRACT 
+This paper develops a  calculus  for  computing 
+Fillppuv's differential inclusion which simphfies  the 
+analysis of dynamical  systems  described by differential 
+equations with discontinuous  right-hand-side, 111 par- 
+ticular, when a slightly generalized Lyapunov theory is 
+used,  the  rigorous  stability  aualysis of variable  struc- 
+ture systems is routine. As an  example,  a  variable 
+structure  control law for rigid-link robot  manipulators 
+is  described  and  its  stability  is  proved. 
+I. Introduction. 
+We adopt  the following notation  throughout this paper 
+natural  numbers,  1,2,3 ,... 1. 
+real nurnbers. 
+continuously  differentiable T times. 
+minimum  and  maxLmxn  singular  values. 
+usual  2-norm of a  vector. 
+2-norn.  ir.duced by the positive defbite  matris P. 
+usual  1-norm of a  vector. 
+set of subsets of JR". 
+lifz >O 
+sign function sgn(z) = 0 if z =O , 
+-1ifz <O 
+set-valued sign function SGAV(z) = [-1,1] if z =O. 
+I I 
+ifz > 0 
+I-11 If z < 0 
+convex  hull. 
+convex closure. 
+argument  ahich minimizes. 
+complement of the  set S. 
+Lebesgue  measure. 
+almost  everywhere  with  respect to Lebesgue measure. 
+generalized  gradient of f . 
+transpose of A. 
+spectrum of A. 
+open  right half complex  plane. 
+open ball of radius 6 centered  at 2. 
+frestricted  to U. 
+.. 
+Dynamical systems  described by differential  equations with 
+discontinuous  right-hand-sides are  interesting  from  both  the 
+technical  and  practical  points of view. From a technical  stand- 
+point, defining a  solution  concept  and developing analysis  tech- 
+niques  are  important.  In  practice,  such  dynamical  systems do 
+arise  and  require  analysis.  Examples of such  systems  are 
+mechanical  systems with  Coulomb friction  modeled  as  a  force 
+proportional  to  the sign of a  velocity,  and  systems whose control 
+laws have  discontinuities. 
+Filippov [l] has  developed  a  solution  concept  for  differential 
+equations with discontinuous  right-hand-side. This concept  lead,? 
+to  existence and  uniqueness  results  and  is  described  as followp 
+Conslder the  vector  differential  equation 
+r = f(X,t) (1.1) 
+where f:RnXR+Rn satisfies the following con3ition rl], 
+Condition B : f is  defmed a.e.  and is measuralie  in  an 0pe11 
+region Q E?"". Further, V compact D CQ 3 integrable A(t) 
+such  that ;lf (z,t)ii % A(t) a.e. in D. 
+Definition [Filippov] A vector  function z(.) is  called  a somiion 01 
+(1.1) on [t~.tl] if z(,) is absolutely  continuous  on [tc,tl] and  for 
+almosr. &I t E [tc,tl] 
+E K[fl(z) (1.2ai 
+where 
+ing and Computer Science,  LXvenity of CaXoma, Berkeley 94720. The first aut307 :s now 
+*Tiis research was done whie born authors were with tne  3e?aqmenr of Zec:ncsi  Zngaeer 
+w-:h the 3epP.rtrr.ent oi Mecnarrce md Znv?oxranrz: Exgmeer-ng Zrcversity oi CZ:iornle 
+Sata Ya-ba-a 93106, ??us resea-ch was supporied 3y the Serriconductor Research Cor- 
+poretiox. 
+CH2344-0/86/0000-0578 $1.00 @ 1986 IEEE 578 
+and  denotes  the  intersection over all sets N of Lebesgue 
+measure  zero. The time  dependence  in K[f](z) is  dropped  for 
+economy: all results  in  this  paper which pertain  to K[' ] hold 
+with time  dependence  since t can  be viewed as  a  parameter  in 
+the definition. Note that  the definition of K[f] makes  sense  for 
+f:R" +Rn; this  is  a  minor  generalization,  but  it is useful  in 
+Theorem 1. In addition, we  will assume throughout  that  all  func- 
+tions  are  defined a e and  Lebesgue  measurable. 
+The reason t.hat Filippov's solution  concept is useful in 
+engineering  problems  is  that Fllippov solutions  are  limits of solu- 
+tions +.o (1.1) with the  right-hand-side  averaged over smaller  and 
+smaller  neighborhoods. Thus we can  model  a  nearly  discontinu- 
+ous system  by  a  discontinous  system  and  expect  that  the Filip- 
+pov trajectories of the discontinuous  system will be  close to  the 
+trup  trajectories. 
+Filippov's solution  concept is illustrated by the  simple 
+scalar  differential  equation 
+x = -sgn(z) (1. 3a) 
+#N=C 
+z(0) = 1. (1.3b) 
+Intuitively, the solution  to  this  equation  should  be  that  trajectory 
+shown in Fig. 1. The state is 1 at  time 0 and moves at  the  con- 
+stant velocity -1 until  it  reaches 0, the  point of discontinuity  in 
+the RES of (1.3a)  where  it remains thereafter. This, in  fact,  is 
+Filippov's solution to (1.3a).  Since B(O,6), 6 > 0, an open  interval 
+containing  the  origin,  intersects  both (0,m) and (-m,O) 017 srts 
+of positive measure, we have that 
+K[-sp](O) = EI-l,1< = [-l,l]. For general z it  is  easy to see 
+that  the  differential  inclusion (1.2) becomes 
+z E -SG?4(3:) (1.4) 
+where SGA7 is the  set-valued sign function  described  above. Ey 
+inspection,  the  function  graphed in Fig. 1 is  absolutely 
+continuous  and  satisfies (1.4) almost  everywhere  with respect  to 
+Lebesgue  measure. 
+In  (1.3), Filippov's differential  inclusion was fairly  easy  to 
+compute.  Eowever,  for a RES expressed  as  a  product or compo- 
+sition of several  functions,  the  direct  calculation of the 
+diffarer Lid inclusion  from  the definition  is  difficult. The primary 
+purpoee of this  paper is to  provide  a  calculus which makes  the 
+calcuiation of the  differential inclusion straight-foraard. This 
+
+PDF PAGE 2
+0.0 
+0.0 1 .o 
+1- 2.0 
+Fig. 1. 
+calculus,  together with a slightly generalized Lyapunov theorem 
+allows for  the  rlgorous  stability analysis of variable  structure 
+systems. This is demonstrated by the  design of a new variable 
+structure  controller for ihe rlonlinear dynamics of a rlgid-link 
+robot  manipulator. 
+The theory of vale stmctwe systems (VSS) as 
+described  in [2,3], and [4] has  been  applied  to  the  control of 
+manipulators by  Young [5] and  Slotine [6] (see also [7]). Both of 
+these  schemes  decouple  the  manipulator  dynamics by introduc- 
+ing one  hyperplane of control  discontinuity for each  joint of the 
+manipulator via feedback  control. In [5] a  hierarchical  method 
+(see [3]) is used  to move the  manipulator  state  to  the  hyper- 
+planes of control  discontinuity  sequentially,  whereas in [6] the 
+manipulator  state moves to all the  hyperplanes  simultaneously. 
+The VSS control  scheme  proposed  here for robot  manipula- 
+iors is  a  multivariable  design which produces  a sliding mode on 
+the intersecCion of several switching surfaces  but  does not 
+necessarily  generate sliding modes on the switching surfaces 
+independently. This type of &ding mode  is  mentioned in [2] and 
+is analyzed  for  the fist  time  here. Fig. 2 is a  typical  phase 
+diagram of this  type of VSS having a sliding mode  at  the origin. 
+Essential  to  the  analysis  is  the  use of Clarke's  generalized  gra- 
+dient [E] together with the  aforementioned  calculus. A simp!e 
+relationship  between  these two ideas  is developed as  part of 
+Theorem 1 and is applied  to  the  control  scheme in section 111. 
+Other  control  schemes using continuous  control laws are 
+closely related  to  the VSS scheme  contained in this  paper. Cor- 
+less  and  Leitmann [SI develop a  robust  controller  based on a 
+Lyapmov  design. Their controller  becomes  a VSS controller in 
+the limit as  their  saturation  function  parameter fl tends  to  zera 
+Related  work  appears  in [IO] where Ha and Gilbert use  the s&xe 
+saturation  function  to  achieve  disturbance  rejection. 
+It  is  important  to  point  out  that  the  direct  application of 
+discontinuous  control in mechanical  systems is almost always 
+impractical  since  the  effects of switching forces on actuators  and 
+gear  trains  can  be  destructive. Thus,  in real  systems  the  control 
+discontinuity  is  smoothed [6] so that  the  system  trajectory 
+moves to  a  neighborhood of the  approximate  discontinuity. T~P 
+study of the  idealized  discontinuous  control  scheme, however, 
+gives a  clear  picture of the  salient  properties of the  system 
+dynamics. Nonidealities other  than  smoothed  discontinuities 
+such  as  small  delays  and  hysteresis  produce  chattering along 
+sliding surfaces  rather  the  ideal sliding described above. 
+Descriptions of the  ideal behavior as a  limit of these  nonideal 
+motivation  for  studying VSS. 
+motions are  contained in r1.31 and [Z] and provide additional 
+me format  of  this  paper is as follows. Section 11 contains  the 
+calculus for computing  the RHS of (1.2a)  and  the  generalized 
+~~~~~~~v  theorem for nonsmooth  potential  functions.  Seciiollm 
+demonstrates  the  application of section 11 to  the  control of 
+rigid-hnk robot  manipulator. Our conclusions  are  made in see- 
+tion IV. 
+Cartedan product notation and column vector notation are used interchangeabiy. 
+Fig. 2 
+II. Yst?.ematicsl Frammrk. 
+In this  section  the  calculus for computing Filippov's 
+differential inclusion  is presented in Theorem 1 and  the 
+Lyapunov theorem for  nonsrnooth potential  functions 'in proved. 
+Before proceeding with the  theorems,  Clarke's  generalized  gra- 
+dient Clarke  is introduced. 
+Debnition: Let KR" 4 IR be  locally  Lipschitz continuous  and 
+defhe aV, the gewdizedgradied of V, by 
+aV(z) 4 cotliVV(z,) 1 z, + z,z, P RYU N; (2.1) 
+where Rv is the  set of Lebesgue measure  zero  where V V does  not 
+exist  and  N  is  an  arbitrary  set of zero  measure. 
+Theorem 1. (cdculus for If.) 
+The map K:if j f :Em + R"] + tg jg:Rm + ZR"] has  the following 
+properties. 
+(1) Assume  that f:Rm + IR" is  locally bounded. Then 
+3 Nf c IRm,/lN1 = OsuchthatVN C Rm,pN =O 
+K[f](2)=co[limf(z,)lzi +s,z, kN,+uNj (2.2) 
+(2) Assume that f ,g :Rm + IR" are locally bounded  then 
+flf + glk) c rclfl(z) + K[gl(z) (2.3) 
+(5) (equivalent  control Utkin 1978 ) Let g:Rm 4 Rpxn ( i.e. matrix 
+valued ) be d and f :Rm 4 IR" be locally bounded,  then 
+@sf I(.) = 9b)KTf (2.6) 
+where gf (z) 4 g (z)f (2) E IRp. 
+(6) Let ERn 4 R be  locally kpschitz  continuous,  then 
+~qvvl(z) = aqZ) (2.7) 
+(7) Let f :Rm +R" be continuous,  then 
+Fqf Hz) = If (z)l (2.8) 
+Prvxf: See [li] 1 
+In the  next  section  Theorem 1 will be used to cornputs 
+Filippov's differential inclusion for the  dynamics of a  system  coil- 
+sisting of a rigid-link robot  manipulator and a  controller. The sta- 
+bility of the  control will be shown using the following Lyapunov 
+theorem. 
+579 
+
+PDF PAGE 3
+Theorem 2 (Lya~unov~s Theorem Generalized.) 
+If 
+(1) EHI"+R V(0) = 0, and V(z) > 0 V z # 0 
+(2) Z:F! + ]Rn and V(z(t)) is absolutely  continuous on [to, m) 
+with dV(~(t))] < --E < 0 a.e. on [t 1 z(t) # Oj, d 
+Then z converges  to 0 in  finite  time. 
+hf First, we argue by contradiction  that  there  exists To% to 
+such  that V(T0) = 0. If there  exists  no  such To then 
+Z(t) # 0 V t E [to, m) and V< --E a.~. on [to, m), Thus, 
+!im 1.'(t) = V(0) + skdt = --od in  contradiction  to (1) above. 
+t-- '0 
+Thus, there  exists  such  a TC 2 to. Next, we show (also by contrad- 
+Ds 
+iction)  that V(t) = 0 V t r To.-If there  exists Tl > To-such that. 
+V( Ti) > 0 then 
+It  follows that k(t) > 0 on a  set of positive measure in contradic- 
+tion to (2) above. Therefore,  there  exists To2 t~ such  that 
+V(t) = 0 V t 2To. By (1) we have z = 0 V t > Tc. 
+. 
+Although Theorem 2 applies to  general  functions V, it :s 
+often the  case  that  the  potential  functions which are  "max  func- 
+tions" are  used. 
+Definition: ERm + R is called  a muz function if 
+V(z) = maxfj(z) where fj:iR" +R are C' and Y is a  finite  index 
+set. 
+ICY 
+The following theorem  provides  a  chain-rule  for  computing  the 1.' 
+in Theorem 2 when Vis  a  max  function. 
+Theorem 3 (Chain me.) 
+Let ERm + R be a  max  function  and z:R + Rm be  differentiable 
+at t. If 3V(z(t))] exists,  then 
+proof: See[ 111. 
+Comment: The set of points  where  a max function is not 
+differentiable  has  measure  zero. Thus  one might  emect  that 
+these  should be ignored  and  the  smooth Lyapunov theory be 
+used. This  is not  possible,  however,  as trajectories z(,) might 
+move  along these  discontinuities  for  a  nonzero  length of time. In 
+fact. it is possible to  construct  trajectories which tend to infinity 
+along these  discontinuities.  See ([3]  page 88.) 
+Ill. Application to the Variable  SLruture Control of Robot Manipu- 
+lators 
+In this  section  the  dynamics of a rigid-!ink robot  manipula- 
+tor  are  described  and  the  tracking  control  problem for sxh 2 
+manipulator is formalized. Following this,  a  controller is 
+described  and  its  stability is proved  using the tools of sectio:; 11. 
+A key  observation  that  the  reader  should  make is that  the 
+analysis of the  proposed  discontinuous  control  scheme is com- 
+pletely  analogous to  the Lyapunov  analysis  one would use  for 
+continuous  control laws.  The differences  are  that  differential 
+equations  are  replaced with  inclusions, gradients  are  replaced 
+with generalized  gradients. The result is that we manipulate  con- 
+vex compact  sets  rather  than  points. 
+Ill. 1 Manipulator Dynamics and Problem Formulation. 
+described by the  equation 
+. 
+The  dynamics of an  n-joint  rigid-link  manipulator  may be 
+M(fi)% + C(fi.4) + G(fi) + D(fi,&t) = F (3.1) 
+where 
+Lp R X 1 vector of joint  coordinates 
+G(4 n ,X 1 vector of gravitational  forces 
+(fi) n X n  inertia  matrix 
+C(d,d) R X 1  vector of Coriolis and  centrifugal  forces' 
+"Forces" and "generdized  forces" wJ je used kterchangeab:y throug:m~~: 
+D(fi,h,t ) n x 1 vector of disturbances 
+F n x 1 vector of generalized  forces  applied  by 
+the  actuators  at  the  joints of the  manipulator. 
+and  (3.1)  has  the following properties. 
+(PI) M(6) is posit,ive  definite. A!(.), C(,,,), and G(,) are C' func- 
+tions of the  manipulator  state [19,.rP]~. D(,;;) is locally  bounded. 
+The positive  definiteness of hf(fi) is an  important  property of 
+the  manipulator  dynamics  as  it  is  essential  to  the  stability 
+analysis of the  proposed sliding  mode control  scheme. This 
+property is exploited  in [5] and [6] to  guarantee  the  invertibility 
+of M(19). Another  important  feature of the  dynamics  for  earth- 
+bound  manipulators is the  gravitational  force G(d) which is USU- 
+ally large. To accommodate  this  fact  the  joint  forces will  inc!ude 
+a  compensation' term for the  gravitational  forces.  For  the  sake 
+of generality we allow for the cornpensation of other  forces 2s 
+well. We therefore  write  the  joint  forces  applied by the  actuators 
+ir, the  form 
+F = C(fi,fi) + qfi) + B(?s,4,t) + u (3.2) 
+where the  hatted  terms  are  estimates of the  corresponding 
+whatted objects  and  satisfy  the following assumption. 
+(Al) e, G , and D are locally  bounded.  (Sote  that  no  continuily 
+assumption is made so that discontinuous  models of friction  may 
+be used  in d.) 
+The vector 'u is the  additional  joint  force  beyond  the  compensa- 
+tion forces and will be  referred  to  as  the conirol. The expression 
+of the  dynamics  described by  (3.1)  and  (3.2) is simplified by 
+defining the  "disturbance"  vector 
+B (fi,h,fj i C(79) - G(fi) + C(7.44) - C(fi,-Q) + 
+d(zf,4,t) - D(fi,-Q,t). (3.3) 
+M(Lp)4 = u + B (fi,h,f), (3.4) 
+Using (3.1)3(3.2j,  and  (3.3)  the  manipulator  dynamics  become 
+Dropping the  functional  dependencies,  the  state  equation  form of 
+(3.4) is 
+(3.5) 
+Let [fipd,&]' be the  desired  state  trajectory which the  mani- 
+pulator is required  to follow. Further,  let  it  satisfy 
+(AZ) [t&,&]' is C' on [to,m). 
+Kow define the  tracking  error bv 
+In terms of (3.5)  and (3.6) the tTacking problem is  the following: 
+Ftnd a  feedback  control u such  that  for  any given  initial state 
+[3,*~](t,) = [7~0,do]~ , [e(t j,e(t)]'+ o as t-, m, 
+Ill2 The Control Scheme. 
+Choose E ER"'" such  that o(B) C C:. 
+Define the "switching" vector 
+where the gain k satisfies 
+(A3) k:RSn + R is e. 
+Clearly, if s = 0 then 
+e =-Be 
+(3.7) 
+(2.2) 
+(3.6) 
+(3.10) 
+
+PDF PAGE 4
+and  it follows that [e elT* 0 exponentially for arbitrary initial 
+conditions. Our goal,  then,  is to choose k such  that s becomes 
+zero in  finite  time. To Find such  a k a Lye.t.:nov based  design 
+approach  is  used with the obvious  choice of Lyapunov function, 
+We begin  by  computing  Qand  then choosing k such  that  Pis 
+bounded below zero (Le. P(t) C -E < 0 V t 1 to) whecever 
+s # 0. This will guarantee  that s + 0 in kite time, Lyapunov 
+theory  as  developed in  say[12]  holds  for  differential equations 
+with continuous  right  hand  side. However, the 
+nondifferentiability of V(s) and  the  discontinuous  nature of the 
+control  pose  some  technical  problems. Usi.ng the  results of sec- 
+tion 11 we can  compute  an  upper  bound for V. 
+Theorem 4 (Convergence Theorem for the Variable Structure 
+Control hw.) 
+Let the  manipulator  dynamics  and  control  be  described by (3.5- 
+3.9).  Assume that  P1, A2 and A3 are satisfied. If [zF,6] is a  solu- 
+tion to  (3.5) on [to,=) in the  sense of Filippov then 
+(i) V(s(f)) is absolutely  continuous 
+(ii) 3 6 E K[a ] such  that 
+Y. 1. 
+VS -ktTM--'t t tT(M-'6 t Be - 3d) a. e. 
+where # = mgminI/lq!lM-l/q E a'J(s)j. 
+bf: From  (3.5j,  (3.8)  and  the  fact  that [$,dl is a  soiution  to 
+(3.5)  on [to,m) we have the following a.e. in [to,=), 
+Now by Theorem 1, property  (3), 
+Next,  by Properties (2),(5), and  (7), 
+(3.11) 
+(3.12) 
+(3.13) 
+!3.6),(3.1),(3.7)c  and  property  (6) yield 
+6 E-kM-'OY(s) t Bi t M-'K[B ] - $d (3.14) 
+The absolute  continuity of the solution [$,$IT on compact 
+Intervals,  and  the  continuous  differentiability of [dd,6djr imply 
+Chat s is absolutely  continuous on compact  intervals. This, in 
+turn, implies the  absolute  continuity of ?' on c0rnFa.t idLzr';& 
+and (i) holds. 
+From  (3.3) we have 
+Since the finite sum of max  functions is a  max  function we nave 
+>y Theorem 2. and the  absolute  continuity of V and S, that 
+V= a.e, (3.16) 
+v t€ av(s) 
+From  (3.14)  a!d  (3.16) 
+V = -kC*M-'p + cT[fd-' 6 t Be &d] U.e. (3.17) 
+V (~aV(s) , some p&V(s), and  some 6 EK(a 1. 
+Choose 
+# = urgminI~:77:,a-l,77EaI'(s)J (3.18) 
+Then, from  the  convexity of the  set OV(s), 
+Vs -kfTW1# t tTIK1 6 t Be -Gd] me. (3.19) 
+Whence we have  (ii). 
+Corollary Let (3.5) satisfy  the  conditions of Theorem 4, and  let 
+[+,+IT be  a  solution of (3.5)  on [to,m). If k satisfies 
+(3.2oj 
+for  some  constant E > 0, then 3 T ER such  that 
+s=ov t>T. (3.21) 
+Proof: From  Theorem 4 we have 
+t.I -k~~#~~2u-M-1 t l~(il(umzM-ll~~ )I t IlBe I! t lliiil) a.e.(3.22) 
+where 1!8 11 k sup[lld)! ldEK[D ]j 
+The assumption (3.20) on k yields 
+~~(il~~l-i~~llz)(~-~-llt~ iI + IiBb /I + 11311) - II~II~E 
+a.e. on [fo,m) (3.23) 
+Using the calculus  for  generalized  gradients, we have that 
+aV(0) = [-l,l]", the  unit  cube  in R". By the convexity of the 
+function V, aV(s) n (-1,l)" = q5 v s z 0 (see[8]  proposition 
+2.2.9). Thus, by,the definition of [, li[II > 1 V s # 0 and from 
+(3.23) we have VI -F 'd s f 0 a.e. on[to,m). Also, by  Theorem 
+4, V(t) is  absolutely  continuous,  and  by  Theorem 2, s + 0 in  finite 
+time. 
+In order  to  use  the coro!lary we must show that  a Filippov 
+solution to (3.5)  exists on [to,=). In [ll] it  is  proven,  under  the 
+assumptions of the  corollary  and (AZ), that  a solution  exists. 
+Thus, under  these  assumptions, s * 0 in  finite  time  and by the 
+definition of s, [.,elT + C exponentially.  These  results  justify  the 
+following conceptual  design  procedure  for  a  manipulator  con- 
+troller. The procedure  generates  a  control law that solves the 
+tTUCking problem. 
+Design Fbcedure 
+Data: 
+Manipulator dynamics of the  form  (3.1)  satisfying  (Pl)  and  a 
+class of desired  trajectories  satisfying (A2). 
+step 1: 
+step 2: 
+step 3: 
+Choose c, c,D satisfying (Al). 
+Choose B E Rnx" such  that u(B) E C!. 
+Choose k  satisfying (A3) and  (3.20). (If li is C? then taking 
+k equal to  the  right-hand  side of (3.20) is a  satisfactory 
+choice. If i!D '1 is only  locally bounded  then  then we replace 
+it  by the average  over  a  neighborhood of its  sup  over  the 
+same neighborhood  which is p.) 
+Choose actuator  forces  according  to  (3.2)  and  (3.7-3.9). 
+step 4: 
+into 
+In practice  a  large  value of k may  excite  unrnodeled 
+dynamics.  Thus,  in order  to minimize the  required gain the  esti- 
+mates in step 1 of the  procedure should  be  as  close to  the  true 
+values as possible. Also, if the eigenvalues of B are  large,  the 
+gain k may be  large  due  to  (3.20);  this  should  be  considered in 
+step 2. 
+!dote that  the only information  necessary  to  desi  n  a con- 
+troller  satisfying (3.29 is bounds  on u-M,  U-M, and , Thus, 
+variation of .&! and D within these  bounds will not  affect  the 
+tracking  performance of the  controller. This robustness  to 
+parameter  variations  and  disturbances is common  in VSS con- 
+troliers. 
+IV. Conclusions. 
+We have  developed  a  calculus for computing FilippoV'S 
+differential  inclusion. This calculus,  together with a  generalized 
+Lyapunov theorem  results in the  rigorous  and  straighl-furwari 
+analysis of variable structure  systems. To demonstrate  this,  a 
+new controller was proposed  for  the  dynamics of a  robot m-dipu- 
+lator  and  its  stability was proven. 
+5 
+
+PDF PAGE 5
+It is significant that  there  is  a close  relationship  between 
+Filippov’s  differential  inclusion  and  Clarke’s  generalized  gra- 
+dient.  In our example,  and  commonly in variable  structure sys- 
+tems,  ne  need  to  compute K[VF] where F is  nonsmooth. Using 
+Theorem 1 property (6) we can find this  set by using the well 
+developed  calculus of generalized  gradients [E]. 
+We remark  that  the  control  described by  (3.8) is a  normal- 
+ized control law. That. is, dl joint  control  signals  are  approxi- 
+mately  the  same  size. Thus, in applications,  the  dynamics of the 
+manipulator  must be scaled  such  that  the joint  inertias us4 in 
+the  design  are  approximately  the  same. 
+References 
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+5. 
+9. 
+10 
+11 
+12. 
+A. F. Fllippov,  “Differential  equations with discontinuous 
+right-hand  side,” American Math. Soc. 7!?-unslaiions, vol.  42 
+ser. 2, pp.  199-231,  1964. 
+V. I. Utkin,  “Variable structure  systems with  sliding  modes.” 
+IEEE Transactions  on  Automatic  Control, vol. AC-22 KO. 2, 
+pp.  212-222, April 1977. 
+V. I. Utkin, Sliding Modes and Thew Application in Variable 
+Structure  Systems, MIR Publishers, Moscow, 1975. 
+U. Itkis, Control Systems of krinble  Structure, John Wiley & 
+Sons,  Toronto,  1976. 
+K-K. D. Young, “Controller  design for a  manipulator using 
+theory of variable structure  systems,” IEEE nuns. Sys 
+.&!an and  Cybernetics, vol. 8, No. 2, pp. 101-109,  1975. 
+J. J. E. Slotine,  “The  robust  control of robot  manipulators,” 
+Int’l J of Robotics  Research, vol. 4  no. 2, Summer 1992. 
+J. J. Slotine  and S. S. Sastry,  “Tracking  control of non-linear 
+systems  asing sliding surfaces, with application  tu  robot 
+manipulators,” Int. J. Control, vol. 38 No. 2, pp. 465-492, 
+1953. 
+F. E. Clarke, Qkimization  and  Nonsmooth  Analysis, John 
+Wiley & Sons, New York,  1983. 
+M. Corless  and G. Leitmann.  “Tracking in the  presence of 
+bounded  uncertainties,” Roc. Fourth  Int. Con... on Control 
+meory, Cambridge  University,  Sept. 1984. 
+I. J. Ha and E. G. Gilbert,  “Robust  tracking in nonlinear  sys- 
+gun  Rept. IVO. RSDTR-11-84, Ann Arbor. 
+term and its  appiication to robotics,” Lhzverziry of Aficki- 
+B. E. Paden,  “Kmematics  and  Control of Robot  Manipula- 
+tors,” m.D Thesis, C’niversity of California,  Berkeley, 
+1355. 
+M. Vidyasagar, Nonlinear  Systems Analysis, Prentice-Edi, 
+Eng!eroo:!  Cliffs, 1979 
+582 

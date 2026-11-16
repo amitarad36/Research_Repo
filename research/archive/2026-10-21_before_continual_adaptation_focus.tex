@@ -1,0 +1,394 @@
+% Standalone Overleaf source. Compile with pdfLaTeX; no external assets needed.
+% This is an annotated skeleton, not a completed proposal or a novelty claim.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt,topsep=4pt}
+\newcommand{\sg}{\operatorname{sg}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newif\ifdraftnotes
+\draftnotestrue % Set to \draftnotesfalse to hide drafting prompts.
+\newcommand{\draftnote}[1]{\ifdraftnotes\par\smallskip
+  {\small\color{gray}\noindent\textit{To develop:} #1\par}\smallskip\fi}
+
+\title{What Are We Optimizing When We Call \texttt{.detach()}?\\[0.4em]
+\large Research proposal: stop-gradient dynamics, online adaptation, and forgetting}
+\author{Amit Arad\\[0.3em]
+\small Advisor: Assaf Shocher (Faculty of Data and Decision Sciences)}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Stop-gradient and frozen reference models change how learning signals propagate.
+This proposal studies the resulting dynamics as a model keeps adapting to a
+changing input distribution. The emerging direction connects Lyapunov analysis
+with online test-time adaptation and continual learning, using IT$^3$
+(Idempotent Test-Time Training) as a concrete starting point. The immediate
+goal is to specify a tractable student--reference system and ask when
+adaptation remains stable, what it retains from earlier distributions, and
+whether apparent forgetting can be reversed. PEIRA remains a mathematical
+reference for convergence certificates; extending its exact-predictor model
+is now an optional supporting direction. The models and theorem targets below
+are proposals for discussion, not established results.
+\end{abstract}
+
+\section{Introduction: from stop-gradient to continual adaptation}
+\label{sec:introduction}
+\paragraph{Motivation.}
+The numerical value of a loss does not determine the update implemented by a
+computation graph. Detached outputs, frozen parameters, and moving references
+can induce different training fields. In a stream of changing distributions,
+we must distinguish stability of those dynamics from accuracy on the current
+distribution and retention of earlier capabilities.
+
+\paragraph{Provisional research question.}
+Can an analysis of coupled adaptation dynamics inspired by IT$^3$ identify
+conditions for stable adaptation and quantify the accompanying retention or
+forgetting? Which conclusions depend on the backward rule, reference timescale,
+and rate of distribution change?
+
+\paragraph{Scope of the pivot.}
+The aim is to develop a small, mathematically explicit problem for the research
+group discussion. Online test-time adaptation supplies a concrete mechanism;
+continual learning supplies questions about performance over a sequence of
+distributions. These settings need not share the same objective. In particular,
+the supplied IT$^3$ paper prioritizes current performance in its online setting
+and permits deterioration on the original distribution~\cite{it3}.
+Retention is an additional question for this proposal.
+\draftnote{Choose whether the first result should address fixed-distribution
+stability, tracking under drift, or retention after a switch. Do not promise
+all three in the first theorem.}
+
+\section{Stop-gradient as a training field}
+\label{sec:framework}
+\subsection{Forward values and backward rules}
+In the forward pass, $\sg(u)=u$; automatic differentiation assigns the
+stop-gradient node a zero Jacobian. Denote the resulting autodiff field by
+$F(\theta)$, so a basic update and its continuous-time model are
+\[
+ \theta_{n+1}=\theta_n-\eta F(\theta_n),
+ \qquad \dot\theta=-F(\theta).
+\]
+\draftnote{Include the scalar example where the forward loss and a potential
+of $F$ differ, followed by the planar rotation example. Distinguish continuous
+flow from discrete updates. Stop-gradient need not destroy conservativity.}
+
+\subsection{Lift, differentiate, and restrict}
+Replace each detached subexpression $\sg(g_k(\theta))$ by a shadow variable
+$z_k$, giving $\widehat L(\theta,z)$ and $g=(g_1,\ldots,g_K)$. Then
+\begin{equation}
+ F(\theta)=\left.\nabla_\theta\widehat L(\theta,z)\right|_{z=g(\theta)},
+ \qquad
+ \nabla L_{\mathrm{forward}}=F+J_g^\top\nabla_z\widehat L.
+ \label{eq:lift}
+\end{equation}
+For smooth functions,
+\begin{equation}
+ DF=\widehat L_{\theta\theta}+\widehat L_{\theta z}J_g.
+ \label{eq:jacobian}
+\end{equation}
+On an open simply connected domain, a continuously differentiable field is
+conservative precisely when $DF$ is symmetric (Poincaré).
+\draftnote{Derive these identities and explain vector-valued shadows. Introduce
+the game interpretation for suitable parameter blocks; a shadow is not
+automatically an independent optimizing player.}
+
+\subsection{Convergence, stability, and representation quality}
+A candidate Lyapunov function $V$ satisfies
+\[
+ \frac{d}{dt}V(\theta(t))=-\langle\nabla V,F\rangle\leq 0.
+\]
+\draftnote{Distinguish a potential, a Lyapunov function, and an invariant.
+State the additional boundedness, strictness, or analytic assumptions needed
+for the particular convergence claim. An invariant alone does not exclude
+cycles; convergence alone does not exclude collapse. Keep collapse stability
+and Nash properties model-dependent.}
+
+\section{Mathematical background: self-distillation and PEIRA}
+\label{sec:peira}
+\subsection{The motivating architectures}
+\draftnote{Define views, encoder, predictor, target, and collapse. Explain the
+shared stopped target in SimSiam and the EMA target in BYOL. Then introduce
+the idealized model analyzed by PEIRA, distinguishing it from the full
+architectures and their practical training procedures.}
+
+\subsection{The exact-predictor setting}
+For paired inputs $(x,y)$ and encoders $U(x),V(y)\in\R^k$, define
+\begin{align}
+ N&=\E[UU^\top+VV^\top], &
+ \Sigma&=\E[VU^\top+UV^\top], &
+ P^\star&=\Sigma(N+\lambda I)^{-1}.
+\end{align}
+PEIRA analyzes a population, function-space self-distillation flow with
+this exact regularized predictor~\cite{peira}. Its certificate is
+\begin{equation}
+ \mathcal V_{\mathrm{SD}}(U,V)
+ =\tfrac13\Tr[(N+\lambda I)^3]-\tfrac12\Tr(\Sigma^2).
+\end{equation}
+\draftnote{Write the directed regularized prediction losses and the exact
+semi-gradient equations. State the spectral assumptions and explain nonlinear
+CCA. Summarize convergence and equilibrium classification separately from
+stability; the analyzed self-distillation system permits stable collapse.}
+
+\subsection{PEIRA's new objective}
+The method replaces prediction-error minimization by
+\begin{equation}
+ E_{\mathrm{PEIRA}}(U,V)
+ =-\tfrac12\Tr[\Sigma(N+\lambda I)^{-1}]
+   +\tfrac\lambda2\Tr N.
+\end{equation}
+\draftnote{Explain why this objective differs from the self-distillation
+certificate. Use a canonical-mode calculation to show the threshold
+$c>\lambda^2$, then state the full leading-subspace result with its assumptions.
+Distinguish zero collapse from constant representations and clarify when
+eligible nonconstant modes exist.}
+
+\subsection{The boundary of the results}
+\draftnote{Separate three issues: finite-speed predictor optimization; EMA
+teacher dynamics; neural-network parameterization and stochastic training.
+PEIRA leaves teacher-EMA convergence and stability to future work (footnote 2).
+Its practical auxiliary-gradient algorithm also uses EMA feature statistics;
+this is distinct from an EMA teacher. The exact auxiliary-gradient identity
+is useful for studying when detached computations still implement an objective.}
+
+\section{\texorpdfstring{IT$^3$}{IT3} as a concrete bridge}
+\label{sec:it3}
+\subsection{Prediction, reference, and the online extension}
+In the supplied version of IT$^3$, the model accepts an input $x$ and an
+additional prediction or neutral signal. Write
+\[
+ q_\theta(x)=f_\theta(x,0),\qquad T_\phi(x,q)=f_\phi(x,q).
+\]
+The test-time discrepancy compares $T_\phi(x,q_\theta(x))$ with $q_\theta(x)$.
+For episodic adaptation, the reference weights are pretrained and fixed;
+the adaptive model is reset between episodes. The online extension carries
+the adaptive weights forward and uses an EMA reference~\cite[Sections 3.2--3.3]{it3}.
+This motivates studying coupled dynamics and changing data.
+
+\subsection{Frozen parameters are not detached outputs}
+For analysis, consider the \emph{squared Euclidean} surrogate
+\begin{equation}
+ D(\theta,\phi;\rho)
+ =\tfrac12\E_{x\sim\rho}
+ \bigl\|T_\phi(x,q_\theta(x))-q_\theta(x)\bigr\|^2.
+ \label{eq:it3surrogate}
+\end{equation}
+This is a proposed smooth surrogate; the supplied paper writes a norm
+discrepancy. Put $r=T_\phi(x,q_\theta(x))-q_\theta(x)$ and
+$J_q=\partial q_\theta(x)/\partial\theta$. Holding $\phi$ fixed during
+differentiation gives
+\begin{equation}
+ G_{\rm frozen}(\theta,\phi;\rho)
+ =\E_\rho\!\left[J_q^\top(\partial_q T_\phi-I)^\top r\right].
+ \label{eq:frozen}
+\end{equation}
+Freezing reference parameters still allows the input derivative
+$\partial_q T_\phi$ to transmit a learning signal.
+Explicitly detaching the whole reference output instead gives
+\begin{equation}
+ G_{\rm detached}(\theta,\phi;\rho)=-\E_\rho[J_q^\top r].
+ \label{eq:detached}
+\end{equation}
+The two expressions share forward values but generally differ as updates.
+The detached-output version is a proposed comparison, not a claim about
+IT$^3$'s implementation. Check the actual backward paths and adapted parameters
+in the chosen code version before making an implementation claim.
+Idempotence alone does not establish accuracy, orthogonal projection, or
+preservation of old tasks.
+
+\section{Proposed research: stability and retention under adaptation}
+\label{sec:research}
+\paragraph{Scope and status.}
+The following model and research targets are working choices motivated by
+the pivot. No convergence theorem, anti-forgetting guarantee, or novelty
+claim is asserted.
+
+\subsection{First task: specify a minimal coupled system}
+Start with a finite-dimensional smooth model and a distribution $\rho_t$:
+\begin{equation}
+ \dot\theta=-G(\theta,\phi;\rho_t),\qquad
+ \tau\dot\phi=\theta-\phi,\qquad \tau>0.
+ \label{eq:teacher}
+\end{equation}
+Choose $G$ explicitly from \eqref{eq:frozen} or \eqref{eq:detached}.
+Treat the ODE as an idealization, and separately specify the discrete
+optimizer and EMA update. Begin with fixed $\rho$, then a two-distribution
+switch, before considering smooth drift or stochastic training.
+\draftnote{Choose a scalar or low-dimensional affine model whose shared
+parameters couple predictions on old and new inputs. Avoid a model in
+which each input can adapt independently. State the adapted parameters
+and the pretrained initialization.}
+
+\subsection{Second task: derive a certificate rather than assume one}
+For the frozen-reference gradient field, with $\rho$ fixed and $\phi$ held
+constant, the surrogate obeys $\dot D=-\|\nabla_\theta D\|^2$.
+With an EMA reference, the same calculation instead yields
+\begin{equation}
+ \dot D=-\|\nabla_\theta D\|^2
+ +\tau^{-1}\langle\nabla_\phi D,\theta-\phi\rangle.
+ \label{eq:emaenergy}
+\end{equation}
+The added term has no automatic sign. If $\rho_t$ varies differentiably and
+differentiation under the expectation is justified, a further term
+$\partial_tD$ accounts for distribution change. Abrupt switches require
+separate accounting for the jump in the evaluated objective.
+An initial candidate to investigate is
+\begin{equation}
+ W(\theta,\phi;\rho)
+ =D(\theta,\phi;\rho)+a\|\theta-\phi\|^2,\qquad a>0.
+ \label{eq:composite}
+\end{equation}
+This is an ansatz, not an established Lyapunov function. For the detached
+field, even the first term in the derivative must be recomputed as
+$-\langle\nabla_\theta D,G_{\rm detached}\rangle$.
+\draftnote{Compute equilibria and the full Jacobian in the chosen toy model.
+Determine whether a local certificate, a tracking bound, or a counterexample
+is the most informative first result. Check boundedness and non-isolated
+equilibria before claiming convergence to a point.}
+
+\subsection{Third task: measure retention separately from consistency}
+For an earlier labeled evaluation distribution $\mu_A$, define
+\begin{equation}
+ R_A(\theta)=\E_{(x,y)\sim\mu_A}
+ \ell_{\rm task}(q_\theta(x),y),\qquad
+ \Delta_A(t)=R_A(\theta_t)-R_A(\theta_{t_A}),
+ \label{eq:retention}
+\end{equation}
+where $t_A$ is a fixed reference time after learning or adapting to $A$.
+Positive $\Delta_A$ means deterioration relative to that reference.
+These labels are used for evaluation, not for test-time updates.
+For smooth $R_A$,
+\begin{equation}
+ \frac{d}{dt}R_A(\theta_t)
+ =-\langle\nabla_\theta R_A,G(\theta,\phi;\rho_t)\rangle.
+ \label{eq:interference}
+\end{equation}
+Decreasing the adaptation discrepancy does not by itself establish retention:
+an additional relation between its update and the old-task risk is required.
+
+Use an $A\to B\to A$ sequence to distinguish immediate performance loss
+from recovery after returning to an earlier distribution. Record recovery
+speed and the amount of new adaptation required; recovery after retraining
+alone does not prove that the original representation remained intact.
+\draftnote{Use the forgetting readings to define recoverability. Decide
+whether the first analysis concerns old-task risk, representation change,
+or access to retained information, and justify the connection between
+the chosen quantities.}
+
+\subsection{Candidate outcomes for the first study}
+\begin{enumerate}
+ \item A local stability calculation or certificate for one explicit
+ student--reference system, with conditions on $\tau$ and the backward rule.
+ \item A tracking estimate under bounded distribution drift, stating both
+ the regularity assumptions and what quantity is being tracked.
+ \item A counterexample in which adaptation discrepancy falls while
+ earlier-task error grows, identifying the missing retention assumption.
+\end{enumerate}
+These are alternative initial targets. A retention-preserving modification
+should follow from the diagnosed mechanism and a stated information budget.
+It must not silently use old labels or examples unavailable to the learner.
+
+\subsection{Role of the earlier finite-speed predictor direction}
+PEIRA remains useful for learning how to construct and interpret a
+certificate. The earlier extension
+\[
+ \dot\theta=-F(\theta,p),\qquad
+ \varepsilon\dot p=-\nabla_p R(\theta,p)
+\]
+can serve as a secondary theoretical exercise in tracking an auxiliary
+optimum. It is no longer the primary application target. Any transfer of
+its arguments to IT$^3$ must identify matching assumptions; a predictor
+optimum and an EMA reference obey different dynamics.
+
+\section{Reading priorities, experiments, and milestones}
+\label{sec:plan}
+\paragraph{Reading priorities.}
+First, reconstruct IT$^3$'s training and adaptation graphs, especially the
+frozen-reference and online EMA variants in the supplied arXiv
+v1~\cite{it3}. Next, use the forgetting and continual-learning readings to
+fix the learning setting and evaluation criterion. Return to PEIRA and
+the stop-gradient convergence paper to identify applicable proof techniques.
+\draftnote{Identify the exact forgetting and continual-learning position
+papers in the reading discussion before adding bibliographic claims.
+Read the supplied stop-gradient convergence and LyapuFlow papers for their
+precise assumptions; a feedback certificate for a generative flow is not
+automatically a training-dynamics certificate.}
+
+\begin{enumerate}
+ \item \textbf{Graph and model audit.} Specify forward expressions, trainable
+ parameters, backward paths, and reference updates. Reproduce the derivatives
+ of the selected squared surrogate.
+ \item \textbf{Fixed-distribution baseline.} Locate equilibria, compute the
+ coupled Jacobian, and compare frozen and detached fields under matched
+ initialization.
+ \item \textbf{Controlled switches.} Evaluate $A\to B\to A$ and gradual
+ shifts while varying EMA speed, adaptation steps, and shift magnitude.
+ Compare no adaptation, episodic reset, fixed reference with carried
+ adaptive weights, and EMA reference with carried adaptive weights.
+ \item \textbf{Diagnostics.} Track adaptation discrepancy, evaluation risk
+ on current and earlier distributions, student--reference distance,
+ representation change, and recovery time. Check candidate-certificate
+ derivatives and repeat with smaller steps to detect numerical artifacts.
+ \item \textbf{Meeting deliverable.} Bring one explicit model, its derived
+ update equations, one informative phase portrait or switching experiment,
+ and a sharply stated theorem question or counterexample.
+\end{enumerate}
+\draftnote{After the toy result is understood, select one small neural
+experiment and audit related work to identify what is new. Record memory,
+data-access, and compute budgets so comparisons answer the same question.}
+
+\section{Expected contribution and limits}
+The intended contribution is a precise connection between a backward rule,
+a moving reference, and adaptation dynamics in a changing environment.
+A useful initial result may explain a stability boundary, bound tracking
+error, or show why a convergence certificate cannot also certify retention.
+The proposal does not assume that consistency implies correctness, that EMA
+prevents forgetting, or that every loss of old-task accuracy is irreversible.
+\draftnote{Replace these intended outcomes with evidence after the first
+analysis. Separate background results, reproduced calculations, and new
+findings.}
+
+\medskip
+\noindent{\small\textit{*Acknowledgments.*} This proposal has developed through ongoing discussion and collaboration with Shoham Grunblat.}
+
+\begin{thebibliography}{9}
+\bibitem{it3}
+N. Durasov, A. Shocher, D. Oner, G. Chechik, A. A. Efros, and P. Fua.
+\emph{IT$^3$: Idempotent Test-Time Training}.
+\href{https://arxiv.org/abs/2410.04201}{arXiv:2410.04201}.
+Supplied version: v1, 5 October 2024; Sections 3.2--3.3.
+
+\bibitem{peira}
+M. Arbel, B. Terver, and J. Ponce.
+\emph{PEIRA: Learning Predictive Encoders through Inter-View Regressor Alignment}.
+arXiv:2605.17671, 2026. Supplied version: 17 May 2026.
+\bibitem{games}
+A. Letcher et al.
+\emph{Differentiable Game Mechanics}.
+Journal of Machine Learning Research, 20(84):1--40, 2019.
+% TODO: Verify and add the primary BYOL, SimSiam, and Tian--Chen--Ganguli
+% references, relevant singular-perturbation results, and the precursor
+% self-distillation analysis cited by PEIRA. Do not infer novelty from this
+% deliberately incomplete starter bibliography.
+\end{thebibliography}
+
+\appendix
+\section{Derivations and audit of the original proposal}
+\draftnote{Place the lift-Jacobian derivation, toy phase portraits, the frozen-reference and detached-output derivative calculations,
+and toy-model stability derivations here. Keep the main proposal centered
+on adaptation, retention, and the selected theorem question.}
+
+\end{document}
+

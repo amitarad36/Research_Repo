@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "results_sha256": "aac63b17894fc745ef6713c6fe22cbf0fc3c590c4756d0f3ebb9be924eeac6a8",
+  "method": "Python scalar squares and math.fsum on all saved prediction/target pairs",
+  "verified_mse": {
+    "no_adaptation": 0.07221261683645701,
+    "current-connected": 0.07664311396811949,
+    "cached-connected": 0.07634095719944575,
+    "current-stopped": 0.07638961120814848,
+    "cached-stopped": 0.07474923312121731
+  },
+  "joint_benefit_gate": false,
+  "all_four_arms_worse_than_baseline": true
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "success",
+  "tool": "compile_latex_document",
+  "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research_proposal_main.tex",
+  "message": "The current source compiled successfully with the desktop editor's compiler.",
+  "source_sha256": "32ee63260a246cd559f959bacb24c42d0550580a4241b8074b183cb821701640",
+  "evidence_manifest_verified": true,
+  "pre_edit_backup_sha256": [
+    "5856dd8f2732a2cd351de4b7945f08f2ddbf02e9a3526862730e84909837d681",
+    "1f861e9975eed3f551a455f7e65ac8c6c83685c1b6ab08b0d346fda097044b6a",
+    "513d9730f4c772b9cf469b28f1489f36a5d6a9c40304f60fde584c7ff37cc50e"
+  ],
+  "next_analysis_protocol_sha256": "0bc6760d30e7787459e794847cc8ace0e6b5fbeb129ae061838169b40f29ec9a"
+}

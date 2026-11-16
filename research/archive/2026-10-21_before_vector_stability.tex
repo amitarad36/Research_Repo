@@ -1,0 +1,379 @@
+% Standalone source; the open editor compiles this file in place.
+% Research status: focused proposal, 21 October 2026. No novelty claim.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt,topsep=4pt}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\title{Backward Rules and Moving References\\in Continual Test-Time Adaptation\\[0.4em]
+\large A research proposal on stability, tracking, and current predictive risk}
+\author{Amit Arad\\[0.3em]
+\small Advisor: Assaf Shocher (Faculty of Data and Decision Sciences)}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+How does differentiating through a frozen reference's prediction input
+interact with a moving reference during test-time adaptation? We propose
+to answer this question for a specified smooth surrogate of IT$^3$, first
+in a finite-dimensional model and then in one audited implementation.
+The provisional target is a condition connecting feedback geometry,
+reference update speed, and discrete step size to useful local stability
+and tracking. Current predictive risk is the primary objective; retention
+and recovery are secondary diagnostics when earlier tasks remain relevant.
+A checked affine example already separates decreasing consistency and
+improving current accuracy from retention, but is only a diagnostic baseline.
+The first research gate is to identify a noncollapsed, task-correct reference
+point and a genuinely directional effect of the backward rule. A stability
+certificate for collapse, a scalar time rescaling, or an existing teacher
+or restoration mechanism would not establish the intended contribution.
+\end{abstract}
+
+\section{Question, setting, and scope}
+The value of a consistency loss does not specify its learning dynamics:
+freezing a network's parameters and detaching its output can preserve the
+same forward values while changing the update direction. A moving reference
+adds feedback between the two models. This proposal asks whether that
+feedback admits an interpretable stability boundary that predicts useful
+adaptation behavior, beyond a generic statement that a linearized system
+must be stable.
+
+The learner starts from supervised pretraining and observes an unlabeled
+stream $x_t\sim\rho_t$. The adaptive state $\theta_t$ and reference state
+$\phi_t$ may persist across batches. Labels are available only to the
+evaluator after pretraining. The primary quantity is current task risk
+$R_t(\theta)=\E_{(x,y)\sim\mu_t}\ell(q_\theta(x),y)$, evaluated before each
+batch's adaptation; post-update risk is reported separately. The first
+experiments use covariate changes with one unchanged labeling function,
+followed by compatible recurring domains. Arbitrary changes in hidden
+labels cannot be identified from unlabeled inputs alone.
+
+The local anonymous position manuscript \emph{Forgetting is not Catastrophic,
+Our Benchmarks are} motivates evaluating the presently relevant task.
+It remains private reading context; its authors and public publication
+status are unverified. Its discussion of streams with labels does not
+provide an unlabeled-TTA guarantee. Accordingly, old-task retention is an
+objective only when those tasks remain relevant. Accuracy loss, recovery
+after new adaptation, and preservation of information are different claims.
+
+\section{What the literature and implementation already establish}
+IT$^3$ introduces a dual-input predictor and already includes online
+adaptation with an EMA reference; its online discussion allows deterioration
+on the original distribution~\cite{it3}. Online carry-over and gradient
+alignment were also studied in original TTT~\cite{ttt}. Neither online
+adaptation nor the observation that aligned gradients improve task loss
+is proposed as a new contribution.
+
+The closest continual-adaptation baselines constrain the claim. CoTTA
+combines weight/augmentation averaging with stochastic restoration to
+pretrained weights~\cite{cotta}; EATA uses sample selection and
+importance-weighted regularization against forgetting~\cite{eata}.
+RMT studies consistency-loss gradient properties and teacher-based
+continual adaptation~\cite{rmt}. PeTTA already considers recurring
+environments and analyzes a tractable collapse model~\cite{petta}.
+Recent work explicitly compares frozen and moving teachers~\cite{fixedteacher}
+and combines dynamic EMA with source anchoring~\cite{desa}. Thus ``EMA can
+fail,'' ``a fixed teacher helps,'' and an $A\to B\to A$ experiment are
+insufficient paper claims. Nonstationary adaptation guarantees and recovery
+complexity also have existing treatments~\cite{realign,recovery}.
+
+\paragraph{Version and graph audit.}
+The bibliography uses the ICML 2025 IT$^3$ record. This research pass compared
+arXiv v1 and v2; it did not establish byte identity between the supplied
+local PDF, arXiv v2, and the proceedings PDF. The official repository was
+inspected at commit \texttt{100524001d89}\footnote{Full revision:
+\href{https://github.com/nikitadurasov/ittt/tree/100524001d890efc08911f3cba8f45f51f4aa7d1}{\texttt{100524001d890efc08911f3cba8f45f51f4aa7d1}}.}.
+The tabular, airfoil, and age regression notebooks pass an undetached student
+prediction into a reference excluded from the student optimizer. They use
+absolute discrepancies. The CIFAR notebook instead reuses a shared
+trainable model across the two adaptation passes and uses Jensen--Shannon
+divergence. The linked \texttt{torch-ttt} implementation also reuses its
+model. There is therefore no universal ``IT$^3$ backward graph.'' This
+proposal selects the regression-style reference-input path and a squared
+surrogate explicitly. The inspected repository did not reveal a reproducible
+online EMA schedule; our ordering and optimizer-state policy must be declared
+as experimental choices. These are static audits, not reproduced results.
+
+\section{The specified dynamics}
+Write $q_\theta(x)=f_\theta(x,0)$ and $T_\phi(x,q)=f_\phi(x,q)$. With
+$r=T_\phi(x,q_\theta(x))-q_\theta(x)$, define
+\begin{equation}
+ D(\theta,\phi;\rho)=\tfrac12\E_\rho\norm{r}^2,
+ \qquad J_q=\partial_\theta q_\theta(x).
+ \label{eq:discrepancy}
+\end{equation}
+Holding reference parameters fixed during the student derivative retains
+the reference-input Jacobian. Detaching the entire reference output removes it:
+\begin{align}
+ G_{\rm input}&=\E_\rho[J_q^\top(\partial_qT_\phi-I)^\top r],
+ \label{eq:input}\\
+ G_{\rm stop}&=-\E_\rho[J_q^\top r].
+ \label{eq:stop}
+\end{align}
+These are chain-rule calculations for \eqref{eq:discrepancy}, not results
+for every IT$^3$ implementation. $G_{\rm stop}$ is a controlled comparison.
+Frozen parameters during differentiation do not imply a reference that
+stays fixed over the stream.
+
+We first study $\dot\theta=-G(\theta,\phi;\rho_t)$ and
+$\dot\phi=(\theta-\phi)/\tau$, with $\tau>0$. Even for $G_{\rm input}$,
+a fixed-distribution calculation gives
+\begin{equation}
+ \dot D=-\norm{\nabla_\theta D}^2
+ +\tau^{-1}\langle\nabla_\phi D,\theta-\phi\rangle.
+ \label{eq:energy}
+\end{equation}
+The second term has no prescribed sign. Distribution drift adds a time
+derivative, or a jump in the evaluated objective at a switch. For
+$G_{\rm stop}$ the first term is instead
+$-\langle\nabla_\theta D,G_{\rm stop}\rangle$.
+
+\paragraph{Discrete algorithm.}
+The first study uses gradient descent and a student-first EMA,
+\begin{equation}
+ \theta_{n+1}=\theta_n-\eta G(\theta_n,\phi_n;\rho_n),\qquad
+ \phi_{n+1}=\alpha\phi_n+(1-\alpha)\theta_{n+1},\quad 0<\alpha<1.
+ \label{eq:discrete}
+\end{equation}
+Both states start from the pretrained model. Batch statistics are specified
+and held fixed in the first comparison; there is no replay or source-label
+access during adaptation. Adam, normalization updates, and alternative EMA
+orderings are later robustness checks. Resetting weights without resetting
+optimizer state is not treated as an equivalent baseline.
+
+\section{Ranked directions and the provisional leading target}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Leading target: backward-rule-dependent stability and tracking.}
+Derive a condition from the reference-input Jacobian and EMA update that
+predicts a stability boundary or transient amplification in a specified
+vector model, then test whether it predicts current-risk behavior in one
+small neural experiment. A thesis can develop the audit, qualified theorem,
+and empirical test; a first paper requires a distinct mechanism and
+evidence beyond existing teacher-adaptation analyses.
+\item \textbf{Second: a compatible-task failure and a justified correction.}
+Use a diagnosed shared-parameter direction to explain loss on an earlier
+still-relevant task at matched current-task progress. Propose a correction
+only if its information budget is explicit and it differs substantively
+from restoration, anchoring, or protected-gradient methods~\cite{ogd}.
+The appendix baseline alone does not meet this threshold.
+\item \textbf{Third: recovery and information access.}
+Test whether reference lag predicts recovery under a fixed adaptation and
+probe budget. This requires separating recovery from relearning and from
+already studied representation shifts~\cite{spurious}. It follows only
+after the first mechanism is established.
+\end{enumerate}
+
+\subsection{A concrete mathematical starting point}
+As a diagnostic, take $f_W(x,z)=Wx+A_xz$ with fixed feedback matrices
+$A_x$, adapted $W$, and EMA $V$. Put $B_x=I-A_x$ and $r=Vx-B_xWx$.
+Then the input-gradient and stopped-output student velocities are
+$\E[B_x^\top r x^\top]$ and $\E[r x^\top]$, respectively. For column
+vectorizations $w=\operatorname{vec}W$, $v=\operatorname{vec}V$,
+\begin{equation}
+ \frac{d}{dt}\begin{pmatrix}w\\v\end{pmatrix}
+ =M\begin{pmatrix}w\\v\end{pmatrix},\qquad
+ M=\begin{pmatrix}-H&K\\I/\tau&-I/\tau\end{pmatrix},
+ \label{eq:block}
+\end{equation}
+where the two rules give, respectively,
+\begin{align}
+ H_{\rm input}&=\E[xx^\top\otimes B_x^\top B_x],&
+ K_{\rm input}&=\E[xx^\top\otimes B_x^\top],\nonumber\\
+ H_{\rm stop}&=\E[xx^\top\otimes B_x],&
+ K_{\rm stop}&=\E[xx^\top\otimes I].
+ \label{eq:blocks}
+\end{align}
+Begin with two-dimensional outputs and two nonorthogonal input features,
+with feedback matrices that cannot be simultaneously diagonalized. This
+avoids merely repeating a scalar time-rescaling calculation. Deriving
+\eqref{eq:block} is completed algebra; interpreting a useful condition on
+these blocks is an open research task.
+
+\paragraph{The collapse gate.}
+The absolute model \eqref{eq:block} is homogeneous. If its full matrix is
+Hurwitz, it converges to $W=V=0$: this proves collapse, not useful predictive
+stability. The research target must therefore concern identifiable or
+transverse perturbations around a separately established, task-correct,
+noncollapsed fixed point of an appropriate model. Its existence, local
+correctness, and relationship to measured network Jacobians are hypotheses
+to check, not consequences of low discrepancy. Conserved directions and
+equilibrium manifolds must be identified before asserting point convergence.
+
+For blocks of the form \eqref{eq:block}, the student-first discrete map is
+\begin{equation}
+ J_{\eta,\alpha}=\begin{pmatrix}
+ I-\eta H&\eta K\\
+ (1-\alpha)(I-\eta H)&\alpha I+(1-\alpha)\eta K
+ \end{pmatrix}.
+ \label{eq:discreteblock}
+\end{equation}
+Spectral radius below one is the classical linear criterion, not the
+proposed novelty. The target is a sharp condition in a noncommuting
+two-matrix family, expressed in feedback geometry, with an interpretable
+prediction about transient or current-output error. Continuous-time
+stability does not establish \eqref{eq:discreteblock}'s stability.
+
+\subsection{Assumptions, tracking, and rejection criteria}
+The first theorem is conditional on a smooth specified model, a justified
+task-correct reference point or equilibrium family, and control of the
+identifiable directions. Any extension to drift must specify how an
+equilibrium $z_t^\star$ moves. A bound of the form
+$\norm{e(t)}\le C e^{-\gamma t}\norm{e(0)}+
+C\sup_s\norm{\dot z_s^\star}/\gamma$
+requires a uniform stability estimate and a justified forcing bound;
+it is a target template, not a proved result here. Pointwise stable
+Jacobians alone do not justify arbitrary switching. Converting state
+tracking to predictive risk additionally needs local output regularity
+and a task-alignment or correctness assumption.
+
+Reject or narrow the leading direction if the stable state is useless;
+if the two rules reduce to time rescaling; if the condition assumes
+contraction without explaining its origin; if a correction duplicates
+the closest prior work; or if predicted behavior fails inside its stated
+regime in small nonlinear tests. A counterexample to a proposed certificate
+is a useful result, but should not be relabeled a positive theorem.
+
+\section{Minimal experiment and near-term milestones}
+\paragraph{Controlled experiment.}
+First produce a two-output synthetic regression stream with one fixed
+labeling function and known changing input covariance. Pretrain a small
+dual-input network using the selected IT$^3$ training recipe, and record its
+reference-input Jacobians. Construct the two-matrix diagnostic from their
+observed range, rather than claiming arbitrary negative feedback is typical.
+Use a stationary segment, one gradual covariance change, and a compatible
+$A\to B\to A$ sequence. Sweep student step size and EMA retention across
+the predicted boundary, with at least five initializations in the small
+experiment. The first qualitative prediction must be written before that
+sweep: which rule and parameter regime should exhibit instability or
+amplification, and in which observable quantity.
+
+Compare no adaptation, episodic reset, carried student with a fixed
+reference, carried student with EMA, and the explicit output-detachment
+comparison. Select the closest established restoration/anchoring comparator
+after the mechanism is identified. Report trainable parameters, reference
+copies, source statistics, replay memory, teacher batch statistics, and
+update counts; match these budgets or disclose differences. Report current
+pre-update risk, post-update risk, discrepancy, reference lag, and boundary
+prediction errors. On compatible recurring domains, also report earlier
+risk and recovery relative to both no adaptation and a fresh source reset
+under equal new-data/update budgets. Compare retention at matched current
+risk so that slower learning is not mistaken for protection.
+
+\paragraph{Four milestones, subject to the rejection gates.}
+The next working week should deliver a concrete feedback family, a verified
+noncollapsed reference point or a documented obstruction, and the exact
+discrete Jacobian. The following week should deliver one proved proposition
+or counterexample and a deterministic parameter sweep with its prediction
+fixed in advance. Weeks three and four should reproduce one selected neural
+graph and run the minimal experiment. At that point, review the closest
+papers theorem by theorem and decide whether the result supports a focused
+first paper, needs a different mechanism, or remains thesis groundwork.
+No publication outcome is assumed.
+
+\paragraph{Existing work and limits.}
+The earlier scalar learned-predictor certificate remains a checked local
+research artifact, useful for proof practice. Its PEIRA-inspired predictor
+tracks an optimizer, whereas the present reference tracks the student;
+the earlier result does not prove anything about EMA adaptation. Likewise,
+function-space stop-gradient convergence results require their own operator
+and regularity assumptions~\cite{stopgrads}. The project currently has a
+source/code audit and the appendix calculation, not a general stability
+theorem, neural reproduction, or verified novelty claim.
+
+\medskip
+\noindent{\small\textit{Acknowledgments.} This proposal has developed through ongoing discussion and collaboration with Shoham Grunblat.}
+
+\appendix
+\section{A checked affine diagnostic, not a paper claim}
+Take unit features $x_A,x_B\in\R^2$ with $0<|c|<1$, where
+$c=x_A^\top x_B$. Let $f_\theta(x,z)=\theta^\top x+a(x)z$,
+$a(x_A)=0$, and $a(x_B)=1-b$ for $b>1$. Start with
+$\theta_0=\phi_0$, let $y_A=\theta_0^\top x_A$ and $y_B=0$, and use
+these labels only for evaluation. During the $B$ phase, write
+$u=\theta^\top x_B$, $v=\phi^\top x_B$, and $u_0\ne0$. Then
+\begin{equation}
+ \dot u=k(v-bu),\qquad \tau\dot v=u-v,
+ \qquad k=b\ \text{for }G_{\rm input},\quad k=1\ \text{for }G_{\rm stop}.
+ \label{eq:toy}
+\end{equation}
+The two reduced eigenvalues are negative for every $\tau,k>0$; the
+orthogonal student component is conserved. In fact $u$ is a positive
+weighted sum of two decaying exponentials times $u_0$. Consequently
+\begin{equation}
+ D=\tfrac12(v-bu)^2\downarrow0,\qquad
+ R_B=\tfrac12u^2\downarrow0,\qquad
+ R_A=\tfrac12c^2(u_0-u)^2\uparrow\tfrac12c^2u_0^2.
+ \label{eq:toyresult}
+\end{equation}
+Both tasks are jointly realizable. The limiting state is
+$\theta_\infty=\phi_\infty=\theta_0-u_0x_B$, independent of the finite
+EMA timescale. Returning to $A$ from that limit provides zero consistency
+signal and hence no recovery. A finite-time return can recover partially
+through reference lag. Full derivations and verification are stored in
+the research notes; 40 parameter combinations at 502 times each passed
+the closed-form checks, with maximum ODE residual about $1.1\times10^{-13}$.
+Numerical checks support the algebra; they are not a neural experiment.
+
+This diagnostic shows that useful current adaptation can coexist with loss
+on a compatible earlier task, and that a slow EMA need not preserve it
+indefinitely. Its two backward rules only change speed and have identical
+retention at equal $B$ progress. The deliberately chosen feedback and label
+are not established empirical IT$^3$ properties. The result motivates the
+vector study and its falsification gates; it is not an independent novelty
+claim. Protecting the old feature direction would require retained
+information and overlaps with established projected-update ideas~\cite{ogd}.
+
+\begin{thebibliography}{99}\small
+\bibitem{it3} N. Durasov et al. \emph{IT$^3$: Idempotent Test-Time Training}.
+ICML, PMLR 267:14867--14883, 2025.
+\href{https://proceedings.mlr.press/v267/durasov25a.html}{Published record};
+\href{https://arxiv.org/abs/2410.04201}{arXiv:2410.04201, v1/v2}.
+\bibitem{ttt} Y. Sun et al. \emph{Test-Time Training with Self-Supervision
+for Generalization under Distribution Shifts}. ICML, 2020.
+\href{https://proceedings.mlr.press/v119/sun20b.html}{PMLR 119}.
+\bibitem{cotta} Q. Wang et al. \emph{Continual Test-Time Domain Adaptation}.
+CVPR, 2022.
+\href{https://openaccess.thecvf.com/content/CVPR2022/html/Wang_Continual_Test-Time_Domain_Adaptation_CVPR_2022_paper.html}{Primary paper}.
+\bibitem{eata} S. Niu et al. \emph{Efficient Test-Time Model Adaptation
+without Forgetting}. ICML, 2022.
+\href{https://proceedings.mlr.press/v162/niu22a.html}{PMLR 162}.
+\bibitem{rmt} M. Doebler, R. A. Marsden, and B. Yang. \emph{Robust Mean
+Teacher for Continual and Gradual Test-Time Adaptation}. CVPR, 2023.
+\href{https://arxiv.org/abs/2211.13081}{arXiv:2211.13081}.
+\bibitem{petta} T.-H. Hoang, D. M. Vo, and M. N. Do. \emph{Persistent
+Test-time Adaptation in Recurring Testing Scenarios}. NeurIPS, 2024.
+\href{https://arxiv.org/abs/2311.18193}{arXiv:2311.18193}.
+\bibitem{fixedteacher} D. Sojka et al. \emph{Rethinking the Teacher-Student
+Framework for Test-Time Adaptation}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.02507}{arXiv:2609.02507}.
+\bibitem{desa} A. Belal et al. \emph{DESA-TTA: Dynamic EMA and Source
+Anchoring for Test-Time Adaptation}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.01795}{arXiv:2609.01795}.
+\bibitem{realign} Z.-Y. Zhang et al. \emph{Test-time Adaptation in
+Non-stationary Environments via Adaptive Representation Alignment}.
+NeurIPS, 2024.
+\href{https://papers.neurips.cc/paper_files/paper/2024/hash/abe31a12e83111fdf2cfd54deed5a2ce-Abstract-Conference.html}{Proceedings}.
+\bibitem{recovery} Z. Zhou et al. \emph{On the Learnability of Test-Time
+Adaptation: A Recovery Complexity Perspective}. ICML, 2026.
+\href{https://arxiv.org/abs/2605.28057}{arXiv:2605.28057}.
+\bibitem{ogd} M. Farajtabar et al. \emph{Orthogonal Gradient Descent for
+Continual Learning}. AISTATS, 2020.
+\href{https://proceedings.mlr.press/v108/farajtabar20a.html}{PMLR 108}.
+\bibitem{spurious} V. Palit et al. \emph{When Forgetting is not Catastrophic:
+On the Mechanics of Spurious Forgetting}. Preprint, 2026.
+\href{https://arxiv.org/abs/2610.08718}{arXiv:2610.08718}.
+\bibitem{stopgrads} M. W. Shen et al. \emph{How I learned to stop worrying
+and love StopGrads: Stationarity, Convergence, and a case study on Flow Map
+Learning}. Preprint, 2026.
+\href{https://arxiv.org/abs/2609.16222}{arXiv:2609.16222}.
+\end{thebibliography}
+\end{document}

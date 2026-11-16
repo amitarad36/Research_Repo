@@ -1,0 +1,28 @@
+{
+  "files": {
+    "seed_1/run/trace.npz": "8d5beb25bfeebd2cbc20f0358d0bb6e7a3bf7d2a8da77895d92a6131e65800f6",
+    "seed_1/run/results.json": "4899a7abe8d296daf3909e5fe2c0869aa3eebbc3791750a56e3527aad99ca3cf",
+    "seed_2/run/trace.npz": "6065cc31cb23e5242d35b57546457e9e922a18e644b8d01d622a33731d8152e9",
+    "seed_2/run/results.json": "6f14fac8902e98db8561a77c4bfc5ac60d09ec0b860c4b91e30f6f968f7a8d00",
+    "seed_3/run/trace.npz": "27e56a96ccdb8583952ee37fb8fc6654a7ae8e872b79c5c4e3a2e9cb07ef54a6",
+    "seed_3/run/results.json": "125d3abee2a3b173186eae0e724c26799fcc839b428b5c0da314218e2d4918ab"
+  },
+  "total_cpu_seconds": 11.703125,
+  "reports": [
+    {
+      "seed": 1,
+      "event_batches": 0,
+      "cpu": 3.578125
+    },
+    {
+      "seed": 2,
+      "event_batches": 1,
+      "cpu": 4.421875
+    },
+    {
+      "seed": 3,
+      "event_batches": 3,
+      "cpu": 3.703125
+    }
+  ]
+}

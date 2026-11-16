@@ -1,0 +1,630 @@
+PDF PAGE 1
+A NNALES DE L ’ INSTITUT F OURIER
+P. BÉNILAN
+H. BRÉZIS
+Solutions faibles d’équations d’évolution
+dans les espaces de Hilbert
+Annales de l’institut F ourier, tome 22, n o 2 (1972), p. 311-329
+<http://www.numdam.org/item?id=AIF_1972__22_2_311_0>
+© Annales de l’institut Fourier, 1972, tous droits réservés.
+L’accès aux archives de la revue « Annales de l’institut Fourier »
+(http://annalif.ujf-grenoble.fr/) implique l’accord avec les conditions gé-
+nérales d’utilisation ( http://www.numdam.org/conditions). Toute utilisa-
+tion commerciale ou impression systématique est constitutive d’une in-
+fraction pénale. Toute copie ou impression de ce ﬁchier doit conte-
+nir la présente mention de copyright.
+Article numérisé dans le cadre du programme
+Numérisation de documents anciens mathématiques
+http://www.numdam.org/
+
+PDF PAGE 2
+Ann. Inst. Fourier, Grenoble
+22, 2 (1972), 311-329.
+SOLUTIONS FAIBLES
+D^ÉQUATIONS D'ÉVOLUTION
+DANS LES ESPACES DE HILBERT
+par P. BENILAN et H. BREZIS
+Soit H un espace de Hilbert sur R. Rappelons qu'un
+opérateur (ou graphe) maximal monotone A est une applica-
+tion multivoque de H dans H vérifiant :
+(A — /25 Ui — Ua) ^ 0 pour tous [ui, /i], [ug, f^\ e A
+ainsi que R(I + A) = H.
+On dit que A e âL(<o) avec œ e R si A+ol est maximal
+monotone et on pose
+D(A) == {ueH;Au ^ ^}.
+Étant donné A e (Sl(û)), il est bien connu (cf. [3], [6], [8], [9])
+que l'équation d'évolution
+J^+Auaf sur [0,T], u(0)=uo
+admet une solution lorsque f est absolument continue sur
+[0, T] et UQ e D(A). On introduit ici la notion de solution
+faible associée à fe L^O, T; H) et UQ e D(A), définie par
+passage à la limite à partir de solutions fortes.
+On établit diverses propriétés de la solution faible u\ en
+particulier on montre qu'en un point de Lebesgue tç de /', u
+est dérivable à droite en to si et seulement si u(to) e D(A).
+On montre ensuite, dans le cas où Int DfA) =7^ ^ que la
+solution faible u est à variation bornée et que u{t) G D(A)
+en tout point de Lebesgue de /'.
+
+
+PDF PAGE 3
+312 P. BENILAN ET H. BREZIS
+On en déduit l'existence d'une solution forte lorsque f
+est continue sur [0, T] et UQ e D(A). On établit enfin des
+résultats analogues pour le problème périodique :
+^+Au9/; u(0)=u(T).
+1. Étude des solutions faibles.
+DÉFINITION 1.1. — Soient A un opérateur de H et
+/•eLi(0,T; H).
+a) on appelle solution forte sur [0, T] de l'équation
+— 4- Au 9 /*, toute fonction u définie et continue sur [0, T]
+à valeurs dans H, absolument continue sur tout intervalle
+compact contenu dans ]0, T[ et donc p.p. dérivable sur ]0, T[
+(cf [9] Appendix) vérifiant
+u(()eD(A), ^ (() + Au(() 9 f(t) p.p.^]0,T[.
+b) on dit que u est solution faible sur [0, T] de l'équation
+— + Au 9 f s'il existe f^ e 1^(0, T, H), u^ solution forte de
+^+Au,9/,, tel que f^f dans L^O, T; H) et u, -> u
+uniformément sur [0, T].
+LEMME 1.1. — Soient A e (5l(co), f et g e L^O, T; H), u et v
+des solutions faibles sur [0, T] des équations —i- 4- Au 9 f7 dt
+et — + A^ 9 g respectivement. Alors pour tout 0 ^ s ^ t ^ T,
+on a
+|u(t) — v{t)\ ^ e^^\u{s) — v{s)\
++ ^ e^\f^) - g(T)| rfr. (1.1)
+Démonstration du lemme 1.1.
+Par passage à la limite, il suffit de démontrer la relation
+(1.1) pour u et v solutions fortes et 0 < s ^ ( < T. En
+
+
+PDF PAGE 4
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 313
+appliquant la monotonie de A + "I»
+-|-^K<)-W < <•>!"(<) - ^)12
++(/•(<)-§((), "(t)-^)) p.p. f6]0, T[
+D'où la relation, par application du lemme de Gronwall.
+PROPOSITION 1.1. — Soient A e (9L(œ), feL1^, T; H) et
+XQ e D(A). Il existe une solution faible unique sur [0, T] de
+Inéquation dévolution.
+, + Au a /, u(0) = ^o-
+Démonstration de la proposition 1.1.
+L'unicité résulte du lemme 1.1 en faisant g == /", s == 0.
+Pour l'existence, faisons appel au résultat de Kato [8] :
+« étant donné f absolument continue sur [0, T] et XQ e D(A),
+il existe une solution forte sur [0, T] de l'équation d'évolution
+, + Au 9 /, u(0) = XQ ».
+Soit alors /*„ absolument continue sur [0, T] tel que
+fn—f dans L^O, T; H) et ^ e D(A) tel que ^ -> XQ
+dans H. Il existe une solution forte u^ de l'équation
+—— + Au^ 9 /*„, u^(0) = x^ Utilisant le lemme 1.1,
+\u,{t) - u,(()| ^ e^\x,-x^
++ £ ^-^M - U^\ dt Vt e [0, T].
+Soit
+Sup |^(() - u,(t)| ^ e^x^ - ^| + [I/, - /J^o. T; H)).
+[0,T]
+Donc u^ converge uniformément vers une fonction u, par
+définition solution faible de — + Au 9 /*, et telle que
+u(0) == rro. dt
+LEMME 1.2. — Soient A monotone, /"eL^O, T; H) et u
+solution faible sur [0, T] cfc Inéquation -j- + Au 9 /*. Afor5u't
+
+
+PDF PAGE 5
+314 P. BENILAN ET H. BREZIS
+pour tout 0 ^ s < ( < T et tout [x, y] e A, on a
+Çu(t) - u{s), u(s) - x) ^ ^ (f(t) - y, u(r) - x) ^T. (1.2)
+Démonstration du lemme 1.2.
+Par passage à la limite, il suffit de démontrer la relation (1.2)
+pour u solution forte et 0 < s ^ ( < T. En appliquant la
+monotonie de A, on a
+-I- -^ K<) - ^l2 < {fW - y, u{t) - x) p.p. ( e ]0, T[
+D'où en intégrant
+{U{t) - U{S), U{S) - X) ^ y \u(t) - X\2 - -J- \U{S) - X\2
+^ £ ^(T) - ^u^ -x)d^Le théorème suivant constitue le résultat principal de cette
+partie. Précisons d'abord la définition suivante :
+DÉFINITION 1.2. — Soit feUÇO, T; H). On dira que
+te [0, T[ est point de Lebesgue à droite (resp. ( e ]0, T[
+est point de Lebesgue) de f, s^il existe y e H tel que
+lim1 ?" |/-(T) - y\ dr = 0h->o n jth>0
+/ \ ^t+h \
+(resp. lim— | \f^ - y\ d^ = 0).
+\ î;S§ " Jt ]
+La valeur y est alors unique, on la notera f[t 4- 0). On a
+\ /»(+A
+^+0)=lim- | f^)d^
+^0° " Jt
+Rappelons (cf. [7] p. 217) que l'ensemble des points de Lebesgue
+de f est de complémentaire négligeable.
+Notons enfin que si
+limf(t + h) existe /resp. lim f(t + h) existe\,h->0 [ h->0 ]h>Q \ h^O I
+t est point de Lebesgue à droite (resp. point de Lebesgue)
+de f et f(t + 0) == lim f(t + h)./i>0h>0
+
+
+PDF PAGE 6
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 315
+THÉORÈME 1. — Soient A e (9L(<o), fe L^O, T; H), u solution
+faible sur [0, T] de — + Au 3 /*, t e [0, T[ point de Lebesgue
+à droite de f (resp. ( e ]0, T[ point de Lebesgue de /*). Il
+y a équivalence entre les propriétés :
+a) u{t) e D(A);
+b) u est dérivable à droite en t'y
+c)
+„ |u(( + h) — u(()| ,hm-'——•—1———--LL < + ooh>0 h
+h>0
+( ,. |u(( + h) — u(t)\ , \( resp. hm ' x /———V-LL < + oo V\ h^Q h f
+\ h^O /
+De plus sous ces conditions on a (1) :
+^ (<) = {f{t + 0) - Au(t))°.
+Pour la démonstration du théorème, remarquons que l'on
+peut supposer A monotone en remplaçant A par A + <x) 1
+et f par f + œu.
+Démonstration de a) =^ &). — Supposons donc u{t) e D(A)
+et posons z = {f{t + 0) — Au(t))0. Appliquons le lemme 1.1
+avec g = f(t + 0) — z e A.u(t) et v = u((), on a pour tout
+h > 0, \u{t + A) - u(()| ^ ^<+' l^r) -f{t+ 0) + z) rfr et
+donc
+limi^+^-^l < 14/i^O Al
+/i>0
+Soit ^ > 0, ^ -^ 0 tel que u(t + ^ ~ u{t) - Ç. Pour tout
+^n
+[a;, y] e A, on a d'après le lemme 1.2
+("^y-'"". »(» - ») < - F ?1 - ï, »(.) - .) h\ "'n / "'n Jt
+(1) Étant donné un ensemble convexe fermé C, on désigne par C° la projection
+de 0 sur C.
+
+
+PDF PAGE 7
+316 P. BENILAN ET H. BREZIS
+d'où à la limite, (Ç, u{t) - x) ^ {f(t + 0) -- y, u(() - a;).
+Donc /•(( + 0) — Ç e Au((), c'est-à-dire Ç e /•(( + 0) - Au(^);
+d'où puisque |Ç| ^ |z|, on a Ç = z. Donc ^ + ^) - u^) _^
+lorsque h^O. fl
+b) =^ c) étant immédiat passons à la
+Démonstration de c) ==^ a).
+Sous les hypothèses c), il existe h^ > 0, ^ -> 0 (resp.
+^ ^ 0, h^ 0) tel que u(t + ^ - u^) - Ç. Dans tous les
+cas pour [rc, y] e A, re
+1 ^^^n
+.- (/'M - !/, ^^) - ^) dr -> (f{t + 0) - y, u(() - x)."'a J t"•a Jt
+Si
+^>0,(^+y-^u(f)-^
+\ "'n /
+1 r^'1»
+^ r" f (^^ -î/? ^T) - ^rfT-"n Jt
+Si
+,„ < o, ^(^ -_^ + ^, ,^ ^ ^ _ \
+\ ^n /
+< - J- f (A^) - y, ^) -.») ^.^ J t+h^
+Dans tous les cas, à la limite,
+(Ç, u(() - x) ^ (f(t + 0) - y, u(() - x).
+Donc u(() e D(A).
+Remarque 1.1. — En fait, un raisonnement identique montre
+que si u est solution faible de
+du . . /.
+^^^
+et të[0,T] vérifie îiin -^— F \f{r)\^ < + oos->t s —— t J t
+se[o, TJ
+alors u(t) e D(A) si et seulement si Km l1^) — ^l < ^- oo.( — SA--X
+•yeio, TJ
+
+
+PDF PAGE 8
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 317
+Remarque 1.2. — Lorsque A est univoque, u étant une
+solution faible de — + Au 3 f, t un point de Lebesgue de /*,CuL
+• i» î^—— \u(t + ^) — ^)1 i i . f •si 1 on suppose hm -—-—-————-—— < + oo alors u est fai-/»>o hh^Q
+blement dérivable en (.
+Remarque 1.3. — L'inégalité intégrale (1.2) qui joue un rôle
+essentiel dans la démonstration a été introduite en [1] pour
+des opérateurs accrétifs dans les espaces de Banach. Elle
+est aussi utilisée sous une forme sensiblement plus générale
+dans [5].
+COROLLAIRE 1.1. — Soient A6(9L(û>), fe L^O, T; H) et u
+fonction définie sur [0, T]. Il y a équivalence entre les propriétés
+a) u est solution forte de -j- -\- Au 9 f.dt
+b) u est solution faible de j- + Au 3 f et u est absolumentCuv
+continue sur tout intervalle compact contenu dans ]0, T[.
+Remarque 1.4.
+Ces deux propriétés sont équivalentes aussi à la propriété
+plus faible a priori : u est absolument continue sur tout inter-
+valle compact contenu dans ]0, T[, continue sur [0, T]
+et vérifie l'inéquation intégrale (1.2). Il serait intéressant de
+savoir si toute solution continue sur [0, T] de l'inéquation
+intégrale (1.2) est solution faible de l'équation — -|~ Au 3 /*.at
+DÉFINITION 1.3. — On dit qu'une fonction f de [0, T]
+dans H est à variation bornée s^il existe C tel que pour toute
+subdivision 0 == OQ < a^ < ' ' • < a^ == T de [0, T] on an
+S l/^k)—A^-i)! ^ C. On appelle variation totale de ffc==i
+la borne inférieure des C.
+Nous résumons dans le lemme suivant quelques propriétés
+des fonctions à variation bornée (cf. par exemple [3]),
+19
+
+
+PDF PAGE 9
+318 P. BENILAN ET H. BREZIS
+LEMME 1.3. — Soit f une fonction à variation bornée sur
+[0, T]. Alors f vérifie:
+1) f admet une limite à droite [resp. à gauche) en tout te [0, T[
+(resp. ]0,T]),
+2) f^ \f^ +11)- f^\ dt ^ Ch pour tout h e ]0, T[,
+3) f est faiblement dériwble p.p. sur ]0,T[ et ^eUÇO.T^îî),dut
+4) 5i de plus f est continue et faiblement dérivable à droite
+(resp. à gauche) en tout point de ]0, T[, alors f est absolument
+continue.
+COROLLAIRE 1.2. — Soient A e (9L((ù), f à variation bornée
+sur [0, T] et x e D(A). Soit u la solution faible sur [0, T]
+de Inéquation dévolution
+^+Au9/;u(0)==^. (1.3)
+II y a équivalence entre les propriétés :
+a) x e D(A),
+b) u est lipschitzienne.
+De plus sous ces conditions u est la solution forte de (1.3),
+u{t) e D(A) en tout t e [0, T].
+u est déri^able à droite en tout t e [0, T[ et
+^ (() = (/•(( + 0) - Au(t))o.
+Si de plus A est univoque et f continue, u est faiblement
+dérwable en tout t e [0, T] et —- (() est faiblement continue.dt
+Démonstration du corollaire 1.2. — Supposons d'abord
+x e D(A). D'après le théorème 1, u est dérivable à droite
+en 0 et
+^ (0) = (/•(0 + 0) - A^)o. Soit 0 ^ (o < k + h < T;
+appliquons le lemme 1.1. avec g{t) == f(t + h), v{€) == u{t + h),
+
+
+PDF PAGE 10
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 319
+s === 0 : on obtient
+K<0 + h) — U(<o)| < ^|u(/l) — a;)
++^°e^^^^_^ ^ ^
+Soit |u((o + h) - u(to)| < e\^ \ |^ (0)| + variation totale
+.. dt
+de f}h. Donc u est lipschitzienne.
+Supposons maintenant u lipschitzienne. D'après le théo-
+rème 1, pour tout t e [0, T], u{t) e D(A), (donc en particulier
+b) ===^ a)), u est dérivable à droite en t et
+^(()=(/^+0)~Au(t))o.
+D'après le corollaire 1.1, u est solution forte. Enfin si A est
+univoque, Au{t) étant borné est faiblement continu; si de
+plus f est continue, —— (() est faiblement continue et donc
+u est faiblement dérivable.
+COROLLAIRE 1.3. — Soit A e <St(œ) tel que D(A) soit fermé
+et A° soit borné sur les compacts de D(A).
+Soit fe L^O, T; H) et x e D(A).
+Alors il existe une solution forte de l'équation —c + Au 9 /',
+dt
+u(0) = x. De plus u est dérivable à droite en tout point de
+Lebesgue de f et si jfeL^O, T; H), 1 ^ p ^ 4- œ, alors
+^CLP(O,T;H).
+Démonstration du corollaire 1.3. — Soit f^ une suite de
+fonctions absolument continues sur [0, T] telles que fn—^f
+dans L^O, T; H) et soit u^ une suite de solutions fortes de
+l'équation
+-^ + Ai^ 9 f^ telles que u^ -> u dans C([0, T] ; H).
+L'ensemble {^(();n ^ 0,te [0,T)} est relativement compact
+dans D(A).
+
+
+PDF PAGE 11
+320 p. BENILAN ET H. BREZIS
+Donc \A°u^t)\ ^ M et par suite
+-^ W = |(/,(() - Au^)o| < |/^)| + M p.p. sur ]0, T[.
+Donc
+Kœ - ^(x)\ < ^ [/,(ï)| JT + M(( - s)
+et à la limite
+|u(() -- u(5)| ^ ^ 1/^)1 dt + M(< - s).
+Il en résulte que u est absolument continu et d'après le
+corollaire 1.1, u est solution forte de l'équation du + Au 9 f.
+De plus on a ^
+J^(t) ^ j/WI+M p.p. sur ]0,T[.
+Remarque 1.5. — L'hypothèse « D(A) fermé et AO borné
+sur les compacts de D(A) » est en particulier vérifiée si
+D(A) == H ou bien si A = ô^, est le sous-différentiel de la
+fonction indicatrice d'un convexe fermé C.
+2. Cas où Int(conv D(A)) ^ yf.
+Dans toute cette section A désigne un opérateur apparte-
+nant à dl(œ) tel que Int(conv D(A)) ^ ^ Rappelons (Cf.
+[10] ou bien [4] pour une démonstration simplifiée) qu'alors
+Int D(A) == Int D(A) et que A est borné au voisinage de
+tout point intérieur à D(A).
+THÉORÈME 2. —- Sous les hypothèses précédentes, soient
+f e L^O, T; H) et u une solution faible de l'équation
+du , . .
+^+A"9^Alors
+a) u est à variation bornée sur [0, T],
+b) pour tout t e ]0, T[ point de Lebesgue de f, u(t) e D(A),
+u est dérwable à droite en t et —u {t) = {f{t + 0) —• Au(())0.dt
+
+
+PDF PAGE 12
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 321
+Démonstration de a). — On peut toujours supposer A maxi-
+mal monotone et 0 e Int D(A). Soit p > 0 et M tels que
+|Ç| = p =^Ç 6 D(A) et |AOÇ| < M. On a alors pour tout
+[x, y] e A, (y — A°Ç, x — Ç) > 0 pour tout Ç tel que |Çj = p
+d'où
+\V\ = — ^P (2/, S) < i- (y, a;) + M (l + M\ (2.1)•Ici— P P \^ P/
+Soient alors ^ e L^O, T; H), u^ solution forte de
+du,
+~dt-»+AM,9/,
+tels que f^f dans L^O^îH) et u, -> u uniformément.
+Appliquons l'estimation (2.1) à
+[un(t), /•„(<) - ^ (()J e A p.p.f6]0,T[;du,
+~dt
+On obtient
+rfu,,
+fnW--^(t)U-(Ut)^t))
+dt
+1 d
+-yl-IMn^2+M(l+lu^)•^ rff \ p ^ 1^)1'
+D'où pour tout 0 < s 2$ t ^ T,
+!»„(() - M,^)| < ^ |/,(T)| ^
++ "l" j,"(/n(T)' ""^^ ^T + ^- s + ± r i"»^)!(fT)^ \ P Js J
++2p(K^)12-k(()|2).
+Posons
+9^) = 1/'(^)1 il + -^sup |U(T)|; + M fl + MlUV( P [0,T] ) \ P /
+A la limite on a
+|M(<) - U(s)i < F <p(T) d-î + ^- (|M(S)|2 - JM(()|2). (2.2)
+Cette estimation montre que M est à variation bornée de
+
+
+PDF PAGE 13
+322 P. BENILAN ET H. BREZIS
+variation totale inférieure ou égale à
+f^wdt+^{\um-\u{T)\^
+Démonstration de b). — Utilisons le lemme géométrique
+suivant :
+LEMME 2.1. — Soient C un convexe ouvert et x e ôC. Il
+existe Ç e C tel que
+\z- H2 -\x- Ç|2 ^ \z-x\2 VjseC.
+Soit alors ( e ]0, T[ point de Lebesgue de f. Si u{t) e D(A),
+d'après le théorème 1, u est dérivable à droite en ( et
+d^u^ W = (/^+ 0) - Au(())o. Supposons u{t) f D(A), alors
+u{t) e ôD(A), D'après le lemme 2.1, il existe Ç e Int D(A)
+tel que \z - Ç|2 - \u(t) - Ç|2 < \z - u{t)\2 Vz e D(A). Après
+translation, on peut supposer Ç = 0. On a donc pour tout
+h e [0, (], \u(t — h)\2 — |u(t)|2 ^ \u(t — h) — u{t)\2. D'où en
+reprenant l'estimation (2.2)
+|u(() - u(t - h)\ ^ F 9(r) rfr + 1 \u{t) - u{t - h)\\
+Jt—h ^P
+La fonction u étant continue en t, il existe 8 > 0 tel que
+pour \h\ < 8, |u(() — u(t — h)\ ^ p. D'où pour tout h e [0, 8],
+|u(() — u{t — h)\ ^ 2 ^ ç(ï) dr. Par construction de <p, (
+Jt—h
+est un point de Lebesgue de 9 et donc
+,— u{t) — u{t— h)\ ,hm —-——-v———^ < + oo.h^O h
+h>0 '
+Ce qui est contradictoire avec u{t) f D(A), d'après le
+théorème 1.
+Démonstration du lemme 2.1. — On peut toujours supposer
+x = 0 et C cône convexe ouvert de sommet 0. Soient
+C-L={rreH; {x, z) ^ 0 Vjs e C} cône polaire de C et
+K == {x e C1; (û>, x) = •— 1} où eu est un élément fixé de C.
+
+
+PDF PAGE 14
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 323
+K est un convexe fermé ne contenant pas 0. Soit x eC1
+tel que (œ, x) == 0. Il existe U voisinage de 0 tel que
+<ù + U <= C et donc (u, x) ^ 0 pour tout u e U, ce qui
+implique x = 0. Donc C1 === [_JXK.
+\>Q
+Soit alors Ç la projection de 0 sur K. Montrons que
+— Ç e C. Sinon d'après Hahn-Banach, il existerait Ç ^ 0
+tel que (Ç, — Ç) == /c > (^, 2;) pour tout z e C. Puisque C
+est un cône, (Ç, z) ^ 0 pour tout z e C et donc Ç e C1 et
+k > 0. Donc il existerait ^i e K tel que (î^, Ç) < 0 ce qui
+est impossible car Ç est la projection de 0 sur K.
+Étant donné z e C, on a alors
+^+Ç12-|Ç|2=^|2+2(^) < |Z|2.
+Remarque 2.1. — On peut en fait, compte tenu de la remarque
+1.1, améliorer la conclusion &) du théorème 2. On a en effet :
+si (e]0, T] vérifie Km 1 F \f(^\ d^ < + oo, alorsh^O a Jt—h^0° " Jt-h
+u(()eD(A)$ si de plus t e ]0, T[ et t est point de Lebesgue
+à droite de /, alors u est dérivable à droite et
+^ (<) = (/•(< + 0) - Au(())o.
+COROLLAIRE 2.1. — Soient A e ÛL(<ù) ^ que Int (conv
+D(A)) 7^ ^, /* continu sur [0, T] ^ a; e D(A). AZor^ i7 em^e
+une solution forte unique de Véquation dévolution
+„• + Au 9 /*, u(0) = x.
+De plus cette solution u vérifie:
+u{t) e D(A) pour tout t e ]0, T]
+u est dérivable à droite et —u (t) = {f{t) — A.u(t))° pour tout
+(e]0,T[ avec ^eL^O.T; H).
+Ce corollaire résulte immédiatement du théorème 2 et du
+lemme 1.3.
+
+
+PDF PAGE 15
+324 P. BENILAN ET H. BREZIS
+Remarque 2.2. — On peut facilement remplacer dans le
+corollaire 2.1, f continue par f réglée. Il est vraisemblable
+que sous les hypothèses du théorème 2, u est absolument
+continue. En dehors du corollaire 2.1, nous savons le démontrer
+seulement dans des cas particuliers (cf [3]). Citons par exemple :
+a) Si A e (Sl(œ) est tel que Int (conv D(A)) ^ ^ et ôD(A)
+est différentiable, alors pour tout fe L^O, T; H) et tout
+x e D(A), il existe une solution forte unique de l'équation
+d'évolution — + Au 9 /*, u(0) == x.dt
+6) Si A e (9L(co) est tel que D(A) soit ouvert, alors pour tout
+f e L°°(0, T$ H) et tout x e D(A), il existe une solution forte
+unique de l'équation d'évolution --— 4- Au 9 /, u(0) == x.Cvt
+Remarque 2.3. — Lorsque dim H < + oo, tous les résultats
+de cette section s'appliquent à un opérateur A e (Sl(co) quel-
+conque. En effet, si A est maximal monotone dans H
+et si Oe D(A) (on peut toujours se ramener à ce cas), consi-
+dérons Ho le sous-espace engendré par D(A) et Hi le
+sous-espace orthogonal à Ho. On vérifie facilement que
+AQ == A n (Ho X Ho) est un opérateur maximal monotone
+de Ho et que pour tout x e D(A) == D(Ao), A.X == AQX + H^.
+L'équation — + Au 9 f s'écrit alors par projection sur Hgdtet H i •
+— + AoU 9 Projn/
+0 + Hi 9 Projn/.
+La seconde équation étant toujours vérifiée et l'intérieur
+relatif à Ho de conv D(Ao) étant non vide, tous les résultats
+de la section sont valables.
+« Depuis le dépôt du manuscrit, nous avons démontré
+que lorsque dim H < + oo, pour Ae(St((o) et ^eL^O.T; H)
+quelconques, toute solution faible de -y- + Au 9 f est abso-ut
+lument continue sur [0, T] (cf. [3]). »
+
+
+PDF PAGE 16
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 325
+3. Solutions périodiques.
+Étant donné A e (9L(œ) avec co < 0 et f absolument
+continue telle que f{0) == /(T), il existe u solution forte
+unique de l'équation -u + Au 9 f, u(0) = u(T) ; de plus
+^6L°°(0,T;H).(Cf[3]).
+Le théorème suivant généralise ce résultat :
+THÉORÈME 3. — Soient A maximal monotone et
+f e L^O, T; H). On suppose A. coercif au sens suivant:
+lim (^=+00.|a;l^+oo pj
+[a;, y]€A
+Alors il existe une solution faible sur [0, T] de l'équation
+^+Au9/; u(0)==u(T). (3.1)
+Etant donné u solution faible de (3.1), il existe /*„ e L^O, T; H),
+Un absolument continue sur [0, T] solution de -^n + Au,, 9 /*„,uC
+i^(0) == u^(T), ^5 gué /n-^/* Am5 L^O, T; H), ^ u^->u
+uniformément sur [0, T].
+D'autre part^ l'ensemble des solutions faibles de (3.1) est
+un convexe fermé borné pour la norme uniforme.
+Démonstration du théorème 3. — Désignons par ââ l'espace
+des fonctions continues de [0, T] dans H muni de la norme
+uniforme et ^ == L^O, T; H). Les espaces 96 et ^ sont mis
+en dualité par [u, f] e % X ^ i—^ fj (/'((), uÇt)) dt.
+Considérons % === {[y, /*] e % X c^; u absolument continue
+sur [0, T] et solution de ^ + Au 9 /; u(0) == u(T)}. Il estat
+immédiat que % est monotone. D'autre part, d'après le résul-
+tat classique rappelé au début de cette section, étant donné f
+
+
+PDF PAGE 17
+326 P. BENILAN ET H. BREZIS
+absolument continu sur [0, T] avec f{0) = /'(T), il existe
+u e % unique tel que [u, f — u] e %.
+Enfin d'après le lemme 1.1, si [u, f] et [^, g] e %, pour
+tout t ^ s,
+\u(t) - P(()| ^ 6-(^)|U(5) - (.(5)|
++ ^ ^-T) K/^) + ^)) - (gM + ^)) ^
+et donc
+|u(T) - <T)| < 6-^(0) - P(O)|
++ r eT-T KA^) + u(ï)) - (g(ï) + ^T))| ^
+d'où l'on tire |u(0) - ç>(0)| < ——'—r 11(/'+ »)-(§+ ^11^JL — 6
+et donc
+H^-^ ^ C\\{f+u)-{g+^ avec C=F^r+l
+Ces deux propriétés permettent d'affirmer que 3î, fermeture
+de % dans % X °U est maximal monotone.
+Considérons alors % == {[u, /*] e 96 = ^ u solution faible
+de — + Au 9 /, u(0) = u(T)}. % est monotone : en reprenantCvL
+le lemme 1.1 ou 1.2, on a en effet si u, v sont solutions faibles
+, , . rfu , A /. dv . i,des équations — + Au 9 / et --- -}- Av 3 g respectivement€vb CI/L
+y |U(() - P(^ < -I- |U(.) - P(^
++^'(/'M-gM, U(T)-P(T) rfT
+pour tout 0 < s ^ ( ^ T; d'où si de plus
+u(0) = u(T) et ^(0) = (.(T), j7 (/•(() - g((), u(() - ^(t) dt ^ 0.
+Puisque évidemment ^ <= %, on a % = %.
+Ceci démontre que si u est solution faible de (3.1), il
+existe [u^, fn] e % tel que fn—>f dans L1 et u^—>u uni-
+formément. Ceci démontre aussi que l'ensemble des solutions
+faibles de (3.1) est un convexe fermé pour la topologie <r(%, (U).
+
+
+PDF PAGE 18
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 327
+Démontrons que cet ensemble est non vide et borné. Utilisons
+pour cela le
+LEMME 3.1. — Soient A maximal monotone coercif,
+^eL^O, T;H), M, solution faible de dun + A^ 3 f^ Onat
+suppose {Q borné dans L1 et |^(0)| — |u^(T)| < C. Alors
+(uj est uniformément borné.
+Achevons la démonstration du théorème 3 en montrant
+qu'il existe une solution de (3.1). Pour cela considérons l'appli-
+cation S qui à x e D(A) fait correspondre S{x) la valeur
+en T de la solution faible de l'équation d'évolution
+^+ Au a/*, u(0) =x.
+D'après le lemme 1.1, S est une contraction du convexe
+fermé D(A) dans lui-même. D'autre part pour x e D(A)
+fixé, désignant par u^ la solution faible de l'équation d'évolu-
+tion ^ + Au, 3 /•, u,(0) = S^), on a ^(T) = S^x)
+et donc |u,(T)| - |u,(0)| < JS"-^) - S^)] < \S{x) - ^|;
+donc d'après le lemme 3.1, (S"^)) est borné.
+Appliquant alors un résultat de Browder et Petryshyn [4],
+S admet au moins un point fixe dans D(A). Donc (3.1)
+admet au moins une solution faible.
+Démonstration du lemme 3.1. — On peut toujours supposer
+u^ solution forte de —— + Ai^ 9 f^.Cvt
+D'autre part on peut supposer [0, 0] e A.
+Raisonnant par l'absurbe, supposons (uj non uniformé-
+ment borné. D'après le lemme 1.1, on a
+Kœi ^ 1^(0)1 + a/n^.
+soit l|ujio> ^ |^(0)| + [jy'Ji/ et par suite |i^(0)I ->+ oo.
+Donc aussi |i^(T)|-^ + oo. Comme |u,(T)| < |u^)| + [l/'Ji,
+on a Inf |ujt)|-> + oo. Appliquant la coercivité de A,<eco, T]
+
+
+PDF PAGE 19
+328 P. BENILAN ET H. BREZIS
+(fnW - ^ n{t), u^t)\
+<?»(<) = A————^j————'- -> + oo pour p.p. t e ]0, T[.
+D'où j^ 9n(() <fo -> + oo. Or ceci est impossible puisque
+j7 '?,.(<) dt < U/nIlL. + |^(0)| - |U,(T)|.
+COROLLAIRE 3.1. — Soient 9 fonction convexe s.c.i. propre
+sur H et fe L^O, T; H). On suppose A = 09 coercif. Alors
+il existe u solution forte de -u + Au 9 /, u(0) == u(T). De
+p^^eI^(0,T;H).
+Cela résulte du théorème 3 et du résultat de H. Brézis [2]
+qui, avec nos définitions peut s'exprimer : toute solution faible
+de ,+Au9/' avec jfeL^O, T; H) est solution forte et
+^eLUO,T;H).
+Remarque 3.2. — Dans le cas où A = ô<p, l'hypothèse de
+coercivité est équivalente à A surjectif et (A""1)0 borné sur
+les bornés (cf. [3]). Dans le cas général, cette hypothèse n'est
+pas suffisante pour avoir l'existence de solutions périodiques
+faibles pour tout fç L^O, T; H) : il suffit de considérer pour
+A la rotation d'angle — dans le plan et T == 2?c.2i
+Remarque 3.3. — Le lecteur pourra obtenir de nombreux
+autres corollaires sur l'existence de solutions fortes de l'équa-
+tion , + Au 9 /, u(0) = u(T), en utilisant les résultats de
+la section II. Nous renvoyons à [3] pour l'énoncé de résultats
+complémentaires.
+Remarque 3.4. — Si A est strictement monotone (i.e.
+[x, y} e A, [x\ y'] e A, x ^ x'==^ {y — y\ x ~ x') > 0) il
+existe au plus une solution forte de -u + Au 9 /, u(0) = u(T).at
+
+
+PDF PAGE 20
+SOLUTIONS FAIBLES D'ÉQUATIONS D'ÉVOLUTION 329
+BIBLIOGRAPHIE
+[1] H. BREZIS, On a problem of T. Kato, Comm. Pure App. Math., 24. (1971).
+[2] H. BREZIS, Propriétés régularisantes de certains semi-groupes non
+linéaires, Israël J. of Math.
+[3] H. BREZIS, Opérateurs maximaux monotones et semi groupes non
+linéaires, Cours 3e cycle rédigé par P. Benilan, Paris, (1970).
+[4] F. BROWDER and W. V. PETRYSHYN, Thé solution by itération of non
+linear functional équations in Banach spaces, Bull. Amer. Math.
+Soc., 72 (1966), 571-575.
+[5] M. CRANDALL and T. LIGGETT, Génération of semi groups of non linear
+transformations on général Banach spaces, (à paraître).
+[6] M. CRANDALL and A. PAZY, Semigroups of non linear contractions and
+dissipative sets. J. Funct. Anal., 3 (1969), 376-418.
+[7] N. DUNFORD et J. SCHWARTZ, Linear operators, interscience.
+[8] T. KATO, Accretive operators and non linear évolution équations in
+Banach spaces, Non linear Functional Analysis, Proc. Symp. Pure
+Math., 18, 138-161 A.M.S. (1970).
+[9] Y. KOMURA, Non linear semigroups in Hilbert spaces, J. Math. Soc.
+Japon, 19 (1967), 493-507.
+[10] R. T. ROCKAFELLAR, Local boundeduess of non linear monotone ope-
+rators, Michigan Math. J., 16 (1969), 397-407.
+Manuscrit reçu le 28 juin 1971,
+accepté par G. Choquet.
+P. BENILAN,
+Département de Mathématiques,
+Faculté des Sciences,
+91-Orsay.
+H. BREZIS,
+Institut de Mathématiques,
+Faculté des Sciences,
+9, Quai St-Bernard,
+Paris 5e.

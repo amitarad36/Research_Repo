@@ -1,0 +1,1 @@
+{"status": "complete", "updates": 160, "torch": "2.9.0+cpu", "script_sha256": "f5d4592dc4f1ee7bba937211553d7be8ff194c9b1d7306030c886ad5044ab829", "seed": 3, "cpu_budget": 52.0, "arm_order": ["current-connected", "cached-connected", "current-stopped", "cached-stopped"], "count": 3, "outcome": "reject_this_setting", "cpu_seconds_after_load_including_trace_save": 3.703125}

@@ -1,0 +1,3038 @@
+PDF PAGE 1
+arXiv:0901.3583v1  [math.DS]  23 Jan 2009
+Discontinuous Dynamical Systems
+A tutorial on solutions, nonsmooth analysis, and stability
+Jorge Cort´ es
+November 26, 2024
+Discontinuous dynamical systems arise in a large number of a pplications. In optimal control
+problems, open-loop bang-bang controllers switch discont inuously between extreme values of the
+inputs to generate minimum-time trajectories from the init ial to the ﬁnal states [1]. Thermostats
+implement on-oﬀ controllers to regulate room temperature [ 2]. When the temperature is above the
+desired value, the controller switches the cooling system o n. Once the temperature reaches a preset
+value, the controller switches the cooling system oﬀ. The co ntroller is therefore a discontinuous
+function of the room temperature. In nonsmooth mechanics, t he motion of rigid bodies is subject
+to velocity jumps and force discontinuities as a result of fr iction and impact [3, 4]. In the robotic
+manipulation of objects by means of mechanical contact [5], discontinuities occur naturally from
+interaction with the environment.
+Discontinuities are also intentionally designed to achiev e regulation and stabilization. Sliding
+mode control [6, 7] uses discontinuous feedback controller s for stabilization. The design procedure
+for sliding mode control begins by identifying a surface in t he state space with the property that the
+dynamics of the system restricted to this surface are easily stabilizable. Feedback controllers are
+then synthesized on each side of the surface to steer the solu tions of the system toward the surface.
+The resulting closed-loop system is discontinuous on the su rface. In robotics [8], it is of interest to
+induce emergent behavior in a swarm of robots by prescribing interaction rules among individual
+agents. Simple laws such as “move away from the nearest other robot or environmental boundary”
+give rise to discontinuous dynamical systems. For example, consider a robot placed in a corner
+of a room. On opposite sides of the bisector line between the t wo walls forming the corner, the
+“move away” law translates into diﬀerent velocity vectors f or the robot. The dynamical system is
+thus discontinuous along the bisector line. In optimizatio n [9, 10], continuous-time algorithms that
+perform generalized gradient descent, which is a discontin uous function of the state, are used when
+the objective function is not smooth. In adaptive control [1 1], switching algorithms are employed
+to select the most appropriate controller from a given ﬁnite family in order to enhance robustness,
+ensure boundedness of the estimates, and prevent the system from stepping into undesired regions
+of the state space.
+Many control systems cannot be stabilized by continuous sta te-dependent feedback. As a con-
+sequence, it is necessary to consider either time-dependen t or discontinuous feedback. As an il-
+lustration, consider the one-dimensional system ˙ x = X(x, u ) with an equilibrium at the origin for
+
+PDF PAGE 2
+u = 0. When x > 0, we look for u such that X(x, u ) < 0 (“go left”). Likewise, when x < 0,
+we look for u such that X(x, u ) > 0 (“go right”). Together, these conditions can be stated as
+xX(x, u ) < 0. When the control u appears nonlinearly in X, it may be the case that no continuous
+state-dependent feedback controller x ↦→ u(x) exists such that xX(x, u (x)) < 0 for all x ∈ R. The
+following example illustrates the above discussion.
+Example 1: System requiring discontinuous stabilization
+Consider the one-dimensional system [12]
+˙x = x[(u − 1)2 − (x − 1)][(u + 1)2 + (x − 2)]. (1)
+The shaded areas in Figure 1 represent the regions in the spac e ( x, u ) where xX(x, u ) < 0. From
+the plot, it can be seen that there exists no continuous funct ion x ↦→ u(x) deﬁned on R whose
+graph belongs to the union of the shaded areas. Even control s ystems whose inputs appear linearly
+(see Example 21) may be subject to obstructions that preclud e the existence of continuous state-
+dependent stabilizing feedback [12, 13, 14]. ■
+Numerous fundamental questions arise when dealing with dis continuous dynamical systems. The
+most basic question is the notion of a solution. For a discont inuous vector ﬁeld, the existence of
+a continuously diﬀerentiable solution, that is, a continuo usly diﬀerentiable curve whose derivative
+follows the direction of the vector ﬁeld, is not guaranteed. The following examples illustrate the
+diﬃculties that arise in deﬁning solutions of discontinuou s dynamical systems.
+Example 2: Brick on a frictional ramp
+Consider a brick sliding on a ramp [15]. As the brick moves, it experiences a friction force in the
+opposite direction (see Figure 2(a)). During sliding, the C oulomb friction model states that the
+magnitude of the friction force is independent of the magnit ude of the velocity and is equal to the
+normal contact force times the coeﬃcient of friction. The ap plication of this model to the sliding
+brick yields
+˙v(t) = g(sin θ ) − νg (cos θ ) sign(v(t)), (2)
+where v is the velocity of the brick, g is the acceleration due to gravity, θ > 0 is the inclination of the
+ramp, ν is the coeﬃcient of friction, and sign(0) = 0. The right-hand side of (2) is a discontinuous
+function of v because of the presence of the sign function. Figure 2(b) sho ws the phase plot of this
+system for several values of ν .
+Depending on the magnitude of the friction force, experimen ts show that the brick stops and stays
+stopped. In other words, the brick attains v = 0 in ﬁnite time, and maintains v = 0. However,
+there is no continuously diﬀerentiable solution of (2) that exhibits this type of behavior. To see
+this, note that v = 0 and ˙v = 0 in (2) imply sin θ = 0, which contradicts θ > 0. In order to explain
+this type of physical evolution, we need to understand the di scontinuity in (2) and expand our
+notion of solution beyond continuously diﬀerentiable solu tions. ■
+2
+
+PDF PAGE 3
+Example 3: Nonsmooth harmonic oscillator
+Consider a unit mass subject to a discontinuous spring force . The spring does not exert any force
+when the mass is at the reference position x = 0. When the mass is displaced to the right, that is,
+x > 0, the spring exerts a constant negative force that pulls it b ack to the reference position. When
+the mass is displaced to the left, that is, x < 0, the spring exerts a constant positive force that
+pulls it back to the reference position. According to Newton ’s second law, the system evolution is
+described by [16]
+¨x + sign(x) = 0 . (3)
+By deﬁning the state variables x1 = x and x2 = ˙x, (3) can be rewritten as
+˙x1(t) = x2(t), (4)
+˙x2(t) = − sign(x1(t)), (5)
+which is a nonsmooth version of the classical harmonic oscil lator. The phase portrait of this system
+is plotted in Figure 3(a).
+It can be seen that (0 , 0) is the unique equilibrium of (4)-(5). By discretizing the equations of
+motion, we ﬁnd that the trajectories of the system approach, as the time step is made smaller and
+smaller, the set of curves in Figure 3(b), which are the level sets of the function ( x1, x 2) ↦→ |x1|+ x2
+2
+2 .
+These level sets are analogous to the level sets of the functi on ( x1, x 2) ↦→ x2
+1 + x2
+2, which are
+the trajectories of the classical harmonic oscillator ¨ x + x = 0 [17]. However, the trajectories
+in Figure 3(b) are not continuously diﬀerentiable along the x2-coordinate axis since the limiting
+velocity vectors from the right of the axis and from the left o f the axis do not coincide. ■
+Example 4: Move-away-from-nearest-neighbor interaction law
+Consider n nodes p1, . . . , p n evolving in a square Q according to the interaction rule “move
+diametrically away from the nearest neighbor.” Note that th is rule is not deﬁned when two nodes
+are located at the same point, that is, when the conﬁguration is an element of SS ≜ {(p1, . . . , p n) ∈
+Qn : pi = pj for some i ̸= j}. We thus consider only conﬁgurations that belong to Qn \SS . Next,
+we deﬁne the map that assigns to each node its nearest neighbo r, where the nearest neighbor may be
+an element of the boundary bndry( Q) of the square. Note that the nearest neighbor of a node might
+not be unique, that is, more than one node can be located at the same (nearest) distance. Hence,
+we deﬁne the nearest-neighbor map N = (N1, . . . , Nn) : Qn \SS → Qn by arbitrarily selecting, for
+each i ∈ {1, . . . , n }, an element,
+Ni(p1, . . . , p n) ∈ argmin{∥pi − q∥2 : q ∈ bndry(Q) ∪ {p1, . . . , p n}\{pi}},
+where argmin stands for the minimizing value of q, and ∥ · ∥2 denotes the Euclidean norm. By
+deﬁnition, Ni(p1, . . . , p n) ̸= pi. For i ∈ {1, . . . , n }, we thus deﬁne the move-away-from-nearest-
+neighbor interaction law
+˙pi = pi(t) − N i(p1(t), . . . , p n(t))
+∥pi(t) − N i(p1(t), . . . , p n(t))∥2
+. (6)
+3
+
+PDF PAGE 4
+Changes in the value of the nearest-neighbor map N induce discontinuities in the dynamical system.
+For instance, consider a node suﬃciently close to a vertex of bndry(Q) so that the closest neighbor
+to the node is an element of the boundary. Depending on how the node is positioned with respect
+to the bisector line passing through the vertex, the node com putes diﬀerent directions of motion,
+see Figure 4 for an illustration.
+To analyze the dynamical system (6), we need to understand ho w the discontinuities aﬀect its
+evolution. Since each node moves away from its nearest neigh bors, it is reasonable to expect that
+the nodes never run into each other, however, rigorous veriﬁ cation of this property requires a proof.
+We would also like to characterize the asymptotic behavior o f the trajectories of the system (6). In
+order to study these questions, we need to extend our notion o f solution. ■
+Beyond continuously diﬀerentiable solutions
+Examples 2-4 above can be described by a dynamical system of t he form
+˙x(t) = X(x(t)), x (t0) = x0, (7)
+where x ∈ Rd, d is a positive integer, and X : Rd → Rd is not necessarily continuous. We refer to
+a continuously diﬀerentiable solution t ↦→ x(t) of (7) as classical. Clearly, if X is continuous, then
+every solution is classical. Without loss of generality, we take t0 = 0. We consider only solutions
+that run forward in time.
+Examples 2-4 illustrate the limitations of classical solut ions, and confront us with the need to
+identify a suitable notion for solutions of (7). Unfortunat ely, there is not a unique answer to this
+question. Depending on the problem and objective at hand, di ﬀerent notions are appropriate. In
+this article, we restrict our attention to solutions that ar e absolutely continuous. Although not
+treated in detail in this article, it is also possible to cons ider solutions that admit discontinuities,
+and hence are not absolutely continuous. These solutions ar e discussed in “Solutions with Jumps.”
+The function γ : [ a, b ] → R is absolutely continuous if, for all ε ∈ (0, ∞ ), there exists δ ∈ (0, ∞ )
+such that, for each ﬁnite collection {(a1, b 1), . . . , (an, b n)} of disjoint open intervals contained in
+[a, b ] with ∑n
+i=1(bi − ai) < δ , it follows that
+n∑
+i=1
+|γ (bi) − γ (ai)|< ε.
+Equivalently [12], γ is absolutely continuous if there exists a Lebesgue integra ble function κ :
+[a, b ] → R such that
+γ (t) = γ (a) +
+∫ t
+a
+κ (s)ds, t ∈ [a, b ].
+Every absolutely continuous function is continuous. Howev er, the converse is not true, since the
+function γ : [ −1, 1] → R deﬁned by γ (t) = t sin
+(1
+t
+)
+for t ̸= 0 and γ (0) = 0 is continuous, but not
+absolutely continuous. Moreover, every continuously diﬀe rentiable function is absolutely continu-
+ous, but the converse is not true. For instance, the function γ : [ −1, 1] → R deﬁned by γ (t) = |t|
+4
+
+PDF PAGE 5
+is absolutely continuous but not continuously diﬀerentiab le at 0. As this example suggests, every
+absolutely continuous function is diﬀerentiable almost ev erywhere. Finally, every locally Lipschitz
+function (see “Locally Lipschitz Functions”) is absolutel y continuous, but the converse is not true.
+For instance, the function γ : [0 , 1] → R deﬁned by γ (t) =
+√
+t is absolutely continuous but not
+locally Lipschitz at 0.
+Caratheodory solutions [18] are a generalization of classi cal solutions. Roughly speaking, Caratheodory
+solutions are absolutely continuous curves that satisfy th e integral version of the diﬀerential equa-
+tion (7), that is,
+x(t) = x(t0) +
+∫ t
+t0
+X(x(s))ds, t > t 0, (8)
+where the integral is the Lebesgue integral. By using the int egral form (8), Caratheodory solutions
+relax the classical requirement that the solution must foll ow the direction of the vector ﬁeld at all
+times, that is, the diﬀerential equation (7) need not be sati sﬁed on a set of measure zero. As shown
+in this article, Caratheodory solutions exist for Example 3 but do not exist for examples 2 and 4.
+Alternatively, Filippov solutions [18] replace the diﬀere ntial equation (7) by a diﬀerential inclusion
+of the form
+˙x(t) ∈ F (x(t)), (9)
+where F : Rd → B(Rd) and B(Rd) denotes the collection of all subsets of Rd. Filippov solutions
+are absolutely continuous curves. At a given state x, instead of focusing on the value of the vector
+ﬁeld at x, the idea behind Filippov solutions is to introduce a set of d irections that are determined
+by the values of the vector ﬁeld X in a neighborhood of x. Diﬀerential inclusions [19, 20] thus
+involve set-valued maps. Just as a standard map or function takes a point in its do main to a single
+point in another space, a set-valued map takes a point in its d omain to a set of points in another
+space. A diﬀerential inclusion thus speciﬁes that the state derivative belongs to a set of directions,
+rather than being a speciﬁc direction. This ﬂexibility is cr ucial for providing conditions on the
+discontinuous vector ﬁeld under which Filippov solutions e xist. This solution notion plays a key
+role in many of the applications mentioned above, including sliding mode control and mechanics
+with Coulomb-like friction.
+Unfortunately, the obstructions to continuous stabilizat ion illustrated in Example 1 also hold [21,
+22] for Filippov solutions. Sample-and-hold solutions [23 ], which are also absolutely continuous
+curves, turn out to be the appropriate notion for circumvent ing these obstructions [24, 25, 26].
+“Additional Solution Notions for Discontinuous Systems” d escribes additional solution notions for
+discontinuous systems. In this article, we focus on Carathe odory, Filippov, and sample-and-hold
+solutions.
+Existence, uniqueness, and stability of solutions
+In addition to the notion of solution, we consider existence and uniqueness of solutions as well
+as stability. For ordinary diﬀerential equations, it is wel l known that continuity of the vector ﬁeld
+5
+
+PDF PAGE 6
+does not guarantee uniqueness. Not surprisingly, no matter what notion of solution is chosen for
+a discontinuous vector ﬁeld, nonuniqueness can occur. We th us provide suﬃcient conditions for
+uniqueness. We also present results speciﬁcally tailored t o piecewise continuous vector ﬁelds and
+diﬀerential inclusions.
+The lack of uniqueness of solutions must be considered when w e try to establish properties such as
+local stability. This issue is reﬂected in the use of the adje ctives weak and strong. The word “weak”
+is used when a property is satisﬁed by at least one solution st arting from each initial condition.
+On the other hand, “strong” is used when a property is satisﬁe d by all solutions starting from each
+initial condition. Therefore, for example, “weakly stable equilibrium point” means that at least
+one solution starting close to the equilibrium point remain s close to it, whereas “strongly stable
+equilibrium point” means that all solutions starting close to the equilibrium point remain close to
+it. For detailed deﬁnitions, see [14, 18].
+We present weak and strong stability results for discontinu ous dynamical systems and diﬀerential
+inclusions. As suggested by Example 3, smooth Lyapunov func tions do not suﬃce to analyze the
+stability of discontinuous systems. This fact leads natura lly to the subject of nonsmooth analysis.
+In particular, we pay special attention to the generalized g radient of a locally Lipschitz function [9]
+and the proximal subdiﬀerential of a lower semicontinuous f unction [24]. Building on these notions,
+weak and strong monotonicity properties of candidate Lyapu nov functions can be established along
+the solutions of discontinuous dynamical systems. These re sults are used to provide generalizations
+of Lyapunov stability theorems and the invariance principl e, which help us study the stability of
+solutions. To illustrate the applicability of these result s, we discuss in detail a class of nonsmooth
+gradient ﬂows.
+There are two ways to apply the stability results presented h ere to control systems. The ﬁrst way
+is to choose a speciﬁc input function and consider the result ing dynamical system. The second way
+is to associate with the control system the set-valued map th at assigns each state to the set of all
+vectors generated by the allowable inputs, and consider the resulting diﬀerential inclusion. Rather
+than focusing on a particular input, this viewpoint allows u s to consider the full range of trajectories
+of the control system. To analyze the stability of the contro l system under this approach, we can
+use the nonsmooth tools developed for diﬀerential inclusio ns. We explore this idea in detail.
+Given the large body of work on discontinuous systems, our ai m is to provide a clear exposition
+of a few useful and central results. “Additional Topics on Di scontinuous Systems and Diﬀerential
+Inclusions” brieﬂy discusses issues that are not considere d in the main exposition.
+Organization of this article
+We start by reviewing basic results on the existence and uniq ueness of classical, that is, continu-
+ously diﬀerentiable, solutions of ordinary diﬀerential eq uations. We also present several examples
+in which the vector ﬁeld fails to satisfy the standard smooth ness properties. We then introduce
+various notions of solution for discontinuous systems, dis cuss existence and uniqueness results, and
+present useful tools for analysis. In preparation for the st atement of stability results, we introduce
+the generalized gradient and proximal subdiﬀerential from nonsmooth analysis, and present various
+6
+
+PDF PAGE 7
+tools for their explicit computation. Then, we develop anal ysis results to characterize the stabil-
+ity and asymptotic convergence properties of the solutions of discontinuous dynamical systems.
+We illustrate these nonsmooth stability results by means of examples, paying special attention to
+gradient systems. Throughout the discussion, we interchan geably use “diﬀerential equation,” “dy-
+namical system,” and “vector ﬁeld.” For reference, “Index o f Symbols” summarizes the notation
+used throughout.
+To simplify the presentation, we have chosen to restrict our attention to time-invariant vector
+ﬁelds, although most of the development can be adapted to the time-varying setting. We brieﬂy
+discuss time-varying systems in “Caratheodory Conditions for Time-varying Vector Fields” and
+“Caratheodory Solutions of Diﬀerential Inclusions.” Like wise, for simplicity, we mostly consider
+vector ﬁelds deﬁned over the whole Euclidean space, althoug h the exposition can be carried out in
+more general settings such as open and connected subsets of t he Euclidean space.
+Existence and Uniqueness for Ordinary Diﬀerential Equatio ns
+In this section, we review basic results on existence and uni queness of classical solutions for
+ordinary diﬀerential equations. We also present examples t hat do not satisfy the hypotheses of
+these results but nevertheless exhibit existence and uniqu eness of classical solutions, as well as
+examples that do not possess such desirable properties.
+Existence of classical solutions
+Consider the diﬀerential equation
+˙x(t) = X(x(t)), (10)
+where X : Rd → Rd is a vector ﬁeld. The point xe ∈ Rd is an equilibrium of (10) if 0 = X(xe).
+A classical solution of (10) on [0 , t 1] is a continuously diﬀerentiable map x : [0 , t 1] → Rd that
+satisﬁes (10). Note that, without loss of generality, we con sider only solutions that start at time
+0. Usually, we refer to t ↦→ x(t) as a classical solution with initial condition x(0). We sometimes
+write the initial condition as x0 instead of x(0). The solution t ↦→ x(t) is maximal if it cannot be
+extended forward in time, that is, if t ↦→ x(t) is not the result of the truncation of another solution
+with a larger interval of deﬁnition. Note that the interval o f deﬁnition of a maximal solution is
+either of the form [0 , T ), where T > 0, or [0 , ∞ ).
+Continuity of the vector ﬁeld suﬃces to guarantee the existe nce of classical solutions, as stated
+by Peano’s theorem [27].
+Proposition 1. Let X : Rd → Rd be continuous. Then, for all x0 ∈ Rd, there exists a
+classical solution of (10) with initial condition x(0) = x0.
+The following example shows that, if the vector ﬁeld is disco ntinuous, then classical solutions
+of (10) might not exist.
+7
+
+PDF PAGE 8
+Example 5: Discontinuous vector ﬁeld with nonexistence of c lassical solutions
+Consider the vector ﬁeld X : R → R deﬁned by
+X(x) =
+{
+−1, x > 0,
+1, x ≤ 0, (11)
+which is discontinuous at 0 (see Figure 5(a)). Suppose that t here exists a continuously diﬀerentiable
+function x : [0, t 1] → R such that ˙x(t) = X(x(t)) and x(0) = 0. Then ˙ x(0) = X(x(0)) = X(0) = 1,
+which implies that, for all positive t suﬃciently small, x(t) > 0 and hence ˙ x(t) = X(x(t)) = −1,
+which contradicts the fact that t ↦→ ˙x(t) is continuous. Hence, no classical solution starting from 0
+exists. ■
+In contrast to Example 5, the following example shows that th e lack of continuity of the vector
+ﬁeld does not preclude the existence of classical solutions .
+Example 6: Discontinuous vector ﬁeld with existence of clas sical solutions
+Consider the vector ﬁeld X : R → R,
+X(x) = − sign(x) =
+
+
+
+
+
+−1, x > 0,
+0, x = 0,
+1, x < 0,
+(12)
+which is discontinuous at 0 (see Figure 5(b)). If x(0) > 0, then the maximal solution x : [0, x (0)) →
+R is x(t) = x(0) − t, whereas, if x(0) < 0, then the maximal solution x : [0 , −x(0)) → R is
+x(t) = x(0) + t. Finally, if x(0) = 0, then the maximal solution x : [0, ∞ ) → R is x(t) = 0. Hence
+the associated dynamical system ˙ x(t) = X(x(t)) has a classical solution starting from every initial
+condition. Although the vector ﬁelds (11) and (12) are ident ical except for the value at 0, the
+existence of classical solutions is surprisingly diﬀerent . ■
+Uniqueness of classical solutions
+Uniqueness of classical solutions of the diﬀerential equation (10) means that every pair of sol utions
+with the same initial condition coincide on the intersectio n of their intervals of existence. In other
+words, if x1 : [0 , t 1] → Rd and x2 : [0 , t 2] → Rd are classical solutions of (10) with x1(0) = x2(0),
+then x1(t) = x2(t) for all t ∈ [0, t 1] ∩ [0, t 2] = [0 , min{t1, t 2}]. Equivalently, we say that there exists
+a unique maximal solution starting from each initial condit ion.
+Uniqueness of classical solutions is guaranteed under a wid e variety of conditions. The book [28],
+for instance, is devoted to collecting various uniqueness c riteria. Here, we focus on a uniqueness
+criterion based on one-sided Lipschitzness. The vector ﬁel d X : Rd → Rd is one-sided Lipschitz on
+U ⊂ Rd if there exists L > 0 such that, for all y, y ′∈ U ,
+[X(y) − X(y′)]T (y − y′) ≤ L ∥y − y′∥2
+2. (13)
+8
+
+PDF PAGE 9
+This property is one-sided because it imposes a requirement on X only when the angle between the
+two vectors on the left-hand side of (13) is between 0 and 180 d egrees. The following result, given
+in [28], uses this property to provide a suﬃcient condition f or uniqueness.
+Proposition 2. Let X : Rd → Rd be continuous. Assume that, for all x ∈ Rd, there
+exists ε > 0 such that X is one-sided Lipschitz on B(x, ε ). Then, for all x0 ∈ Rd, there exists a
+unique classical solution of (10) with initial condition x(0) = x0.
+Every vector ﬁeld that is locally Lipschitz at x (see “Locally Lipschitz Functions”) satisﬁes the
+one-sided Lipschitz condition on a neighborhood of x, but the converse is not true. For example, the
+vector ﬁeld X : R → R deﬁned by X(0) = 0 and X(x) = x log(|x|) for x ̸= 0 is one-sided Lipschitz
+on a neighborhood of 0, but is not locally Lipschitz at 0. Furt hermore, a one-sided Lipschitz vector
+ﬁeld can be discontinuous. For example, the discontinuous v ector ﬁeld (12) is one-sided Lipschitz
+on a neighborhood of 0.
+The following result is an immediate consequence of Proposi tion 2.
+Corollary 1. Let X : Rd → Rd be locally Lipschitz. Then, for all x0 ∈ Rd, there exists
+a unique classical solution of (10) with initial condition x(0) = x0.
+Although local Lipschitzness is typically invoked as in Cor ollary 1 to guarantee uniqueness, Propo-
+sition 2 shows that uniqueness is guaranteed under weaker hy potheses. The following example shows
+that, if the hypotheses of Proposition 2 are not satisﬁed, th en solutions might not be unique.
+Example 7: Continuous, not one-sided Lipschitz vector ﬁeld with nonunique classical
+solutions
+Consider the vector ﬁeld X : R → R deﬁned by
+X(x) =
+√
+|x|. (14)
+This vector ﬁeld is continuous everywhere, locally Lipschi tz on R \ {0} (see Figure 5(c)), but is
+neither locally Lipschitz at 0 nor one-sided Lipschitz on an y neighborhood of 0. The associated
+dynamical system ˙x(t) = X(x(t)) has inﬁnitely many maximal solutions starting from 0, nam ely,
+for all a > 0, xa : [0, ∞ ) → R, where
+xa(t) =
+{
+0, 0 ≤ t ≤ a,
+(t − a)2/ 4, t ≥ a,
+and x : [0, ∞ ) → R, where x(t) = 0. ■
+However, the following example shows that a diﬀerential equ ation can possess a unique classical
+solution even when the hypotheses of Proposition 2 are not sa tisﬁed.
+9
+
+PDF PAGE 10
+Example 8: Continuous, not one-sided Lipschitz vector ﬁeld with unique classical
+solutions
+Consider the vector ﬁeld X : R → R deﬁned by
+X(x) =
+
+
+
+
+
+−x log x, x > 0,
+0, x = 0,
+x log(−x), x < 0.
+(15)
+This vector ﬁeld is continuous everywhere, and locally Lips chitz on R\{0} (see Figure 5(d)). How-
+ever, X is not locally Lipschitz at 0 nor one-sided Lipschitz on any n eighborhood of 0. Nevertheless,
+the associated dynamical system ˙ x(t) = X(x(t)) has a unique solution starting from each initial
+condition. If x(0) > 0, then the maximal solution x : [0 , ∞ ) → R is x(t) = exp(log x(0) exp(−t)),
+whereas, if x(0) < 0, then the maximal solution x : [0, ∞ ) → R is x(t) = − exp(log(−x(0)) exp(t)).
+Finally, if x(0) = 0, then the maximal solution x : [0, ∞ ) → R is x(t) = 0. ■
+Note that Proposition 2 assumes that the vector ﬁeld is conti nuous. However, the discontinuous
+vector ﬁeld (12) in Example 6 is one-sided Lipschitz in a neig hborhood of 0 and, indeed, has a unique
+classical solution starting from each initial condition. T his observation suggests that discontinuous
+systems are not necessarily more complicated or less “well- behaved” than continuous systems. The
+continuous system (14) in Example 7 does not have a unique cla ssical solution starting from each
+initial condition, whereas the discontinuous system (12) i n Example 6 does. A natural question to
+ask is under what conditions does a discontinuous vector ﬁel d have a unique solution starting from
+each initial condition. Of course, the answer to this questi on relies on the notion of solution itself.
+We explore these questions in the next section.
+Notions of Solution for Discontinuous Dynamical Systems
+The above discussion shows that the classical notion of solu tion is too restrictive when consid-
+ering a discontinuous vector ﬁeld. We thus explore alternat ive notions of solution to reconcile
+this mismatch. To address the discontinuities of the diﬀere ntial equation (10), we ﬁrst relax the
+requirement that solutions follow the direction speciﬁed b y the vector ﬁeld at all times. The pre-
+cise mathematical notion corresponding to this idea is that of Caratheodory solutions, which we
+introduce next.
+Caratheodory solutions
+A Caratheodory solution of (10) deﬁned on [0 , t 1] ⊂ R is an absolutely continuous map x :
+[0, t 1] → Rd that satisﬁes (10) for almost all t ∈ [0, t 1] (in the sense of Lebesgue measure). In
+other words, a Caratheodory solution follows the direction speciﬁed by the vector ﬁeld except for
+a set of time instants that has measure zero. Equivalently, C aratheodory solutions are absolutely
+10
+
+PDF PAGE 11
+continuous functions that solve the integral version of (10 ), that is,
+x(t) = x(0) +
+∫ t
+0
+X(x(s))ds. (16)
+Of course, every classical solution is also a Caratheodory s olution.
+Example 9: System with Caratheodory solutions and no classi cal solutions
+The vector ﬁeld X : R → R deﬁned by
+X(x) =
+
+
+
+
+
+1, x > 0,
+1
+2 , x = 0,
+−1, x < 0,
+is discontinuous at 0. The associated dynamical system ˙ x(t) = X(x(t)) does not have a classical
+solution starting from 0. However, this system has two Carat heodory solutions starting from 0,
+namely, x1 : [0 , ∞ ) → R, where x1(t) = t, and x2 : [0 , ∞ ) → R, where x2(t) = −t. Note that
+both x1 and x2 violate the diﬀerential equation only at t = 0, that is, ˙ x1(0) ̸= X(x1(0)) and
+˙x2(0) ̸= X(x2(0)). ■
+Example 3 revisited: Existence of Caratheodory solutions f or the nonsmooth harmonic
+oscillator
+The nonsmooth harmonic oscillator in Example 3 does not poss ess a classical solution starting
+from any initial condition on the x2-axis. However, the closed level sets depicted in Figure 3(b ),
+when traversed clockwise, are Caratheodory solutions. ■
+Unfortunately, the good news is quickly over since it is easy to ﬁnd examples of discontinuous
+dynamical systems that do not admit Caratheodory solutions . For example, the physical mo-
+tions observed in Example 2, where the brick slides for a whil e and then remains stopped, are
+not Caratheodory solutions. Furthermore, the discontinuo us vector ﬁeld (11) does not admit a
+Caratheodory solution starting from 0. Finally, the move-a way-from-nearest-neighbor interaction
+law in Example 4 is yet another example where Caratheodory so lutions do not exist, as we show
+next.
+Example 4 revisited: Nonexistence of Caratheodory solutio ns for the move-away-from-
+nearest-neighbor interaction law
+Consider one agent moving in the square [ −1, 1]2 ⊂ R2 under the move-away-from-nearest-
+neighbor interaction law described in Example 4. Since no ot her agent is present in the square, the
+11
+
+PDF PAGE 12
+agent moves away from the nearest polygonal boundary, accor ding to the vector ﬁeld
+X(x1, x 2) =
+
+
+
+
+
+
+
+
+
+
+
+(−1, 0), −x1 < x 2 ≤ x1,
+(0, 1), x 2 < x 1 ≤ − x2,
+(1, 0), x 1 ≤ x2 < −x1,
+(0, −1), −x2 ≤ x1 < x 2.
+(17)
+Since the move-away-from-nearest-neighbor interaction l aw takes multiple values on the diagonals
+{(a, ±a) ∈ [−1, 1]2 : a ∈ [−1, 1]} of the square, we choose one of these values in the deﬁnition ( 17)
+of X. The phase portrait in Figure 6(a) shows that the vector ﬁeld X is discontinuous on the
+diagonals.
+The dynamical system ˙x(t) = X(x(t)) has no Caratheodory solution if and only if the initial con -
+dition belongs to the diagonals. This fact can be justiﬁed as follows. Consider the four open regions
+of the square separated by the diagonals, see Figure 6(a). On the one hand, if the initial condition
+belongs to one of these regions, then the dynamical system ha s a classical solution; depending
+on which region the initial condition belongs to, the agent m oves either vertically or horizontally
+toward the diagonals. On the other hand, on the diagonals of t he square, X pushes trajectories
+outward, whereas, outside the diagonals, X pushes trajectories inward. Therefore, if the initial
+condition belongs to the diagonals, then the only candidate trajectory for a Caratheodory solution
+is a trajectory that moves along the diagonals. From the deﬁn ition (16) of Caratheodory solution,
+it is clear that a trajectory that moves along the diagonals o f the square is not a Caratheodory
+solution. We show later that this trajectory is instead a Fil ippov solution. ■
+Suﬃcient conditions for the existence of Caratheodory solutions
+Conditions under which Caratheodory solutions exist are di scussed in “Caratheodory Conditions
+for Time-varying Vector Fields.” For time-invariant vecto r ﬁelds, the Caratheodory conditions
+given by Proposition S1 specialize to continuity of the vect or ﬁeld. This requirement provides
+no improvement over Proposition 1, which guarantees the exi stence of classical solutions under
+continuity.
+Therefore, it is of interest to determine conditions for the existence of Caratheodory solutions
+speciﬁcally tailored to time-invariant vector ﬁelds. For e xample, directionally continuous vector
+ﬁelds are considered in [29]. A vector ﬁeld X : Rd → Rd is directionally continuous if there exists
+δ ∈ (0, ∞ ) such that, for every x ∈ Rd with X(x) ̸= 0 and every sequence {xn}n∈N ⊂ Rd with
+xn → x and
+
+
+ xn − x
+∥xn − x∥2
+− X(x)
+∥X(x)∥2
+
+
+
+2
+< δ, n ∈ N, (18)
+it follows that X(xn) → X(x). If the vector ﬁeld X is directionally continuous, then, for all x0 ∈ Rd,
+there exists a Caratheodory solution of (10) with initial co ndition x(0) = x0.
+Patchy vector ﬁelds [30] are another class of time-invarian t, discontinuous vector ﬁelds that have
+Caratheodory solutions. Additional conditions for the exi stence and uniqueness of Caratheodory
+12
+
+PDF PAGE 13
+conditions can be found in [31, 32, 33]. Beyond diﬀerential e quations, Caratheodory solutions can
+also be deﬁned for diﬀerential inclusions, as explained in “ Set-valued Maps” and “Caratheodory
+Solutions of Diﬀerential Inclusions.”
+Filippov solutions
+The above discussion shows that the relaxation of the value o f the vector ﬁeld on a set of times
+of measure zero in the deﬁnition of Caratheodory solution is not always suﬃcient to guarantee that
+such solutions exist. Due to the discontinuity of the vector ﬁeld, its value can exhibit signiﬁcant
+variations arbitrarily close to a given point, and this mism atch might make it impossible to construct
+a Caratheodory solution.
+What if, instead of focusing on the value of the vector ﬁeld at individual points, we consider how
+the vector ﬁeld looks like around each point? The idea of looking at a neighborhood of each poin t
+is at the core of the notion of Filippov solution [18]. Closel y related notions are those of Krasovskii
+solution [34] and Sentis solution [35].
+The mathematical framework for formalizing this neighborh ood idea uses set-valued maps. The
+idea is to associate a set-valued map to X : Rd → Rd by looking at the neighboring values of X
+around each point. Speciﬁcally, for x ∈ Rd, the vector ﬁeld X is evaluated at the points belonging
+to B(x, δ ), which is the open ball centered at x with radius δ > 0. We examine the eﬀect of δ
+approaching 0 by performing this evaluation for smaller and smaller δ . For additional ﬂexibility,
+we exclude an arbitrary set of measure zero in B(x, δ ) when evaluating X, so that the outcome is
+the same for two vector ﬁelds that diﬀer on a set of measure zer o.
+Mathematically, the above procedure can be summarized as fo llows. Let B(Rd) denote the
+collection of subsets of Rd. For X : Rd → Rd, deﬁne the Filippov set-valued map F [X] : Rd → B(Rd)
+by
+F [X](x) ≜
+⋂
+δ>0
+⋂
+µ(S)=0
+co{X(B(x, δ )\S)}, x ∈ Rd. (19)
+In (19), co denotes convex closure, and µ denotes Lebesgue measure. Because of the way the
+Filippov set-valued map is deﬁned, the value of F [X] at a point x is independent of the value of
+the vector ﬁeld X at x.
+Examples 5 and 6 revisited: Filippov set-valued map of the si gn function
+Let us compute the Filippov set-valued map for the vector ﬁel ds (11) and (12). Since both vector
+ﬁelds diﬀer only at 0, which is a set of measure zero, their ass ociated Filippov set-valued maps are
+identical and equal to F [X] : R → B(R), where
+F [X](x) =
+
+
+
+
+
+−1, x > 0,
+[−1, 1], x = 0,
+1, x < 0.
+(20)
+13
+
+PDF PAGE 14
+Note that this Filippov set-valued map is multiple-valued o nly at the point of discontinuity of the
+vector ﬁeld. This observation is valid for all vector ﬁelds. ■
+We are now ready to handle the discontinuities of the vector ﬁ eld X by using the Filippov set-
+valued map of X. We replace the diﬀerential equation ˙ x(t) = X(x(t)) by the diﬀerential inclusion
+˙x(t) ∈ F [X](x(t)). (21)
+A Filippov solution of (10) on [0 , t 1] ⊂ R is an absolutely continuous map x : [0 , t 1] → Rd that
+satisﬁes (21) for almost all t ∈ [0, t 1]. Equivalently, a Filippov solution of (10) is a Caratheodo ry
+solution of the diﬀerential inclusion (21), see “Caratheod ory Solutions of Diﬀerential Inclusions.”
+Because of the way the Filippov set-valued map is deﬁned, a ve ctor ﬁeld that diﬀers from X on
+a set of measure zero has the same Filippov set-valued map, an d hence the same set of solutions.
+The next result establishes mild conditions under which Fil ippov solutions exist [18, 19].
+Proposition 3. Let X : Rd → Rd be measurable and locally essentially bounded, that
+is, bounded on a bounded neighborhood of every point, exclud ing sets of measure zero. Then, for all
+x0 ∈ Rd, there exists a Filippov solution of (10) with initial condition x(0) = x0.
+In Proposition 3, the hypotheses on the vector ﬁeld imply tha t the associated Filippov set-valued
+map satisﬁes all of the hypotheses of Proposition S1 (see “Ca ratheodory Solutions of Diﬀerential
+Inclusions”), which in turn guarantees the existence of Fil ippov solutions.
+Examples 5 and 6 revisited: Existence of Filippov solutions for the sign function
+The application of Proposition 3 to the bounded vector ﬁelds in examples 5 and 6 guarantees that a
+Filippov solution of (10) exists for both examples starting from each initial condition. Furthermore,
+since the vector ﬁelds (11) and (12) have the same Filippov se t-valued map (20), examples 5 and 6
+have the same maximal Filippov solutions. If x(0) > 0, then the maximal solution x : [0, ∞ ) → R
+is
+x(t) =
+{
+x(0) − t, t ≤ x(0),
+0, t ≥ x(0),
+whereas, if x(0) < 0, then the maximal solution x : [0, ∞ ) → R is
+x(t) =
+{
+x(0) + t, t ≤ − x(0),
+0, t ≥ − x(0).
+Finally, if x(0) = 0, then the maximal solution x : [0, ∞ ) → R is x(t) = 0. ■
+Similar computations can be made for the move-away-from-ne arest-neighbor interaction law in
+Example 4 to show that Filippov solutions exist starting fro m each initial condition, as we show
+next.
+14
+
+PDF PAGE 15
+Example 4 revisited: Filippov solutions for the move-away- from-nearest-neighbor in-
+teraction law
+Consider again the discontinuous vector ﬁeld for one agent m oving in the square [ −1, 1]2 ⊂ R2
+under the move-away-from-nearest-neighbor interaction l aw described in Example 4. The corre-
+sponding set-valued map F [X] : [ −1, 1]2 → B(R2) is given by
+F [X](x1, x 2) =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{(y1, y 2) ∈ R2 : |y1 + y2| ≤1, |y1 − y2| ≤1}, (x1, x 2) = (0 , 0),
+{(−1, 0)}, −x1 < x 2 < x 1,
+{(y1, y 2) ∈ R2 : y1 + y2 = −1, y 1 ∈ [−1, 0]}, 0 < x 2 = x1,
+{(0, 1)}, x 2 < x 1 < −x2,
+{(y1, y 2) ∈ R2 : y1 − y2 = −1, y 1 ∈ [−1, 0]}, 0 < −x1 = x2,
+{(1, 0)}, x 1 < x 2 < −x1,
+{(y1, y 2) ∈ R2 : y1 + y2 = 1, y 1 ∈ [0, 1]}, x 2 = x1 < 0,
+{(0, −1)}, −x2 < x 1 < x 2,
+{(y1, y 2) ∈ R2 : y1 − y2 = 1, y 1 ∈ [0, 1]}, 0 < x 1 = −x2.
+(22)
+Since X is bounded, it follows from Proposition 3 that a Filippov sol ution exists starting from each
+initial condition, see Figure 6(b). In particular, each sol ution starting from a point on a diagonal
+is a straight line ﬂowing along the diagonal itself and reach ing (0 , 0). For example, the maximal
+solution x : [0, ∞ ) → R2 starting from ( a, a ) ∈ R2 is given by
+t ↦→ x(t) =
+{
+(a − 1
+2 sign(a)t, a − 1
+2 sign(a)t), t ≤ |a|,
+(0, 0), t ≥ |a|. (23)
+Note that the solution slides along the diagonals, following a convex combination of the l imiting
+values of X around the diagonals, rather than the direction speciﬁed by X itself. We study this type
+of behavior in more detail in the section “Piecewise continu ous vector ﬁelds and sliding motions.”
+■
+Relationship between Caratheodory and Filippov solutions
+In general, Caratheodory and Filippov solutions are not rel ated. A vector ﬁeld for which both
+notions of solution exist but Filippov solutions are not Car atheodory solutions is given in [30]. The
+following is an example of the opposite case.
+Example 10: V ector ﬁeld with a Caratheodory solution that is not a Filippov solution
+Consider the vector ﬁeld X : R → R given by
+X(x) =
+{
+1, x ̸= 0,
+0, x = 0. (24)
+15
+
+PDF PAGE 16
+The dynamical system (10) has two Caratheodory solutions st arting from 0, namely, x1 : [0, ∞ ) →
+R, where x1(t) = 0, and x2 : [0 , ∞ ) → R, where x2(t) = t. However, the associated Filippov
+set-valued map F [X] : R → B(R) is F [X](x) = {1}, and hence t ↦→ x2(t) is the unique Filippov
+solution starting from 0. ■
+On a related note, Caratheodory solutions are always Krasov skii solutions (see “Additional So-
+lution Notions for Discontinuous Systems”) but the convers e is not true [16].
+Computing the Filippov set-valued map
+Computing the Filippov set-valued map can be a daunting task . A calculus is developed in [36] to
+simplify this calculation. We summarize some useful facts b elow. Note that the Filippov set-valued
+map can also be constructed for maps of the form X : Rd → Rm, where d and m are not necessarily
+equal.
+Consistency . If X : Rd → Rm is continuous at x ∈ Rd, then
+F [X](x) = {X(x)}. (25)
+Sum rule. If X1, X 2 : Rd → Rm is locally bounded at x ∈ Rd, then
+F [X1 + X2](x) ⊆ F [X1](x) + F [X2](x). (26)
+Moreover, if either X1 or X2 is continuous at x, then equality holds.
+Product rule. If X1 : Rd → Rm and X2 : Rd → Rn are locally bounded at x ∈ Rd, then
+F [(X1, X 2)T ](x) ⊆ F [X1](x) × F [X2](x). (27)
+Moreover, if either X1 or X2 is continuous at x, then equality holds.
+Chain rule. If Y : Rd → Rn is continuously diﬀerentiable at x ∈ Rd with Jacobian rank n, and
+X : Rn → Rm is locally bounded at Y (x) ∈ Rn, then
+F [X ◦Y ](x) = F [X](Y (x)). (28)
+Matrix transformation rule. If X : Rd → Rm is locally bounded at x ∈ Rd and Z : Rd → Rd×m
+is continuous at x ∈ Rd, then
+F [Z X ](x) = Z(x) F [X](x). (29)
+Piecewise continuous vector ﬁelds and sliding motions
+In this section we consider vector ﬁelds that are continuous everywhere except on a surface of the
+state space. Consider, for instance, two continuous dynami cal systems, one per side of the surface,
+16
+
+PDF PAGE 17
+glued together to give rise to a discontinuous dynamical sys tem. Here, we analyze the properties
+of the Filippov solutions of this type of systems.
+The vector ﬁeld X : Rd → Rd is piecewise continuous if there exists a ﬁnite collection of disjoint,
+open, and connected sets D1, . . . , Dm ⊂ Rd whose closures cover Rd, that is, Rd = ∪m
+k=1
+Dk, such
+that, for all k = 1 , . . . , m , the vector ﬁeld X is continuous on Dk. We further assume that the
+restriction of X to Dk admits a continuous extension to the closure Dk, which we denote by X|Dk
+.
+Every point of discontinuity of X must therefore belong to the union of the boundaries of the se ts
+D1, . . . , Dm. Let us denote by SX ⊆ bndry(D1) ∪ . . . ∪ bndry(Dm) the set of points where X is
+discontinuous. Note that SX has measure zero.
+The Filippov set-valued map of a piecewise continuous vecto r ﬁeld X is given by the expression
+F [X](x) = co{lim
+i→∞
+X(xi) : xi → x , x i ̸∈ SX }. (30)
+This set-valued map can be computed as follows. At points of c ontinuity of X, that is, for x ̸∈ SX,
+the consistency property (25) implies that F [X](x) = {X(x)}. At points of discontinuity of X,
+that is, for x ∈ SX, F [X](x) is a convex polyhedron in Rd of the form
+F [X](x) = co {XDk
+(x) : x ∈ bndry(Dk)}. (31)
+As an illustration, let us revisit examples 2-4.
+Examples 2-4 revisited: Computation of the Filippov set-va lued map and Filippov
+solutions
+The vector ﬁeld of the sliding brick in Example 2 is piecewise continuous with D1 = {v ∈ R :
+v < 0} and D2 = {v ∈ R : v > 0}. Note that the restriction of the vector ﬁeld to D1 can be
+continuously extended to D1 by setting X|D1(0) = g(sin θ + ν cos θ ). Likewise, the restriction of
+the vector ﬁeld to D2 can be continuously extended to D2 by setting X|D2(0) = g(sin θ − ν cos θ ).
+Therefore, the associated Filippov set-valued map F [X] : R → B(R) is given by
+F [X](v) =
+
+
+
+
+
+{g(sin θ − ν cos θ )}, v > 0,
+{g(sin θ − d ν cos θ ) : d ∈ [−1, 1]}, v = 0,
+{g(sin θ + ν cos θ )}, v < 0,
+which is singleton-valued for all v ̸∈ SX = {0}, and a closed segment at v = 0. If the friction
+coeﬃcient ν is large enough, that is, satisﬁes ν > tan θ , then F [x](v) < 0 if v > 0 and F [x](v) > 0
+if v < 0. Therefore, the Filippov solutions that start with an init ial positive velocity v eventually
+reach v = 0 and remain at 0. This fact precisely corresponds to the obs erved physical motions for
+Example 2, where the brick slides for a while and then remains stopped. This example shows that
+Filippov solutions have physical signiﬁcance.
+The vector ﬁeld X : R2 → R2 for the nonsmooth harmonic oscillator in Example 3 is contin uous
+17
+
+PDF PAGE 18
+on each of the half planes {D1, D2}, with
+D1 = {(x1, x 2) ∈ R2 : x1 < 0},
+D2 = {(x1, x 2) ∈ R2 : x1 > 0},
+and discontinuous on SX = {(0, x 2) : x2 ∈ R}. Therefore, X is piecewise continuous. Its Filippov
+set-valued map F [X] : R2 → B(R2) is given by
+F [X](x1, x 2) =
+{
+{(x2, − sign(x1))}, x 1 ̸= 0,
+{x2} × [−1, 1], x 1 = 0.
+Therefore, the closed level sets depicted in Figure 3(b), wh en traversed clockwise, are Filippov
+solutions.
+The discontinuous vector ﬁeld X : [−1, 1]2 → R2 for one agent moving in the square [ −1, 1]2 ⊂ R2
+under the move-away-from-nearest-neighbor interaction l aw described in Example 4 is piecewise
+continuous, with
+D1 = {(x1, x 2) ∈ [−1, 1]2 : −x1 < x 2 < x 1},
+D2 = {(x1, x 2) ∈ [−1, 1]2 : x2 < x 1 < −x2},
+D3 = {(x1, x 2) ∈ [−1, 1]2 : x1 < x 2 < −x1},
+D4 = {(x1, x 2) ∈ [−1, 1]2 : −x2 < x 1 < x 2}.
+Its Filippov set-valued map, described in (22), maps points outside the diagonals SX = {(a, ±a) ∈
+[−1, 1]2 : a ∈ [−1, 1]} to singletons, maps points in SX \{(0, 0)} to closed segments, and maps
+(0, 0) to a square polygon. Several Filippov solutions starting from various initial conditions are
+plotted in Figure 6(b). ■
+Let us now discuss what happens on the points of discontinuit y of the vector ﬁeld X : Rd → Rd.
+Suppose that x ∈ SX belongs to just two boundary sets, that is, x ∈ bndry(Di) ∩ bndry(Dj), for
+some distinct i, j ∈ {1, . . . , m }, but x ̸∈ bndry(Dk), for k ∈ {1, . . . , m }\{i, j }. In this case,
+F [X](x) = co {X|Di(x), X |Dj (x)}.
+We consider three possibilities. First, if all of the vector s belonging to F [X](x) point into Di, then
+a Filippov solution that reaches SX at x continues its motion in Di (see Figure 8(a)). Likewise, if
+all of the vectors belonging to F [X](x) point into Dj, then a Filippov solution that reaches SX at
+x continues its motion in Dj (see Figure 8(b)). Finally, if a vector belonging to F [X](x) is tangent
+to SX, then either all Filippov solutions that start at x leave SX immediately (see Figure 8(c)),
+or there exist Filippov solutions that reach the set SX at x, and remain in SX afterward (see
+Figure 8(d)).
+The last kind of trajectories are called sliding motions , since they slide along the boundaries of
+the sets where the vector ﬁeld is continuous. This type of beh avior is illustrated for Example 4
+in (23). Sliding motions can also occur along points belongi ng to the intersection of more than
+two sets in D1, . . . , Dm. The theory of sliding mode control builds on the existence o f this type
+18
+
+PDF PAGE 19
+of trajectories to design stabilizing feedback controller s. These controllers induce sliding surfaces
+with the desired properties so that the closed-loop system i s stable [6, 7].
+The solutions of piecewise continuous vector ﬁelds appear f requently in state-dependent switching
+dynamical systems [37, 38]. Consider, for instance, the cas e of two dynamical systems with the same
+unstable equilibrium. By identifying an appropriate switc hing surface between the two systems, it
+is often possible to synthesize a discontinuous dynamical s ystem for which the equilibrium is stable.
+Uniqueness of Filippov solutions
+A discontinuous dynamical system does not necessarily have a unique Filippov solution starting
+from each initial condition. The situation depicted in Figu re 8(c) is a qualitative example in which
+multiple Filippov solutions exist for the same initial cond ition. The following is another example
+of lack of uniqueness.
+Example 11: V ector ﬁeld with nonunique Filippov solutions
+Consider the vector ﬁeld X : R → R deﬁned by X(x) = sign( x). For all x0 ∈ R \ {0}, the
+system (10) has a unique Filippov solution starting from x0. However, the system (10) has three
+maximal solutions x1, x 2, x 3 : [0, ∞ ) → R starting from x0 = 0 given by x1(t) = −t, x2(t) = 0, and
+x3(t) = t. ■
+We now provide two complementary uniqueness results for Fil ippov solutions. The ﬁrst result [18]
+considers the Filippov set-valued map associated with a dis continuous vector ﬁeld, and identiﬁes
+conditions under which Proposition S2 in “Caratheodory Sol utions of Diﬀerential Inclusions” can
+be applied to the resulting diﬀerential inclusion. In order to state this result, we need to introduce
+the following deﬁnition. The vector ﬁeld X : Rd → Rd is essentially one-sided Lipschitz on U ⊂ Rd
+if there exists L > 0 such that, for almost all y, y ′∈ U ,
+[X(y) − X(y′)]T (y − y′) ≤ L ∥y − y′∥2
+2. (32)
+The ﬁrst uniqueness result for Filippov solutions is stated next.
+Proposition 4. Let X : Rd → Rd be measurable and locally essentially bounded.
+Assume that, for all x ∈ Rd, there exists ε > 0 such that X is essentially one-sided Lipschitz on
+B(x, ε ). Then, for all x0 ∈ Rd, there exists a unique Filippov solution of (10) with initial condition
+x(0) = x0.
+Note the parallelism of this result with Proposition 2 for or dinary diﬀerential equations with a
+continuous vector ﬁeld X. Let us apply Proposition 4 to an example.
+19
+
+PDF PAGE 20
+Example 12: V ector ﬁeld with unique Filippov solutions
+Let Q denote the set of rational numbers, and deﬁne the vector ﬁeld X : R → R by
+X(x) =
+{
+1, x ∈ Q,
+−1, x ̸∈ Q,
+which is discontinuous everywhere on R. Since Q has measure zero in R, the value of the vector
+ﬁeld at rational points plays no role in the computation of F [X]. Hence, the associated Filippov
+set-valued map F [X] : R → B(R) is F [X](x) = {−1}. Since (32) holds for all y, y ′ ̸∈ Q, there
+exists a unique solution starting from each initial conditi on, more precisely, x : [0, ∞ ) → R, where
+x(t) = x(0) − t. ■
+The hypotheses of Proposition 4 are somewhat restrictive. T his assertion is justiﬁed by the
+observation that, for d > 1, piecewise continuous vector ﬁelds on Rd are not essentially one-sided
+Lipschitz. We justify this assertion in “Uniqueness of Fili ppov Solutions of Piecewise Continuous
+Vector Fields.” Figure S2 shows an example of a piecewise con tinuous vector ﬁeld with unique
+solutions starting from each initial condition. However, t his uniqueness cannot be guaranteed by
+means of Proposition 4.
+The following result [18] identiﬁes suﬃcient conditions fo r uniqueness speciﬁcally tailored for
+piecewise continuous vector ﬁelds.
+Proposition 5. Let X : Rd → Rd be a piecewise continuous vector ﬁeld, with Rd =
+D1 ∪ D2. Let SX = bndry( D1) = bndry( D2) be the set of points at which X is discontinuous, and
+assume that SX is a C 2-manifold. Furthermore, assume that, for i ∈ {1, 2}, X|Di is continuously
+diﬀerentiable on Di and X|D1 − X|D2 is continuously diﬀerentiable on SX . If, for each x ∈ SX,
+either X|D1(x) points into D2 or X|D2(x) points into D1, then there exists a unique Filippov solution
+of (10) starting from each initial condition.
+Note that the continuous diﬀerentiability hypothesis on X already guarantees uniqueness of
+solutions on each of the sets D1 and D2. Roughly speaking, the additional assumptions on X along
+SX in Proposition 5 guarantee that uniqueness on Rd is not disrupted by the discontinuities. Under
+the stated assumptions, when reaching SX, Filippov solutions can cross it or slide along it. The
+situation depicted in Figure 8(c) is thus ruled out.
+Examples 2-4 revisited: Unique Filippov solutions for the s liding brick, the nonsmooth
+harmonic oscillator, and the move-away-from-nearest-nei ghbor interaction law
+As an application of Proposition 5, let us reconsider Exampl e 2. At v = 0, the vector X|
+D1(0)
+points into D2, see Figure 2(b). Proposition 5 then ensures that there exis ts a unique Filippov
+solution starting from each initial condition.
+For Example 3, the vector X|D1 points into D2 at every point in SX ∩ {x2 > 0}, while the vector
+X|D2 points into D1 at every point in SX ∩ {x2 < 0}, see Figure 3(a). Moreover, there is only one
+20
+
+PDF PAGE 21
+solution (the equilibrium solution) starting from (0 , 0). Therefore, using Proposition 5, we conclude
+that this system has a unique Filippov solution starting fro m each initial condition.
+For Example 4, it is convenient to deﬁne D5 = D1. Then, at ( x1, x 2) ∈ bndry(Di) ∩ bndry(Di+1)\
+{(0, 0)}, with i ∈ {1, . . . , 4}, the vector X|Di(x1, x 2) points into Di+1, and the vector X|Di+1(x1, x 2)
+points into Di, see Figure 6(a). Moreover, there is only one solution (the e quilibrium solution)
+starting from (0 , 0). Therefore, using Proposition 5, we conclude that Exampl e 4 has a unique
+Filippov solution starting from each initial condition. ■
+Proposition 5 can also be applied to piecewise continuous ve ctor ﬁelds with an arbitrary number of
+partitioning domains, provided that the set where the vecto r ﬁeld is discontinuous is a disjoint union
+of surfaces resulting from pairwise intersections of the bo undaries of pairs of domains. Alternative
+versions of this result can also be stated for time-varying p iecewise continuous vector ﬁelds, as well
+as for situations in which more than two domains intersect at a point of discontinuity [18, Theorem
+4 at page 115].
+The literature contains additional results guaranteeing u niqueness of Filippov solutions tailored
+to speciﬁc classes of dynamical systems. For instance, [39] studies uniqueness for relay linear
+systems, [11] investigates uniqueness for adaptive contro l systems, while [40] establishes uniqueness
+for a class of discontinuous diﬀerential equations whose ve ctor ﬁeld depends on the solution of a
+scalar conservation law.
+Solutions of control systems with discontinuous inputs
+Let X : Rd × U → Rd, where U ⊆ Rm is the set of allowable control-function values, and consid er
+the control equation on Rd given by
+˙x(t) = X(x(t), u (t)). (33)
+At ﬁrst sight, a natural way to identify a notion of solution f or (33) is to select a control input, either
+an open-loop u : [0 , ∞ ) → U , a closed-loop u : Rd → U , or a combination u : [0 , ∞ ) × Rd → U ,
+and then consider the resulting diﬀerential equation. When the selected control input u is a
+discontinuous function of x ∈ Rd, then we can consider the solution notions of Caratheodory o r
+Filippov. At least two alternatives are considered in the li terature. We discuss them next.
+Solutions by means of diﬀerential inclusions
+A ﬁrst alternative to deﬁning a solution notion consists of a ssociating a diﬀerential inclusion with
+the control equation (33). In this approach, the set-valued map G[X] : Rd → B(Rd) is deﬁned by
+G[X](x) ≜ {X(x, u ) : u ∈ U }. (34)
+In other words, the set G[X](x) captures all of the directions in Rd that can be generated at x with
+controls belonging to U. Consider now the diﬀerential inclusion
+˙x(t) ∈ G[X](x(t)). (35)
+21
+
+PDF PAGE 22
+A solution of (33) on [0 , t 1] ⊂ R is deﬁned to be a Caratheodory solution of the diﬀerential
+inclusion (35), that is, an absolutely continuous map x : [0 , t 1] → Rd such that ˙x(t) ∈ G[X](x(t))
+for almost all t ∈ [0, t 1].
+If we choose an open-loop input u : [0 , ∞ ) → U in (33), then a Caratheodory solution of the
+resulting dynamical system is also a Caratheodory solution of the diﬀerential inclusion (35). Alter-
+natively, it can be shown [18] that, if X is continuous and U is compact, then the converse is also
+true. The diﬀerential inclusion (35) has the advantage of no t focusing attention on a particular
+control input, but rather allows us to comprehensively stud y and understand the properties of the
+control system.
+Sample-and-hold solutions
+A second alternative to deﬁning a solution notion for the con trol equation (33) uses the notion of
+sample-and-hold solution [41]. As discussed in the section “Stabilization of control systems,” this
+notion plays a key role in the stabilization of asymptotical ly controllable systems.
+A partition of the interval [ t0, t 1] is an increasing sequence π = {si}N
+i=0 with s0 = t0 and sN = t1.
+The partition need not be ﬁnite. The notion of a partition of [ t0, ∞ ) is deﬁned similarly. The
+diameter of π is diam(π ) ≜ sup{si − si−1 : i ∈ {1, . . . , N }}. Given a control input u : [0, ∞ )× Rd →
+U, an initial condition x0, and a partition π of [0, t 1], a π -solution of (33) deﬁned on [0 , t 1] ⊂ R is the
+map x : [0, t 1] → Rd, with x(0) = x0, recursively deﬁned by requiring the curve t ∈ [si−1, s i] ↦→ x(t),
+for i ∈ {1, . . . , N − 1}, to be a Caratheodory solution of the diﬀerential equation
+˙x(t) = X(x(t), u (si−1, x (si−1))). (36)
+π -solutions are also referred to as sample-and-hold solutions because the control is held ﬁxed
+throughout each interval of the partition at the value accor ding to the state at the beginning of the
+interval. Figure 7 shows an example of a π -solution. The existence of π -solutions is guaranteed [24]
+if, for all u ∈ U ⊆ Rm, the map x ↦→ X(x, u ) is continuous.
+Nonsmooth Analysis
+We now consider candidate nonsmooth Lyapunov functions for discontinuous diﬀerential equa-
+tions. The level of generality provided by nonsmooth analys is is not always necessary. The stability
+properties of some discontinuous dynamical systems and diﬀ erential inclusions can be analyzed with
+smooth functions, as the following example shows.
+Examples 5 and 6 revisited: Stability of the origin for the si gn function
+We have already established that the vector ﬁelds (11) and (1 2) in examples 5 and 6, respectively,
+have unique Filippov solutions starting from each initial c ondition. Now, consider the smooth
+22
+
+PDF PAGE 23
+Lyapunov function f : R → R, where f (x) = x2/ 2. Now, for all x ̸= 0, we have
+∇ f (x) ·X(x) = −|x|< 0.
+Since, according to (20), F [X](x) = {X(x)} on R\{0}, we deduce that the function f is decreasing
+along every Filippov solution of (11) and (12) that starts on R\{0}. Therefore, we conclude that
+the equilibrium x = 0 is globally asymptotically stable. ■
+However, nonsmooth Lyapunov functions may be needed if deal ing with discontinuous dynamics,
+as the following example shows.
+Example 3 revisited: The nonsmooth harmonic oscillator doe s not admit a smooth
+Lyapunov function
+Consider the vector ﬁeld for the nonsmooth harmonic oscilla tor in Example 3. We reason as
+in [16]. As stated in the section “Piecewise continuous vect or ﬁelds and sliding motions,” all of
+the Filippov solutions of (3) are periodic, and correspond t o the curves plotted in Figure 3(b).
+Therefore, if a smooth Lyapunov function f : R2 → R exists, then it must be constant on each
+Filippov solution. Since the level sets of f must be one-dimensional, it follows that each curve must
+be a level set. This property contradicts the fact that the fu nction is smooth, since the level sets
+of a smooth function are also smooth, and the Filippov soluti ons plotted in Figure 3(b) are not
+smooth along the x2-coordinate axis. ■
+The above example illustrates the need to consider nonsmoot h analysis. Similar examples can
+be found in [14, Section 2.2.2]. It is also worth noting that t he presentation in “Stability analysis
+by means of the generalized gradient of a nonsmooth Lyapunov function” boils down to classical
+stability analysis when the candidate Lyapunov function is smooth.
+In this section we discuss two tools from nonsmooth analysis , namely, the generalized gradient
+and the proximal subdiﬀerential [9, 24]. As with the notions of solution of discontinuous diﬀerential
+equations, multiple generalized derivative notions are av ailable in the literature when a function
+fails to be diﬀerentiable. These notions include, in additi on to the two considered in this section,
+the generalized (super or sub) diﬀerential, the (upper or lo wer, right or left) Dini derivative, and
+the contingent derivative [19, 24, 42, 43]. Here, we focus on the notions of the generalized gradient
+and proximal subdiﬀerential because of their role in provid ing stability tools for discontinuous
+diﬀerential equations.
+The generalized gradient of a locally Lipschitz function
+Rademacher’s theorem [9] states that every locally Lipschi tz function is diﬀerentiable almost
+everywhere in the sense of Lebesgue measure. When consideri ng a locally Lipschitz function as a
+candidate Lyapunov function, this statement may raise the q uestion of whether to disregard those
+points where the gradient does not exist. Conceivably, the s olutions of the dynamical system stay
+for almost all time away from “bad” points where no gradient o f the function exists. However, this
+assumption is not always valid. As we show in Example 16 below , the solutions of a dynamical
+23
+
+PDF PAGE 24
+system may insist on staying on the “bad” points forever. In t hat case, having some gradient-like
+information is helpful.
+Let f : Rd → R be a locally Lipschitz function, and let Ω f ⊂ Rd denote the set of points where
+f fails to be diﬀerentiable. The generalized gradient ∂f : Rd → B(Rd) of f is deﬁned by
+∂f (x) ≜ co{lim
+i→∞
+∇ f (xi) : xi → x , x i ̸∈ S ∪ Ωf }, (37)
+where co denotes convex hull. In this deﬁnition, S ⊂ Rd is a set of measure zero that can be
+arbitrarily chosen to simplify the computation. The result ing set ∂f (x) is independent of the choice
+of S. From the deﬁnition, the generalized gradient of f at x consists of all convex combinations of
+all of the possible limits of the gradient at neighboring poi nts where f is diﬀerentiable. Equivalent
+deﬁnitions of the generalized gradient are given in [9].
+Some useful properties of the generalized gradient are summ arized in the following result [24].
+Proposition 6. If f : Rd → R is locally Lipschitz at x ∈ Rd, then the following
+statements hold:
+(i) ∂f (x) is nonempty, compact, and convex.
+(ii) The set-valued map ∂f : Rd → B(Rd), x ↦→ ∂f (x), is upper semicontinuous and locally
+bounded at x.
+(iii) If f is continuously diﬀerentiable at x, then ∂f (x) = {∇f (x)}.
+Let us compute the generalized gradient for an illustrative example.
+Example 13: Generalized gradient of the absolute value func tion
+Consider the locally Lipschitz function f : R → R, where f (x) = |x|, which is continuously
+diﬀerentiable everywhere except at 0. Since ∇ f (x) = 1 for x > 0 and ∇ f (x) = −1 for x < 0,
+from (37), we deduce
+∂f (0) = co {1, −1} = [−1, 1],
+while, by Proposition 6 (iii), we deduce ∂f (x) = {1} for x > 0 and ∂f (x) = {−1} for x < 0. ■
+The next example shows that Proposition 6 (iii) may not be true if f is not continuously diﬀer-
+entiable.
+Example 14: Generalized gradient of a diﬀerentiable but not continuously diﬀeren-
+tiable function
+Consider the locally Lipschitz function f : R → R, where f (x) = x2 sin( 1
+x ), which is continuously
+diﬀerentiable everywhere except at 0, where it is only diﬀer entiable. It can be shown that ∇ f (0) = 0,
+24
+
+PDF PAGE 25
+while ∇ f (x) = 2 x sin( 1
+x ) − cos( 1
+x ) for x ̸= 0. From (37), we deduce that ∂f (0) = [ −1, 1], which is
+diﬀerent from {∇f (0)} = {0}. This example illustrates that Proposition 6 (iii) may not be valid if
+f is not continuously diﬀerentiable at the point x. ■
+Computing the generalized gradient
+Computation of the generalized gradient of a locally Lipsch itz function is often a diﬃcult task.
+In addition to the brute force approach of working from the de ﬁnition (37), various results are
+available to facilitate this computation. Many results tha t are valid for ordinary derivatives have a
+counterpart in this setting. We summarize some of these resu lts here, and refer the reader to [9, 24]
+for a complete exposition. In the statements of these result s, the notion of a regular function plays
+a prominent role, see “Regular Functions” for a precise deﬁn ition.
+Dilation rule. If f : Rd → R is locally Lipschitz at x ∈ Rd and s ∈ R, then the function sf is
+locally Lipschitz at x, and
+∂ (sf )(x) = s ∂f (x). (38)
+Sum rule. If f1, f 2 : Rd → R are locally Lipschitz at x ∈ Rd and s1, s 2 ∈ R, then the function
+s1f1 + s2f2 is locally Lipschitz at x, and
+∂
+(
+s1f1 + s2f2
+)
+(x) ⊆ s1∂f 1(x) + s2∂f 2(x), (39)
+where the sum of two sets A1 and A2 is deﬁned as A1 + A2 = {a1 + a2 : a1 ∈ A1, a 2 ∈ A2}.
+Moreover, if f1 and f2 are regular at x, and s1, s 2 ∈ [0, ∞ ), then equality holds and s1f1 + s2f2 is
+regular at x.
+Product rule. If f1, f 2 : Rd → R are locally Lipschitz at x ∈ Rd, then the function f1f2 is
+locally Lipschitz at x, and
+∂
+(
+f1f2
+)
+(x) ⊆ f2(x)∂f 1(x) + f1(x)∂f 2(x). (40)
+Moreover, if f1 and f2 are regular at x, and f1(x), f 2(x) ≥ 0, then equality holds and f1f2 is regular
+at x.
+Quotient rule. If f1, f 2 : Rd → R are locally Lipschitz at x ∈ Rd, and f2(x) ̸= 0, then the
+function f1/f 2 is locally Lipschitz at x, and
+∂
+( f1
+f2
+)
+(x) ⊆ 1
+f 2
+2 (x)
+(
+f2(x)∂f 1(x) − f1(x)∂f 2(x)
+)
+. (41)
+Moreover, if f1 and −f2 are regular at x, and f1(x) ≥ 0 and f2(x) > 0, then equality holds and
+f1/f 2 is regular at x.
+Chain rule. If each component of h : Rd → Rm is locally Lipschitz at x ∈ Rd and g : Rm → R
+is locally Lipschitz at h(x) ∈ Rm, then the function g ◦h is locally Lipschitz at x, and
+∂
+(
+g◦h
+)
+(x) ⊆ co
+{ m∑
+k=1
+α kζ k : ( α 1, . . . , α m) ∈ ∂g (h(x)), (ζ 1, . . . , ζ m) ∈ ∂h 1(x)×· · ·×∂h m(x)
+}
+. (42)
+25
+
+PDF PAGE 26
+Moreover, if g is regular at h(x), each component of h is regular at x, and ∂g (h(x)) ⊂ [0, ∞ )m,
+then equality holds and g ◦h is regular at x.
+The following useful result from [9, Proposition 2.3.12] co ncerns the generalized gradient of the
+maximum and the minimum of a ﬁnite set of functions.
+Proposition 7. For k ∈ {1, . . . , m }, let fk : Rd → R be locally Lipschitz at x ∈ Rd,
+and deﬁne the functions fmax, f min : Rd → R by
+fmax(y) ≜ max{fk(y) : k ∈ {1, . . . , m }},
+fmin(y) ≜ min{fk(y) : k ∈ {1, . . . , m }}.
+Then, the following statements hold:
+(i) fmax and fmin are locally Lipschitz at x.
+(ii) Let Imax(x) denote the set of indices k for which fk(x) = fmax(x). Then
+∂f max(x) ⊆ co
+⋃
+{∂f i(x) : i ∈ Imax(x)}. (43)
+Furthermore, if fi is regular at x for all i ∈ Imax(x), then equality holds and fmax is regular
+at x,
+(iii) Let Imin(x) denote the set of indices k for which fk(x) = fmin(x). Then
+∂f min(x) ⊆ co
+⋃
+{∂f i(x) : i ∈ Imin(x)}. (44)
+Furthermore, if −fi is regular at x for all i ∈ Imin(x), then equality holds and −fmin is regular
+at x.
+It follows from Proposition 7 that the maximum of a ﬁnite set o f continuously diﬀerentiable
+functions is a locally Lipschitz and regular function whose generalized gradient at each point x is
+easily computable as the convex hull of the gradients of the f unctions that attain the maximum at
+x.
+Example 13 revisited: Generalized gradient of the absolute value function
+The absolute value function f (x) = |x|can be rewritten as f (x) = max {x, −x}. Both x ↦→ x
+and x ↦→ − x are continuously diﬀerentiable, and hence locally Lipschi tz and regular. Therefore,
+according to Proposition 7 (i) and (ii), f is locally Lipschitz and regular, and its generalized gradi ent
+is
+∂f (x) =
+
+
+
+
+
+{1}, x > 0,
+[−1, 1], x = 0,
+{−1}, x < 0.
+(45)
+This result is obtained in Example 13 by direct computation. ■
+26
+
+PDF PAGE 27
+Example 15: Generalized gradient of the minus absolute valu e function
+The minimum of a ﬁnite set of regular functions is not always r egular. A simple example is
+given by g(x) = min {x, −x}= −|x|, which is not regular at 0, as we show in “Regular Functions.”
+However, according to Proposition 7 (iii), this fact does not mean that its generalized gradient
+cannot be computed. Indeed,
+∂g (x) =
+
+
+
+
+
+{−1}, x > 0,
+[−1, 1], x = 0,
+{1}, x < 0.
+(46)
+This result can also be obtained by combining (45) with the ap plication of the dilation rule (38) to
+the function f (x) = |x|with the parameter s = −1. ■
+Critical points and directions of descent
+A critical point of f : Rd → R is a point x ∈ Rd such that 0 ∈ ∂f (x). According to this deﬁnition,
+the maximizers and minimizers of a locally Lipschitz functi on are critical points. As an example,
+x = 0 is the unique minimizer of f (x) = |x|, and, indeed, we see that 0 ∈ ∂f (0) in (45).
+If a function f is continuously diﬀerentiable, then the gradient ∇ f provides the direction of
+maximum ascent of f (respectively, −∇ f provides the direction of maximum descent of f ). When
+we consider a locally Lipschitz function, however, the ques tion of choosing the directions of descent
+among all of the available directions in the generalized gra dient arises. Without loss of generality,
+we restrict our discussion to directions of descent, since a direction of descent of −f corresponds
+to a direction of ascent of f , while f is locally Lipschitz if and only if −f is locally Lipschitz.
+Let Ln : B(Rd) → B(Rd) be the set-valued map that associates to each subset S of Rd the set
+of least-norm elements of its closure
+S. If the set S is convex and closed, then the set Ln( S) is a
+singleton, which consists of the orthogonal projection of 0 onto S. For a locally Lipschitz function
+f , consider the generalized gradient vector ﬁeld Ln(∂f ) : Rd → Rd deﬁned by
+x ↦→ Ln(∂f )(x) ≜ Ln(∂f (x)).
+It turns out that − Ln(∂f )(x) is a direction of descent of f at x ∈ Rd. More precisely [9], if
+0 ̸∈ ∂f (x), then there exists T > 0 such that
+f (x − t Ln(∂f )(x)) ≤ f (x) − t
+2 ∥ Ln(∂f )(x)∥2
+2 < f (x), 0 < t < T, (47)
+that is, by taking a small step in the direction − Ln(∂f )(x), the function f is guaranteed to decrease
+by an amount that scales linearly with the stepsize.
+27
+
+PDF PAGE 28
+Example 16: Minimum-distance-to-polygonal-boundary fun ction
+Let Q ⊂ R2 be a convex polygon. Consider the minimum distance function smQ : Q → R from a
+point within the polygon to its boundary deﬁned by
+smQ(p) ≜ min{∥p − q∥2 : q ∈ bndry(Q)}.
+Note that the value of sm Q at p is the radius of the largest disk with center p contained in the
+polygon. Moreover, the function sm Q is locally Lipschitz on Q. To show this, rewrite sm Q as
+smQ(p) ≜ min{dist(p, e ) : e is an edge of Q},
+where dist(p, e ) denotes the Euclidean distance from the point p to the edge e. Indeed, the function
+smQ is concave on Q.
+Let us consider the generalized gradient vector ﬁeld corres ponding to sm Q, where the deﬁnition
+of sm Q is extended outside Q by setting sm Q(p) = − min{∥p − q∥2 : q ∈ bndry(Q)} for p ̸∈ Q.
+Applying Proposition 7 (iii), we deduce that − smQ is regular on Q and its generalized gradient at
+p ∈ Q is
+∂ smQ(p) = co {ne : e edge of Q such that sm Q(p) = dist( p, e )},
+where n e denotes the unit normal to the edge e pointing toward the interior of Q. Therefore,
+at points p in Q for which there exists a unique edge e of Q nearest to p, the function sm Q is
+diﬀerentiable, and its generalized gradient vector ﬁeld is given by Ln(sm Q)(p) = n e. Note that
+this vector ﬁeld corresponds to the move-away-from-neares t-neighbor interaction law for one agent
+moving in the polygon introduced in Example 4!
+At points p of Q where various edges {e1, . . . , e m} are at the same minimum distance to p, the
+function sm Q is not diﬀerentiable, and its generalized gradient vector ﬁ eld is given by the least-
+norm element in co {ne1, . . . , nem}. If p is not a critical point, 0 does not belong to co {ne1, . . . , nem},
+and the least-norm element points in the direction of the bis ector line between two of the edges in
+{e1, . . . , e m}. Figure 9 shows a plot of the generalized gradient vector ﬁel d of sm Q on the square
+Q = [ −1, 1]2. Note the similarity with the plot in Figure 6(a). Indeed, th e critical points of sm Q
+are characterized [44] by the statement that 0 ∈ ∂ smQ(p) if and only if p belongs to the incenter
+set of Q.
+The incenter set of Q is composed of the centers of the largest-radius disks conta ined in Q.
+In general, the incenter set is a segment (consider the examp le of a rectangle). However, if 0 ∈
+interior(∂ smQ(p)), then the incenter set of Q is the singleton {p}. ■
+Nonsmooth gradient ﬂows
+Given a locally Lipschitz function f : Rd → R, the nonsmooth analog of the classical gradient
+descent ﬂow of a diﬀerentiable function is deﬁned by
+˙x(t) = − Ln(∂f )(x(t)). (48)
+28
+
+PDF PAGE 29
+According to (47), unless the ﬂow is already at a critical poi nt, − Ln(∂f )(x) is a direction of descent
+of f at x. Since this nonsmooth gradient vector ﬁeld is discontinuou s, we have to specify a notion of
+solution for (48). In this case, we use the notion of Filippov solution due largely to the remarkable
+fact [36] that the Filippov set-valued map associated with t he nonsmooth gradient ﬂow of f given
+by (48) is precisely the generalized gradient of the functio n, as the next result states.
+Proposition 8 (Filippov set-valued map of nonsmooth gradient) . If f : Rd → R is
+locally Lipschitz, then the Filippov set-valued map F [Ln(∂f )] : Rd → B(Rd) of the nonsmooth
+gradient of f is equal to the generalized gradient ∂f : Rd → B(Rd) of f , that is, for x ∈ Rd,
+F [Ln(∂f )](x) = ∂f (x). (49)
+As a consequence of Proposition 8, the discontinuous system (48) is equivalent to the diﬀerential
+inclusion
+˙x(t) ∈ − ∂f (x(t)). (50)
+Solutions of (48) are sometimes called “slow motions” of the diﬀerential inclusion because of the
+use of the least-norm operator, which selects the vector in t he generalized gradient of the function
+with the smallest magnitude. How can we analyze the asymptot ic behavior of the solutions of this
+system? If the function f is diﬀerentiable, then the invariance principle allows us t o deduce that, for
+functions with bounded level sets, the solutions of the grad ient ﬂow converge to the set of critical
+points. The key tool behind this result is to establish that t he function decreases along solutions
+of the system. This behavior is formally expressed through t he notion of the Lie derivative. In the
+section “Nonsmooth Stability Analysis” we discuss general izations of the notion of Lie derivative
+to the nonsmooth case. These notions allow us to study the asy mptotic convergence properties of
+the trajectories of nonsmooth gradient ﬂows.
+The proximal subdiﬀerential of a lower semicontinuous func tion
+A complementary set of nonsmooth analysis tools for dealing with Lyapunov functions arises from
+the concept of proximal subdiﬀerential. This concept has th e advantage of being deﬁned for the
+class of lower semicontinuous functions, which is larger th an the class of locally Lipschitz functions.
+The generalized gradient provides us with directional desc ent information, that is, directions along
+which the function decreases. The price we pay for using the p roximal subdiﬀerential is that explicit
+descent directions are not generally known to us. Neverthel ess, the proximal subdiﬀerential allows
+us to reason about the monotonic properties of the function, which, as we show in the section
+“Stability analysis by means of the proximal subdiﬀerentia l of a nonsmooth Lyapunov function,”
+turn out to be suﬃcient to provide stability results. The pro ximal subdiﬀerential is particularly
+appropriate when dealing with convex functions. Here, we br ieﬂy touch on the topic of convex
+analysis. For further information, see [45, 46, 47].
+A function f : Rd → R is lower semicontinuous [24] at x ∈ Rd if, for all ε ∈ (0, ∞ ), there exists
+δ ∈ (0, ∞ ) such that, for y ∈ B(x, δ ), f (y) ≥ f (x) − ε . The epigraph of f is the set of points lying
+on or above its graph, that is, epi( f ) = {(x, µ ) ∈ Rd × R : f (x) ≤ µ } ⊂ Rd+1. The function f
+29
+
+PDF PAGE 30
+is lower semicontinuous if and only if its epigraph is closed . The function f : Rd → R is upper
+semicontinuous at x ∈ Rd if −f is lower semicontinuous at x. Note that f is continuous at x if and
+only if f is both upper semicontinuous and lower semicontinuous at x.
+For a lower semicontinuous function f : Rd → R, the vector ζ ∈ Rd is a proximal subgradient of
+f at x ∈ Rd if there exist σ, δ ∈ (0, ∞ ) such that, for all y ∈ B(x, δ ),
+f (y) ≥ f (x) + ζ (y − x) − σ 2∥y − x∥2
+2. (51)
+The set ∂ P f (x) of all proximal subgradients of f at x is the proximal subdiﬀerential of f at x. The
+proximal subdiﬀerential at x, which may be empty, is convex but not necessarily open, clos ed, or
+bounded.
+Geometrically, the deﬁnition of a proximal subgradient can be interpreted as follows. Equa-
+tion (51) is equivalent to saying that, in a neighborhood of x, the function y ↦→ f (y) majorizes the
+quadratic function y ↦→ f (x) + ζ (y − x) − σ 2∥y − x∥2
+2. In other words, there exists a parabola that
+locally ﬁts under the epigraph of f at (x, f (x)). This geometric interpretation is useful for explicitly
+computing the proximal subdiﬀerential, see Figure 10(a) fo r an illustration. An additional geomet-
+ric characterization of the proximal subdiﬀerential of f can be given in terms of normal cones and
+the epigraph of f . Given a closed set S ⊆ Rd and x ∈ S, the proximal normal cone NS(x) to S is
+the set of all y ∈ Rd such that x is the nearest point in S to x + λy , for λ > 0 suﬃciently small.
+Then, ζ ∈ ∂ P f (x) if and only if
+(ζ, −1) ∈ Nepi(f )(x, f (x)). (52)
+Figure 10(b) illustrates this geometric interpretation.
+Example 17: Proximal subdiﬀerentials of the absolute value function and its negative
+Consider the locally Lipschitz functions f, g : R → R, f (x) = |x|and g(x) = −|x|. Using the
+geometric interpretation of (51), it can be seen that
+∂ P f (x) =
+
+
+
+
+
+{1}, x < 0,
+[−1, 1], x = 0,
+{−1}, x > 0,
+(53)
+∂ P g(x) =
+
+
+
+
+
+{−1}, x < 0,
+∅, x = 0,
+{1}, x > 0.
+(54)
+Note that (53)-(54) is an example of the fact that ∂ P (−f ) and −∂ P f are not necessarily equal.
+The generalized gradient of g in (46) is diﬀerent from the proximal subdiﬀerential of g in (54). ■
+Unlike the case of the generalized gradient, the proximal su bdiﬀerential may not coincide with
+∇ f (x) when f is continuously diﬀerentiable. The function f : R → R, where f (x) = −|x|3/2, is
+continuously diﬀerentiable with ∇ f (0) = 0, but ∂ P f (0) = ∅. In fact, a continuously diﬀerentiable
+30
+
+PDF PAGE 31
+function on R with an empty proximal subdiﬀerential almost everywhere is provided in [48]. How-
+ever, the density theorem (cf. [24, Theorem 3.1]) states tha t the proximal subdiﬀerential of a lower
+semicontinuous function is nonempty on a dense set of its dom ain of deﬁnition, although a dense
+set can have zero Lebesgue measure.
+On the other hand, the proximal subdiﬀerential can be more us eful than the generalized gradient
+in some situations, as the following example shows.
+Example 18: Proximal subdiﬀerential of the square root of th e absolute value
+Consider the function f : R → R, where f (x) =
+√
+|x|, which is continuous at 0, but not locally
+Lipschitz at 0, which is the global minimizer of f . The generalized gradient does not exist at 0,
+and hence we cannot characterize this point as a critical poi nt. However, the function f is lower
+semicontinuous with proximal subdiﬀerential,
+∂ P f (x) =
+
+
+
+
+
+
+
+{ 1
+2√ x
+}
+, x > 0,
+R, x = 0,{
+− 1
+2√ −x
+}
+, x < 0.
+(55)
+As we discuss later, it follows from (55) that 0 is the unique g lobal minimizer of f . ■
+If f : Rd → R is locally Lipschitz at x ∈ Rd, then the proximal subdiﬀerential of f at x is bounded.
+In general, the relationship between the generalized gradi ent and the proximal subdiﬀerential of a
+function f that is locally Lipschitz at x ∈ Rd is expressed by
+∂f (x) = co { lim
+n→∞
+ζ n ∈ Rd : ζ n ∈ ∂ P f (xn) and lim
+n→∞
+xn = x}.
+Computing the proximal subdiﬀerential
+As with the generalized gradient, computation of the proxim al subdiﬀerential of a lower semicon-
+tinuous function is often far from straightforward. Here we provide some useful results following
+the exposition in [24].
+Dilation rule. If f : Rd → R is lower semicontinuous at x ∈ Rd and s ∈ (0, ∞ ), then the
+function sf is lower semicontinuous at x, and
+∂ P (sf )(x) = s ∂ P f (x). (56)
+Sum rule. If f1, f 2 : Rd → R are lower semicontinuous at x ∈ Rd, then the function f1 + f2 is
+lower semicontinuous at x, and
+∂ P f1(x) + ∂ P f2(x) ⊆ ∂ P
+(
+f1 + f2
+)
+(x). (57)
+Moreover, if either f1 or f2 are twice continuously diﬀerentiable, then equality holds .
+31
+
+PDF PAGE 32
+F uzzy sum rule. If f1, f 2 : Rd → R is lower semicontinuous at x ∈ Rd, ζ ∈ ∂ P
+(
+f1 + f2
+)
+(x), and
+ε > 0, then there exist x1, x 2 ∈ B(x, ε ) with |fi(xi) − fi(x)|< ε , i ∈ {1, 2}, such that
+ζ ∈ ∂ P f1(x1) + ∂ P f2(x2) + εB (0, 1). (58)
+Chain rule. Assume that either h : Rd → Rm linear and g : Rm → R lower semicontinuous
+at h(x) ∈ Rm, or h : Rd → Rm locally Lipschitz at x ∈ Rd and g : Rm → R locally Lipschitz at
+h(x) ∈ Rm. If ζ ∈ ∂ P (g ◦h)(x) and ε > 0, then there exist ˜ x ∈ Rd, ˜y ∈ Rm, and γ ∈ ∂ P g(˜y) with
+max{∥˜x − x∥2, ∥˜y − h(x)∥2}< ε such that ∥h(˜x) − h(x)∥2 < ε and
+ζ ∈ ∂ P (γ T h)(˜x) + εB (0, 1), (59)
+where γ T h : Rd → R is deﬁned by ( γ T h)(x) = γ T h(x).
+The statement of the chain rule (59) shows a characteristic f eature of the proximal subdiﬀerential.
+That is, rather than at an speciﬁc point of interest, the prox imal subdiﬀerential can only be
+expressed with objects evaluated at neighboring points.
+Computation of the proximal subdiﬀerential of a twice conti nuously diﬀerentiable function is
+particularly simple. If f : Rd → R is twice continuously diﬀerentiable on the open set U ⊆ Rd,
+then, for all x ∈ U ,
+∂ P f (x) = {∇f (x)}. (60)
+This simplicity also works for continuously diﬀerentiable convex functions, as the following re-
+sult [20, 24, 47] states. Note that every convex function on Rd is locally Lipschitz, and hence
+continuous.
+Proposition 9. If f : Rd → R is convex, then the following statements hold:
+(i) For x ∈ Rd, ζ ∈ ∂ P f (x) if and only if, for all y ∈ Rd, f (y) ≥ f (x) + ζ (y − x).
+(ii) The set-valued map ∂ P f : Rd → B(Rd), x ↦→ ∂ P f (x), takes nonempty, compact, and convex
+values, and is upper semicontinuous and locally bounded.
+(iii) If, in addition, f is continuously diﬀerentiable, then, for all x ∈ Rd, ∂ P f (x) = {∇f (x)}.
+Example 17 revisited: Proximal subdiﬀerential of the absol ute value function
+The computation (53) of the proximal subdiﬀerential of the f unction f (x) = |x|can be performed
+using Proposition 9 by observing that f is convex. By Proposition 9 (i), for x = 0, ζ ∈ ∂ P f (0) if
+and only if, for all y ∈ R,
+|y| ≥ |0|+ ζ (y − 0) = ζy. (61)
+Hence, for y ≥ 0, (61) implies ζ ∈ (−∞ , 1], while, for y ≤ 0, (61) implies that ζ ∈ [−1, +∞ ).
+Therefore, ζ ∈ (−∞ , 1] ∩ [−1, +∞ ), and ∂ P f (0) = [ −1, 1]. By Proposition 9 (iii), for x > 0,
+∂ P f (x) = {1}, and, for x < 0, ∂ P f (x) = {−1}. ■
+32
+
+PDF PAGE 33
+Regarding critical points, if x is a local minimizer of the lower semicontinuous function f : Rd →
+R, then 0 ∈ ∂ P f (x). Conversely, if f is convex, and 0 ∈ ∂ P f (x), then x is a global minimizer of
+f . For the study of maximizers, instead of lower semicontinuo us function, convex function, and
+proximal subdiﬀerential, the relevant notions are upper se micontinuous function, concave function,
+and proximal superdiﬀerential, respectively [24].
+Gradient diﬀerential inclusion of a convex function
+It is not always possible to associate a nonsmooth gradient ﬂ ow with a lower semicontinuous
+function because the proximal subdiﬀerential might be empt y almost everywhere. However, follow-
+ing Proposition 9 (ii), we can associate a nonsmooth gradient ﬂow with each convex f unction, as we
+brieﬂy discuss next [49].
+Let f : Rd → R be convex, and consider the gradient diﬀerential inclusion
+˙x(t) ∈ − ∂ P f (x(t)). (62)
+Using the properties of the proximal subdiﬀerential given b y Proposition 9 (ii), the existence of a
+Caratheodory solution of (62) starting from every initial c ondition is guaranteed by Proposition S1.
+Moreover, the uniqueness of Caratheodory solutions can be e stablished as follows. Let x, y ∈ Rd,
+and take ζ 1 ∈ − ∂ P f (x) and ζ 2 ∈ − ∂ P f (y). Using Proposition 9 (i), we have
+f (y) ≥ f (x) − ζ 1(y − x), f (x) ≥ f (y) − ζ 2(x − y).
+From here, we deduce −ζ 1(y − x) ≤ f (y) − f (x) ≤ − ζ 2(y − x), and therefore ( ζ 2 − ζ 1)(y − x) ≤ 0,
+which, in particular, implies that the set-valued map x ↦→ − ∂ P f (x) satisﬁes the one-sided Lipschitz
+condition (S2). Proposition S2 then guarantees that there e xists a unique Caratheodory solution
+of (62) starting from every initial condition.
+Nonsmooth Stability Analysis
+In this section, we study the stability of discontinuous dyn amical systems. Unless explicitly
+mentioned otherwise, the stability notions employed here c orrespond to the usual ones for diﬀer-
+ential equations, see, for instance [50]. The presentation focuses on the time-invariant diﬀerential
+inclusion
+˙x(t) ∈ F (x(t)), (63)
+where F : Rd → B(Rd). Throughout the section, we assume that the set-valued map F satisﬁes
+the hypotheses of Proposition S1, so that the existence of so lutions of (63) is guaranteed. The
+scenario (63) has a direct application to discontinuous diﬀ erential equations and control systems.
+For instance, the results presented here apply to Caratheod ory solutions by taking a singleton-
+valued map, to Filippov solutions by taking F = F [X], and to control systems by taking F = G[X].
+Before proceeding with our exposition, we recall that solut ions of a discontinuous system are not
+necessarily unique. Therefore, when considering a propert y such as Lyapunov stability, we must
+33
+
+PDF PAGE 34
+specify whether attention is being paid to a particular solu tion starting from an initial condition
+(“weak”) or to all the solutions starting from an initial con dition (“strong”). As an example, the
+set M ⊆ Rd is weakly invariant for (63) if, for each x0 ∈ M , M contains at least one maximal
+solution of (63) with initial condition x0. Similarly, M ⊆ Rd is strongly invariant for (63) if,
+for each x0 ∈ M , M contains every maximal solution of (63) with initial condit ion x0. Rather
+than reintroducing weak and strong versions of standard sta bility notions, we rely on the guidance
+provided above and the context for the speciﬁc meaning in eac h case. Detailed deﬁnitions are given
+in [14, 18].
+The following discussion requires the notion of a limit poin t of a solution of a diﬀerential inclusion.
+The point x∗ ∈ Rd is a limit point of a solution t ↦→ x(t) of (63) if there exists a sequence {tn}n∈N
+such that x(tn) → x∗ as n → ∞ . We denote by Ω( x) the set of limit points of t ↦→ x(t). Under the
+hypotheses of Proposition S1, Ω( x) is a weakly invariant set. Moreover, if the solution t ↦→ x(t)
+lies in a bounded, open, and connected set, then Ω( x) is nonempty, bounded, connected, and
+x(t) → Ω(x) as t → ∞ , see [18].
+Stability analysis by means of the generalized gradient of a nonsmooth Lyapunov
+function
+In this section, we discuss nonsmooth stability analysis re sults that use locally Lipschitz functions
+and generalized gradients. We present results taken from va rious sources in the literature. This
+discussion is not intended to be a comprehensive account of s uch a vast topic, but rather serves as
+a motivation for further exploration. The books [14, 18] and journal articles [51, 52, 53, 54] provide
+additional information.
+Lie derivative and monotonicity
+A common theme in stability analysis is establishing the mon otonic evolution of a candidate
+Lyapunov function along the trajectories of the system. Mat hematically, the evolution of a function
+along trajectories is captured by the notion of Lie derivati ve. Our ﬁrst task is to generalize this
+notion to the setting of diﬀerential inclusions following [ 53], see also [51, 52].
+Given a locally Lipschitz function f : Rd → R and a set-valued map F : Rd → B(Rd), the
+set-valued Lie derivative ˜LF f : Rd → B(R) of f with respect to F at x is deﬁned as
+˜LF f (x) = {a ∈ R : there exists v ∈ F (x) such that ζ T v = a for all ζ ∈ ∂f (x)}. (64)
+If F takes convex and compact values, then, for each x ∈ Rd, ˜LF f (x) is a closed and bounded
+interval in R, possibly empty. If f is continuously diﬀerentiable at x, then
+˜LF f (x) = {(∇ f (x))T v : v ∈ F (x)}.
+The usefulness of the set-valued Lie derivative stems from t he fact that it allows us to study how
+the function f evolves along the solutions of a diﬀerential inclusion with out having to explicitly
+obtain the solutions. Speciﬁcally, we have the following re sult, see [53].
+34
+
+PDF PAGE 35
+Proposition 10. Let x : [0 , t 1] → Rd be a solution of the diﬀerential inclusion (63),
+and let f : Rd → R be locally Lipschitz and regular. Then, the following state ments hold:
+(i) The composition t ↦→ f (x(t)) is diﬀerentiable at almost all t ∈ [0, t 1].
+(ii) The derivative of t ↦→ f (x(t)) satisﬁes
+d
+dt
+(
+f (x(t))
+)
+∈ ˜LF f (x(t)) for almost every t ∈ [0, t 1]. (65)
+A similar result can be established for a larger class of func tions when the set-valued map F is
+singleton-valued [54, 55].
+Given the discontinuous vector ﬁeld X : Rd → Rd, consider the Filippov solutions of (10). In this
+case, with a slight abuse of notation, we denote ˜LX f = ˜LF [X]f . Note that if X is continuous at
+x, then F [X](x) = {X(x)}, and therefore, ˜LXf (x) corresponds to the singleton {LXf (x)}, whose
+sole element is the usual Lie derivative of f in the direction of X at x.
+Example 3 revisited: Monotonicity in the nonsmooth harmoni c oscillator
+For the nonsmooth harmonic oscillator in Example 3, conside r the locally Lipschitz and regular
+map f : R2 → R, f (x1, x 2) = |x1|+ x2
+2
+2 . Recall that Figure 3(b) shows the contour plot of f . Let
+us determine how f evolves along the Filippov solutions of the dynamical syste m by looking at the
+set-valued Lie derivative. First, we compute the generaliz ed gradient of f . To do so, we rewrite f
+as f (x1, x 2) = max {x1, −x1}+ x2
+2
+2 , and apply Proposition 7 (ii) and the sum rule to ﬁnd
+∂f (x1, x 2) =
+{
+{(sign(x1), x 2)}, x 1 ̸= 0,
+[−1, 1] × {x2}, x 1 = 0.
+With this information, we can compute the set-valued Lie der ivative ˜LXf : R2 → B(R) as
+˜LX f (x1, x 2) =
+
+
+
+
+
+{0}, x 1 ̸= 0,
+∅, x 1 = 0 and x2 ̸= 0,
+{0}, x 1 = 0 and x2 = 0.
+(66)
+From (65) and (66) we conclude that f is constant along the Filippov solutions of the discontinuo us
+dynamical system. Indeed, the level sets of f are exactly the curves described by the solutions of
+the system in Figure 3(b). ■
+Stability results
+The above discussion on monotonicity is the stepping stone t o stability results using locally
+Lipschitz functions and generalized gradient information . Proposition 10 provides a criterion for
+35
+
+PDF PAGE 36
+determining the monotonic behavior of a locally Lipschitz f unction along the solutions of discon-
+tinuous dynamics. This result, together with the appropria te positive deﬁnite assumptions on the
+candidate Lyapunov function, allows us to synthesize check able stability tests. We start by formu-
+lating [53] the natural extension of Lyapunov’s stability t heorem for ordinary diﬀerential equations.
+Recall that, at each x ∈ Rd, the Lie derivative ˜LF f (x) is a set contained in R. For the empty set,
+we adopt the convention max ∅= −∞ .
+Theorem 1. Let F : Rd → B(Rd) be a set-valued map satisfying the hypotheses of
+Proposition S1, let xe be an equilibrium of the diﬀerential inclusion (63), and let D ⊆ Rd be an
+open and connected set with xe ∈ D . Furthermore, let f : Rd → R be such that the following
+conditions hold:
+(i) f is locally Lipschitz and regular on D.
+(ii) f (xe) = 0 , and f (x) > 0 for x ∈ D\{xe}.
+(iii) max ˜LF f (x) ≤ 0 for each x ∈ D.
+Then, xe is a strongly stable equilibrium of (63). In addition, if (iii) above is replaced by
+(iii)’ max ˜LF f (x) < 0 for each x ∈ D\{xe},
+then xe is a strongly asymptotically stable equilibrium of (63).
+Let us apply this result to the nonsmooth harmonic oscillato r.
+Example 3 revisited: Stability analysis of the nonsmooth ha rmonic oscillator
+The function (x1, x 2) → |x1|+ x2
+2
+2 satisﬁes hypotheses (i)-(iii) of Theorem 1 on D = Rd. Therefore,
+we conclude that 0 is a strongly stable equilibrium. The phas e portrait in Figure 3(a) indicates
+that 0 is not strongly asymptotically stable. Using Theorem 1, it can be shown that the nonsmooth
+harmonic oscillator under dissipation, with vector ﬁeld ( x1, x 2) ↦→ (x2, − sign(x1) − k sign(x2)),
+where k > 0, has 0 as a strongly asymptotically stable equilibrium. Th e phase portrait of this
+system is plotted in Figure 11(a), while several Filippov so lutions are plotted in Figure 11(b). ■
+Another useful result in the theory of diﬀerential equation s is the invariance principle [50]. In
+many situations, this principle allows us to determine the a symptotic convergence properties of the
+solutions of a diﬀerential equation. Here, we build on the ab ove discussion to present a general-
+ization to diﬀerential inclusions (63) and nonsmooth Lyapu nov functions. This principle is thus
+applicable to discontinuous diﬀerential equations. The fo rmulation is taken from [53], which slightly
+generalizes the presentation in [51].
+Theorem 2. Let F : Rd → B(Rd) be a set-valued map satisfying the hypotheses of
+Proposition S1, and let f : Rd → R be a locally Lipschitz and regular function. Let S ⊂ Rd be
+36
+
+PDF PAGE 37
+compact and strongly invariant for (63), and assume that max ˜LF f (y) ≤ 0 for each y ∈ S. Then,
+all solutions x : [0 , ∞ ) → Rd of (63) starting at S converge to the largest weakly invariant set M
+contained in
+S ∩ {y ∈ Rd : 0 ∈ ˜LF f (y)}.
+Moreover, if the set M consists of a ﬁnite number of points, then the limit of each so lution starting
+in S exists and is an element of M .
+We now apply Theorem 2 to nonsmooth gradient ﬂows.
+Stability of nonsmooth gradient ﬂows
+Consider the nonsmooth gradient ﬂow (48) of a locally Lipsch itz function f : Rd → R. Assume
+further that f is regular. Let us examine how f evolves along the solutions of the ﬂow using
+the set-valued Lie derivative. Given x ∈ Rd, let a ∈ ˜L− Ln(∂f )f (x). By deﬁnition, there exists
+v ∈ F [− Ln(∂f )](x) such that
+a = ζ T v for all ζ ∈ ∂f (x). (67)
+Recall from (49) that F [− Ln(∂f )](x) = −∂f (x). Since (67) holds for all elements in the generalized
+gradient of f at x, we can choose in particular ζ = −v ∈ ∂f (x). Therefore,
+a = (−v)T v = −∥v∥2
+2 ≤ 0. (68)
+From (68), we conclude that all of the elements of ˜L− Ln(∂f )f belong to ( −∞ , 0], and therefore,
+from (65), f monotonically decreases along the solutions of its nonsmoo th gradient ﬂow (48).
+Moreover, we deduce that 0 ∈ ˜L− Ln(∂f )f (x) if and only if 0 ∈ ∂f (x), that is, if x is a critical point
+of f . The application of the Lyapunov stability theorem and the i nvariance principle in theorems 1
+and 2, respectively, gives rise to the following nonsmooth c ounterpart of the classical smooth result
+for a gradient ﬂow [56].
+Proposition 11. Let f : Rd → R be locally Lipschitz and regular. Then, the strict
+minimizers of f are strongly stable equilibria of the nonsmooth gradient ﬂo w (48) of f . Furthermore,
+if the level sets of f are bounded, then the solutions of the nonsmooth gradient ﬂo w asymptotically
+converge to the set of critical points of f .
+The following example illustrates the above discussion.
+Example 16 revisited: Stability analysis of the nonsmooth g radient ﬂow of − smQ
+Consider the nonsmooth gradient ﬂow of − smQ, which is the minimum-distance-to-polygonal-
+boundary function introduced in Example 16. Proposition 5 g uarantees Uniqueness of solutions for
+this ﬂow. Regarding convergence, Proposition 11 guarantee s that solutions converge asymptotically
+37
+
+PDF PAGE 38
+to the incenter set. Indeed, the incenter set is attained in ﬁ nite time, and hence each solution
+converges to a point of the incenter set [44]. The nonsmooth g radient ﬂow can be interpreted
+as a sphere-packing algorithm in the sense that, starting fr om an arbitrary initial point, the ﬂow
+monotonically maximizes the radius of the largest disk cont ained in the polygon (that is, sm Q!)
+until it reaches an incenter point. This fact is illustrated in Figure 12.
+What if, instead, we want to pack an arbitrary number n of spheres within the polygon? It turns
+out that the move-away-from-nearest-neighbor interactio n law is a discontinuous dynamical system
+that solves this problem, where the solutions are understoo d in the Filippov sense. Figure 13
+illustrates the evolution of this dynamical system. The sta bility properties of this law can be
+determined using the Lyapunov function HSP : Qn → R deﬁned by
+HSP(p1, . . . , p n) = min {1
+2 ∥pi − pj∥2, dist(pi, e ) : i ̸= j ∈ {1, . . . , n }, e edge of Q}. (69)
+The value of HSP corresponds to the largest radius such that spheres with cen ters p1, . . . , p n and
+radius HSP(p1, . . . , p n) ﬁt within the environment and do not intersect each other (e xcept at most
+at the boundary). The function HSP is locally Lipschitz, but not concave, on Q, and its evolution is
+monotonically nondecreasing along the move-away-from-ne arest-neighbor dynamical system. The
+reader is referred to [44] for details on the relationship be tween HSP and the minimum distance
+function sm Q, as well as additional discontinuous dynamical systems tha t solve this sphere-packing
+problem and other exciting geometric optimization problem s. ■
+Finite-time-convergent nonsmooth gradient ﬂows
+Convergence of the solutions of a dynamical system in ﬁnite t ime is a desirable property in various
+settings. For instance, a motion planning algorithm is eﬀec tive if it can steer a robot from the initial
+to the ﬁnal conﬁguration in ﬁnite time rather than asymptoti cally. Another example is given by a
+robotic network trying to agree on the exact value of a quanti ty sensed by each agent. Reaching
+agreement in ﬁnite time allows the network to use precise inf ormation in the completion of other
+tasks.
+Broadly applicable results on ﬁnite-time convergence for d iscontinuous dynamical systems can
+be found in [36, 57, 58, 59]. Here, we brieﬂy discuss the ﬁnite -convergence properties of a class of
+nonsmooth gradient ﬂows. Let f : Rd → R be a continuously diﬀerentiable function and assume
+that all of the level sets of f are bounded. It is well known [56] that all solutions of the gr adient
+ﬂow ˙x(t) = −∇ f (x(t)) converge asymptotically toward the set of critical point s of f , although
+the convergence does not occur in ﬁnite time. Here, we slight ly modify the gradient ﬂow into
+two diﬀerent nonsmooth ﬂows that achieve ﬁnite-time conver gence. Consider the discontinuous
+diﬀerential equations
+˙x(t) = − ∇ f (x(t))
+∥∇ f (x(t))∥2
+, (70)
+˙x(t) = − sign(∇ f (x(t))), (71)
+where ∥ · ∥2 denotes the Euclidean distance, and sign( x) = (sign( x1), . . . , sign(xd)) ∈ Rd. The
+nonsmooth vector ﬁeld (70) always points in the direction of the gradient with unit speed. Alter-
+natively, the nonsmooth vector ﬁeld (71) speciﬁes the direc tion of motion by means of a binary
+38
+
+PDF PAGE 39
+quantization of the direction of the gradient. The followin g result [57] characterizes the properties
+of the Filippov solutions of (70) and (71).
+Proposition 12. Let f : Rd → R be a twice continuously diﬀerentiable function. Let
+S ⊂ Rd be compact and strongly invariant for (70) (resp., for (71)). If the Hessian of f is positive
+deﬁnite at every critical point of f in S, then every Filippov solution of (70) (resp. (71)) starting
+from S converges in ﬁnite time to a minimizer of f .
+The proof of Proposition 12 builds on the stability tools pre sented in this section. Speciﬁcally,
+the invariance principle can be used to establish convergen ce toward the set of critical points of
+f . Finite-time convergence can be established by deriving bo unds on the evolution of f along
+the solutions of the discontinuous dynamics using the set-v alued Lie derivative. This analysis also
+allows us to provide upper bounds on the convergence time. A m ore comprehensive exposition of
+results that guarantee ﬁnite-time convergence of general d iscontinuous dynamics is given in [57].
+Example 19: Finite-time consensus
+The ability to reach consensus, or agreement, upon some (a pr iori unknown) quantity is critical
+for multi-agent systems. Network coordination problems re quire that individual agents agree on
+the identity of a leader, jointly synchronize their operati on, decide which speciﬁc pattern to form,
+balance the computational load, or fuse consistently the in formation gathered on some spatial
+process. Here, we brieﬂy comment on two discontinuous algor ithms that achieve consensus in ﬁnite
+time, following [57].
+Consider a network of n agents with states p1, . . . , p n ∈ R. Let G = ( {1, . . . , n }, E ) be an
+undirected graph with n vertices, describing the topology of the network. Two agent s i and j
+agree if and only if pi = pj. The disagreement function ΦG : Rn → [0, ∞ ) quantiﬁes the group
+disagreement
+ΦG(p1, . . . , p n) = 1
+2
+∑
+(i,j)∈E
+(pj − pi)2.
+It is known [60] that, if the graph is connected, the gradient ﬂow of Φ G achieves consensus with an
+exponential rate of convergence. Actually, agents agree on the average value of their initial states
+(this consensus is called average consensus). If G is connected, the nonsmooth gradient ﬂow (70) of
+ΦG achieves average consensus in ﬁnite time, and the nonsmooth gradient ﬂow (71) of Φ G achieves
+consensus on the average of the maximum and the minimum of the initial states in ﬁnite time,
+see [57]. ■
+Stability analysis by means of the proximal subdiﬀerential of a nonsmooth Lya-
+punov function
+This section presents stability tools for diﬀerential incl usions using a lower semicontinuous func-
+tion as a candidate Lyapunov function. We use the proximal su bdiﬀerential to study the monotonic
+39
+
+PDF PAGE 40
+evolution of the candidate Lyapunov function along the solu tions of the diﬀerential inclusion. As
+in the previous section, we present a few representative and useful results. We refer the interested
+reader to [24, 25] for a more detailed exposition.
+Lie derivative and monotonicity
+Let D ⊆ Rd be an open and connected set. A lower semicontinuous functio n f : Rd → R is weakly
+nonincreasing on D for a set-valued map F : Rd → B(Rd) if, for all y ∈ D , there exists a solution
+x : [0, t 1] → Rd of the diﬀerential inclusion (63) starting at y and contained in D that satisﬁes
+f (x(t)) ≤ f (x(0)) = f (y) for all t ∈ [0, t 1].
+If, in addition, f is continuous, then being weakly nonincreasing is equivale nt to the property of
+having a solution starting at y such that t ↦→ f (x(t)) is monotonically nonincreasing on [0 , t 1].
+Similarly, a lower semicontinuous function f : Rd → R is strongly nonincreasing on D for a
+set-valued map F : Rd → B(Rd) if, for all y ∈ D , all solutions x : [0 , t 1] → Rd of the diﬀerential
+inclusion (63) starting at y and contained in D satisfy
+f (x(t)) ≤ f (x(0)) = f (y) for all t ∈ [0, t 1].
+Note that f is strongly nonincreasing if and only if t ↦→ f (x(t)) is monotonically nonincreasing on
+[0, t 1] for all solutions t ↦→ x(t) of the diﬀerential inclusion.
+Given the set-valued map F : Rd → B(Rd), which takes nonempty, compact values, and the lower
+semicontinuous function f : Rd → R, the lower and upper set-valued Lie derivatives L
+F f, LF f :
+Rd → B(R) of f with respect to F at y are deﬁned by, respectively,
+LF f (y) ≜ {a ∈ R : there exists ζ ∈ ∂ P f (y) such that a = min{ζ T v : v ∈ F (y)}},
+LF f (y) ≜ {a ∈ R : there exists ζ ∈ ∂ P f (y) such that a = max{ζ T v : v ∈ F (y)}}.
+If, in addition, F takes convex values, then for each ζ ∈ ∂ P f (y), the set {ζ T v : v ∈ F (y)} is a
+closed interval of the form [min {ζ T v : v ∈ F (y)}, max{ζ T v : v ∈ F (y)}]. Note that the lower
+and upper set-valued Lie derivatives at a point y might be empty.
+The lower and upper set-valued Lie derivatives play a role fo r a lower semicontinuous function that
+is similar to the role played by the set-valued Lie derivativ e ˜LF f for a locally Lipschitz function.
+These objects allow us to study how f evolves along the solutions of a diﬀerential inclusion with out
+having to obtain the solutions in closed form. Speciﬁcally, we have the following result [24]. In this
+and in forthcoming statements, it is convenient to adopt the convention sup ∅= −∞ .
+Proposition 13. Let F : Rd → B(Rd) be a set-valued map satisfying the hypotheses of
+Proposition S1, and consider the associated diﬀerential in clusion (63). Let f : Rd → R be a lower
+semicontinuous function, and let D ⊆ Rd be open. Then, the following statements hold:
+(i) The function f is weakly nonincreasing on D if and only if
+sup LF f (y) ≤ 0, for all y ∈ D.
+40
+
+PDF PAGE 41
+(ii) If, in addition, either F is locally Lipschitz on D, or F is continuous on D and f is locally
+Lipschitz on D, then f is strongly nonincreasing on D if and only if
+sup LF f (y) ≤ 0, for all y ∈ D.
+Let us illustrate this result in a particular example.
+Example 20: Cart on a circle
+Consider, following [25, 61], the control system on R2
+˙x1 = (x2
+1 − x2
+2)u, (72)
+˙x2 = 2x1x2u, (73)
+with u ∈ R. Equations (72)-(73) are named after the fact that the integ ral curves of the vector
+ﬁeld ( x1, x 2) ↦→ (x2
+1 − x2
+2, 2x1x2) are circles with center on the x2-axis and tangent to the x1-axis,
+see the phase portrait in Figure 14(a).
+Let X : R2× R → R2 be deﬁned by X((x1, x 2), u ) = ( x2
+1− x2
+2, 2x1x2) u. Following (34), consider the
+associated set-valued map G[X] : R2 → B(R2) deﬁned by G[X](x1, x 2) = {X((x1, x 2), u ) : u ∈ R}.
+Since G[X] does not take compact values, we instead take a nondecreasi ng map σ : [0, ∞ ) → [0, ∞ ),
+and consider the set-valued map Fσ : R2 → B(R2) given by
+Fσ(x1, x 2) = {X((x1, x 2), u ) ∈ R2 : |u| ≤σ (∥(x1, x 2)∥2)}. (74)
+Consider the locally Lipschitz function f : R2 → R deﬁned by
+f (x1, x 2) =
+
+
+
+x2
+1+x2
+2
+√
+x2
+1+x2
+2+|x1|, x ̸= 0,
+0, x = 0.
+The level set curves of f are depicted in Figure 14(c). Let us determine how f evolves along the
+solutions of the control system by using the lower and upper s et-valued Lie derivatives. First, we
+compute the proximal subdiﬀerential of f . Using the fact that f is twice continuously diﬀerentiable
+on the open right and left half-planes, together with the geo metric interpretation of proximal
+subgradients, we obtain
+∂ P f (x1, x 2) =
+
+
+
+
+
+
+
+
+
+
+
+{(
+− x2
+1+x2
+2−2x1
+√
+x2
+1+x2
+2
+x2
+1+x2
+2+x1
+√
+x2
+1+x2
+2
+, x2(2x1+
+√
+x2
+1+x2
+2)
+(x1+
+√
+x2
+1+x2
+2)2
+)}
+, x 1 > 0,
+∅, x 1 = 0,{( x2
+1+x2
+2+2x1
+√
+x2
+1+x2
+2
+x2
+1+x2
+2−x1
+√
+x2
+1+x2
+2
+, x2(−2x1+
+√
+x2
+1+x2
+2)
+(x1−
+√
+x2
+1+x2
+2)2
+)}
+, x 1 < 0.
+41
+
+PDF PAGE 42
+With this information, we compute the set
+{ζ T v : ζ ∈ ∂ P f (x1, x 2), v ∈ Fσ(x1, x 2)}
+=
+
+
+
+
+
+
+
+
+
+{
+u (x2
+1+x2
+2)2
+x2
+1+x2
+2+x1
+√
+x2
+1+x2
+2
+: |u| ≤σ (∥(x1, x 2)∥2)
+}
+, x 1 > 0,
+∅, x 1 = 0,{
+− u (x2
+1+x2
+2)2
+x2
+1+x2
+2−x1
+√
+x2
+1+x2
+2
+: |u| ≤σ (∥(x1, x 2)∥2)
+}
+, x 1 < 0.
+We are now ready to compute the lower and upper set-valued Lie derivatives as
+L
+Fσ f (x1, x 2) =
+
+
+
+−σ (∥(x1, x 2)∥2) (x2
+1+x2
+2)3/2
+√
+x2
+1+x2
+2+|x1|, x 1 ̸= 0,
+−∞ , x 1 = 0,
+(75)
+LFσ f (x1, x 2) =
+
+
+
+σ (∥(x1, x 2)∥2) (x2
+1+x2
+2)3/2
+√
+x2
+1+x2
+2+|x1|, x 1 ̸= 0,
+−∞ , x 1 = 0.
+(76)
+Therefore, sup L
+Fσ f (x1, x 2) ≤ 0 for all ( x1, x 2) ∈ R2. Now using Proposition 13 (i), we deduce that
+f is weakly nonincreasing on R2. Since f is continuous, this fact is equivalent to saying that there
+exists a control input u such that the solution t ↦→ x(t) of the dynamical system resulting from
+substituting u in (72)-(73) has the property that t ↦→ f (x(t)) is monotonically nonincreasing. ■
+Stability results
+The results presented in the previous section establishing the monotonic behavior of a lower semi-
+continuous function allow us to provide tools for stability analysis. We present here an exposition
+parallel to the discussion for the locally Lipschitz functi on and generalized gradient case. We start
+by presenting a result on Lyapunov stability that follows fr om the exposition in [24].
+Theorem 3. Let F : Rd → B(Rd) be a set-valued map satisfying the hypotheses of
+Proposition S1. Let xe be an equilibrium of the diﬀerential inclusion (63), and let D ⊆ Rd be a
+domain with xe ∈ D. Let f : Rd → R and assume that the following conditions hold:
+(i) F is continuous on D and f is locally Lipschitz on D, or F is locally Lipschitz on D and f
+is lower semicontinuous on D, and f is continuous at xe.
+(ii) f (xe) = 0 , and f (x) > 0 for x ∈ D\{xe}.
+(iii) sup LF f (x) ≤ 0 for all x ∈ D.
+Then, xe is a strongly stable equilibrium of (63). In addition, if (iii) above is replaced by
+(iii)’ sup LF f (x) < 0 for all x ∈ D\{xe},
+then xe is a strongly asymptotically stable equilibrium of (63).
+42
+
+PDF PAGE 43
+A similar result can be stated for weakly stable equilibria s ubstituting (i) by “(i)’ f is continuous
+on D,” and the upper set-valued Lie derivative by the lower set-v alued Lie derivative in (iii) and
+(iii)’. Note that, if the diﬀerential inclusion (63) has a unique so lution starting from every initial
+conditions, then the notions of strong and weak stability co incide, and it is suﬃcient to satisfy the
+simpler requirements (i)’ and (iii)’ for weak stability.
+Similarly to the case of a continuous diﬀerential equation, global asymptotic stability can be
+established by requiring the Lyapunov function f to be continuous and radially unbounded. The
+equivalence between global strong asymptotic stability an d the existence of inﬁnitely diﬀerentiable
+Lyapunov functions is discussed in [62]. This type of global result is commonly invoked when
+dealing with the stabilization of control systems by referr ing to control Lyapunov functions [25] or
+Lyapunov pairs [24]. Two lower semicontinuous functions f, g : Rd → R are a Lyapunov pair for
+an equilibrium xe ∈ Rd if they satisfy f (x), g (x) ≥ 0 for all x ∈ Rd, and g(x) = 0 if and only if
+x = xe; f is radially unbounded, and, moreover,
+sup LF f (x) ≤ − g(x) for all x ∈ Rd.
+If an equilibrium xe of (63) admits a Lyapunov pair, then there exists at least one solution starting
+from every initial condition that asymptotically converge s to the equilibrium, see [24].
+Example 20 revisited: Asymptotic stability of the origin in the cart example
+As an application of the above discussion and the version of T heorem 3 for weak stability, consider
+the cart on a circle introduced in Example 20. Setting xe = (0 , 0) and D = R2, and taking into
+account the computation (75) of the lower set-valued Lie der ivative, we conclude that (0 , 0) is a
+globally weakly asymptotically stable equilibrium. ■
+We now turn our attention to the extension of the invariance p rinciple for diﬀerential inclusions
+using the proximal subdiﬀerential of a lower semicontinuou s function. The following result can be
+derived from the exposition in [24].
+Theorem 4. Let F : Rd → B(Rd) be a set-valued map satisfying the hypotheses of
+Proposition S1, and let f : Rd → R. Assume that either F is continuous and f is locally Lipschitz,
+or F is locally Lipschitz and f is continuous. Let S ⊂ Rd be compact and strongly invariant
+for (63), and assume that sup LF f (y) ≤ 0 for all y ∈ S. Then, every solution x : [0 , ∞ ) → Rd
+of (63) starting at S converges to the largest weakly invariant set M contained in
+S ∩ {y ∈ Rd : 0 ∈ LF f (y)}.
+Moreover, if the set M consists of a ﬁnite number of points, then the limit of each so lution starting
+in S exists and is an element of M .
+Next, we apply Theorem 4 to gradient diﬀerential inclusions .
+Stability of gradient diﬀerential inclusions for convex functi ons
+43
+
+PDF PAGE 44
+Consider the gradient diﬀerential inclusion (62) associat ed with the convex function f : Rd → R.
+We study here the asymptotic behavior of the solutions of (62 ). From the section “Gradient diﬀer-
+ential inclusion of a convex function,” we know that solutio ns exist and are unique. Consequently,
+the notions of weakly nonincreasing and strongly nonincrea sing function coincide. Therefore, it
+suﬃces to show that f is weakly nonincreasing on Rd for the gradient diﬀerential inclusion (62).
+For all ζ ∈ ∂ P f (x), there exists v = −ζ ∈ − ∂ P f (x) such that ζ T v = −∥ζ ∥2
+2 ≤ 0. Hence,
+L
+−∂P f f (x) ≤ 0 for all x ∈ Rd.
+Proposition 13 (i) now guarantees that f is weakly nonincreasing on Rd. Since the solutions of the
+gradient diﬀerential inclusion (62) are unique, t ↦→ f (x(t)) is monotonically nonincreasing for all
+solutions t ↦→ x(t).
+The application of the Lyapunov stability theorem and the in variance principle in theorems 3
+and 4, respectively, gives rise to the following nonsmooth c ounterpart of the classical smooth result
+for a gradient ﬂow [56].
+Proposition 14. Let f : Rd → R be convex. Then, the strict minimizers of f are
+strongly stable equilibria of the gradient diﬀerential inc lusion (62) associated with f . Furthermore, if
+the level sets of f are bounded, then the solutions of the gradient diﬀerential inclusion asymptotically
+converge to the set of minimizers of f .
+Convergence rate estimates of (62) can be found in [63].
+Stabilization of control systems
+Consider the control system on Rd given by
+˙x = X(x, u ), (77)
+where X : Rd× Rm → Rd. The system (77) is locally (respectively, globally) continuously stabilizable
+if there exists a continuous map k : Rd → Rm such that the closed-loop system
+˙x = X(x, k (x))
+is locally (respectively globally) asymptotically stable at the origin. The following result by Brock-
+ett [13], see also [12, 14], states that a large class of contr ol systems are not stabilizable by a
+continuous feedback controller.
+Theorem 5. Let X : Rd × Rm → Rd be continuous and X(0, 0) = 0 . If there exists a
+continuous stabilizer of the control system (77), then there exists a neighborhood of the origin in
+Rd × Rm whose image by X is a neighborhood of the origin in Rd.
+In particular, Theorem 5 implies that control systems of the form
+˙x = u1X1(x) + · · ·+ umXm(x), (78)
+with m < n and Xi : Rd → Rd, i ∈ {1, . . . , m }, continuous with rank( X1(0), . . . , X m(0)) = m,
+cannot be stabilized by a continuous feedback controller.
+44
+
+PDF PAGE 45
+Example 21: Nonholonomic integrator
+Consider the nonholonomic integrator [64]
+˙x1 = u1, (79)
+˙x2 = u2, (80)
+˙x3 = x1u2 − x2u1, (81)
+where ( u1, u 2) ∈ R2. The nonholonomic integrator is a control system of the form (78), with
+m = 2, X1(x1, x 2, x 3) = (1 , 0, −x2), and X2(x1, x 2, x 3) = (0 , 1, x 1). The nonholonomic integrator is
+controllable, that is, for each pair of states x, y ∈ R3, there exists an input t ↦→ u(t) such that the
+corresponding solution of (79)-(81) starting at x reaches y. However, the nonholonomic integrator
+does not satisfy the condition in Theorem 5, and thus is not co ntinuously stabilizable. Indeed,
+no point of the form (0 , 0, ε ), where ε ̸= 0, belongs to the image of the map X : R3 × R2 → R3,
+X(x1, x 2, x 3, u 1, u 2) = ( u1, u 2, x 1u2 − x2u1). ■
+The condition in Theorem 5 is necessary but not suﬃcient. The re exist control systems that
+satisfy the condition, and still cannot be stabilized by mea ns of a continuous stabilizer. The cart
+on a circle in Example 20 is one of these systems. The map (( x1, x 2), u ) → X(x1, x 2, u ) satisﬁes the
+necessary condition in Theorem 5 but cannot be stabilized wi th a continuous k : R2 → R, see [25].
+Another obstruction to the existence of continuous stabili zing controllers is given by Milnor’s
+theorem [12], which states that the domain of attraction of a n asymptotically stable equilibrium of
+a locally Lipschitz vector ﬁeld must be diﬀeomorphic to Eucl idean space. Since environments with
+obstacles are not diﬀeomorphic to Euclidean space, one can u se Milnor’s theorem to justify [25] the
+nonexistence of continuous globally stabilizing controll ers in environments with obstacles.
+The obstruction to the existence of continuous stabilizers has motivated the search for time-
+varying and discontinuous feedback stabilizers. Regardin g the latter, given a discontinuous k :
+Rd → Rm, the immediate question that arises is how to understand the solutions of the resulting
+discontinuous dynamical system ˙ x = X(x, k (x)). From the previous discussion, we know that
+Caratheodory solutions are not a good candidate, since in ma ny situations they fail to exist. The
+following result [21, 22] shows that Filippov solutions are also not a good candidate.
+Theorem 6. Let X : Rd × Rm → Rd be continuous and X(0, 0) = 0 . Assume that, for
+each U ⊆ Rm and each x ∈ Rd, X(x, co U ) = co X(x, U ) holds. With solutions understood in the
+Filippov sense, if there exists a measurable, locally bound ed stabilizer of the control system (77),
+then there exists a neighborhood of the origin in Rd × Rm whose image by X is a neighborhood of
+the origin in Rd.
+In particular, control systems of the form (78) cannot be sta bilized by means of a discontinuous
+feedback if solutions are understood in the Filippov sense. This impossibility result, however, can
+be overcome if solutions are understood in the sample-and-h old sense, as shown in [41]. Let us
+brieﬂy discuss this result in the light of the above expositi on. For more details, see [24, 25, 26].
+Consider the diﬀerential inclusion (35) associated with th e control system (77). The system (77)
+is (open loop) globally asymptotically controllable (to the origin) if 0 is a Lyapunov weakly stable
+45
+
+PDF PAGE 46
+equilibrium of the diﬀerential inclusion (35), and every po int y ∈ Rd has the property that there
+exists a solution of (35) satisfying x(0) = y and lim t→∞ x(t) = 0. On the other hand, a map
+k : Rd → Rm stabilizes the system (77) in the sample-and-hold sense if, for all x0 ∈ Rd and all
+ε ∈ (0, ∞ ), there exist δ, T ∈ (0, ∞ ) such that, for all partitions π of [0 , t 1] with diam( π ) < δ , the
+corresponding π -solution t ↦→ x(t) of (77) starting at x0 satisﬁes ∥x(t)∥2 ≤ ε for all t ≥ T .
+The following result [41] states that both notions, global a symptotic controllability and the exis-
+tence of a feedback stabilizer in the sample-and-hold sense , are equivalent.
+Theorem 7. Let X : Rd × Rm → Rd be continuous and X(0, 0) = 0 . Then, the control
+system (77) is globally asymptotically controllable if and only if it ad mits a measurable, locally
+bounded stabilizer in the sample-and-hold sense.
+The “only if” implication is clear. The converse implicatio n is proved by explicit construction
+of the stabilizer, and is based on the fact that the control sy stem (77) is globally asymptotically
+controllable if and only if it admits a continuous Lyapunov p air, see [65]. Using the continuous
+Lyapunov function provided by this characterization, the d iscontinuous feedback for the control
+system (77) can be constructed explicitly [25, 41].
+The existence of a Lyapunov pair in the sense of generalized g radients (that is, when the set-
+valued Lie derivative involving the generalized gradient i s used instead of the lower set-valued
+Lie derivative involving the proximal subdiﬀerential), ho wever, turns out to be equivalent to the
+existence of a stabilizing feedback in the sense of Filippov , see [66].
+Example 20 revisited: Cart stabilization by discontinuous feedback
+As an illustration, consider Example 20. We have already sho wn that (0 , 0) is a globally weakly
+asymptotically stable equilibrium of the diﬀerential incl usion (74) associated with the control sys-
+tem. Therefore, the control system is globally asymptotica lly controllable, and can be stabilized
+in the sample-and-hold sense by means of a discontinuous fee dback. The stabilizing feedback that
+results from the proof of Theorem 7 can be described as follow s, see [25, 67]. If placed to the left of
+the x2 axis, move in the direction of the vector ﬁeld g. If placed to the right of the x2 axis, move in
+the opposite direction of the vector ﬁeld g. Finally, on the x2-axis, choose an arbitrary direction.
+The stabilizing nature of this feedback can be graphically c hecked in Figure 14(a) and (b). ■
+Remarkably, for a system that is aﬃne in the controls, it is po ssible to show [68] that there exists
+a stabilizing feedback controller whose discontinuities f orm a set of measure zero, and, moreover,
+the discontinuity set is repulsive for the solutions of the c losed-loop system. In particular, this fact
+means that, for the closed-loop system, the solutions can be understood in the Caratheodory sense.
+This situation exactly corresponds to the situation in Exam ple 20.
+46
+
+PDF PAGE 47
+Conclusions
+This article has presented an introductory tutorial on disc ontinuous dynamical systems. Various
+examples illustrate the pertinence of the continuity and Li pschitzness properties that guarantee
+the existence and uniqueness of classical solutions to ordi nary diﬀerential equations. The lack of
+these properties in examples drawn from various discipline s motivates the need for more general
+notions than the classical one. This observation is the star ting point into the three main themes
+of our discussion. First, we introduced notions of solution for discontinuous systems. Second,
+we reviewed the available tools from nonsmooth analysis to s tudy the gradient information of
+candidate Lyapunov functions. And, third, we presented non smooth stability tools to characterize
+the asymptotic behavior of solutions.
+The physical signiﬁcance of the solution notions discussed in this article depend on the speciﬁc
+setting. Caratheodory solutions are employed for time-dep endent vector ﬁelds that depend discon-
+tinuously on time, such as dynamical systems involving impu lses as well as control systems with
+discontinuous open-loop inputs. Filippov solutions are us ed in problems involving electrical circuits
+with switches, relay control, friction, and sliding. This o bservation is also valid for solution notions
+similar to Filippov’s, such as Krasovskii and Sentis soluti ons, see “Additional Solution Notions for
+Discontinuous Systems.” The notion of a π -solution for control systems has the physical interpre-
+tation of iteratively evaluating the input at the current st ate and holding it steady for some time
+while the closed-loop dynamical system evolves. As illustr ated above, this solution notion plays a
+pivotal role in the stabilization of asymptotically contro llable systems.
+There are numerous important issues that are not treated her e; “Additional Topics on Discontin-
+uous Systems and Diﬀerential Inclusions” lists some of them . The topic of discontinuous dynamical
+systems is vast, and our focus on the above-mentioned themes is aimed at providing a coherent
+exposition. We hope that this tutorial serves as a guided mot ivation for the reader to further ex-
+plore the exciting topic of discontinuous systems. The list of references of this manuscript provides
+a good starting point to undertake this endeavor.
+Acknowledgments
+This research was supported by NSF CAREER Award ECS-0546871 . The author wishes to thank
+Francesco Bullo and Anurag Ganguli for countless hours of fu n with Filippov solutions, and Bernard
+Brogliato, Rafal Goebel, Rishi Graham, and three anonymous reviewers for numerous comments
+that improved the presentation.
+References
+[1] A. A. Agrachev and Y. Sachkov, Control Theory from the Geometric Viewpoint . New York:
+Springer Verlag, 2004.
+47
+
+PDF PAGE 48
+[2] S. Bennett, A History of Control Engineering 1930-1955 . London, UK: Institute of Electrical
+Engineers, 1993.
+[3] B. Brogliato, Nonsmooth Impact Mechanics: Models, Dynamics, and Control . New York:
+Springer Verlag, 2nd ed., 1999.
+[4] F. Pfeiﬀer and C. Glocker, Multibody Dynamics with Unilateral Contacts . New York: John
+Wiley, 1996.
+[5] G. A. S. Pereira, M. F. M. Campos, and V. Kumar, “Decentral ized algorithms for multi-
+robot manipulation via caging,” International Journal of Robotics Research , vol. 23, no. 7-8,
+pp. 783–795, 2004.
+[6] V. I. Utkin, Sliding Modes in Control and Optimization . New York: Springer Verlag, 1992.
+[7] C. Edwards and S. K. Spurgeon, Sliding Mode Control: Theory and Applications . London:
+Taylor & Francis, 1998.
+[8] R. C. Arkin, Behavior-Based Robotics. Cambridge, MA: MIT Press, 1998.
+[9] F. H. Clarke, Optimization and Nonsmooth Analysis . Canadian Mathematical Society Series
+of Monographs and Advanced Texts, John Wiley, 1983.
+[10] A. Bhaya and E. Kaszkurewicz, Control Perspectives on Numerical Algorithms and Matrix
+Problems. Philadelphia, PA: SIAM, 2006.
+[11] M. M. Polycarpou and P. A. Ioannou, “On the existence and uniqueness of solutions in adaptive
+control systems,” IEEE Transactions on Automatic Control , vol. 38, no. 3, pp. 474–479, 1993.
+[12] E. D. Sontag, Mathematical Control Theory: Deterministic Finite Dimens ional Systems . New
+York: Springer Verlag, 2 ed., 1998.
+[13] R. W. Brockett, “Asymptotic stability and feedback sta bilization,” in Geometric Control The-
+ory, R. W. Brockett, R. S. Millman, and H. J. Sussmann, eds. Bosto n, MA, Birkh¨ auser Verlag,
+1983, pp. 181–191.
+[14] A. Bacciotti and L. Rosier, Liapunov Functions and Stability in Control Theory . New York:
+Springer Verlag, 2nd ed., 2005.
+[15] D. E. Stewart, “Rigid-body dynamics with friction and i mpact,” SIAM Review, vol. 42, no. 1,
+pp. 3–39, 2000.
+[16] F. Ceragioli, Discontinuous Ordinary Diﬀerential Equations and Stabili zation.
+PhD thesis, University of Firenze, Italy, 1999. Electronic ally available at
+http://calvino.polito.it/~ceragioli.
+[17] H. Goldstein, Classical Mechanics. Reading, MA: Addison-Wesley, 2 ed., 1980.
+[18] A. F. Filippov, Diﬀerential Equations with Discontinuous Righthand Sides . Dordrecht, The
+Netherlands: Kluwer Academic Publishers, 1988.
+48
+
+PDF PAGE 49
+[19] J. P. Aubin and A. Cellina, Diﬀerential Inclusions. New York: Springer Verlag, 1994.
+[20] G. V. Smirnov, Introduction to the Theory of Diﬀerential Inclusions . Providence, RI: American
+Mathematical Society, 2001.
+[21] E. P. Ryan, “On Brockett’s condition for smooth stabili zability and its necessity in a context
+of nonsmooth feedback,” SIAM Journal on Control and Optimization , vol. 32, no. 6, pp. 1597–
+1604, 1994.
+[22] J. M. Coron and L. Rosier, “A relation between continuou s time-varying and discontinuous
+feedback stabilization,” Journal of Mathematics Systems, Estimation and Control , vol. 4, no. 1,
+pp. 67–84, 1994.
+[23] N. N. Krasovskii and A. I. Subbotin, Game-Theoretical Control Problems. New York: Springer
+Verlag, 1988.
+[24] F. H. Clarke, Y. Ledyaev, R. J. Stern, and P. R. Wolenski, Nonsmooth Analysis and Control
+Theory. New York: Springer Verlag, 1998.
+[25] E. D. Sontag, “Stability and stabilization: Discontin uities and the eﬀect of disturbances,” in
+Nonlinear Analysis, Diﬀerential Equations, and Control , F. H. Clarke and R. J. Stern, eds.
+Dordrecht, The Netherlands: Kluwer Academic Publishers, 1 999, pp. 551–598.
+[26] F. H. Clarke, “Lyapunov functions and feedback in nonli near control,” in Optimal Control,
+Stabilization and Nonsmooth Analysis , M. S. de Queiroz, M. Malisoﬀ, and P. Wolenski, eds.
+New York: Springer Verlag, 2004, pp. 267–282.
+[27] E. A. Coddington and N. Levinson, Theory of Ordinary Diﬀerential Equations . New York:
+McGraw-Hill, 1955.
+[28] R. P. Agarwal and V. Lakshmikantham, Uniqueness and Nonuniqueness Criteria for Ordinary
+Diﬀerential Equations. Singapore: World Scientiﬁc Publishing, 1993.
+[29] A. Pucci, “Traiettorie di campi di vettori discontinui ,” Rend. Ist. Mat. Univ. Trieste , vol. 8,
+pp. 84–93, 1976.
+[30] F. Ancona and A. Bressan, “Patchy vector ﬁelds and asymp totic stabilization,” ESAIM. Con-
+trol, Optimisation & Calculus of Variations , vol. 4, pp. 419–444, 1999.
+[31] A. Bressan, “Unique solutions for a class of discontinu ous diﬀerential equations,” Proceedings
+of the American Mathematical Society , vol. 104, no. 3, pp. 772–778, 1988.
+[32] A. Bressan and W. Shen, “Uniqueness for discontinuous o .d.e. and conservation laws,” Non-
+linear Analysis, vol. 34, pp. 637–652, 1998.
+[33] J.-I. Imura and A. J. van der Schaft, “Characterization of well-posedness of piecewise linear
+systems,” IEEE Transactions on Automatic Control , vol. 45, no. 9, pp. 1600–1619, 2000.
+[34] N. N. Krasovskii, Stability of motion. Applications of Lyapunov’s second met hod to diﬀerential
+systems and equations with delay . Stanford, CA: Stanford University Press, 1963. Translate d
+from Russian by J. L. Brenner.
+49
+
+PDF PAGE 50
+[35] R. Sentis, “Equations diﬀerentielles ` a second membre mesurable,” Boll. Unione Matematica
+Italiana, vol. 5, no. 15-B, pp. 724–742, 1978.
+[36] B. Paden and S. S. Sastry, “A calculus for computing Fili ppov’s diﬀerential inclusion with
+application to the variable structure control of robot mani pulators,” IEEE Transactions on
+Circuits and Systems , vol. 34, no. 1, pp. 73–82, 1987.
+[37] D. Liberzon, Switching in Systems and Control . Boston, MA: Birkh¨ auser, 2003.
+[38] M. di Bernardo, C. J. Budd, A. R. Champneys, and P. Kowalc zyk, Piecewise-smooth Dynam-
+ical Systems: Theory and Applications . New York: Springer Verlag, 2007.
+[39] A. Y. Pogromsky, W. P. M. H. Heemels, and H. Nijmeijer, “O n solution concepts and well-
+posedness of linear relay systems,” Automatica, vol. 39, no. 12, pp. 2139–2147, 2003.
+[40] R. M. Colombo and A. Marson, “H¨ older continuous o.d.e. related to traﬃc ﬂow,” Proceedings
+of the Royal Society of Edinburgh , vol. 133A, pp. 759–772, 2003.
+[41] F. H. Clarke, Y. S. Ledyaev, E. D. Sontag, and A. I. Subbot in, “Asymptotic controllability
+implies feedback stabilization,” IEEE Transactions on Automatic Control , vol. 42, no. 10,
+pp. 1394–1407, 1997.
+[42] R. T. Rockafellar and R. J. B. Wets, Variational Analysis. New York: Springer Verlag, 1998.
+[43] J. P. Aubin and H. Frankowska, Set-Valued Analysis. Boston, MA: Birkh¨ auser Verlag, 1990.
+[44] J. Cort´ es and F. Bullo, “Coordination and geometric op timization via distributed dynamical
+systems,” SIAM Journal on Control and Optimization , vol. 44, no. 5, pp. 1543–1574, 2005.
+[45] J. M. Borwein and A. S. Lewis, Convex Analysis and Nonlinear Optimization: Theory and
+Examples. New York: Springer Verlag, 2000.
+[46] J.-B. Hiriart-Urruty and C. Lemar´ echal, Fundamentals of Convex Analysis . New York:
+Springer Verlag, 2nd ed., 2004.
+[47] R. T. Rockafellar, Convex Analysis . Princeton, NJ: Princeton University Press, 1970, reprint :
+1997.
+[48] F. H. Clarke, Y. S. Ledyaev, and P. R. Wolenski, “Proxima l analysis and minimization princi-
+ples,” Journal of Mathematical Analysis and Applications , vol. 196, no. 2, pp. 722–735, 1995.
+[49] J. P. Aubin and I. Ekeland, Applied Nonlinear Analysis . New York: John Wiley, 1984.
+[50] H. K. Khalil, Nonlinear Systems. Englewood Cliﬀs, NJ: Prentice Hall, third ed., 2002.
+[51] D. Shevitz and B. Paden, “Lyapunov stability theory of n onsmooth systems,” IEEE Transac-
+tions on Automatic Control , vol. 39, no. 9, pp. 1910–1914, 1994.
+[52] E. P. Ryan, “An integral invariance principle for diﬀer ential inclusions with applications in
+adaptive control,” SIAM Journal on Control and Optimization , vol. 36, no. 3, pp. 960–980,
+1998.
+50
+
+PDF PAGE 51
+[53] A. Bacciotti and F. Ceragioli, “Stability and stabiliz ation of discontinuous systems and nons-
+mooth Lyapunov functions,” ESAIM. Control, Optimisation & Calculus of Variations , vol. 4,
+pp. 361–376, 1999.
+[54] A. Bacciotti and F. Ceragioli, “Nonpathological Lyapu nov functions and discontinuous
+Caratheodory systems,” Automatica, vol. 42, no. 3, pp. 453–458, 2006.
+[55] M. Valadier, “Entra ˆ ınement unilat´ eral, lignes de de scente, fonctions lipschitziennes non
+pathologiques,” C.R. Acad. Sci. Paris S´ er. I Math , vol. 8, pp. 241–244, 1989.
+[56] W. M. Hirsch and S. Smale, Diﬀerential Equations, Dynamical Systems and Linear Algeb ra.
+New York: Academic Press, 1974.
+[57] J. Cort´ es, “Finite-time convergent gradient ﬂows wit h applications to network consensus,”
+Automatica, vol. 42, no. 11, pp. 1993–2000, 2006.
+[58] S. Adly, H. Attouch, and A. Cabot, “Finite time stabiliz ation of nonlinear oscillators subject to
+dry friction,” in Progresses in Nonsmooth Mechanics and Analysis , P. Alart, O. Maisonneuve,
+and R. T. Rockafellar, eds. Dordrecht, The Netherlands: Klu wer Academic Publishers, 2006,
+pp. 289–304.
+[59] A. Cabot, “Stabilization of oscillators subject to dry friction: Finite time convergence ver-
+sus exponential decay results,” Transactions of the American Mathematical Society , vol. 360,
+pp. 103–121, 2008.
+[60] R. Olfati-Saber and R. M. Murray, “Consensus problems i n networks of agents with switching
+topology and time-delays,” IEEE Transactions on Automatic Control , vol. 49, no. 9, pp. 1520–
+1533, 2004.
+[61] Z. Artstein, “Stabilization with relaxed controls,” Nonlinear Analysis , vol. 7, pp. 1163–1173,
+1983.
+[62] F. H. Clarke, Y. S. Ledyaev, and R. J. Stern, “Asymptotic stability and smooth Lyapunov
+functions,” Journal of Diﬀerential Equations , vol. 149, pp. 69–114, 1998.
+[63] O. G¨ uler, “Convergence rate estimates for the gradien t diﬀerential inclusion,” Optimization
+Methods and Software , vol. 20, no. 6, pp. 729–735, 2005.
+[64] R. W. Brockett, “Control theory and singular Riemannia n geometry,” in New Directions in
+Applied Mathematics, P. Hilton and G. Young, eds. New York, Springer Verlag, 1982 , pp. 11–
+27.
+[65] E. D. Sontag, “A Lyapunov-like characterization of asy mptotic controllability,” SIAM Journal
+on Control and Optimization , vol. 21, pp. 462–471, 1983.
+[66] L. Riﬀord, “On the existence of nonsmooth control-Lyap unov functions in the sense of general-
+ized gradients,” ESAIM. Control, Optimisation & Calculus of Variations , vol. 6, pp. 593–611,
+2001.
+51
+
+PDF PAGE 52
+[67] G. A. Laﬀerriere and E. D. Sontag, “Remarks on control Ly apunov functions for discontinuous
+stabilizing feedback,” in IEEE Conf. on Decision and Control , (San Antonio, TX), pp. 306–
+308, 1993.
+[68] L. Riﬀord, “Semiconcave control-Lyapunov functions a nd stabilizing feedbacks,” SIAM Journal
+on Control and Optimization , vol. 41, no. 3, pp. 659–681, 2002.
+52
+
+PDF PAGE 53
+x x
+u u
+−3−3
+−2
+−2
+−2
+−2
+−1
+−1
+−1
+−1
+1
+1
+1
+1
+2
+2
+2
+2 3 3
+Figure 1. Obstruction to the existence of continuous state-depend ent feedback [12]. The
+shaded areas represent the values of the control u that are needed to stabilize the equilibrium
+point 0 of system (1). There does not exist a function x ↦→ u(x) deﬁned on R that at the same
+time is continuous and belongs to the shaded areas.
+53
+
+PDF PAGE 54
+F
+mg
+θ
+v
+(a)
+2
+2
+1.5
+1
+1
+0.5
+0
+0−1−2
+v
+ν
+(b)
+Figure 2. Brick sliding on a frictional ramp. (a) shows the physic al quantities used to describe
+the example. (b) shows the one-dimensional phase portraits of (2) corresponding to values of
+the friction coeﬃcient ν between 0 and 2, with a ramp inclination of 30 degrees. The phase
+portrait shows that, for suﬃciently small values of ν , every trajectory that starts with positive
+initial velocity (“moving to the right”) never stops. However, for suﬃciently large values
+of ν , every trajectory that starts with positive initial velocit y eventually stops and remains
+stopped. However, there is no continuously diﬀerentiable solut ion of (2) that exhibits this type
+of behavior. We thus need to expand our notion of solution beyond contin uously diﬀerentiable
+solutions by understanding the eﬀect of the discontinuity in (2).
+54
+
+PDF PAGE 55
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(a)
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(b)
+Figure 3. Nonsmooth harmonic oscillator. (a) shows the phase portr ait on [−1, 1]2 of the vector
+ﬁeld (x1, x 2) ↦→ (x2, − sign(x1)), while (b) shows the contour plot on [−1, 1]2 of the function
+(x1, x 2) ↦→ |x1|+ x2
+2
+2 . The discontinuity of the vector ﬁeld along the x2-coordinate axis makes
+it impossible to ﬁnd continuously diﬀerentiable solutions of (10). On the other hand, the level
+sets in (b) match the phase portrait in (a) everywhere except for the x2-coordinate axis, which
+suggests that trajectories along the level sets are candidates for solutions of (10) in a sense
+diﬀerent from the classical one.
+55
+
+PDF PAGE 56
+(a) (b)
+Figure 4. Move-away-from-nearest-neighbor interaction law. A no de in (a) computes diﬀerent
+directions of motion if placed slightly to the right or to the left of t he bisector line deﬁned
+by two polygonal boundaries. A node in (b) computes diﬀerent direc tions of motion if placed
+slightly to the right or to the left of the half plane deﬁned by two other nodes. In both cases,
+the vector ﬁeld is discontinuous.
+56
+
+PDF PAGE 57
+1
+1
+.5
+.5
+−.5
+−.5
+−1
+−1
+.1
+(a)
+1
+1
+.5
+.5
+−.5
+−.5
+−1
+−1
+(b)
+1
+1.5−.5−1
+.2
+.4
+.6
+.8
+(c)
+1.5−.5−1
+−.1
+.1
+−.2
+.2
+.3
+(d)
+Figure 5. Discontinuous and not-one-sided Lipschitz vector ﬁelds . The vector ﬁelds in (a)
+and (b), which diﬀer only in their values at 0, are discontinuous, and thus do not satisfy the
+hypotheses of Proposition 1. Therefore, the existence of solutions is not guaranteed. In fact,
+the vector ﬁeld in (a) has no solution starting from 0, whereas the vector ﬁeld in (b) has a
+solution starting from all initial conditions. The vector ﬁelds i n (c) and (d) are neither locally
+Lipschitz nor one-sided Lipschitz, and thus do not satisfy the hypotheses of Proposition 2.
+Therefore, uniqueness of solutions is not guaranteed. The vector ﬁeld in (c) has two solutions
+starting from 0. However, the vector ﬁeld in (d) has a unique solution starting from all initial
+conditions.
+57
+
+PDF PAGE 58
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(a)
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(b)
+Figure 6. Move-away-from-nearest-neighbor interaction law for on e agent moving in the square
+[−1, 1]2 ⊂ R2. (a) shows the phase portrait, while (b) shows several Filip pov solutions. On the
+diagonals, the vector ﬁeld pushes trajectories out, whereas, ou tside the diagonals, the vector
+ﬁeld pushes trajectories in. This fact makes it impossible to construct a Caratheodory solution
+starting from any initial condition on the diagonals of the square.
+58
+
+PDF PAGE 59
+.2 .4 .6 .8 1
+1.25
+1.5
+1.75
+2
+2.25
+2.5
+2.75
+t
+x
+Figure 7. Illustration of the notion of sample-and-hold solution. For t he control system ˙x = u,
+we choose the control input u(x) = x. The upper curve is the classical solution starting from
+x0 = 1, while the lower curve is the sample-and-hold solution startin g from x0 = 1 corresponding
+to the π -partition {0, 1
+4 , 1
+2 , 3
+4 , 1} of [0, 1].
+59
+
+PDF PAGE 60
+SX
+Dj
+Di
+(a)
+SX
+Dj
+Di
+(b)
+SX
+Dj
+Di
+(c)
+SX
+Dj
+Di
+(d)
+Figure 8. Piecewise continuous vector ﬁelds. These dynamical sy stems are continuous on D1
+and D2, and discontinuous on SX. In (a) and (b), Filippov solutions, known as transversally
+crossing trajectories, cross SX. In (c), there are two Filippov solutions, known as repulsive
+trajectories, starting from each point in SX . Finally, in (d), the Filippov solutions that reach
+SX, known as attractive trajectories, continue sliding along SX.
+60
+
+PDF PAGE 61
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+Figure 9. Generalized gradient vector ﬁeld. This plot shows the ge neralized gradient vector
+ﬁeld of the minimum-distance-to-polygonal-boundary function smQ : Q → R on the square
+[−1, 1]2. The vector ﬁeld is discontinuous on the diagonals of the square. Not e the similarity
+with the phase portrait of the move-away-from-nearest-neighbo r interaction law for one agent
+moving in the square [−1, 1]2 ⊂ R2 plotted in Figure 6.
+61
+
+PDF PAGE 62
+(a)
+/0/0/0/0/0/0/0/0/0/0/0/0/0
+/0/0/0/0/0/0/0/0/0/0/0/0/0
+/0/0/0/0/0/0/0/0/0/0/0/0/0
+/0/0/0/0/0/0/0/0/0/0/0/0/0
+/0/0/0/0/0/0/0/0/0/0/0/0/0
+/1/1/1/1/1/1/1/1/1/1/1/1/1
+/1/1/1/1/1/1/1/1/1/1/1/1/1
+/1/1/1/1/1/1/1/1/1/1/1/1/1
+/1/1/1/1/1/1/1/1/1/1/1/1/1
+/1/1/1/1/1/1/1/1/1/1/1/1/1
+−1 1
+1
+−1
+(b)
+Figure 10. Geometric interpretations of the proximal subdiﬀerent ial of the function x ↦→ |x|at
+x = 0 computed in Example 17. The epigraph of the function is shaded, whil e the proximal
+normal cone to the epigraph at 0 is striped. In (a), according to (51), each proximal subgradient
+corresponds to a direction tangent to a parabola that ﬁts under th e epigraph of the function. In
+(b), according to (52), each proximal subgradient can be uniquely associated with a n element
+of the proximal normal cone to the epigraph of the function.
+62
+
+PDF PAGE 63
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(a)
+1
+1
+.5
+.5
+0
+0
+−.5
+−.5
+−1
+−1
+x1
+x2
+(b)
+Figure 11. Nonsmooth harmonic oscillator with dissipation. (a) show s the phase portrait
+on [−1, 1]2 of the vector ﬁeld (x1, x 2) ↦→ (x2, − sign(x1) − k sign(x2)), where k = 0 . 75, while
+(b) shows some Filippov solutions of the associated dynamical sys tem (10). In the nonsmooth
+harmonic oscillator in Example 3, the equilibrium at the origin i s strongly stable, but not strongly
+asymptotically stable, see Figure 3. The addition of dissipation r enders the equilibrium at the
+origin strongly asymptotically stable.
+63
+
+PDF PAGE 64
+Figure 12. From left to right, evolution of the nonsmooth gradient ﬂow of th e function − smQ in
+a convex polygon. At each snapshot, the value of smQ is the radius of the largest disk (plotted
+in gray) contained in the polygon with center at the current locati on. The ﬂow converges in
+ﬁnite time to the incenter set, which, for this polygon, is a singl eton whose only element is
+the center of the disk in the rightmost snapshot.
+64
+
+PDF PAGE 65
+(a) (b) (c)
+Figure 13. The move-away-from-nearest-neighbor interaction law f or solving a sphere-packing
+problem within the polygon Q. (a) is the initial conﬁguration, (b) is the evolution, and (c) is
+the ﬁnal conﬁguration of a Filippov solution. In (c), the minimum rad ius of the shaded spheres
+corresponds to the value of the locally Lipschitz function HSP, deﬁned in (69). The Filippov
+solutions of the move-away-from-nearest-neighbor dynamical sys tem monotonically increase
+the value of HSP. In (c), every node is at equilibrium since the inﬁnitesimal motion of a node
+in any direction would place it closer to at least another node. Th is discontinuous dynamical
+system is an example of how simple local interactions can achie ve a global objective.
+65
+
+PDF PAGE 66
+replacements
+2
+2
+1
+1
+0
+0
+−1
+−1
+−2
+−2
+x1
+x2
+(a)
+3
+2
+1.5
+1
+1.5−.5
+−1
+−1−1.5
+−2
+−3
+x1
+x2
+(b)
+2
+2
+1
+1
+0
+0
+−1
+−1
+−2
+−2
+x1
+x2
+(c)
+Figure 14. Cart on a circle. (a) shows the phase portrait of the inpu t vector ﬁeld (x1, x 2) ↦→
+(x2
+1 − x2
+2, 2x1x2), (b) shows its integral curves, and (c) shows the contour plot of th e function
+0 ̸= ( x1, x 2) ↦→ x2
+1+x2
+2
+√
+x2
+1+x2
+2+|x1|, (0, 0) ↦→ 0. The origin cannot be asymptotically stabilized by
+means of continuous feedback in the cart dynamics (72)-(73). However, the origin can be
+asymptotically stabilized by means of discontinuous feedback w hen solutions are understood
+in the sample-and-hold sense.
+66
+
+PDF PAGE 67
+Sidebar 1: Solutions with Jumps
+In this article, we focus entirely on absolutely continuous solutions of ordinary diﬀerential equations.
+However, nonsmooth continuous-time systems can possess di scontinuous solutions that admit jumps
+in the state. Such notions are appropriate for dealing with, for instance, mechanical systems subject
+to unilateral constraints [15]. As an example, a bouncing ba ll hitting the ground experiences an
+instantaneous change of velocity. This change corresponds to a discontinuous jump in the trajectory
+describing the evolution of the velocity of the ball. Both me asure diﬀerential inclusions [S1, S2]
+and linear complementarity systems [S3, S4, S5, S6] are appr oaches that speciﬁcally allow for
+discontinuous solutions. Within hybrid systems theory [S7 , S8, S9, S10], discontinuous solutions
+arise in systems that involve both continuous- and discrete -time evolutions.
+References
+[S1] J.-J. Moreau, “Unilateral contact and dry friction in ﬁ nite freedom dynamics,” in Non-smooth
+Mechanics and Applications, J.-J. Moreau and P. D. Panagiotopoulos, eds. New York: Spri nger
+Verlag, 1988, vol. 302, pp. 1–82.
+[S2] M. D. P. M. Marques, Diﬀerential Inclusions in Nonsmooth Mechanical Problems: Shocks and
+Dry Friction. Boston, MA: Birkh¨ auser Verlag, 1993.
+[S3] R. W. Cottle, J.-S. Pang, and R. E. Stone, The Linear Complementarity Problem . New York:
+Academic Press, 1992.
+[S4] G. Isac, Complementarity problems. New York: Springer Verlag, 1992.
+[S5] M. C. Ferris and J.-S. Pang, “Engineering and economic a pplications of complementarity
+problems,” SIAM Review , vol. 39, no. 4, pp. 669–713, 1997.
+[S6] B. Brogliato, “Some perspectives on the analysis and co ntrol of complementarity systems,”
+IEEE Transactions on Automatic Control , vol. 48, no. 6, pp. 918–935, 2003.
+[S7] P. J. Antsaklis and A. Nerode (guest eds.), “Special iss ue on hybrid control systems,” IEEE
+Transactions on Automatic Control , vol. 43, no. 4, 1998.
+[S8] A. S. Morse, C. C. Pantelides, S. S. Sastry, and J. M. Schu macher (guest eds.), “Special issue
+on hybrid systems,” Automatica, vol. 35, no. 3, 1999.
+[S9] A. J. van der Schaft and H. Schumacher, An Introduction to Hybrid Dynamical Systems . New
+York: Springer Verlag, 2000.
+[S10] R. Goebel and A. R. Teel, “Solutions of hybrid inclusio ns via set and graphical convergence
+with stability theory applications,” Automatica, vol. 42, no. 4, pp. 573–587, 2006.
+67
+
+PDF PAGE 68
+Sidebar 2: Additional Solution Notions for Discontinuous S ystems
+Several solution notions are available in addition to Carat heodory, Filippov, and sample-and-hold
+solutions. These notions include the ones considered by Kra sovskii [34], Hermes [S11, S12], Am-
+brosio [S13], Sentis [35], and Yakubovich-Leonov-Gelig [S 14], see Table S1. As in the case in which
+the vector ﬁeld is continuous, Euler solutions [18, 24] are u seful for establishing existence and in
+characterizing basic mathematical properties of the dynam ical system. Additional notions of so-
+lutions for discontinuous systems are provided in [S14, Sec tion 1.1.3]. With so many notions of
+solution available, various works explore the relationshi ps among them. For example, Caratheodory
+and Filippov solutions are compared in [S15]; Caratheodory and Krasovskii solutions are compared
+in [S16]; Caratheodory, Euler, sample-and-hold, Filippov , and Krasovskii solutions are compared
+in [16]; Hermes, Filippov, and Krasovskii solutions are com pared in [S12]; and Caratheodory, Euler,
+and Sentis solutions are compared in [S17].
+Notion of solution References
+Caratheodory [18]
+Filippov [18]
+Krasovskii [34]
+Euler [18, 24]
+Sample-and-hold [23]
+Hermes [S11, S12]
+Sentis [35], [S17]
+Ambrosio [S13]
+Yakubovich-Leonov-Gelig [S14]
+Table S1. Several notions of solution for discontinuous dynamics. De pending on the speciﬁc
+problem, some notions give more physically meaningful solution traj ectories than others.
+References
+[S11] H. Hermes, “Discontinuous vector ﬁelds and feedback c ontrol,” in Diﬀerential Equations and
+Dynamical Systems. New York: Academic Press, 1967, pp. 155–165.
+[S12] O. H´ ajek, “Discontinuous diﬀerential equations I,” Journal of Diﬀerential Equations , vol. 32,
+pp. 149–170, 1979.
+[S13] L. Ambrosio, “A lower closure theorem for autonomous o rientor ﬁelds,” Proc. R. Soc. Edin. ,
+vol. A110, no. 3/4, pp. 249–254, 1988.
+[S14] V. A. Yakubovich, G. A. Leonov, and A. K. Gelig, Stability of Stationary Sets in Control Sys-
+tems With Discontinuous Nonlinearities . Singapore: World Scientiﬁc Publishing, 2004, vol. 14.
+[S15] J. S. Spraker and D. C. Biles, “A comparison of the Carat heodory and Filippov solution
+sets,” Journal of Mathematical Analysis and Applications , vol. 198, no. 2, pp. 571–580, 1996.
+[S16] S. Hu, “Diﬀerential equations with discontinuous rig ht-hand sides,” Journal of Mathematical
+Analysis and Applications , vol. 154, no. 2, pp. 377–390, 1991.
+68
+
+PDF PAGE 69
+[S17] A. Bacciotti, “Some remarks on generalized solutions of discontinuous diﬀerential equations,”
+International Journal of Pure and Applied Mathematics , vol. 10, no. 3, pp. 257–266, 2004.
+69
+
+PDF PAGE 70
+Sidebar 3: Additional T opics on Discontinuous Systems and D iﬀerential Inclusions
+Beyond the topics discussed in this article, we brieﬂy menti on several that are relevant to sys-
+tems and control. These topics include continuous dependen ce of solutions with respect to initial
+conditions and parameters [18, 19], robustness properties against external disturbances and state
+measurement errors [24] and [S18], conditions for the exist ence of periodic solutions [18, 20], bifurca-
+tions [38], converse Lyapunov theorems [S19, S20], control lability of diﬀerential inclusions [20, 24],
+output tracking in diﬀerential inclusions [43], systems su bject to gradient nonlinearities [S14], vi-
+ability theory [S21], maximal monotone inclusions [19], pr ojected dynamical systems and vari-
+ational inequalities [S22], and numerical methods for disc ontinuous systems and diﬀerential in-
+clusions [S23, S24, S25]. Several works report equivalence results among diﬀerent approaches to
+nonsmooth systems, including [19] on the equivalence betwe en diﬀerential inclusions and projected
+dynamical systems, and [S26] on the equivalence of these for malisms with complementarity systems.
+References
+[S18] Y. S. Ledyaev and E. D. Sontag, “A Lyapunov characteriz ation of robust stabilization,”
+Nonlinear Analysis, Theory, Methods, and Applications , vol. 37, pp. 813–840, 1999.
+[S19] F. H. Clarke, Y. S. Ledyaev, L. Riﬀord, and R. J. Stern, “ Feedback stabilization and Lyapunov
+functions,” SIAM Journal on Control and Optimization , vol. 39, no. 1, pp. 25–48, 2000.
+[S20] A. R. Teel and L. Praly, “A smooth Lyapunov function fro m a class KL estimate involving two
+positive semideﬁnite functions,” ESAIM J. Control, Optimization and Calculus of Variations ,
+vol. 5, pp. 313–367, 2000.
+[S21] J. P. Aubin, Viability Theory. Boston, MA: Birkh¨ auser Verlag, 1991.
+[S22] A. Nagurney and D. Zhang, Projected Dynamical Systems and Variational Inequalities with
+Applications. Dordrecht, The Netherlands: Kluwer Academic Publishers, 1996.
+[S23] A. Dontchev and F. Lempio, “Diﬀerence methods for diﬀe rential inclusions: A survey,” SIAM
+Review, vol. 34, pp. 263–294, 1992.
+[S24] F. Lempio and V. Veliov, “Discrete approximations of d iﬀerential inclusions,” Bayreuth.
+Math. Schr. , vol. 54, pp. 149–232, 1998.
+[S25] V. Acary and B. Brogliato, Numerical Methods for Nonsmooth Dynamical Systems: Applic a-
+tions in Mechanics and Electronics . New York: Springer Verlag, 2008.
+[S26] B. Brogliato, A. Daniilidis, C. Lemar´ echal, and V. Ac ary, “On the equivalence between
+complementarity systems, projected systems, and diﬀerent ial inclusions,” Systems & Control
+Letters, vol. 55, no. 1, pp. 45–51, 2006.
+70
+
+PDF PAGE 71
+Sidebar 4: Index of Symbols
+The following is a list of the symbols used throughout the art icle.
+Symbol : Description and page(s) when applicable
+G[X] : Set-valued map associated with a control system X : Rd × U → Rd
+co(S) : Convex closure of a set S ⊆ Rd
+co(S) : Convex hull of a set S ⊆ Rd
+diam(π ) : Diameter of the partition π
+f o(x; v) : Generalized directional derivative of the function f : Rd → R at x ∈ Rd in the
+direction of v ∈ Rd
+f ′(x; v) : Right directional derivative of the function f : Rd → R at x ∈ Rd in the
+direction of v ∈ Rd
+SX : Set of points where the vector ﬁeld X : Rd → Rd is discontinuous
+dist(p, S ) : Euclidean distance from the point p ∈ Rd to the set S ⊆ Rd
+F [X] : Filippov set-valued map associated with a vector ﬁeld X : Rd → Rd
+∂f : Generalized gradient of the locally Lipschitz function f : Rd → R
+∇ f : Gradient of the diﬀerentiable function f : Rd → R
+Ln(S) : Least-norm elements in the closure of the set S ⊆ Rd
+Ω(x) : Set of limit points of a curve t ↦→ x(t)
+N : Nearest-neighbor map
+ne : Unit normal to the edge e of a polygon Q pointing toward the interior of Q
+Ωf : Set of points where the locally Lipschitz function f : Rd → R fails to be
+diﬀerentiable
+π : Partition of a closed interval
+B(S) : Set whose elements are all the possible subsets of S ⊆ Rd
+∂ P f : Proximal subdiﬀerential of the lower semicontinuous func tion f : Rd → R
+˜LF f : Set-valued Lie derivative of the locally Lipschitz functi on f : Rd → R with
+respect to the set-valued map F : Rd → B(Rd)
+˜LXf : Set-valued Lie derivative of the locally Lipschitz functi on f : Rd → R with
+respect to the Filippov set-valued map F [X] : Rd → B(Rd)
+LF f : Lower set-valued Lie derivative of the lower semicontinuo us function f : Rd → R
+with respect to the set-valued map F : Rd → B(Rd)
+LF f : Upper set-valued Lie derivative of the lower semicontinuo us function f : Rd →
+R with respect to the set-valued map F : Rd → B(Rd)
+F : Set-valued map
+smQ : Minimum distance function from a point in a convex polygon Q ⊂ Rd to the
+boundary of Q
+71
+
+PDF PAGE 72
+Sidebar 5: Locally Lipschitz F unctions
+A function f : Rd → Rm is locally Lipschitz at x ∈ Rd if there exist Lx, ε ∈ (0, ∞ ) such that
+∥f (y) − f (y′)∥2 ≤ Lx∥y − y′∥2,
+for all y, y ′∈ B(x, ε ). A function that is locally Lipschitz at x is continuous at x, but the converse
+is not true. For example, f : R → R, f (x) =
+√
+|x|, is continuous at 0, but not locally Lipschitz
+at 0, see Figure S1(a). A function is locally Lipschitz on S ⊆ Rd if it is locally Lipschitz at x for
+1
+1
+.8
+.6
+.5
+.4
+.2
+−.5−1
+(a)
+1
+1
+.8
+.6
+.5
+.4
+.2
+−.5−1
+(b)
+Figure S1. Illustration of the diﬀerence among continuous, locally Lipschitz, and diﬀerentiable
+functions. (a) shows the graph of f : R → R, f (x) =
+√
+|x|, which is continuous at 0, but not
+locally Lipschitz at 0. (b) shows the graph of f : R → R, f (x) = |x|, which is is locally Lipschitz
+at 0, but not diﬀerentiable at 0.
+all x ∈ S. If f is locally Lipschitz on Rd, we simply say f is locally Lipschitz. Convex functions
+are locally Lipschitz [S27], and hence concave functions ar e also locally Lipschitz. Note that a
+function that is continuously diﬀerentiable at x is locally Lipschitz at x, but the converse is not
+true. For example, f : R → R, f (x) = |x|, is locally Lipschitz at 0, but not diﬀerentiable at 0, see
+Figure S1(b). A function f : R × Rd → Rm that depends explicitly on time is locally Lipschitz at
+x ∈ Rd if there exists ε ∈ (0, ∞ ) and Lx : R → (0, ∞ ) such that ∥f (t, y ) − f (t, y ′)∥2 ≤ Lx(t)∥y − y′∥2
+for all t ∈ R and y, y ′∈ B(x, ε ).
+References
+[S27] Department of Mathematics, Wayne State University, “ Every convex function is locally Lip-
+schitz,” The American Mathematical Monthly , vol. 79, no. 10, pp. 1121–1124, 1972.
+72
+
+PDF PAGE 73
+Sidebar 6: Caratheodory Conditions for Time-varying V ecto r Fields
+Consider the diﬀerential equation
+˙x(t) = X(t, x (t)), (S1)
+where X : [0, ∞ ) × Rd → Rd is a time-varying vector ﬁeld. The following result is taken from [18]:
+a weaker version of the Caratheodory conditions is given, fo r instance, in [S28].
+Proposition S1. Let X : [0, ∞ ) × Rd → Rd. Assume that (i) for almost all t ∈ [0, ∞ ),
+the map x ↦→ X(t, x ) is continuous, (ii) for each x ∈ Rd, the map t ↦→ X(t, x ) is measurable, and
+(iii) X is locally essentially bounded, that is, for all (t, x ) ∈ [0, ∞ ) × Rd, there exist ε ∈ (0, ∞ ) and
+an integrable function m : [t, t + δ ] → (0, ∞ ) such that ∥X(s, y )∥2 ≤ m(s) for almost all s ∈ [t, t + δ ]
+and all y ∈ B(x, ε ). Then, for all (t0, x 0) ∈ [0, ∞ )× Rd, there exists a Caratheodory solution of (S1)
+with initial condition x(t0) = x0.
+The specialization of Proposition S1 to a time-invariant ve ctor ﬁeld requires that the vector ﬁeld
+be continuous, which in turn guarantees the existence of a cl assical solution.
+References
+[S28] D. C. Biles and P. A. Binding, “On Caratheodory’s condi tions for the initial value problem,”
+Proceedings of the American Mathematical Society , vol. 125, no. 5, pp. 1371–1376, 1997.
+73
+
+PDF PAGE 74
+Sidebar 7: Set-valued Maps
+A set-valued map, as its name suggests, is a map that assigns s ets to points. We consider time-
+varying set-valued maps of the form F : [0 , ∞ ) × Rd → B(Rd). Recall that B(Rd) denotes the
+collection of all subsets of Rd. The map F assigns to each point ( t, x ) ∈ [0, ∞ ) × Rd the set
+F(t, x ) ⊆ Rd. Note that a standard map f : [0 , ∞ ) × Rd → Rd can be interpreted as a singleton-
+valued map. A complete analysis for set-valued maps can be de veloped, as in the case of standard
+maps [43]. Here, we are mainly interested in concepts relate d to boundedness and continuity, which
+we deﬁne next.
+The set-valued map F : [0, ∞ ) × Rd → B(Rd) is locally bounded (respectively, locally essentially
+bounded) at ( t, x ) ∈ [0, ∞ )× Rd if there exist ε, δ ∈ (0, ∞ ) and an integrable function m : [t, t + δ ] →
+(0, ∞ ) such that ∥z∥2 ≤ m(s) for all z ∈ F (s, y ), all s ∈ [t, t + δ ], and all y ∈ B(x, ε ) (respectively,
+almost all y ∈ B(x, ε ) in the sense of Lebesgue measure).
+The time-invariant set-valued map F : Rd → B(Rd) is upper semicontinuous (respectively, lower
+semicontinuous) at x ∈ Rd if, for all ε ∈ (0, ∞ ), there exists δ ∈ (0, ∞ ) such that F(y) ⊆ F (x) +
+B(0, ε ) (respectively, F(x) ⊆ F (y) + B(0, ε )) for all y ∈ B(x, δ ). The set-valued map F : Rd →
+B(Rd) is continuous at x ∈ Rd if it is both upper and lower semicontinuous at x ∈ Rd. Finally,
+the set-valued map F : Rd → B(Rd) is locally Lipschitz at x ∈ Rd if there exist Lx, ε ∈ (0, ∞ ) such
+that
+F(y′) ⊆ F (y) + Lx∥y − y′∥2
+B(0, 1),
+for all y, y ′∈ B(x, ε ). A locally Lipschitz set-valued map at x is upper semicontinuous at x, but
+the converse is not true.
+The notion of upper semicontinuity of a map f : Rd → R, which is deﬁned in the section “The
+proximal subdiﬀerential of a lower semicontinuous functio n,” is weaker than the notion of upper
+semicontinuity of f when viewed as a (singleton-valued) set-valued map from Rd to B(R). Indeed,
+the latter is equivalent to the condition that f : Rd → R is continuous.
+74
+
+PDF PAGE 75
+Sidebar 8: Caratheodory Solutions of Diﬀerential Inclusio ns
+A diﬀerential inclusion [19, 20] is a generalization of a diﬀ erential equation. At each state, a
+diﬀerential inclusion speciﬁes a set of possible evolution s, rather than a single one. This object is
+deﬁned by means of a set-valued map, see “Set-valued Maps.” T he diﬀerential inclusion associated
+with a time-varying set-valued map F : [0, ∞ ) × Rd → B(Rd) is an equation of the form
+˙x(t) ∈ F (t, x (t)). (S1)
+The point xe ∈ Rd is an equilibrium of the diﬀerential inclusion if 0 ∈ F (t, x e) for all t ∈ [0, ∞ ).
+We now deﬁne the notion of solution of a diﬀerential inclusio n in the sense of Caratheodory.
+A Caratheodory solution of (S1) deﬁned on [ t0, t 1] ⊂ [0, ∞ ) is an absolutely continuous map
+x : [ t0, t 1] → Rd such that ˙ x(t) ∈ F (t, x (t)) for almost every t ∈ [t0, t 1]. The existence of at
+least one solution starting from each initial condition is g uaranteed by the following result (see, for
+instance, [14, 19]).
+Proposition S1. Let F : [0, ∞ ) × Rd → B(Rd) be locally bounded and take nonempty,
+compact, and convex values. Assume that, for each t ∈ R, the set-valued map x ↦→ F (t, x ) is upper
+semicontinuous, and, for each x ∈ Rd, the set-valued map t ↦→ F (t, x ) is measurable. Then, for all
+(t0, x 0) ∈ [0, ∞ )× Rd, there exists a Caratheodory solution of (S1) with initial condition x(t0) = x0.
+This result is suﬃcient for our purposes. Additional existe nce results based on alternative as-
+sumptions are given in [14, 24]. The uniqueness of Caratheod ory solutions is guaranteed by the
+following result.
+Proposition S2. In addition to the hypotheses of Proposition S1, assume that , for all
+x ∈ Rd, there exist ε ∈ (0, ∞ ) and an integrable function Lx : R → (0, ∞ ) such that
+(v − w)T (y − y′) ≤ Lx(t) ∥y − y′∥2
+2, (S2)
+for almost every y, y ′ ∈ B(x, ε ), every t ∈ [0, ∞ ), every v ∈ F (t, y ), and every w ∈ F (t, y ′).
+Then, for all (t0, x 0) ∈ [0, ∞ ) × Rd, there exists a unique Caratheodory solution of (S1) with initial
+condition x(t0) = x0.
+The following example illustrates propositions S1 and S2. F ollowing [43], consider the set-valued
+map F : R → B(R) deﬁned by
+F(x) =
+{
+0, x ̸= 0,
+[−1, 1], x = 0.
+Note that F is upper semicontinuous, but not lower semicontinuous, and thus it is not continuous.
+This set-valued map satisﬁes all of the hypotheses in Propos ition S1, and therefore Caratheodory
+solutions exist starting from all initial conditions. In ad dition, F satisﬁes (S2) as long as y and y′
+are nonzero. Therefore, Proposition S2 guarantees the uniq ueness of Caratheodory solutions. In
+fact, for every initial condition, the Caratheodory soluti on of ˙x(t) ∈ F (x(t)) is just the equilibrium
+solution.
+75
+
+PDF PAGE 76
+Sidebar 9: Uniqueness of Filippov Solutions of Piecewise Co ntinuous V ector Fields
+Here we justify why, in order to guarantee the uniqueness of F ilippov solutions for a piecewise
+continuous vector ﬁeld, we cannot resort to Proposition 4 an d instead must use Proposition 5.
+To see this, consider a piecewise continuous vector ﬁeld X : Rd → Rd, d ≥ 2, and let x ∈ SX
+be a point of discontinuity. Let us show that X is not essentially one-sided Lipschitz on every
+neighborhood of x. For simplicity, assume x belongs to the boundaries of just two sets, that is,
+x ∈ bndry(Di) ∩ bndry(Dj) (the argument proceeds similarly for the general case). Fo r ε > 0, we
+show that (32) is violated on a set of nonzero measure contain ed in B(x, ε ). Notice that
+(X(y) − X(y′))T (y − y′) = ∥X(y) − X(y′)∥2 ∥y − y′∥2 cos α (y, y ′),
+where α (y, y ′) = ∠ (X(y) − X(y′), y − y′) is the angle between the vectors X(y) − X(y′) and y − y′.
+Therefore, (32) is equivalent to
+∥X(y) − X(y′)∥2 cos α (y, y ′) ≤ L∥y − y′∥2. (S3)
+Consider the vectors X|Di(x) and X|Dj (x). Since X is discontinuous at x, we have X|Di(x) ̸=
+X|Dj (x). Take y ∈ Di ∩ B(x, ε ) and y′∈ Dj ∩ B(x, ε ). Note that, as y and y′tend to x, the vector
+X(y) − X(y′) tends to X|Di(x) − X|Dj (x). Consider then the straight line ℓ that crosses SX, passes
+through x, and forms a small angle β > 0 with X|Di(x) − X|Dj (x), see Figure S2.
+β
+R
+R
+x
+X|Di(x) − X|Dj
+(x)
+Di
+SX
+Djℓ
+Figure S2. Piecewise continuous vector ﬁeld. The vector ﬁeld has a unique Filippov solution
+starting from all initial conditions. Note that solutions that rea ch SX coming from Dj cross it,
+and then continue in Di. However, the vector ﬁeld is not essentially one-sided Lipsch itz, and
+hence Proposition 4 cannot be invoked to conclude uniqueness.
+Let R be the set enclosed by the line ℓ and the line in the direction of the vector X|Di(x)− X|Dj (x).
+If y ∈ Di ∩ R and y′∈ Dj ∩ R tend to x, we deduce that ∥y − y′∥2 → 0 while, at the same time,
+∥X(y) − X(y′)∥2 |cos α (y, y ′)|
+≥ ∥ X(y) − X(y′)∥2 cos β − → ∥ X|Di(x) − X|Dj (x)∥2 cos β > 0.
+Therefore, there does not exist L ∈ (0, ∞ ) such that (S3) is satisﬁed for y ∈ R ∩ Di ∩ B(x, ε ) and
+y′ ∈ R ∩ Dj ∩ B(x, ε ). Thus, X is not essentially one-sided Lipschitz on any neighborhood of x,
+and the hypotheses of Proposition 4 do not hold.
+76
+
+PDF PAGE 77
+Sidebar 10: Regular F unctions
+To introduce the notion of regular function, we need to ﬁrst d eﬁne the right directional derivative
+and the generalized right directional derivative. Given f : Rd → R, the right directional derivative
+of f at x in the direction of v ∈ Rd is deﬁned as
+f ′(x; v) = lim
+h→ 0+
+f (x + hv) − f (x)
+h ,
+when this limits exists. On the other hand, the generalized directional derivative of f at x in the
+direction of v ∈ Rd is deﬁned as
+f o(x; v) = lim sup
+y→ x
+h→ 0+
+f (y + hv) − f (y)
+h = lim
+δ→ 0+
+ε→ 0+
+sup
+y∈B(x,δ)
+h∈[0,ε)
+f (y + hv) − f (y)
+h .
+The advantage of the generalized directional derivative co mpared to the right directional derivative
+is that the limit always exists. When the right directional d erivative exists, these quantities may be
+diﬀerent. When they are equal, we call the function regular. More formally, a function f : Rd → R
+is regular at x ∈ Rd if, for all v ∈ Rd, the right directional derivative of f at x in the direction of
+v exists, and f ′(x; v) = f o(x; v). A function that is continuously diﬀerentiable at x is regular at x.
+Also, a convex function is regular (cf. [9, Proposition 2.3. 6]).
+The function g : R → R, g(x) = −|x|, is not regular. Since g is continuously diﬀerentiable
+everywhere except for zero, it is regular on R\{0}. However, its directional derivatives
+g′(0; v) =
+{
+−v, v > 0,
+v, v < 0, go(0; v) =
+{
+v, v > 0,
+−v, v < 0,
+do not coincide. Hence, g is not regular at 0.
+77
+
+PDF PAGE 78
+Jorge Cort´ es (Department of Mechanical and Aerospace Engi neering, University of
+California at San Diego, 9500 Gilman Dr, La Jolla, CA 92093, p hone 1-858-822-7930,
+fax 1-858-822-3107, cortes@ucsd.edu) received the Licenciatura degree in mathematics from
+the Universidad de Zaragoza, Spain, in 1997, and his Ph.D. de gree in engineering mathematics
+from the Universidad Carlos III de Madrid, Spain, in 2001. He held postdoctoral positions at the
+Systems, Signals, and Control Department of the University of Twente, and at the Coordinated
+Science Laboratory of the University of Illinois at Urbana- Champaign. From 2004 to 2007, he was
+an assistant professor with the Department of Applied Mathe matics and Statistics, University of
+California, Santa Cruz. He is currently an assistant profes sor in the Department of Mechanical
+and Aerospace Engineering, University of California, San D iego. His research interests focus on
+mathematical control theory, distributed motion coordina tion for groups of autonomous agents,
+and geometric mechanics and geometric integration. He is th e author of Geometric, Control and
+Numerical Aspects of Nonholonomic Systems (Springer Verlag, 2002), and the recipient of the 2006
+Spanish Society of Applied Mathematics Young Researcher Pr ize. He is currently an associate
+editor for the European Journal of Control.
+78

@@ -1,0 +1,112 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "batch_size": 16,
+  "dtype": "float64",
+  "torch_version": "2.9.0+cpu",
+  "training_steps": 0,
+  "labels_used": false,
+  "script_sha256": "4c3dd8833c4d3ea81b931412dbb35ed3c822f680c7860aa54d7cd01eeec27bb3",
+  "tolerance": 1e-10,
+  "margin": 1e-12,
+  "case_groups": {
+    "0.0": {
+      "accepted": 64,
+      "abstained": 0,
+      "excluded": 0
+    },
+    "-0.0001": {
+      "accepted": 64,
+      "abstained": 0,
+      "excluded": 0
+    },
+    "0.0001": {
+      "accepted": 64,
+      "abstained": 0,
+      "excluded": 0
+    },
+    "-0.01": {
+      "accepted": 59,
+      "abstained": 5,
+      "excluded": 0
+    },
+    "0.01": {
+      "accepted": 61,
+      "abstained": 3,
+      "excluded": 0
+    },
+    "-1.0": {
+      "accepted": 1,
+      "abstained": 63,
+      "excluded": 0
+    },
+    "1.0": {
+      "accepted": 1,
+      "abstained": 63,
+      "excluded": 0
+    },
+    "wall_-1_0.5": {
+      "accepted": 64,
+      "abstained": 0,
+      "excluded": 0
+    },
+    "wall_-1_1.0": {
+      "accepted": 0,
+      "abstained": 64,
+      "excluded": 0
+    },
+    "wall_-1_1.01": {
+      "accepted": 0,
+      "abstained": 64,
+      "excluded": 0
+    },
+    "wall_1_0.5": {
+      "accepted": 64,
+      "abstained": 0,
+      "excluded": 0
+    },
+    "wall_1_1.0": {
+      "accepted": 0,
+      "abstained": 64,
+      "excluded": 0
+    },
+    "wall_1_1.01": {
+      "accepted": 0,
+      "abstained": 64,
+      "excluded": 0
+    }
+  },
+  "zero_preactivation_abstention_passed": true,
+  "accepted": 442,
+  "abstained": 390,
+  "accepted_equal": 442,
+  "accepted_different": 0,
+  "max_coefficient_abs_error": 1.1102230246251565e-16,
+  "max_parameter_gradient_abs_error": 4.440892098500626e-16,
+  "timing_seconds_per_call": {
+    "region_setup_and_query": [
+      0.00019726999977137894,
+      0.00019550600001821294,
+      0.00019436300004599616,
+      0.0002055580000160262,
+      0.00023887399991508572
+    ],
+    "fresh_forward_and_input_backward": [
+      0.00013378099974943326,
+      0.00013353000016650185,
+      0.00012185700004920364,
+      0.00012704499997198582,
+      0.00015280099993105977
+    ]
+  },
+  "median_seconds_per_call": {
+    "region_setup_and_query": 0.00019726999977137894,
+    "fresh_forward_and_input_backward": 0.00013353000016650185
+  },
+  "cpu_seconds": 0.71875,
+  "status": "passed_numerical_conformance"
+}

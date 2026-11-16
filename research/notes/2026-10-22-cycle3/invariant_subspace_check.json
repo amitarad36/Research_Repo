@@ -1,0 +1,387 @@
+[
+  {
+    "seed": 0,
+    "probes_at_label": {
+      "operator_norm": {
+        "min": 0.14689918623103257,
+        "median": 0.19743154445723177,
+        "mean": 0.2052629224062894,
+        "max": 0.28713246730966946
+      },
+      "skew_frobenius": {
+        "min": 0.0001661905620825911,
+        "median": 0.04464924674920764,
+        "mean": 0.04986446311932028,
+        "max": 0.13488675654878574
+      },
+      "idempotence_defect": {
+        "min": 0.1325178169062324,
+        "median": 0.16591067037988688,
+        "mean": 0.17144299345059374,
+        "max": 0.22143854010782418
+      },
+      "relative_idempotence_defect": {
+        "min": 0.7357759685279905,
+        "median": 0.8244380266029425,
+        "mean": 0.8286219203264908,
+        "max": 0.9364457933238098
+      },
+      "complex_fraction": 0.046875,
+      "rotation_gate_fraction": 0.0,
+      "eigen_real": {
+        "min": -0.08863207239173931,
+        "median": 0.05834789328121513,
+        "mean": 0.07779443598730117,
+        "max": 0.28554588719112683
+      },
+      "eigen_imag_abs": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0017864246448646187,
+        "max": 0.056926414888368866
+      }
+    },
+    "rules": {
+      "input": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.14061290246709177,
+            "max_real_difference_from_full": 1.0547118733938987e-15
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.010801481511986802,
+            "max_real_difference_from_full": 1.2836953722228372e-16
+          }
+        ]
+      },
+      "stop": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.1486550871068449,
+            "max_real_difference_from_full": 7.216449660063518e-16
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.010992108096116504,
+            "max_real_difference_from_full": 7.28583859910259e-17
+          }
+        ]
+      }
+    }
+  },
+  {
+    "seed": 1,
+    "probes_at_label": {
+      "operator_norm": {
+        "min": 0.5588781816588129,
+        "median": 0.751847137358919,
+        "mean": 0.7483190020694754,
+        "max": 0.9069632627355698
+      },
+      "skew_frobenius": {
+        "min": 0.02735872476631479,
+        "median": 0.1911494428848647,
+        "mean": 0.19146513147773,
+        "max": 0.3591355734460483
+      },
+      "idempotence_defect": {
+        "min": 0.10101327642704337,
+        "median": 0.22564031752514352,
+        "mean": 0.22878800904451468,
+        "max": 0.38690359928799745
+      },
+      "relative_idempotence_defect": {
+        "min": 0.11136075985023039,
+        "median": 0.30028595395375324,
+        "mean": 0.3213210992161163,
+        "max": 0.6443058491919335
+      },
+      "complex_fraction": 0.0,
+      "rotation_gate_fraction": 0.0,
+      "eigen_real": {
+        "min": 0.0005167491610562625,
+        "median": 0.19307450503498996,
+        "mean": 0.35233146270857796,
+        "max": 0.905558343386453
+      },
+      "eigen_imag_abs": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      }
+    },
+    "rules": {
+      "input": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.31488507703132934,
+            "max_real_difference_from_full": 1.27675647831893e-15
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.07542474177844011,
+            "max_real_difference_from_full": 9.71445146547012e-17
+          }
+        ]
+      },
+      "stop": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.857337859948852,
+            "max_real_difference_from_full": 3.3306690738754696e-16
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.14202792365500425,
+            "max_real_difference_from_full": 1.3877787807814457e-16
+          }
+        ]
+      }
+    }
+  },
+  {
+    "seed": 2,
+    "probes_at_label": {
+      "operator_norm": {
+        "min": 0.4877529271036453,
+        "median": 0.6643558040412594,
+        "mean": 0.6540679733700887,
+        "max": 0.7311912223397484
+      },
+      "skew_frobenius": {
+        "min": 0.15946767269038922,
+        "median": 0.26118044200065826,
+        "mean": 0.25625960419900173,
+        "max": 0.3096357239372008
+      },
+      "idempotence_defect": {
+        "min": 0.2571852138560064,
+        "median": 0.3004224341630644,
+        "mean": 0.30008958257687207,
+        "max": 0.341418251800629
+      },
+      "relative_idempotence_defect": {
+        "min": 0.3516938223073511,
+        "median": 0.4587619868212035,
+        "mean": 0.4621508790717888,
+        "max": 0.6154297269261755
+      },
+      "complex_fraction": 0.0,
+      "rotation_gate_fraction": 0.0,
+      "eigen_real": {
+        "min": -0.10911141550135747,
+        "median": 0.23216138945372594,
+        "mean": 0.26814858594460406,
+        "max": 0.6459387968611486
+      },
+      "eigen_imag_abs": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      }
+    },
+    "rules": {
+      "input": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.3426117963648099,
+            "max_real_difference_from_full": 0.0
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.057287041304157495,
+            "max_real_difference_from_full": 5.551115123125783e-17
+          }
+        ]
+      },
+      "stop": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.6304034943480866,
+            "max_real_difference_from_full": 4.107825191113079e-15
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.06700707960997737,
+            "max_real_difference_from_full": 2.220446049250313e-16
+          }
+        ]
+      }
+    }
+  },
+  {
+    "seed": 3,
+    "probes_at_label": {
+      "operator_norm": {
+        "min": 0.27009054732022525,
+        "median": 0.3873641884104293,
+        "mean": 0.3838967382627254,
+        "max": 0.5201529596382611
+      },
+      "skew_frobenius": {
+        "min": 0.0003101553926208559,
+        "median": 0.07647440236999203,
+        "mean": 0.0793345283064181,
+        "max": 0.16839310008770747
+      },
+      "idempotence_defect": {
+        "min": 0.21847774849928575,
+        "median": 0.2569754500166152,
+        "mean": 0.2637966624695291,
+        "max": 0.34581421898317544
+      },
+      "relative_idempotence_defect": {
+        "min": 0.4915662032440155,
+        "median": 0.6816601625721792,
+        "mean": 0.6848533138497507,
+        "max": 0.888053044655633
+      },
+      "complex_fraction": 0.0,
+      "rotation_gate_fraction": 0.0,
+      "eigen_real": {
+        "min": -0.1616066528692822,
+        "median": 0.07864568564825374,
+        "mean": 0.13936026858271425,
+        "max": 0.508325440478701
+      },
+      "eigen_imag_abs": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      }
+    },
+    "rules": {
+      "input": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.21815865482300265,
+            "max_real_difference_from_full": 1.0824674490095276e-15
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.02512920969382181,
+            "max_real_difference_from_full": 1.5612511283791264e-16
+          }
+        ]
+      },
+      "stop": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.2942704563108604,
+            "max_real_difference_from_full": 5.551115123125783e-17
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.027896922711582187,
+            "max_real_difference_from_full": 3.8163916471489756e-17
+          }
+        ]
+      }
+    }
+  },
+  {
+    "seed": 4,
+    "probes_at_label": {
+      "operator_norm": {
+        "min": 0.057907432866206754,
+        "median": 0.09999953620654947,
+        "mean": 0.11247771162391304,
+        "max": 0.21413688859890193
+      },
+      "skew_frobenius": {
+        "min": 3.6302727246842634e-05,
+        "median": 0.03280216664886324,
+        "mean": 0.03357147724433521,
+        "max": 0.08942160190047338
+      },
+      "idempotence_defect": {
+        "min": 0.06757882273153763,
+        "median": 0.10067266735785767,
+        "mean": 0.10730962900020571,
+        "max": 0.17418278835967524
+      },
+      "relative_idempotence_defect": {
+        "min": 0.79805958650061,
+        "median": 0.9422021073826039,
+        "mean": 0.9409211688522333,
+        "max": 1.0468226310598396
+      },
+      "complex_fraction": 0.0,
+      "rotation_gate_fraction": 0.0,
+      "eigen_real": {
+        "min": -0.0730683911329561,
+        "median": 0.02158752248252919,
+        "mean": 0.025711256671729424,
+        "max": 0.21335356845936815
+      },
+      "eigen_imag_abs": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      }
+    },
+    "rules": {
+      "input": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.09254560528192804,
+            "max_real_difference_from_full": 2.220446049250313e-16
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.007725721071293708,
+            "max_real_difference_from_full": 7.207776042683633e-16
+          }
+        ]
+      },
+      "stop": {
+        "inactive_derivative_rows_max_abs": 0.0,
+        "active_parameters": 82,
+        "spectra": [
+          {
+            "tau": 1,
+            "restricted_max_real": 0.09963340669022469,
+            "max_real_difference_from_full": 4.440892098500626e-16
+          },
+          {
+            "tau": 20,
+            "restricted_max_real": 0.007991071949616374,
+            "max_real_difference_from_full": 3.5735303605122226e-16
+          }
+        ]
+      }
+    }
+  }
+]

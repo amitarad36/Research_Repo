@@ -1,0 +1,22 @@
+{
+  "recorded_at_utc": "2026-10-31T08:17:05.431805+00:00",
+  "compiler_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"path\":\"C:\\\\Users\\\\amita\\\\source\\\\repos\\\\Detach Proposal Presentation\\\\research_proposal_main.tex\",\"mainDocument\":\"C:\\\\Users\\\\amita\\\\source\\\\repos\\\\Detach Proposal Presentation/research_proposal_main.tex\",\"kind\":\"success\",\"message\":\"The current source compiled successfully with the desktop editor's compiler.\"}"
+      }
+    ],
+    "isError": false
+  },
+  "source_sha256": "f32a409d18931b8feea22cfbe9e5e4b397fbf447ce93ce29c9fb37624441590a",
+  "evidence_manifest_sha256": "8d270f1aef5f21203021eae8da9ebc047ea9cd002d335fdcfc93dfe9efb8dc59",
+  "verified_evidence_files": 8,
+  "verified_backups": 3,
+  "next_protocol_sha256": "cb0c8a0058c5a4726a22d6bce5a010c438d03e8556549e71003c0ca8520700ab",
+  "updated_metadata_sha256": {
+    "research/RESEARCH_STATE.md": "246abc31d48a733dc438940b7e2d5c5e3d5472319d0d66c82f755fa5260b98d1",
+    "research/RESEARCH_LOG.md": "ff9e1072c50aff199af0539c46f05d7672f0b05abd9a0b33a4b0dbef2a109c56"
+  },
+  "state": "complete; CPU conformance passed; compatible artifact provenance pending"
+}

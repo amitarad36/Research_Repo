@@ -1,0 +1,48 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Build current research document",
+      "tools": [
+        "build-research-current"
+      ]
+    },
+    {
+      "name": "Build both research documents",
+      "tools": [
+        "build-research-all"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "build-research-current",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "%WORKSPACE_FOLDER%/build_documents.ps1",
+        "-Document",
+        "auto",
+        "-Source",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "build-research-all",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "%WORKSPACE_FOLDER%/build_documents.ps1",
+        "-Document",
+        "all"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build"
+}

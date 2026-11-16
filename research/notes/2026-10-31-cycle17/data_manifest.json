@@ -1,0 +1,13 @@
+{
+  "retrieved_at": "2026-10-31T08:19:48.496282+00:00",
+  "commit_query_url": "https://api.github.com/repos/cvlab-epfl/zigzag/commits?path=exps/data/bostonHousing.txt&per_page=1",
+  "commit_query_sha256": "7b147a78b64e1e9b468050214b9d4ef2728f4db8196d69adc81f2d5dd685b3e0",
+  "data_revision": "50d43a94d46790627e781bfc2dd83d583421ab78",
+  "url": "https://raw.githubusercontent.com/cvlab-epfl/zigzag/50d43a94d46790627e781bfc2dd83d583421ab78/exps/data/bostonHousing.txt",
+  "file": "bostonHousing.txt",
+  "sha256": "baadf72995725d76efe787b664e1f083388c79ba21ef9a7990d87f774184735a",
+  "bytes": 49082,
+  "nonempty_lines": 506,
+  "targets_parsed": false,
+  "training_executed": false
+}

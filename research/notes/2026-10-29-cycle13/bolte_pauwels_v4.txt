@@ -1,0 +1,1592 @@
+PDF PAGE 1
+Conservative set valued ﬁelds, automatic
+diﬀerentiation, stochastic gradient methods and deep
+learning
+J´ erˆ ome Bolte∗ and Edouard Pauwels†
+April 10, 2020
+Abstract
+Modern problems in AI or in numerical analysis require nonsmooth approaches
+with a ﬂexible calculus. We introduce generalized derivatives called conservative
+ﬁelds for which we develop a calculus and provide representation formulas. Func-
+tions having a conservative ﬁeld are called path diﬀerentiable: convex, concave,
+Clarke regular and any semialgebraic Lipschitz continuous functions are path dif-
+ferentiable. Using Whitney stratiﬁcation techniques for semialgebraic and deﬁnable
+sets, our model provides variational formulas for nonsmooth automatic diﬀerentia-
+tion oracles, as for instance the famous backpropagation algorithm in deep learning.
+Our diﬀerential model is applied to establish the convergence in values of nonsmooth
+stochastic gradient methods as they are implemented in practice.
+Keywords. Deep Learning, Automatic diﬀerentiation, Backpropagation algorithm,
+Nonsmooth stochastic optimization, Deﬁnable sets, o-minimal structures, Stochastic gra-
+dient, Clarke subdiﬀerential, First order methods
+∗Toulouse School of Economics, Universit´ e Toulouse 1 Capitole, France.
+†IRIT, Universit´ e de Toulouse, CNRS. DEEL, IRT Saint Exupery. Toulouse, France.
+1
+arXiv:1909.10300v4  [math.OC]  9 Apr 2020
+
+PDF PAGE 2
+Contents
+1 Introduction 3
+2 Conservative set valued ﬁelds 4
+2.1 Deﬁnition and vanishing circulations . . . . . . . . . . . . . . . . . . . . . 5
+2.2 Locally Lipschitz continuous potentials of conservative ﬁelds . . . . . . . . 6
+3 A generalized diﬀerential calculus 8
+3.1 Conservativity, Clarke subdiﬀerential and gradient a.e. . . . . . . . . . . . 8
+3.2 Path diﬀerentiability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+3.3 Conservative mappings and their calculus . . . . . . . . . . . . . . . . . . . 12
+4 Tameness and conservativity 14
+4.1 Introduction and deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+4.2 Variational stratiﬁcation and projection formulas . . . . . . . . . . . . . . 15
+4.3 Characterization of deﬁnable conservative ﬁelds . . . . . . . . . . . . . . . 16
+4.4 Geometric and dynamical properties of deﬁnable conservative ﬁelds . . . . 18
+5 Automatic diﬀerentiation 19
+5.1 A functional framework: “closed formula functions” . . . . . . . . . . . . 20
+5.2 Forward and backward nonsmooth automatic diﬀerentiation . . . . . . . . 21
+6 Algorithmic consequences and deep learning 25
+6.1 Mini-batch stochastic approximation for ﬁnite nonsmooth nonconvex sums
+aka “nonsmooth nonconvex SGD” . . . . . . . . . . . . . . . . . . . . . . . 25
+6.2 Deep Neural Networks and nonsmooth backpropagation . . . . . . . . . . . 27
+6.3 Training nonsmooth neural networks with nonsmooth SGD . . . . . . . . . 29
+7 Conclusion 30
+2
+
+PDF PAGE 3
+1 Introduction
+Classical approaches to solution methods for nonsmooth equations or nonsmooth opti-
+mization come from the calculus of variations [45, 49, 6, 15, 22, 35, 46, 51]. They have
+been successfully used in several contexts, from partial diﬀerential equations to machine
+learning. But most of the advances made in these last decades apply to classes revolving
+around convex-like non diﬀerentability phenomena: convex functions, semiconvex func-
+tions or (Clarke) regular problems. On the other hand several major problems arising in
+machine learning, numerical analysis, or non regular dynamical systems are not covered by
+these regularity models due to various calculus restrictions and the necessity of decompo-
+sing algorithms, see e.g., [20] and references therein. We propose a notion of generalized
+derivatives and identify a class of locally Lipschitz functions, called path diﬀerentiable
+functions, for which we obtain a ﬂexible calculus, should we accept to use weaker genera-
+lized derivatives than standard ones. Our starting point is extremely elementary, we see
+derivation as an inverse operation to integration:
+f(y)−f(x) =
+∫ y
+x
+f′(t)dt.
+We thus introduce and study graph closed set valued mappingsDf : Rp ⇒ Rp, and locally
+Lipschitz functions f : Rp→ R related by
+f(γ(1))−f(γ(0)) =
+∫ 1
+0
+⟨Df(γ(t)), ˙γ(t)⟩dt, ∀γ∈AC([0, 1], Rp),
+where we use Aumann’s integration whileAC([0, 1], Rp) is the set of absolutely continuous
+functions from [0, 1] to Rp. Rephrasing this property yields a generalized form of the zero
+circulation property
+∫ 1
+0
+⟨D(γ(t)), ˙γ(t)⟩ dt ={0}, ∀γ∈AC([0, 1], Rp), γ(0) =γ(1).
+We naturally call these objects D conservative set valued ﬁelds and a function having
+a conservative ﬁeld is called path diﬀerentiable. Convex, concave, Clarke regular, but
+also any semialgebraic Lipschitz continuous functions or Whitney stratiﬁable functions
+are path diﬀerentiable.
+We provide a calculus and several characterizations of conservativity. First we show that
+conservative ﬁelds are classical gradients almost everywhere, which makes the Clarke sub-
+differential a minimal convex conservative ﬁeld. Second, in the framework of semialgebraic
+or o-minimal structures, we provide conservative ﬁelds with a variational stratiﬁcation
+formula [12]. This connection between Whitney stratiﬁcation and conservativity allows
+to generalize known qualitative properties from the smooth world to deﬁnable conservative
+ﬁelds: Morse-Sard theorem, nonsmooth Kurdyka- Lojasiewicz inequality and convergence
+of solutions of diﬀerential inclusions ruled by a conservative ﬁeld.
+On a more applied side, conservative ﬁelds allow to analyze fundamental modern numerical
+algorithms in machine learning or numerical analysis based on automatic diﬀerentiation
+[52, 31] and decomposition [20, 27] in a nonsmooth context. Automatic diﬀerentiation is
+3
+
+PDF PAGE 4
+indeed proved to yield conservative ﬁelds which allows in turn to study discrete stochastic
+algorithms that are massively used to train AI systems. We illustrate this with the problem
+of training nonsmooth deep neural networks which are designed to perform prediction
+tasks based on a large labeled database [40].
+Our work connects very applied concerns with the recent theory of o-minimal structures,
+by revealing surprising links between the massively used numerical libraries (Tensorﬂow
+[1], Pytorch, [47]), and Whitney stratiﬁcations.
+Structure of the paper As a conclusion, let us mention that this article contains
+material that can be considered as having distinct and independent interests. Researchers
+working in analysis may focus on Sections 2 and 3, which present conservative ﬁelds. Those
+having aﬃnity with geometry can also go through Section 4 which provides insights into
+the semialgebraic and the deﬁnable cases. The more applied sections provide theorems
+which we believe useful to several communities: Section 5 is on nonsmooth automatic
+diﬀerentiation and a theoretical model for the corresponding “oracle”, while Section 6
+studies stochastic gradient descent (with mini-batches) and deep learning.
+2 Conservative set valued ﬁelds
+Notations. We restrict our analysis to locally Lipschitz continuous functions in Eu-
+clidean spaces 1. Let⟨·,·⟩ be the canonical Euclidean scalar product on Rp and∥·∥ its
+associated norm. Take p∈ N. A locally Lipschitz continuous function, f : Rp→ R is
+diﬀerentiable almost everywhere by Rademacher’s theorem, see for example [29]. Denote
+byR⊂ Rp, the full measure set where f is diﬀerentiable, then the Clarke subgradient of
+f is given for any x∈ Rp, by
+∂cf(x) = conv
+{
+v∈ Rp,∃yk →
+k→∞
+x with yk∈R, vk =∇f(yk) →
+k→∞
+v
+}
+.
+A set valued map D : Rp ⇒ Rq is a function from Rp to the set of subsets of Rq. The
+graph of D is given by
+graphD ={(x,z ) : x∈ Rp, z∈D(x)}.
+D is said to have closed graph or to be graph closed if graphD is closed as a subset of Rp+q.
+An equivalent characterization is that for any converging sequences ( xk)k∈N, (vk)k∈N in
+Rp, with vk∈D(xk) for all k∈ N, we have
+lim
+k→∞
+vk∈D( lim
+k→∞
+xk).
+An absolutely continuous curve is a continuous function x: R → Rp which admits a
+derivative ˙x for Lebesgue almost all t∈ R, (in which case ˙x is Lebesgue measurable), and
+x(t)−x(0) is the Lebesgue integral of ˙x between 0 andt for allt∈ R. Absolutely continu-
+ous curves are well suited to generalize diﬀerential equations to diﬀerential inclusions [5].
+1Although all results we provide are generalizable to complete Riemannian manifolds
+4
+
+PDF PAGE 5
+Given a set valued map D : Rp ⇒ Rp,x0∈ Rp,x: R→ Rp is a solution to the diﬀerential
+inclusion problem
+˙x(t)∈D(x(t))
+x(0) =x0,
+if x is an absolutely continuous curve satisfying x(0) =x0 and ˙x(t)∈D(x(t)) for almost
+all t.
+2.1 Deﬁnition and vanishing circulations
+Throughout this section, we denote by D : Rp ⇒ Rp a set valued map with closed graph
+and nonempty compact values. The following lemma is derived from results presented in
+the overview textbook [3, Section 18].
+Lemma 1 LetD : Rp ⇒ Rp be a set valued map with nonempty compact values and closed
+graph. Let γ : [0, 1]→ Rp be an absolutely continuous path. Then the following function
+t↦→ max
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩,
+deﬁned almost everywhere on [0, 1], is Lebesgue measurable.
+Proof : The set valued map t ⇒ D(γ(t)) has a closed graph by continuity of γ, and
+nonempty compact values, hence by [3, Theorem 18.20] it is measurable in the sense
+of [3, Deﬁnition 18.1]. Using [3, Theorem 18.19], for each u ∈ Rp the function t ↦→
+maxv∈D(γ(t))⟨v,u⟩ is Borel measurable. Further, the function x↦→ maxv∈D(γ(t))⟨x,v⟩ is
+continuous. As a consequence, the mapping (t,x )↦→ maxv∈D(γ(t))⟨x,v⟩ is a Carath´ eodory
+integrand, and hence is jointly Borel measurable [3, Lemma 4.51]. Since ˙ γ is Lebesgue
+measurable, we deduce that t↦→ maxv∈D(γ(t))⟨ ˙γ(t),v⟩ is Lebesgue measurable. □
+We can now proceed with the deﬁnition of a conservative set valued ﬁeld.
+Deﬁnition 1 (Conservative set valued ﬁelds) LetD : Rp ⇒ Rp be a set valued map.
+D is a conservative (set valued) ﬁeld whenever it has closed graph, nonempty compact
+values and for any absolutely continuous loopγ : [0, 1]→ Rp, that is γ(0) =γ(1), we have
+∫ 1
+0
+max
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt = 0
+where the integral is understood in the Lebesgue sense 2. It is equivalent to require
+∫ 1
+0
+min
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt = 0
+for all loops γ.
+2which is possible thanks to Lemma 1.
+5
+
+PDF PAGE 6
+Remark 1 (min, max circulations and conservativity) The min formula is indeed
+obtained by using the the reverse path ˜γ(t) =γ(1−t) :
+∫ 1
+0
+max
+v∈D(˜γ(t))
+⟨ ˙˜γ(t),v
+⟩
+dt =
+∫ 1
+0
+max
+v∈D(γ(1−t))
+⟨− ˙γ(1−t),v⟩ dt
+=−
+∫ 1
+0
+min
+v∈D(γ(1−t))
+⟨ ˙γ(1−t),v⟩ dt
+=
+∫ 0
+1
+min
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt
+=−
+∫ 1
+0
+min
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt = 0.
+We deduce that for almost all t∈ [0, 1], maxv∈D(γ(t))⟨ ˙γ(t),v⟩ = minv∈D(γ(t))⟨ ˙γ(t),v⟩.
+Remark 2 (Vanishing circulation and conservativity) There is a measurable arg-
+max selection in Lemma 1 (see [3, Theorem 18.19]) so that for any measurable selection
+v : [0, 1]→ Rp, v(t)∈ D(γ(t)) for all t, we have
+∫ 1
+0⟨ ˙γ(t),v (t)⟩ dt = 0. Thus, in the
+setting of Deﬁnition 1, an equivalent characterization is that the Aumann integral of
+t ⇒⟨ ˙γ(t),D (γ(t))⟩ is{0}. In short
+∫ 1
+0
+⟨D(γ(t)), ˙γ(t)⟩ dt ={0}, (1)
+exactly means thatD is conservative. We recover the standard deﬁnition of conservativity
+as ﬁelds with vanishing circulation.
+2.2 Locally Lipschitz continuous potentials of conservative ﬁelds
+Deﬁnition 2 (Potential functions of conservative ﬁelds) Let D : Rp ⇒ Rp be a
+conservative ﬁeld. A function f deﬁned through any of the equivalent forms
+f(x) = f(0) +
+∫ 1
+0
+max
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt (2)
+= f(0) +
+∫ 1
+0
+min
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt (3)
+= f(0) +
+∫ 1
+0
+⟨ ˙γ(t),D (γ(t))⟩ dt (4)
+for any γ absolutely continuous with γ(0) = 0 and γ(1) = x. f is well and uniquely
+deﬁned up to a constant. It is called a potential function for D. We shall also say that D
+admits f as a potential, or that D is a conservative ﬁeld for f.
+Remark 3 (a) To see that the deﬁnitions (2), (3) and (4) are indeed equivalent and
+independent of the chosen path, one adapts classical ideas as follows. Consider any
+6
+
+PDF PAGE 7
+x∈ Rp, and any absolutely continuous paths γ1, γ2 such that γ1(0) = γ2(0) = 0 and
+γ1(1) =γ2(1) =x. We have
+∫ 1
+0
+max
+v∈D(γ1(t))
+⟨ ˙γ1(t),v⟩ dt−
+∫ 1
+0
+min
+v∈D(γ2(t))
+⟨ ˙γ2(t),v⟩ dt
+=
+∫ 1
+0
+max
+v∈D(γ1(t))
+⟨ ˙γ1(t),v⟩ dt +
+∫ 1
+0
+max
+v∈D(γ2(t))
+−⟨ ˙γ2(t),v⟩ dt
+=
+∫ 1
+2
+0
+max
+v∈D(γ1(2t))
+⟨2 ˙γ1(2t),v⟩ dt +
+∫ 1
+1
+2
+max
+v∈D(γ2(2−2t))
+⟨−2 ˙γ2(2− 2t),v⟩ dt
+= 0
+since the concatenation oft↦→γ1(2t) for 0≤t≤ 1/2 andt↦→γ2(2−2t) for 1/2≤t≤ 1 is
+an absolutely continuous loop. This shows that the value of the integral does not depend
+on the path. The “minimum and maximum integrals” are thus equal and we may set for
+anyx∈ Rp:
+f(x) =f(0) +
+∫ 1
+0
+max
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt =f(0) +
+∫ 1
+0
+min
+v∈D(γ(t))
+⟨ ˙γ(t),v⟩ dt
+for any γ absolutely continuous with γ(0) = 0 and γ(1) = x. The right hand-side in (4)
+is thus a single number, and the identity is therefore well deﬁned.
+(b) If f is diﬀerentiable, ∇f is of course a conservative ﬁeld (it is not unique). More
+examples and a discussion are provided in Subsection 3.2.
+(c) The deﬁnition can be directly extended to star-shaped domains.
+(d) The potential function f is locally Lipschitz continuous. Indeed take a bounded set
+S. Take x,y∈S and use (c) above with the path [0 , 1]∋t→γ(t) =tx + (1−t)y,
+|f(y)−f(x)|≤∥ y−x∥
+∫ 1
+0
+max
+v∈D(γ(t))
+∥v∥dt≤M∥x−y∥
+where M is such that
+M≥ max{∥v∥ :x∈ convS,v ∈D(x)}
+with convS being the convex envelope of S. From [18, Lemma 3], D is locally bounded
+and such a ﬁnite constant must exist.
+(e) If D1,D 2 are two graph closed set valued mappings with compact nonempty values,
+then D1⊂D2 and D2 conservative implies that D1 is conservative as well.
+Observe also that if D is conservativex ⇒ conv(D(x)) is conservative as well.
+Chain rule characterizes conservativity in the following sense:
+Lemma 2 (Chain rule and conservativity) Let D : Rp ⇒ Rp be a locally bounded,
+graph closed set valued map and f : Rp → R a locally Lipschitz continuous function.
+Then D is a conservative ﬁeld for f, if and only if for any absolutely continuous curve
+x: [0, 1]→ Rp, the function t↦→f(x(t)) satisﬁes
+d
+dtf(x(t)) =⟨v, ˙x(t)⟩ ∀ v∈Df(x(t)), (5)
+for almost all t∈ [0, 1].
+7
+
+PDF PAGE 8
+Proof : The reverse implication is obvious, using Lemma 1, integrating the characteriza-
+tion in equation (5) we obtain any of the equivalent equations of Deﬁnition 2. To prove
+the converse, assume now thatD is a conservative ﬁeld forf. For any 0 <s< 1, we have
+f(x(s))−f(x(0)) =
+∫ 1
+0
+max
+v∈D(x(st))
+⟨s ˙x(st),v⟩ dt
+=
+∫ s
+0
+max
+v∈D(x(t))
+⟨ ˙x(t),v⟩ dt
+=
+∫ s
+0
+min
+v∈D(x(t))
+⟨ ˙x(t),v⟩ dt
+The fundamental theorem of calculus states that s↦→ f(x(s)) is diﬀerentiable almost
+everywhere and for almost all s∈ [0, 1],
+d
+dsf(x(s)) = max
+v∈D(x(s))
+⟨ ˙x(s),v⟩ = min
+v∈D(x(s))
+⟨ ˙x(s),v⟩ =⟨ ˙x(s),v⟩,
+for all v∈D(x(s)). □
+3 A generalized diﬀerential calculus
+3.1 Conservativity, Clarke subdiﬀerential and gradient a.e.
+We start with the following fundamental result.
+Theorem 1 (Conservative ﬁelds are gradients almost everywhere) Consider a
+conservative ﬁeld D : Rp ⇒ Rp for f : Rp → R. Then D = {∇f} Lebesgue almost
+everywhere.
+Proof : Fix a measurable selection a: Rp→ Rp of D and f a potential for D (which
+is locally Lipschitz continuous by deﬁnition). Measurable selections exist because D has
+closed graph, with nonempty values, and hence is measurable in the sense of [3, Deﬁnition
+18.1] so that [3, Theorem 18.13] applies (see also Lemma 1). Fix a directionv∈ Rp,x∈ Rp
+a base point, let s<t be real numbers and γ the path γ(τ) = (1−τ)(x +sv) +τ(x +tv),
+then by using conservativity and an elementary change of variable, we obtain for allx∈ Rp
+f(x +tv)−f(x +sv) =
+∫ t
+s
+⟨a(x +τv ),v⟩dτ.
+Using the fundamental theorem of calculus (in its Lebesgue form), one obtains
+f′(y;v) =⟨a(y),v⟩ (6)
+almost everywhere on the line x + Rv, where
+f′(y;v) := lim
+r→0,r̸=0
+f(y +rv)−f(y)
+r
+8
+
+PDF PAGE 9
+when the limit exists. Since f is continuous, the following two functions deﬁned for all
+y∈ Rp:
+f′
+u(y;v) := lim sup
+s→0,s̸=0
+f(y +sv)−f(y)
+s = lim
+k→∞
+sup
+0<|s|≤1/k
+f(y +sv)−f(y)
+s
+f′
+l(y;v) := lim inf
+s→0,s̸=0
+f(y +sv)−f(y)
+s = lim
+k→∞
+inf
+0<|s|≤1/k
+f(y +sv)−f(y)
+s ,
+are Borel, hence Lebesgue measurable. Consider the following set
+A ={y∈ Rp, f′
+u(y;v)̸=⟨v,a (y)⟩ or f′
+l(y;v)̸=⟨a(y),v⟩}.
+This set is Lebesgue measurable and for any y∈ Rp\A, we have
+f′(y;v) =f′
+u(y;v) =f′
+l(y;v) =⟨a(y),v⟩.
+Furthermore, using (6) we haveH1(A∩(x+ Rv)) = 0, whereH1 is the Hausdorﬀ measure
+of dimension 1. Since x∈ Rp was arbitrary, we actually have H1(A∩L) = 0 for any
+line L, parallel to v and since A is measurable, Fubini’s theorem entails that A has
+zero Lebesgue measure, and hence we have f′(y;v) = ⟨v,a (y)⟩ for almost all y∈ Rp.
+Now the Rademacher Theorem [29, Theorem 3.2], ensures that f is diﬀerentiable almost
+everywhere, this implies that f′(y;v) = ⟨∇f(y),v⟩ for almost all y ∈ Rp and hence,
+⟨∇f(y),v⟩ =f′(y;v) =⟨a(y),v⟩ for almost all y∈ Rp .
+The directionv was chosen arbitrarily, we repeat the same construction for each v among
+p elements of the canonical basis of Rp. Since the union of p Lebesgue null sets has zero
+measure, we obtain that a(y) =∇f(y) for almost all y∈ Rp.
+Since a was chosen as an arbitrary measurable selection for D, we may use [3, Corollary
+18.15] which states that there is a sequence of measurable selections for D, (ak)k∈N such
+that for anyx∈ Rp,D(x) = cl{ai(x)}i∈N. Using the previous Rademacher’s argument for
+eachi in N, there exists a sequence of measurable sets (Si)i∈N which all have full measure
+and such that ai =∇f on Si. Setting S =∩i∈NSi, we have that Rp\S has zero measure
+and ai =∇f on S for all i in N and hence, using [3, Corollary 18.15], D ={∇f} on S.
+This proves the desired result. □
+An important consequence of the above result is that Clarke subdiﬀerential appears as a
+minimal conservative ﬁeld among convex valued conservative ﬁelds.
+Corollary 1 (Clarke subgradient as a minimal convex conservative ﬁeld) Let
+f : Rp→ R admitting a conservative ﬁeld D : Rp ⇒ Rp. Then ∂cf is a conservative ﬁeld
+for f, and for all x∈ Rp,
+∂cf(x)⊂ conv(D(x)).
+Proof : Let S⊂ Rp be a full measure set such that D =∇f on S (such a set exists by
+Theorem 1). Using [22, Theorem 2.5.1], we have, for any x∈ Rp
+∂cf(x) = cl conv
+({
+lim
+k→∞
+∇f(xk), xk∈S, xk →
+k→∞
+x
+})
+.
+9
+
+PDF PAGE 10
+Since D has closed graph and D =∇f on S, we have
+cl conv
+({
+lim
+k→∞
+∇f(xk), xk∈S, xk →
+k→∞
+x
+})
+⊂ cl conv (D(x)) = conv (D(x)),
+which allows to conclude. The fact that ∂cf is conservative, follows right from the deﬁni-
+tion and the previous inclusion. □
+We deduce from Corollary 1 a Fermat’s rule for conservative ﬁelds.
+Proposition 1 (Fermat’s rule) Let f : Rp→ R be a potential for D : Rp ⇒ Rp with
+nonempty compact values and closed graph. Let x∈ Rp be a local minimum or local
+maximum of f. Then 0∈ conv(D(x)).
+Proof : This is a consequence of Corollary 1 since Fermat’s rule holds for the Clarke
+subdiﬀerential [22, Proposition 2.3.2]. □
+Given a ﬁxed conservative ﬁeld D with f as a potential, we say that x is D-critical for f
+ifD(x)∋ 0. The valuef(x) is then called a D-critical value. This idea originates in [21].
+Remark 4 The convex envelope in Fermat’s rule is necessary. For example, let D : x ⇒
+sign(x) withD(0) ={−1, 1}, thenD has closed graph and is conservative for the absolute
+value. The origin is a global minimum of the potential but 0 ̸∈D(0).
+3.2 Path diﬀerentiability
+Conservative ﬁelds convey a natural notion of “generalized diﬀerentiability”, a function
+being diﬀerentiable if it admits a conservative ﬁeld for which Deﬁnition 2 holds true. We
+call such functions path diﬀerentiable and provide a characterization in this section.
+Deﬁnition 3 (Path diﬀerentiability) We say that f : Rp→ R is path diﬀerentiable if
+f is the potential of a conservative ﬁeld on Rp.
+This implies that f is locally Lipschitz continuous. We deduce from Corollary 1 the
+following characterization of path diﬀerentiable functions.
+Corollary 2 (Characterization of path diﬀerentiable functions) Let f : Rp → R
+be locally Lipschitz continuous, then the following assertions are equivalent
+(i) f is path diﬀerentiable
+(ii) ∂cf is a conservative ﬁeld
+(iii) f has chain rule for the Clarke subdiﬀerential.
+Proof : The items (ii) and (iii) are equivalent by Lemma 2; we just need to prove
+(i) ⇐⇒ (ii). The direct implication is a consequence of Corollary 1. For the reverse
+10
+
+PDF PAGE 11
+implication, we assume that∂cf is conservative and we show thatf is a potential for∂cf.
+Letγ : [0, 1]→ Rp be an absolutely continuous path. Using Remark 1, we have for almost
+all t∈ [0, 1],
+min
+v∈∂cf (γ(t))
+⟨v, ˙γ(t)⟩ = max
+v∈∂cf (γ(t))
+⟨v, ˙γ(t)⟩ (7)
+This implies that the aﬃne span of ∂cf(γ(t)) is orthogonal to ˙γ(t) for almost all t. This
+corresponds to the deﬁnition of a “saine function” introduced in [56]. Proposition 3 in
+[56] shows that the value in (7) is equal to d
+dtf(γ(t)) for almost allt. This is the equivalent
+characterization for a potential of ∂cf in Lemma 2, hence f is a potential for ∂cf. □
+The following property is sometimes called integrability, it has been studied for convex
+functions in [50] and for broader classes in, e.g., [25, 54, 16, 55].
+Corollary 3 (Integrability and Clarke subdiﬀerential) Letf : Rp→ R andg : Rp→
+R be two locally Lipschitz path diﬀerentiable functions such that ∂cg(x)⊂ ∂cf(x) for all
+x∈ Rp, then f−g is constant.
+Proof : Path diﬀerentiability entails that subdiﬀerentials are conservative ﬁelds by Co-
+rollary 1. The result follows by deﬁnition of potential functions through integration in
+Deﬁnition 2. □
+We brieﬂy compare some standard subgradients notions and conservative ﬁelds. We use
+the vocabulary and notation of [51].
+Proposition 2 (Some path diﬀerentiable functions) Let f : Rp→ R be Lipschitz
+continuous, the following are suﬃcient conditions for f to be path diﬀerentiable
+(i) f is convex or concave.
+(ii) f or−f is Clarke regular.
+(iii) f or−f is prox regular.
+(iv) f is real semialgebraic (or more generally tame, i.e., deﬁnable in some o-minimal
+structure).
+Proof : Using the chain rule characterization, all proofs boil down to providing a chain
+rule with the Clarke subdiﬀerential for each of the above mentioned situation. We refer
+to [51] for convex, Clarke and prox regular functions, [27] for deﬁnable functions. □
+In general, conservative ﬁelds may be distinct from all other classical subdiﬀerentials, even
+in the deﬁnable case. Deﬁne for instance D : R→ R byD(0) ={−1, 0, 1}, D(1) = [0, 2]
+and D(x) = 0 otherwise. It is a conservative ﬁeld on R with any constant function as a
+potential function.
+Remark 5 (Historical aspects) Our eﬀort to deﬁne a subclass of locally Lipschitz con-
+tinuous functions which has favorable diﬀerentiability properties is one attempt among
+many others. The closest idea we found is due to Valadier who introduced in 1989 the
+notion of “fonctions saines” [56]. Although Deﬁnition 2 looks much more general than
+11
+
+PDF PAGE 12
+the notion given in [56], the equivalent characterization of Corollary 2 shows that path-
+diﬀerentiable and “saines” functions are actually the same. Later on, at the end of
+the nineties, Borwein and Moors introduced the notion of essentially smooth functions
+(strictly diﬀerentiable almost everywhere) as a well-behaved subclass of locally Lipschitz
+continuous functions [16]. Interestingly, the notion of saines functions was as well re-
+considered and slightly modiﬁed in [17] to describe the larger class of arcwise essentially
+smooth functions. Following [56] and Chapter 1 of [57], we see that, in the univariate
+case, saine and essentially smooth functions coincide. This is no longer true for p≥ 2,
+the set of “fonctions saines” is a strict subset of essentially smooth functions.
+Remark 6 (Genericity: theory and practice) The work of Wang et al. [57, 18] al-
+lows to claim that generic 1-Lispchitz functions are not path diﬀerentiable. Paradoxically,
+we shall see in further sections that most functions arising in applications are path diﬀer-
+entiable (e.g., any semialgebraic or deﬁnable function is path diﬀerentiable) 3.
+3.3 Conservative mappings and their calculus
+In this part we often identify linear mappings to their matrices in the canonical basis.
+For general conservative mappings, we adopt here a deﬁnition through the chain rule
+rather than circulations in order to simplify the exposition. However it would be relevant
+to provide a direct extension of Deﬁnition 1 involving vanishing circulations through set
+valued integration, this is matter for future work.
+Deﬁnition 4 (Conservative mappings) LetF : Rp→ Rm be a locally Lipschitz func-
+tion. JF : Rp ⇒ Rm×p is called a conservative mapping for F , if for any absolutely
+continuous curveγ : [0, 1]→ Rp, the function t↦→F (γ(t)) satisﬁes
+d
+dtF (γ(t)) =V ˙γ(t) ∀V∈JF (γ(t))
+for almost all t∈ [0, 1].
+Remark 7 (Conservative ﬁelds are conservative mappings) If D : Rp ⇒ Rp is a
+conservative ﬁeld for f : Rp→ R, it is of course also a conservative mapping for f.
+The following lemma provides an elementary but essential way to construct conservative
+matrices.
+Lemma 3 (Componentwise aggregation) Let F : Rp → Rm be a locally Lipschitz
+continuous function. Let JF : Rp ⇒ Rm×p be given by:
+JF (x) =
+
+
+vT
+1
+...
+vT
+m
+
+, v i∈Di(x), i= 1...,m, ∀x∈ Rp,
+3Valadier’s terminology ﬁnds here a surprising justiﬁcation, since “saine”, healthy in English, is chosen
+as an antonym to “pathological”
+12
+
+PDF PAGE 13
+whereDi is a conservative ﬁeld for the i-th coordinate of F , i = 1,...,m . Then JF is a
+conservative mapping for F .
+Proof : This follows from Lemma 2, the product structure ofJF and the fact that a ﬁnite
+union of Lebesgue null sets is a Lebesgue null set. □
+A partial converse holds true (thanks to Lemma 2): projection on rows of conservative
+mappings have to be conservative mappings for the corresponding coordinate function.
+Lemma 4 (Coordinates of conservative mappings) LetF : Rp→ Rm be locally Lip-
+schitz continuous. Let JF : Rp ⇒ Rm×p be a conservative mapping for F , then the projec-
+tion of J on the ﬁrst row of J, is a conservative ﬁeld for the ﬁrst coordinate of F .
+Observe however, that these “generalized Jacobians” may have a more complex structure
+than the product structure outlined in Lemma 3.
+The following chain rule of generalized diﬀerentiation follows readily from the deﬁnition.
+Lemma 5 (The product of conservative mappings is conservative) LetF1 : Rp→
+Rm,F2 : Rm→ Rl be locally Lipschitz continuous mappings andJ1 : Rp ⇒ Rm×p,J2 : Rp ⇒
+Rl×m be some associated conservative mappings. Then the product mapping J2J1 is a con-
+servative mapping for F2◦F1.
+Proof : Consider any absolutely continuous curve γ : [0, 1]→ Rp. By local Lipschitz
+continuity,t↦→F1(γ(t)) is also absolutely continuous and by deﬁnition of J1 we have,
+d
+dtF1(γ(t)) =J1(γ(t)) ˙γ(t) a.e. on (0 , 1).
+Furthermore,F2◦F1◦γ is also absolutely continuous by the local Lipschitz continuity of
+F2. From the deﬁnition of J2, we have
+d
+dt (F2◦F1(γ(t))) =J2(F1(γ(t)))× d
+dt (F1(γ(t))) a.e. on (0 , 1)
+The last two identities lead to the conclusion. □
+We deduce the following chain rule by enlargement.
+Lemma 6 (Outer chain rule) Let F : Rp→ Rm and g : Rm→ R be locally Lipschitz
+continuous. Let DF : Rp ⇒ Rm×p and Dg : Rm ⇒ Rm be some set valued mappings such
+that Fi, the i-th coordinate of F , is a potential for [DF (γ(t))]i, the i-th row of DF for i =
+1,...,m andg is a potential forDg. Then g◦F is a potential ofD : x ⇒DF (x)TDg(F (x)).
+Proof : This is obtained combining Lemmas 3, 5 and Remark 7. □
+A simple consequence is a “sum rule by enlargement” which is fundamental in the study
+of the mini-batch stochastic gradient:
+Corollary 4 (Outer sum rule) Letf1,...,f n be locally Lipschitz continuous functions.
+Then f = ∑n
+i=1fi is a potential for Df = ∑n
+i=1Di provided thatfi is a potential for each
+Di, i = 1,...,n .
+13
+
+PDF PAGE 14
+4 Tameness and conservativity
+Let us beforehand provide two useful reading keys:
+— The reader unfamiliar with deﬁnable objects can simply replace deﬁnability as-
+sumptions by semialgebraicity assumptions. It is indeed enough to treat major
+applications considered here, as for example deep learning with ReLU activation
+functions and square loss.
+— Semialgebraicity and deﬁnability being easy to recognize in practice, the results in
+this section can be readily used as “black boxes” for applicative purposes.
+4.1 Introduction and deﬁnition
+We recall here the results of geometry that we use in the present work. Some references
+on this topic are [26, 28].
+An o-minimal structure on (R, +,·) is a collection of sets O = (Op)p∈N where eachOp is
+itself a family of subsets of Rp, such that for each p∈ N:
+(i)Op is stable by complementation, ﬁnite union, ﬁnite intersection and contains Rp.
+(ii) if A belongs toOp, then A× R and R×A belong toOp+1;
+(iii) if π : Rp+1→ Rp is the canonical projection onto Rp then, for any A∈O p+1, the
+set π(A) belongs toOp;
+(iv)Op contains the family of real algebraic subsets of Rp, that is, every set of the form
+{x∈ Rp|g(x) = 0}
+where g : Rp→ R is a polynomial function;
+(v) the elements of O1 are exactly the ﬁnite unions of intervals.
+A subset of Rp which belongs to an o-minimal structure O is said to be deﬁnable in O.
+The terminology tame refers to deﬁnability in an o-minimal structure without specifying
+which structure. Very often the o-minimal structure is ﬁxed, so one simply says deﬁnable.
+We will stick to this terminology all our results are valid in a ﬁxed o-minimal structure.
+A set valued mapping (or a function) is said to be deﬁnable in O whenever its graph is
+deﬁnable inO.
+The simplest o-minimal structure is given by the class of real semialgebraic objects. Recall
+that a set A⊂ Rp is called semialgebraic if it is a ﬁnite union of sets of the form
+k⋂
+i=1
+{x∈ Rp|gi(x)< 0, hi(x) = 0}
+14
+
+PDF PAGE 15
+where the functions gi,hi : Rp→ R are real polynomial functions and k≥ 1. The key
+tool to show that these sets form an o-minimal structure is Tarski-Seidenberg principle.
+O-minimality is an extremely rich topological concept: major structures, such as globally
+subanalytic sets or sets belonging to the log-exp structure provides vast applicative op-
+portunities (as deep learning with hyperbolic activation functions or entropic losses, see
+[27, 21] for some illustrations). We will not give proper deﬁnitions of these structures in
+this paper, but the interested reader may consult [28].
+The tangent space at a pointx of a manifoldM is denoted byTxM. Given a submanifold 4
+M of a ﬁnite dimensional Riemannian manifold, it is endowed by the Riemanninan struc-
+ture inherited from the ambient space. Given f : Rp→ R and M⊂ Rp a diﬀerentiable
+submanifold on which f is diﬀerentiable, we denote by grad Mf its Riemannian gradient
+or even, when no confusion is possible, grad f.
+A Cr stratiﬁcation of a (sub)manifold M (of Rp) is a partition S = (M1,...,M m) of M
+into Cr manifolds having the property that cl Mi∩Mj̸=∅ implies that Mj is entirely
+contained in the boundary of Mi wheneveri̸=j. Assume that a function f :M→ R is
+given and that M is stratiﬁed into manifolds on which f is diﬀerentiable. For x inM, we
+denote by Mx the strata containing x and we simply write grad f(x) for the gradient of
+f with respect to Mx.
+Stratiﬁcations can have many properties, we refer to [28] and references therein for an
+account on this question and in particular for more on the idea of a Whitney stratiﬁcation
+that we will use repeatedly. We pertain here to one basic deﬁnition: a Cr-stratiﬁcation
+S = (Mi)i∈I of a manifold M has the Whitney-(a) property, if for each x∈ clMi∩Mj
+(with i̸=j) and for each sequence (xk)k∈N⊂Mi we have:
+lim
+k→∞
+xk =x
+lim
+k→∞
+TxkMi =T
+
+
+
+=⇒ TxMj ⊂ T
+where the second limit is to be understood in the Grassmanian, i.e., “directional”, sense.
+In the sequel we shall use the term Whitney stratiﬁcation to refer to a C 1-stratiﬁcation
+with the Whitney-(a) property.
+4.2 Variational stratiﬁcation and projection formulas
+Let us ﬁx an o-minimal structure O, so that a set or a function will be called deﬁnable if
+it is deﬁnable inO.
+Deﬁnition 5 (Variational stratiﬁcation) Let f : Rp→ R, be locally Lipschitz conti-
+nuous, let D : Rp ⇒ Rp be a set valued map and let r≥ 1. We say that the couple (f,D )
+has a Cr variational stratiﬁcation if there exists a Cr Whitney stratiﬁcationS = (Mi)i∈I
+of Rp, such that f is Cr on each stratum and for all x∈ Rp,
+ProjTMx (x)D(x) ={gradf(x)}, (8)
+4We only consider embedded submanifolds
+15
+
+PDF PAGE 16
+where gradf(x) is the gradient of f restricted to the active strata Mx containingx.
+The equations (8) are called projection formulas and are motivated by Corollary 9 in [12]
+which states that Clarke subgradients of deﬁnable functions have projection formulas.
+Theorem 2 (Projection formula [12]) Let f : Rp→ R be deﬁnable, locally Lipschitz
+continuous5, and let r∈ N. Then there exists a ﬁnite Cr Whitney stratiﬁcation S =
+(Mi)i∈I of Rp such that for all x∈ Rp,
+ProjTx(Mx)∂cf(x) ={gradf(x)}.
+In other words, the couple (f,∂ cf) has a a Cr variational stratiﬁcation.
+4.3 Characterization of deﬁnable conservative ﬁelds
+The following is a direct extension of the chain rule result given in [27, Theorem 5.8].
+It relies also on Theorem 2 and implies that a deﬁnable function f is a potential of its
+Clarke subgradient.
+Theorem 3 (Integrability (from [27])) Letf : Rp→ R, be locally Lispchitz continuous
+and let D : Rp ⇒ Rp be compact valued and graph closed, such that (f,D ) has a C 1
+variational stratiﬁcation. Then f is a potential of D.
+Proof : The proof given in [27] was proposed for the Clarke subdiﬀerential but holds for
+larger classes of stratiﬁable set valued map. We reproduce the arguments here for clarity.
+LetS be a stratiﬁcation provided by the variational stratiﬁcation. Fix an absolutely
+continuous path γ : [0, 1]→ Rp. Fix an arbitrary t∈ (0, 1) and M∈S such that
+γ(t)∈M, ˙γ(t)∈TM(γ(t)) (9)
+In this case, the projection formula ensures that for any v∈D(γ(t))
+⟨ ˙γ(t),v⟩ =⟨ ˙γ(t), gradf(γ(t))⟩ = d
+dtf(γ(t)).
+Set ΩM ={t∈ [0, 1], γ(t)∈ M, ˙γ(t)̸∈ TM(γ(t))}. Fix any t0∈ ΩM, there exists a
+small closed interval I centered at t0 such that I∩ ΩM ={t0}, otherwise one would have
+˙γ(t0)∈ TM(γ(t0)). The interval I may be chosen with rational endpoints and this gives
+an injection from ΩM to Q2. Hence ΩM is countable. SinceS contains only ﬁnitely many
+strata, for almost all t∈ [0, 1], relation (9) holds for some other strata and the result
+follows using the chain rule characterization of conservativity in Lemma 2. □
+We aim at proving the following converse in the context of tame analysis.
+5In [12] the authors assume f to be arbitrary and obtain similar result, for simplicity we pertain to
+the Lipschitz case.
+16
+
+PDF PAGE 17
+Theorem 4 (Variational stratiﬁcation for deﬁnable conservative ﬁelds) LetD : Rp ⇒
+Rp be a deﬁnable conservative ﬁeld having a deﬁnable potential denoted by f : Rp→ R.
+Then (f,D ) has a Cr variational stratiﬁcation. In other words there exists a stratiﬁcation
+{Mi}i∈I of Rp such that
+PTxMxD(x) ={gradf(x)}
+whenever Mx is the active strata.
+Proof : We actually establish a slightly stronger result and prove that the result holds
+by replacing the underlying space Rp by a Cr deﬁnable ﬁnite dimensional manifold M
+with D(x)⊂ TxM, i.e., D is a set valued section of the tangent bundle. We follow a
+classical pattern of stratiﬁcation theory, see e.g., [28], and we establish that the failure of
+the projection formula may only occur on a convenient small set. More precisely, we shall
+provide a stratiﬁcationS ={M1,...,M q} of M for which each of the sets:
+Ri ={x∈Mi : gradf(x)̸=PTxMiD(x)}, (with i = 1,...,q ), (10)
+has a dimension strictly lower than Mi.
+Assuming we have such a stratiﬁcation, let us see how we would reﬁne the stratiﬁcation
+in order to downsize further the set of “bad points”. For each Ri we would consider
+the stratiﬁcation R1
+i,...,R r
+i of f|Ri into smooth functions. For each j = 1,...,r the
+couple x↦→ f|Rj
+i
+(x),x ↦→ PTxRj
+i
+D(x) would satisfy the assumption of the theorem but
+on a manifold with strictly lower dimension. So we could then pursue the process and
+conclude by exhaustion.
+To obtainS, we consider a “constant-rank” Whitney stratiﬁcation off,S ={M1,...,M q},
+i.e., such that f is smooth on each Mi and has a constant rank, 0 or 1 in our case (see
+[28]). Take Mi an arbitrary strata and Ri as in (10). We only need to prove that Ri has
+a dimension lower than that of Mi.
+For simplicity set Ri = R, Mi = M. We consider ﬁrst the rank 0 case and deduce the
+other case afterward.
+Assume that rank f = 0 on M, i.e., f is constant. We want to prove that for almost all
+x in M, max{∥v∥ : v∈ PTxMD(x)} = 0. We argue by contradiction and assume that
+we have a ball of radius ρ >0 and center ¯x on which the max is strictly greater than a
+positive real m. Consider the mapping G: x ⇒ arg max{∥v∥ : v∈ PTxMD(x)} which is
+deﬁnable with nonempty compact values. Use the deﬁnable choice’s theorem to obtain a
+deﬁnable single-valued selection H of G, see [26]. H is a (nonsmooth) vector ﬁeld on M
+that we may stratify in a way compatible with BM(¯x,ρ ). The ball BM(¯x,ρ ) must contain
+a stratum of maximal dimension and hence there exists ˆx∈BM(¯x,ρ ), and ϵ∈ (0,ρ ) such
+that, H(x)∈TxM is smooth over BM(ˆx,ϵ )⊂BM(¯x,ρ ). We may thus consider the curve
+deﬁned by
+˙γ(t) =H(γ(t)), γ(0) = ˆx.
+For this curve, which is non stationary, one has almost everywhere
+d
+dtf(γ(t)) = max
+v∈D(γ(t))
+⟨ ˙γ,v⟩ = max
+v∈PTxMDf (γ(t))
+∥v∥2≥m2 > 0,
+17
+
+PDF PAGE 18
+which is in contradiction with the fact that f is constant. This concludes the null rank
+case.
+Assume now that rank f = 1, so that grad f is nonzero all throughout M. Consider
+˜D = D− gradf which is deﬁnable, convex valued and has a closed graph. By linearity
+of the integral ˜D is conservative and has zero as a potential function over M. Indeed if
+γ : [0, 1]→M is an arbitrary absolutely continuous curve, we have the set valued identity:
+∫ 1
+0
+⟨ ˜Dγ(t), ˙γ(t)⟩dt =
+∫
+⟨D(γ(t)), ˙γ(t)⟩dt−
+∫ 1
+0
+⟨gradf(γ(t)), ˙γ(t)⟩dt
+= f(γ(1))−f(γ(0))− (f(γ(1))−f(γ(0)))
+= 0 .
+Since the null function has rank 0 on M, we deduce as above that PTxM ˜D(x) ={0} for
+almost all x∈M. Since ˜D =D− gradf and gradf(x)∈TxM for all x∈M, we deduce
+that PTxMD(x) ={gradf(x)} for almost all x∈M which is what we needed to prove. □
+Remark 8 (Deﬁnability) The fact that f is deﬁnable does not imply that D is deﬁn-
+able, for instance setting χ(s) = [0, 1] if s is an integer and 0 otherwise, χ is conservative
+for the zero function and it is not deﬁnable since Z is not deﬁnable in any o-minimal
+structure. However if f is deﬁnable in O so is its Clarke subdiﬀerential, see [12]. On
+the other hand, when D deﬁnable inO, its potential f is not in general deﬁnable in O.
+Whether it is deﬁnable in a larger o-minimal structure is an open question.
+Remark 9 (Alternative proof) Another method for proving Theorem 4 relies on the
+repeated use of Theorem 1. We chose to avoid the use of strong analysis results, as
+Rademacher theorem, and pertain to standard self-contained deﬁnable arguments.
+4.4 Geometric and dynamical properties of deﬁnable conserva-
+tive ﬁelds
+This section describes some properties of deﬁnable conservative ﬁelds (with deﬁnable
+potential function). The ideas and proofs are direct generalizations of [12].
+Theorem 5 (Nonsmooth Morse-Sard for D-critical values) LetD : Rp ⇒ Rp be a
+conservative ﬁeld for f : Rp↦→ R and assume that f,D are deﬁnable. Then the set of
+D-critical values{f(x), x∈ Rp, 0∈D(x)} is ﬁnite.
+Proof : The proof is as in [12, Corollary 5] and follows from the variational stratiﬁcation
+property, applying the deﬁnable Sard theorem to each strata. This ensures that the set
+of critical values has zero Lebesgue measure in R and since it is deﬁnable, it is a ﬁnite
+set. □
+The following is a generalization of the result of Kurdyka [37]
+18
+
+PDF PAGE 19
+Theorem 6 (A nonsmooth KL inequality for conservative ﬁelds) Let D : Rp ⇒
+Rp be a conservative ﬁeld for f : Rp↦→ R and assume that f,D are deﬁnable. Then there
+exists ρ > 0, ϕ: [0,ρ )→ R+, deﬁnable strictly increasing, C 1 on (0,ρ ) with ϕ(0) = 0
+and a continuous deﬁnable function χ: R+→ (0, +∞), such that for all x∈ Rp with
+0<|f(x)|≤ χ(∥x∥) and v∈D(x),
+∥v∥ϕ′(|f(x)|)≥ 1.
+Proof : This is deduced from the variational stratiﬁcation property as in Theorem 14 of
+[12]. □
+The following convergence result is a consequence and calls for many questions regarding
+nonsmooth generalized gradient systems [38].
+Theorem 7 (Conservative ﬁelds curves have ﬁnite length) Let D : Rp ⇒ Rp be a
+deﬁnable conservative ﬁeld and x: R+→ Rp a solution of the diﬀerential inclusion
+˙x(t)∈− conv(D(x(t))).
+Then if x is bounded, x has ﬁnite length:
+∫ +∞
+0
+∥ ˙x(t)∥dt <+∞ and in particular x is a
+convergent trajectory.
+Proof : Assume without loss of generality that D has convex values, set ∥D(x)∥ :=
+minv∈D(x)∥v∥ for any x∈ Rp. Let f be a potential function for D. We have
+d
+dtf(x(t)) =−∥D(x(t))∥2
+for almost all t≥ 0. We deduce that t↦→ f(x(t)) has a limit, say 0 (otherwise shift
+f by a constant). The limit points ω of x are entirely contained in a compact zone of
+[f = 0]. Uniformize the nonsmooth KL inequality on a tubular neighborhood, say Z, of
+this zone (see [13, Lemma 6]), and ﬁnally assume that x(t)∈ Z for some t≥ t1. On Z,
+set ˜D(x) = ϕ′(f(x))D(x) and observe that ˜D is a conservative ﬁeld for ϕ◦f, hence for
+almost all t≥t1
+d
+dtϕ◦f(x(t)) =⟨ ˙x(t),ϕ′(f(x))D(x)⟩
+=−∥ ˙x(t)∥2ϕ′(f(x))≤−∥ ˙x(t)∥ϕ′(f(x))∥D(x)∥≤−∥ ˙x(t)∥.
+Since ϕ(f(x(t)) tends to 0, we obtain that
+∫ +∞
+0
+∥ ˙x∥≤ ϕ(f(x(0))). □
+5 Automatic diﬀerentiation
+Automatic diﬀerentiation emerged in the seventies as a computational framework which
+allows to compute eﬃciently gradients of multivariate functions expressed through smooth
+19
+
+PDF PAGE 20
+elementary functions. When the function formula involves nonsmooth elementary func-
+tions the automatic diﬀerentiation approach fails to provide gradients. This issue is largely
+studied in [31, chapter 14] which discusses connections with Clarke generalized deriva-
+tives using notions such as “piecewise analyticity” or “stable domain”. Let us mention
+[32] which developed piecewise linear approximation for functions which can be expressed
+using absolute value, min or max operators. This approach led to successful algorithmic
+developments [33] but may suﬀer from a high computational complexity and a lack of
+versatility (the Euclidean norm cannot be dealt with within this framework). Another
+attempt using the same model of branching programs was described in [36] where a qua-
+liﬁcation assumption is used to compute Clarke generalized derivatives automatically 6.
+We provide now a simple and ﬂexible theoretical model for automatic diﬀerentiation
+through conservative ﬁelds.
+5.1 A functional framework: “closed formula functions”
+Automatic diﬀerentiation deals essentially with composed functions whose components
+are “simple functions”, that is functions coming as “closed formulas”. It presumes the
+existence of a chain rule and aggregates the basic derivation operations according to this
+principle. We refer to [31] for a detailed account. The purpose of this section is to
+demonstrate that our nonsmooth diﬀerentiation model is perfectly ﬁt to deal with this
+approach in the nonsmooth case.
+The function f we consider now is accessible through a recursive algorithm which ma-
+terializes an evaluation process built on a directed graph. This graph 7 is modelled by a
+discrete map called parents and a collection of known “elementary functions” gk deﬁned
+through:
+a) q∈ N, q >p
+b) parents maps the set {p + 1,...,q } into the set of tuples of the form ( i1,...,i m)
+wherem∈ N andi1,...,i m range over{1,...,q − 1} without repetition. It has the
+property that for any k∈{ p + 1,...,q }, parents(k) is a tuple without repetition
+over the indices{1,...,k − 1}.
+c) (gi)q
+i=p+1 such that for any i =p + 1,...,q , gi : R|parents(i)|→ R.
+This deﬁnes the function f through an operational evaluation program.
+Example 1 The idea behind automatic diﬀerentiation is that the original function is
+given through a closed formula, which is then interpreted as a composed function in
+order to make its diﬀerentiation (or “subdiﬀerentiation”) amenable to simple chain rule
+6From a practical point of view, qualiﬁcation is hard to enforce or even check.
+7Which we shall not deﬁne formally since it is not essential to our purpose.
+20
+
+PDF PAGE 21
+Algorithm 1: Deﬁnition program of f : Rp→ R
+Input: x = (x1,...x p)
+1: for k =p + 1,p + 2,...q do
+2: Set:
+xk =gk(xparents(k))
+where xparents(k) = (xi)i∈parents(k).
+3: end for
+Return: xq =:f(x).
+computations. For instance for f(x) = (x1x2 + tanx2)(|x1| +x1x2x3), we may choose
+x4 =g4(x1,x 2) =x1x2, x5 =g5(x2) = tanx2, x6 =g6(x1) =|x1|,
+x7 =g7(x3,x 4) =x3x4,
+x8 =g8(x4,x 5,x 6,x 7) = (x4 +x5)(x7 +x6)
+where the parents function is in evidence parents(4) = {1, 2}, parents(5) = {2},
+parents(6) = {1}, parents(7) = {3, 4}, parents(8) = {4, 5, 6, 7}. Observe that the
+derivatives or subdiﬀerentials ofg4,...,g 8 are known in closed form. Concerning g6 =|·|
+one has∂cg6(0) = [−1, 1]. Thus in practice we need to choose a speciﬁc element in that set,
+as 0, and perform the computation with this choice (see below the forward or backward
+diﬀerentiation modes).
+5.2 Forward and backward nonsmooth automatic diﬀerentiation
+In order to compute a conservative ﬁeld for f, we need in addition the following:
+d) For any i =p + 1,...,q , one is given a set valued map Di : R|parents(i)| ⇒ R|parents(i)|
+which is conservative for gi.
+Note that the above implies that the gi are locally Lipschitz continuous.
+For example,Di could be the Clarke subgradient of gi if gi is deﬁnable (a mere deﬁnable
+selection in the Clarke would also work). For instance in Example 1, one may setD6(0) =
+{0} orD6(0) = [0, 1]. Given (xi)q
+i=1 as computed in Algorithm 1, an algorithm to compute
+a conservative ﬁeld of f is described in Algorithm 2. This is a direct implementation of
+the chain rule as described in Lemma 6. This ensures that the output of Algorithm 2 is a
+conservative ﬁeld for the function f described in Algorithm 1. Furthermore, the reverse
+mode of automatic diﬀerentiation described in Algorithm 3 computes essentially the same
+quantity but with a lower memory and time footprint.
+Letf be given as in Algorithm 1 and x∈ Rq be given the trace of all intermediate values
+at the end of Algorithm 1. Set
+D ={v∈ Rp; output of Algorithm 2 }
+21
+
+PDF PAGE 22
+Algorithm 2: Forward mode of automatic diﬀerentiation for f
+Input: variables (x1,...x q); di = (dij)|parents(i)|
+j=1 ∈Di(xparents(i)), i =p + 1...q
+1: Initialize: ∂xk
+∂x =ek, k = 1,...,p .
+2: for k =p + 1,...q do
+3: Compute:
+∂xk
+∂x =
+∑
+j∈parents(k)
+∂xj
+∂x dkj
+where x = (x1,...,x p).
+4: end for
+Return: ∂xq
+∂x .
+Algorithm 3: Reverse Mode of automatic diﬀerentiation for f
+Input: variables (x1,...x q); a the map{parents(t)}t∈{1,...q}; associated derivatives
+di = (dij)|parents(k)|
+j=1 ∈Di(xparents(i)), i =p + 1...q
+1: Initialize: v = (0, 0,..., 0, 1)∈ Rq
+2: for t =q,...p + 1 do
+3: for j∈ parents(t) do
+4: Update coordinate j of v:
+v[j] :=v[j] +v[t]dtj i.e., update v[j] to v[j] +v[t]dtj
+5: end for
+6: end for
+Return: (v[1],v [2],...,v [p]).
+for all possible choices of dk∈ Dk(xparents(k)), k = p + 1,...,q . The ﬁrst p coordinates
+of x are the arguments of f, repeating the same construction for any value of these
+coordinates deﬁnes a set valued ﬁeld on Rp with values in subsets of Rp. This ﬁeld is
+called the forward automatic diﬀerentiation ﬁeld of Algorithm 1. The backward automatic
+diﬀerentiation ﬁeld of Algorithm 1 is deﬁned similarly using Algorithm 3.
+Theorem 8 (Forward and backward “autodiﬀ” are conservative ﬁelds) Letf be
+given through Algorithm 1. Then the forward and backward automatic diﬀerentiation ﬁelds
+are conservative for f.
+Proof : We substitute the functions (gk)q
+k=p+1 by functions (Gk)q
+k=p+1, such that for each
+k =p + 1,...,q
+Gk : Rq↦→ Rq
+x↦→x +ek(gk(xparents(k))−xk),
+where ek is the k-th element of the canonical basis. Similarly, for all k∈p + 1,...,q , we
+still denote by Dk : Rq ⇒ Rq the conservative ﬁeld of gk seen as a function of x1,...,x q
+22
+
+PDF PAGE 23
+(simply add zeros to coordinates which do not correspond to parents of k). Then f as
+computed in Algorithm 1, is equivalently given by
+f(x) = [(Gq◦Gq−1◦... ◦Gp+1(x1,...,x p, 0,..., 0))]q = [Gq◦Gq−1◦... ◦Gp(x)]q
+where Gp maps the ﬁrst p coordinates (xk)p
+k=1 to the vector ((xi)p
+i=1, (0)q
+i=p+1)∈ Rp and
+indexation [·]q denotes theq-th coordinate of a q vector. For eachk =p+ 1...,q ,x∈ Rq,
+the following “componentwise derivative” of Gk in a matrix form
+Lk : x↦→
+{
+I−ekeT
+k +ekdT, d ∈Dk(x)
+}
+, (11)
+is a conservative mapping for Gk by Lemma 3. For each k = p + 1...,q , we choose one
+such matrix according to a ﬁxed input of Algorithm 2, dk∈Dk(x1,...,x q),
+Jk =I−ekeT
+k +ekdT
+k∈Lk(x1,...,x q) (12)
+For eachk =p + 1,...q , denote by Mk the matrix deﬁned by blocks as follows
+Mk =
+
+
+Ip(
+∂xp+1
+∂x
+)T
+...(∂xk
+∂x
+)T
+0
+
+
+∈ Rq×p
+where ∂xk
+∂x is computed by Algorithm 2. Denote also by Jp∈ Rq×p the diagonal matrix
+which diagonal elements are 1 and the remainders are 0, the Jacobian of Gp. One can see
+that
+Mk =Jk×Jk−1×... ×Jp+1×Jp
+for all k =p + 1,...q , where× denotes the usual matrix product. This is easily seen for
+Mp+1 as Algorithm 2 computes ∂x1
+∂x1,...,p
+= d1. The rest is a simple recursion. In the end
+Algorithm 2 computes
+eT
+qMq =eT
+q×Jq×Jq−1×... ×Jp+1×Jp
+∈eT
+q×Lq×Lq−1×... ×Lp+1×Jp
+Combining Lemmas 4 and 5, the right hand side is a conservative ﬁeld for f. Actually
+it can be seen from equations (11) and (12) that the right hand side consists precisely of
+all possible outputs of Algorithm 2 for all possible choices of dk, k = p + 1,...,q . This
+proves the claim for the forward automatic diﬀerentiation ﬁeld obtained by Algorithm 2.
+Regarding Algorithm 3, we will show that it computes the same quantity reversing the
+order of the products. For all t =q,...,p + 1, let vt∈ Rq be the vector v obtained after
+stept of the “for loop” of Algorithm 3. We havevq =eq +dq = (I +dqeT
+q )eq. An induction
+shows that for all t =q,...,p + 1
+vt = (I +dteT
+t )... (I +dqeT
+q )eq.
+23
+
+PDF PAGE 24
+Using the same notation as in equation (12), set for t =q,...p + 1
+wt =JT
+t ×... ×JT
+q ×eq
+It is easy to see that wq and vq agree on the ﬁrst q− 1 coordinates. By recursion, for
+t =q,...p +1, wt andvt agree on the ﬁrstt−1 coordinates (recall that dt is supported on
+the ﬁrstt−1 coordinates). We deduce that wp+1 andvp+1 agree on the ﬁrstp coordinates
+so that the output of Algorithm 3 is
+JT
+Gpvp+1 =JT
+Gpwp+1 =JT
+Gp×JT
+Gp−1×... ×JT
+Gq×eq =MT
+q eq
+which is the same quantity as the one computed by Algorithm 2. The claim follows for
+the backward automatic diﬀerentiation ﬁeld. □
+Remark 10 Automatic diﬀerentiation is not necessarily convex valued. Consider the
+function
+f : (x,y )↦→| max(x,y )|.
+Both the max and absolute value functions are convex so that their respective convex
+subgradients are conservative ﬁelds. Applying the chain rule in Lemma 5 at x = y = 0
+we obtain a conservative ﬁeld for f evaluated at zero of the form
+D ={tv; t∈ [−1, 1], v∈ ∆}
+where ∆ is the one dimensional simplex in R2. The set D is not convex.
+The following corollary is a direct consequence of Theorems 2 and 8. Note that a result
+close to equation (13) was already guessed in [31, Proposition 14.2].
+Corollary 5 (Automatic diﬀerentiation returns the gradient a.e.) Assume that all
+thegk deﬁningf and their conservative ﬁeldsDk, are deﬁnable, and denote by Df a result-
+ing automatic diﬀerentiation ﬁeld (either forward or backward). Then f is diﬀerentiable
+almost everywhere with
+Df ={∇f} (13)
+on the complement of ﬁnitely many smooth manifolds with dimension at most p− 1.
+Furthermore, for any v,w in Rp,
+f(w)−f(v) =
+∫ 1
+0
+⟨Df((1−t)v +tw),w−v⟩ dt. (14)
+Proof : From Theorem 8, Df is a conservative ﬁeld for f. Basic closedness properties of
+deﬁnable objects ensure that both f andDf are deﬁnable so that Theorem 4 ensures the
+existence of a variational stratiﬁcation (see Deﬁnition 5). The fact that f is diﬀerentiable
+almost everywhere is a basic result of tame geometry. To obtain (13), use the stratiﬁcation
+provided in Theorem 4, and consider the dense open set given by the union of the ﬁnite
+number of strata of maximal dimensions. The integration formula is the application of
+Deﬁnition 2 along segments. □
+24
+
+PDF PAGE 25
+Remark 11 (The limitations of the smooth chain rule) (a) It is surprising to use
+Theorem 4 which is non trivial to obtain (13). It is instead tempting to simply use the
+expression of f provided in Theorem 8:
+f(x) =eT
+qGp◦... ◦Gq(x)
+and to diﬀerentiate it “almost everywhere” to obtain
+f′(x) =eT
+qG′
+p (Gp−1(...G q(x))... ))◦... ◦G′
+q(x),
+which would give the desired result. Unfortunately this expression has no obvious mean-
+ing, since for instance, the image of Gq may be entirely contained in the points of non-
+diﬀerentiability of Gq−1, so that G′
+q−1(Gq(x)) has no meaning. This result is illustrated
+further in the deep learning section through an experimental example.
+(b) Observe as well that we do not know whether such a result could hold without deﬁn-
+ability assumptions.
+6 Algorithmic consequences and deep learning
+What follows is in the line of many works on decomposition methods [19], in particular
+those involving nonconvex problems, see e.g., [44, 20, 27, 42, 23]. Our study uses con-
+nections with dynamical systems, see e.g., [41, 39, 10, 14, 11] in order to take advantage
+of the “curve friendly” nature of conservative ﬁelds and automatic diﬀerentiation. Us-
+ing our formalism, we gather ideas from [27, 21, 2], and use the Bena¨ ım-Hofbauer-Sorin
+approach [10], to obtain almost sure subsequential convergence to steady states that are
+carefully deﬁned. To our knowledge, this provides the ﬁrst proof for the subsequential
+convergence of the stochastic gradient descent with mini-batches in deep learning when
+the actual backpropagation model is used instead of the subgradient one’s, which is the
+case in almost all applications involving nonsmooth objects. As outlined in a conclusion,
+many more algorithms could be considered along this perspective.
+All sets and functions we consider in this section are deﬁnable in the same o-minimal
+structure.
+6.1 Mini-batch stochastic approximation for ﬁnite nonsmooth
+nonconvex sums aka “nonsmooth nonconvex SGD”
+We consider the following loss function on Rp
+J : w↦→ 1
+n
+n∑
+i=1
+fi(w) (15)
+where eachfi : Rp→ R is deﬁnable and locally Lipschitz continuous. We assume that for
+eachi = 1...n ,Di : Rp ⇒ Rp is a deﬁnable conservative ﬁeld for fi, for example the ones
+provided by automatic diﬀerentiation. We consider the following recursive process, given
+25
+
+PDF PAGE 26
+a sequence of nonempty mini-batches subsets of{1,...,n }, (Bk)k∈N, taken independently,
+uniformly at random, (αk)k∈N a deterministic sequence of positive step sizes, andw0∈ Rp,
+iterate
+Mini-batch SGD with back-prop:
+
+
+
+wk+1 =wk−αkdk
+dk∈ 1
+|Bk|
+∑
+i∈Bk
+Di(wk).
+We set
+DJ : w ⇒ 1
+nconv
+( n∑
+i=1
+Di(w)
+)
+and critJ ={w∈ Rp, 0∈ DJ (w)}, the set of DJ -critical points. Combining our results
+with the approach of [10], we obtain the following asymptotic characterization.
+Theorem 9 (Convergence of mini-batch SGD) Let αk = o(1/ log(k)), denote by B
+the event deﬁned by supk∥wk∥< +∞ and assume thatB occurs with a positive probability.
+Setting, ¯w⊂ Rp, the set of accumulation points of (wk)k∈N, we have, almost surely on B,
+∅̸ = ¯w⊂ critJ andJ is constant on ¯w.
+Proof : DJ is a conservative ﬁeld for J . Hence J is a Lyapunov function for critJ and
+the diﬀerential inclusion
+˙w∈−DJ (w),
+which admits solutions according to [5, Chapter 2, Theorem 3]. We have by uniform
+randomness
+EBk
+[
+1
+|Bk|
+∑
+i∈Bk
+Di(wk)
+]
+= 1
+n
+n∑
+i=1
+Di(wk)⊂DJ (wk).
+In the event ofB, the sequence remains bounded so that, almost surely onB, the following
+is also bounded
+sup
+k
+∥dk−v∥
+s.t. v ∈ EBk
+[
+1
+|Bk|
+∑
+i∈Bk
+Di(wk)
+]
+Theorem 2 implies that J (critJ ) is ﬁnite, and hence has empty interior. The result
+follows by combining Theorem 3.6, Remark 1.5(ii) and Proposition 3.27 of [10], see also
+[9, Proposition 4.4] for discussion on the step size and [14, Section 2.2] for a discussion on
+sequence boundedness. □
+Remark 12 (Convergence) We conjecture that, beyond subsequential convergence,
+iterates should converge in the case of deﬁnable potentials.
+26
+
+PDF PAGE 27
+6.2 Deep Neural Networks and nonsmooth backpropagation
+We pertain to feed forward neural networks even though much more general cases are
+adapted to our auto-diﬀerentiation setting and to our deﬁnability assumptions.
+Let us consider two ﬁnite dimensional real vector spaces spaces X,Y. The space X
+models input objects of interest (images, economical data, sentences, texts) while Y is an
+output space formed by properties of interest for the objects under consideration. The
+points y inY are often called labels. The goal of deep learning is to label automatically
+objects inX by “learning the labelling principles” from a large dataset of known paired
+vectors (xi,yi)i=1,...,n. Given x inX , we thus wish to discover its label y. This is done by
+designing a predictor function whose parameters are organized in L layers, each of which
+is represented by an aﬃne function Aj : Rpj→ Rpj+1 for valuespj∈ N,j = 1,...,L . Our
+predictor function has then the compositional form
+X∋ x→σL(AL(σL−1(AL−1(...σ 2(A2(σ1(A1(x))))... ))))∈Y (16)
+where for each j, the function σj : Rpj → Rpj, is locally Lipschitz continuous. These
+functions are called activation functions and are usually univariate functions applied co-
+ordinatewise. Very often one simply takes a single activation function σ : R→ R and
+apply it to coordinates of each layer. Classical choices for σ include:
+1. identity: t↦→t,
+2. sigmoid: t↦→ 1
+1+e−t ,
+3. hyperbolic tangent: t↦→ tanh(t),
+4. softplus: t↦→ log(1 + exp(t)),
+5. ReLU: t↦→ max{0,t}, aka positive part,
+6. “Leaky-ReLU”: t↦→ max{0,t} +α min{t, 0}, α> 0, parameter.
+7. piecewise polynomial activations.
+Examples 1, 5, 6, 7 are semialgebraic, the others are deﬁnable in the same o-minimal
+structure ( R-exp deﬁnable sets). Among these examples, the ReLU activation function
+[30] played a crucial role in the development of deep learning architectures as it was found
+to be eﬃcient in reducing “vanishing gradient” issues (those being related to the ﬂatness
+of the commonly used sigmoid). This activation function is still widely used nowadays and
+constitutes one of the motivations for studying deeper automatic diﬀerentiation oracles
+applied to nonsmooth functions.
+In order to lighten the notations, the weights of all the Ai in (16) are concatenated into
+a global weight vector w in Rp, so we may simply write the parametrized predictor with
+parameter w,
+g(w,x ) :=σL(AL(σL−1(...σ 1(A1(x)))))).
+27
+
+PDF PAGE 28
+Learning a predictor function is ﬁnding an adequate collection of weights w. To do so one
+trains the neural networks by minimizing a loss of the form:
+J (w) = 1
+n
+n∑
+i=1
+l(g(w,xi),yi) (17)
+where l is some elementary loss function, typical choices include the square loss l(a,b ) =
+1
+2∥a−b∥2, (a,b )∈ R2 for regression or binary cross entropy for classiﬁcation: l(a,b ) =
+b log(a) + (1−b) log(1−a), where a∈ (0, 1),b∈{ 0, 1}. In view of matching the abstract
+model (15), set fi(x) =l(g(w,xi),yi) for all i. It is obvious to see that:
+Lemma 7 (Deep Learning loss in algorithmic form) Given σ1,...,σ L and l, each
+term fi of the deep learning loss J has a representation as in Algorithm 1.
+Let us now ﬁx σ1,...,σ L and l. Choose a conservative map 8 Di for each σi, i = 1...,L ,
+and Dl for l. An index i being ﬁxed, the backpropagation algorithm applied to fi is
+exactly backward auto-diﬀerentiation overfi based on the data of{Di}i=1...L andDl. We
+denote by BPfi the output mapping. We have:
+Corollary 6 (Backpropagation deﬁnes a conservative ﬁeld) With the above con-
+ventions, assume that l andσ1,...,σ L as well as the corresponding conservative maps are
+deﬁnable in the same o-minimal structure, then the mapping BPfi is a conservative ﬁeld.
+As a consequence
+BPfi =∇fi
+save on a ﬁnite union of manifolds of dimension at most d− 1.
+As a consequence, setting
+BPJ = 1
+n
+n∑
+i=1
+BPfi (18)
+we obtain a conservative ﬁeld, and thus
+BPJ =∇J a. e. (19)
+J (w)−J (v) =
+∫ 1
+0
+⟨BPJ ((1−t)v +tw),w−v⟩ dt, (20)
+for any v,w in Rp.
+Remark 13 (Backpropagation and diﬀerentiability a.e.) (a) The backpropagation
+algorithm was popularized in the context of neural networks by [52] and is at the heart
+of virtually the totality of numerical algorithms for training deep learning architectures
+[40, 1, 47]. Most importantly, and this was the main motivation for our work, the back-
+propagation algorithm is used even for network built with non diﬀerentiable activation
+functions one of the most well known example being ReLU [30]. Using such nondiﬀeren-
+tiable functions completely destroys the interpretation of backpropagation algorithm as
+8If a unique σ : R→ R is applied to each coordinate of each layer, this amounts to consider a conser-
+vative ﬁeld for σ, for example its Clarke subgradient.
+28
+
+PDF PAGE 29
+computing a gradient or even a subgradient. Our results say that, although not computing
+any kind of known subdiﬀerential, the nonsmooth backpropagation algorithm computes
+elements of a conservative ﬁeld. As a consequence, it satisﬁes the operational chain rule
+given in Lemma 2. Note also that virtually all deep network architectures used in appli-
+cations are actually deﬁnable, see e.g., [27].
+(b) Despite our eﬀorts we do not see any means to obtain Corollary 6 easily. In the “com-
+positional course of loss diﬀerentiation” (recall Algorithm 1 and 3), one can indeed get
+trapped in “nondiﬀerentiability zones” and thus speaking of the derivative of the active
+layers at this point has no meaning. Thus the smooth chain rule is of no use (see Remark
+11) and the nonsmooth chain rules, for limiting or Clarke subdiﬀerential are simply false
+in general, see for example [36].
+To illustrate the fact that nonsmooth zones can be signiﬁcantly activated during the
+training phase, we present now a numerical experiment. Let us consider a very simple
+feed forward architecture composed of L layers of ﬁxed size p. Each layer is computed
+from the previous layer by application of a linear map, from Rp to Rp, composed with a
+coordinatewise form of ReLU. The input layer is the ﬁrst element of the canonical basis
+and we sample the weights matrices with iid uniform entries in [ −1, 1]. We repeat this
+sampling many times and estimate empirically the probability of computing ReLU(0)
+during forward propagation of the network (this would require to use the derivative of
+ReLU at 0 during backpropagation).
+The results are depicted in Figure 1. It appears very clearly that for some architectures,
+with nonvanishing probability, we sample weight matrices resulting in the computation of
+ReLU(0). This means that, although the output of the network is piecewise polynomial
+as a function of weight matrices, and hence almost everywhere diﬀerentiable, we still need
+to evaluate intermediate functions at points where they are not diﬀerentiable with non
+zero probability. Hence, as we already mentioned, one cannot assert that the fact that the
+output is diﬀerentiable almost everywhere implies that the classical chain rule of diﬀer-
+entiation applies almost everywhere; this assertion is just false. These empirical results
+also conﬁrm the interest of working with piecewise smooth objects through stratiﬁcation
+techniques.
+6.3 Training nonsmooth neural networks with nonsmooth SGD
+To our knowledge the following result is the ﬁrst genuine analysis of nonsmooth SGD for
+deep learning taking into account the real nature of backpropagation and the use of mini-
+batches. Note that the steady states below, BPJ -critical points (see (18)), are the actual
+steady states of the corresponding dynamics, which is generally ignored in the literature.
+For simplicity of reading, we consider the special case of ReLU networks with squared
+loss.
+Corollary 7 (Convergence of SGD for Deep Learning) Consider a feed forward neu-
+ral network with mean squared error and ReLU activation function. Then the bounded
+sequences generated by the mini-batch SGD algorithm using the backpropagation oracle
+approach the BPJ -critical set of the loss function with probability one.
+29
+
+PDF PAGE 30
+2
+4
+6
+8
+5 10 15 20 25
+nLayer
+sizeLayer
+0.00
+0.25
+0.50
+0.75
+1.00
+probaZero
+Figure 1: Estimation of the probability of applying ReLU to 0, as a function of the size and
+number of layers in a feedfoward network. The input is set to the ﬁrst element of the canonical
+basis and we then propagate application ReLU layers with linear functions. The weights of the
+linear term are sampled uniformly at random between -1 and 1.
+This is a direct consequence of Theorem 9 since the squared norm and ReLU are semial-
+gebraic. The same result holds with any functions σ1,...,σ L and l deﬁnable in the same
+structure. As mentioned previously more complex architectures are accessible since our
+results rely only on abstract automatic diﬀerentiation and deﬁnability.
+7 Conclusion
+We introduced new tools for nonsmooth nonconvex problems, based on the idea that the
+choice of a ﬁxed notion of subdiﬀerential right from the start can be extremely limiting
+in terms of analysis and even of representation (e.g., automatic diﬀerentiation).
+Our approach eventually consists in the following protocol.
+Consider an optimization problem involving an automatic diﬀerentiation oracle –we fo-
+cused on the example of deep learning, but other application ﬁelds are possible (numerical
+simulations, optimal control solvers or partial diﬀerential equations [43, 24]).
+– “Choose your optimization method and then choose your subdiﬀeren-
+tial”. Evaluate precisely your decomposition requirements, in terms of sum or
+product, e.g., mini-batches for SGD. Infer from the decomposition method and the
+use of nonsmooth automatic diﬀerentiation a conservative ﬁeld matched to the con-
+sidered algorithm, e.g., coming back to SGD, set Df = 1
+n
+n∑
+i=1
+Dfi.
+– “Verify deﬁnability or tameness assumption”. Check that the various objects
+are deﬁnable in some common adequate structure. The problems we met are covered
+by one of the following, by order of frequency: semialgebraicity, global subanalyticity
+or log-exp structures.
+30
+
+PDF PAGE 31
+– “Identify Lyapunov/dissipative properties”. Use a Lyapunov approach, e.g.,
+` a la Bena¨ ım-Hofbauer-Sorin, to conclude that the algorithm under consideration
+has dissipative properties and thus ﬁne asymptotic properties.
+To feel the generality of this protocol one can for instance consider mini-batch stochastic
+approximation strategies based on discretization of standard continuous time dynamical
+systems with known Lyapunov stability. Prominent examples include the heavy ball
+momentum method [4] and ADAM algorithm [7], commonly proposed in deep learning
+libraries, as well as INDIAN introduced and studied in [21].
+Acknowledgements. The authors acknowledge the support of AI Interdisciplinary In-
+stitute ANITI funding, through the French “Investing for the Future – PIA3” program
+under the Grant agreementi ANR-19-PI3A-0004, Air Force Oﬃce of Scientiﬁc Research,
+Air Force Material Command, USAF, under grant numbers FA9550-19-1-7026, FA9550-
+18-1-0226, and ANR MasDol. J. Bolte acknowledges the support of ANR Chess, grant
+ANR-17-EURE-0010 and ANR OMS.
+The authors would like to thank Lionel Thibault, Sylvain Sorin, an anonymous referee for
+their careful readings of an early version of this work; we also thank Gersende Fort for
+her very valuable comments and discussions on stochastic approximation.
+References
+[1] Abadi M., Barham P., Chen J., Chen Z., Davis A., Dean J., Devin M., Ghemawat
+S., Irving G., Isard M., Kudlur M., Levenberg J., Monga R., Moore S., Murray
+D., Steiner B., Tucker P., Vasudevan V., Warden P., Wicke M., Yu Y. and Zheng
+X. (2016). Tensorﬂow: A system for large-scale machine learning. In Symposium
+on Operating Systems Design and Implementation, OSDI 16, 265-283.
+[2] Adil, S. (2018). Op´ erateurs monotones al´ eatoires et application ` a l’optimisation
+stochastique. PhD Thesis, Paris Saclay.
+[3] Aliprantis C.D., and Border K.C. (2005) Inﬁnite Dimensional Analysis (3rd
+edition) Springer
+[4] Attouch H., Goudou X. and Redont P. (2000). The heavy ball with friction
+method, I. The continuous dynamical system: global exploration of the local
+minima of a real-valued function by asymptotic analysis of a dissipative dyna-
+mical system. Communications in Contemporary Mathematics, 2(1), 1-34.
+[5] Aubin, J. P., and Cellina, A. (1984). Diﬀerential inclusions: set-valued maps
+and viability theory (Vol. 264). Springer.
+[6] Aubin, J.-P., and Frankowska, H. (2009). Set-valued analysis. Springer Science
+& Business Media.
+31
+
+PDF PAGE 32
+[7] Barakat, A., and Bianchi, P. (2018). Convergence and Dynamical Behavior of
+the Adam Algorithm for Non Convex Stochastic Optimization. arXiv preprint
+arXiv:1810.02263.
+[8] Baydin A., Pearlmutter B., Radul A. and Siskind J. (2018). Automatic diﬀer-
+entiation in machine learning: a survey. Journal of machine learning research,
+18(1), 5595-5637.
+[9] Bena¨ ım, M. (1999). Dynamics of stochastic approximation algorithms. In
+S´ eminaire de probabilit´ es XXXIII (pp. 1-68). Springer, Berlin, Heidelberg.
+[10] Bena¨ ım, M., Hofbauer, J., and Sorin, S. (2005). Stochastic approximations and
+diﬀerential inclusions. SIAM Journal on Control and Optimization, 44(1), 328-
+348.
+[11] Bianchi, P., Hachem, W., and Salim, A. (2019). Constant step stochastic ap-
+proximations involving diﬀerential inclusions: Stability, long-run convergence
+and applications. Stochastics, 91(2), 288-320.
+[12] Bolte, J., Daniilidis, A., Lewis, A., and Shiota, M. (2007). Clarke subgradients
+of stratiﬁable functions. SIAM Journal on Optimization, 18(2), 556-572.
+[13] Bolte J., Sabach S., and Teboulle M. (2014). Proximal alternating linearized
+minimization for nonconvex and nonsmooth problems. Mathematical Program-
+ming, 146(1-2), 459-494.
+[14] Borkar, V. (2009). Stochastic approximation: a dynamical systems viewpoint
+(Vol. 48). Springer.
+[15] Borwein J. and Lewis A. S. (2010). Convex analysis and nonlinear optimization:
+theory and examples. Springer Science & Business Media.
+[16] Borwein J. M. and Moors W. B. (1997). Essentially smooth Lipschitz functions.
+Journal of functional analysis, 149(2), 305-351.
+[17] Borwein J. M. and Moors, W. B. (1998). A chain rule for essentially smooth
+Lipschitz functions. SIAM Journal on Optimization, 8(2), 300-308.
+[18] Borwein, J., Moors, W. and Wang, X. (2001). Generalized subdiﬀerentials: a
+Baire categorical approach. Transactions of the American Mathematical Society,
+353(10), 3875-3893.
+[19] Bottou L. and Bousquet O. (2008). The tradeoﬀs of large scale learning. In
+Advances in neural information processing systems, 161-168.
+[20] Bottou L., Curtis F. E. and Nocedal J. (2018). Optimization methods for large-
+scale machine learning. Siam Review, 60(2), 223-311.
+[21] Castera C., Bolte J., F´ evotte C., and Pauwels E. (2019). An inertial Newton
+algorithm for deep learning. arXiv preprint arXiv:1905.12278.
+32
+
+PDF PAGE 33
+[22] Clarke F. H. (1983). Optimization and nonsmooth analysis. SIAM.
+[23] Chizat, L., and Bach, F. (2018). On the global convergence of gradient descent
+for over-parameterized models using optimal transport. In Advances in neural
+information processing systems, 3036-3046.
+[24] Corliss G., Faure C., Griewank A., Hascoet L. and Naumann U. (Editors)
+(2002). Automatic diﬀerentiation of algorithms: from simulation to optimiza-
+tion. Springer Science & Business Media.
+[25] Correa R. and Jofre, A. (1989). Tangentially continuous directional derivatives
+in nonsmooth analysis. Journal of optimization theory and applications, 61(1),
+1-21.
+[26] Coste M., An introduction to o-minimal geometry . RAAG notes, Institut de
+Recherche Math´ ematique de Rennes, 81 pages, November 1999.
+[27] Davis, D., Drusvyatskiy, D., Kakade, S., and Lee, J. D. (2020). Stochastic
+subgradient method converges on tame functions, 20(1), 119-154. Foundations
+of Computational Mathematics.
+[28] van den Dries L. and Miller C. (1996). Geometric categories and o-minimal
+structures. Duke Math. J, 84(2), 497-540.
+[29] Evans, L. C. and Gariepy, R. F. (2015). Measure theory and ﬁne properties of
+functions. Revised Edition. Chapman and Hall/CRC.
+[30] Glorot X., Bordes A. and Bengio Y. (2011). Deep sparse rectiﬁer neural net-
+works. In Proceedings of the fourteenth international conference on artiﬁcial
+intelligence and statistics, 315-323.
+[31] Griewank, A., and Walther, A. (2008). Evaluating derivatives: principles and
+techniques of algorithmic diﬀerentiation (Vol. 105). SIAM.
+[32] Griewank A. (2013). On stable piecewise linearization and generalized algorith-
+mic diﬀerentiation. Optimization Methods and Software, 28(6), 1139-1178.
+[33] Griewank A., Walther A., Fiege S. and Bosse T. (2016). On Lipschitz optimiza-
+tion based on gray-box piecewise linearization. Mathematical Programming,
+158(1-2), 383-415.
+[34] Ioﬀe A. D. (1981). Nonsmooth analysis: diﬀerential calculus of nondiﬀerentiable
+mappings. Transactions of the American Mathematical Society, 266(1), 1-56.
+[35] Ioﬀe, A. D. (2017). Variational analysis of regular mappings. Springer Mono-
+graphs in Mathematics. Springer, Cham.
+[36] Kakade, S. M. and Lee, J. D. (2018). Provably correct automatic sub-
+diﬀerentiation for qualiﬁed programs. In Advances in Neural Information Pro-
+cessing Systems, 7125-7135.
+33
+
+PDF PAGE 34
+[37] Kurdyka, K. (1998). On gradients of functions deﬁnable in o-minimal structures.
+In Annales de l’institut Fourier, 48(3), 769-783.
+[38] Kurdyka, K., Mostowski, T. and Parusinski, A. (2000). Proof of the gradient
+conjecture of R. Thom. Annals of Mathematics, 152(3), 763-792.
+[39] Kushner H. and Yin, G. G. (2003). Stochastic approximation and recursive
+algorithms and applications (Vol. 35). Springer Science & Business Media.
+[40] Le Cun Y., Bengio Y., and Hinton, G. (2015). Deep learning. Nature, 521(7553),
+436-444.
+[41] Ljung L. (1977). Analysis of recursive stochastic algorithms. IEEE transactions
+on automatic control, 22(4), 551-575.
+[42] Majewski, S., Miasojedow, B. and Moulines, E. (2018). Analysis of nonsmooth
+stochastic approximation: the diﬀerential inclusion approach. arXiv preprint
+arXiv:1805.01916.
+[43] Mohammadi, B. and Pironneau, O. (2010). Applied shape optimization for
+ﬂuids. Oxford university press.
+[44] Moulines E. and Bach, F. (2011). Non-asymptotic analysis of stochastic approx-
+imation algorithms for machine learning. In Advances in Neural Information
+Processing Systems, 451-459.
+[45] Moreau J.-J. (1963). Fonctionnelles sous-diﬀ´ erentiables, S´ eminaire Jean Leray.
+[46] Mordukhovich B. S. (2006). Variational analysis and generalized differentia-
+tion I: Basic theory. Springer Science & Business Media.
+[47] Paszke A., Gross S., Chintala S., Chanan G., Yang E., DeVito Z., Lin Z., Des-
+maison A., Antiga L. and Lerer A. (2017). Automatic diﬀerentiation in Pytorch.
+In NIPS workshops.
+[48] Robbins H. and Monro, S. (1951). A stochastic approximation method. The
+annals of mathematical statistics, 400-407.
+[49] Rockafellar R. T. (1963). Convex functions and dual extremum problems. Doc-
+toral dissertation, Harvard University.
+[50] Rockafellar R. (1970). On the maximal monotonicity of subdiﬀerential mappings.
+Paciﬁc Journal of Mathematics, 33(1), 209-216.
+[51] Rockafellar, R. T., and Wets, R. J. B. (1998). Variational analysis. Springer.
+[52] Rumelhart E., Hinton E., and Williams J. (1986). Learning representations by
+back-propagating errors. Nature, 323, 533-536.
+[53] Speelpenning, B. (1980). Compiling fast partial derivatives of functions given by
+algorithms (No. COO-2383-0063; UILU-ENG-80-1702; UIUCDCS-R-80-1002).
+Illinois Univ., Urbana (USA). Dept. of Computer Science.
+34
+
+PDF PAGE 35
+[54] Thibault, L. and Zagrodny, D. (1995). Integration of subdiﬀerentials of lower
+semicontinuous functions on Banach spaces. Journal of Mathematical Analysis
+and Applications, 189(1), 33-58.
+[55] Thibault, L. and Zlateva, N. (2005). Integrability of subdiﬀerentials of direc-
+tionally Lipschitz functions. Proceedings of the American Mathematical Society,
+2939-2948.
+[56] Valadier, M. (1989). Entraˆ ınement unilat´ eral, lignes de descente, fonctions lips-
+chitziennes non pathologiques. Comptes rendus de l’Acad´ emie des Sciences, 308,
+241-244.
+[57] Wang X. (1995). Pathological Lipschitz functions in Rn. Master Thesis, Simon
+Fraser University.
+35

@@ -1,0 +1,996 @@
+{
+  "date": "2026-10-31T08:10:48.076384+00:00",
+  "script_sha256": "f86e53c6ad174d036ce581089f97b3c5c2961781ac757b5cb7a3bea4fde914cc",
+  "inventory": [
+    {
+      "root": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation",
+      "matched_files": [
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_stop_tau1.npz",
+          "bytes": 228615
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_stop_fixed.npz",
+          "bytes": 154799
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_input_tau1.npz",
+          "bytes": 228448
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_input_fixed.npz",
+          "bytes": 154272
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_initial_checks.npz",
+          "bytes": 278473
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_cached_tau1.npz",
+          "bytes": 227232
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed4_cached_fixed.npz",
+          "bytes": 70164
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_stop_tau1.npz",
+          "bytes": 228796
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_stop_fixed.npz",
+          "bytes": 157789
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_input_tau1.npz",
+          "bytes": 228830
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_input_fixed.npz",
+          "bytes": 158395
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_initial_checks.npz",
+          "bytes": 278132
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_cached_tau1.npz",
+          "bytes": 226963
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed3_cached_fixed.npz",
+          "bytes": 70679
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_stop_tau1.npz",
+          "bytes": 230686
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_stop_fixed.npz",
+          "bytes": 158465
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_input_tau1.npz",
+          "bytes": 229098
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_input_fixed.npz",
+          "bytes": 158616
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_initial_checks.npz",
+          "bytes": 277883
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_cached_tau1.npz",
+          "bytes": 228222
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed2_cached_fixed.npz",
+          "bytes": 70594
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_stop_tau1.npz",
+          "bytes": 231027
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_stop_fixed.npz",
+          "bytes": 160254
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_input_tau1.npz",
+          "bytes": 230123
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_input_fixed.npz",
+          "bytes": 160424
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_initial_checks.npz",
+          "bytes": 277915
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_cached_tau1.npz",
+          "bytes": 228604
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed1_cached_fixed.npz",
+          "bytes": 69462
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_stop_tau1.npz",
+          "bytes": 228436
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_stop_fixed.npz",
+          "bytes": 156053
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_input_tau1.npz",
+          "bytes": 228209
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_input_fixed.npz",
+          "bytes": 155539
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_initial_checks.npz",
+          "bytes": 278260
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_cached_tau1.npz",
+          "bytes": 226181
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle7\\seed0_cached_fixed.npz",
+          "bytes": 69987
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\shared_data.npz",
+          "bytes": 16441
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_4.npz",
+          "bytes": 266237
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_3.npz",
+          "bytes": 265888
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_2.npz",
+          "bytes": 265669
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_1.npz",
+          "bytes": 265345
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_0.npz",
+          "bytes": 265886
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle8\\seed4_affine_prediction.npz",
+          "bytes": 2195493
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle8\\seed3_affine_prediction.npz",
+          "bytes": 2189871
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle8\\seed2_affine_prediction.npz",
+          "bytes": 2195807
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle8\\seed1_affine_prediction.npz",
+          "bytes": 2195090
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-25-cycle8\\seed0_affine_prediction.npz",
+          "bytes": 2189635
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed4_pair_tau1.npz",
+          "bytes": 554297
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed4_pair_fixed.npz",
+          "bytes": 321966
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed4_input_tau1.npz",
+          "bytes": 242285
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed4_input_fixed.npz",
+          "bytes": 173190
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed3_pair_tau1.npz",
+          "bytes": 553788
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed3_pair_fixed.npz",
+          "bytes": 336647
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed3_input_tau1.npz",
+          "bytes": 242910
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed3_input_fixed.npz",
+          "bytes": 177690
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed2_pair_tau1.npz",
+          "bytes": 554813
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed2_pair_fixed.npz",
+          "bytes": 338036
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed2_input_tau1.npz",
+          "bytes": 244111
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed2_input_fixed.npz",
+          "bytes": 177150
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed1_pair_tau1.npz",
+          "bytes": 542251
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed1_pair_fixed.npz",
+          "bytes": 324368
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed1_input_tau1.npz",
+          "bytes": 243371
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed1_input_fixed.npz",
+          "bytes": 176016
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed0_pair_tau1.npz",
+          "bytes": 549278
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed0_pair_fixed.npz",
+          "bytes": 321395
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed0_input_tau1.npz",
+          "bytes": 242624
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-27-cycle10\\seed0_input_fixed.npz",
+          "bytes": 174833
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-26-cycle9\\seed4_absolute_blocks.npz",
+          "bytes": 297544
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-26-cycle9\\seed3_absolute_blocks.npz",
+          "bytes": 298205
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-26-cycle9\\seed2_absolute_blocks.npz",
+          "bytes": 298778
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-26-cycle9\\seed1_absolute_blocks.npz",
+          "bytes": 297377
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-26-cycle9\\seed0_absolute_blocks.npz",
+          "bytes": 296844
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-24-cycle5\\seed_4_decomposition.npz",
+          "bytes": 842610
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-24-cycle5\\seed_3_decomposition.npz",
+          "bytes": 841736
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-24-cycle5\\seed_2_decomposition.npz",
+          "bytes": 840797
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-24-cycle5\\seed_1_decomposition.npz",
+          "bytes": 840367
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-24-cycle5\\seed_0_decomposition.npz",
+          "bytes": 841897
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_stop_tau20.npz",
+          "bytes": 379300
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_stop_tau1.npz",
+          "bytes": 383961
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_stop_fixed.npz",
+          "bytes": 195743
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_input_tau20.npz",
+          "bytes": 379230
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_input_tau1.npz",
+          "bytes": 383763
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed4_input_fixed.npz",
+          "bytes": 195573
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_stop_tau20.npz",
+          "bytes": 380106
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_stop_tau1.npz",
+          "bytes": 385276
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_stop_fixed.npz",
+          "bytes": 196189
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_input_tau20.npz",
+          "bytes": 379883
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_input_tau1.npz",
+          "bytes": 384526
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed3_input_fixed.npz",
+          "bytes": 196151
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_stop_tau20.npz",
+          "bytes": 381085
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_stop_tau1.npz",
+          "bytes": 387042
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_stop_fixed.npz",
+          "bytes": 196152
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_input_tau20.npz",
+          "bytes": 380854
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_input_tau1.npz",
+          "bytes": 385996
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed2_input_fixed.npz",
+          "bytes": 196141
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_stop_tau20.npz",
+          "bytes": 383067
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_stop_tau1.npz",
+          "bytes": 387512
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_stop_fixed.npz",
+          "bytes": 195610
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_input_tau20.npz",
+          "bytes": 380786
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_input_tau1.npz",
+          "bytes": 386564
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed1_input_fixed.npz",
+          "bytes": 195349
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_stop_tau20.npz",
+          "bytes": 378939
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_stop_tau1.npz",
+          "bytes": 383916
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_stop_fixed.npz",
+          "bytes": 195564
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_input_tau20.npz",
+          "bytes": 378689
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_input_tau1.npz",
+          "bytes": 383668
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle4\\seed0_input_fixed.npz",
+          "bytes": 195224
+        }
+      ],
+      "errors": "",
+      "patterns": [
+        "*.pt",
+        "*.pth",
+        "*.ckpt",
+        "*.safetensors",
+        "*.npz",
+        "*.csv",
+        "*boston*",
+        "*Boston*",
+        "*Housing*",
+        "pyvenv.cfg"
+      ]
+    },
+    {
+      "root": "C:\\Users\\amita\\source\\repos\\Project with Assaf",
+      "matched_files": [
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Project with Assaf\\Linearizer-main\\style_transfer\\saved_models\\udnie.pth",
+          "bytes": 6740707
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Project with Assaf\\Linearizer-main\\style_transfer\\saved_models\\rain_princess.pth",
+          "bytes": 6740717
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Project with Assaf\\Linearizer-main\\style_transfer\\saved_models\\mosaic.pth",
+          "bytes": 6740703
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Project with Assaf\\Linearizer-main\\style_transfer\\saved_models\\candy.pth",
+          "bytes": 6740723
+        },
+        {
+          "path": "C:\\Users\\amita\\source\\repos\\Project with Assaf\\SPNN-main\\DDNM\\exp\\logs\\celeba\\celeba_hq.ckpt",
+          "bytes": 454777119
+        }
+      ],
+      "errors": "",
+      "patterns": [
+        "*.pt",
+        "*.pth",
+        "*.ckpt",
+        "*.safetensors",
+        "*.npz",
+        "*.csv",
+        "*boston*",
+        "*Boston*",
+        "*Housing*",
+        "pyvenv.cfg"
+      ]
+    },
+    {
+      "root": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef",
+      "matched_files": [
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_stop_tau1.npz",
+          "bytes": 228615
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_stop_fixed.npz",
+          "bytes": 154799
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_input_tau1.npz",
+          "bytes": 228448
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_input_fixed.npz",
+          "bytes": 154272
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_initial_checks.npz",
+          "bytes": 278473
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_cached_tau1.npz",
+          "bytes": 227232
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed4_cached_fixed.npz",
+          "bytes": 70164
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_stop_tau1.npz",
+          "bytes": 228796
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_stop_fixed.npz",
+          "bytes": 157789
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_input_tau1.npz",
+          "bytes": 228830
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_input_fixed.npz",
+          "bytes": 158395
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_initial_checks.npz",
+          "bytes": 278132
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_cached_tau1.npz",
+          "bytes": 226963
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed3_cached_fixed.npz",
+          "bytes": 70679
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_stop_tau1.npz",
+          "bytes": 230686
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_stop_fixed.npz",
+          "bytes": 158465
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_input_tau1.npz",
+          "bytes": 229098
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_input_fixed.npz",
+          "bytes": 158616
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_initial_checks.npz",
+          "bytes": 277883
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_cached_tau1.npz",
+          "bytes": 228222
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed2_cached_fixed.npz",
+          "bytes": 70594
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_stop_tau1.npz",
+          "bytes": 231027
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_stop_fixed.npz",
+          "bytes": 160254
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_input_tau1.npz",
+          "bytes": 230123
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_input_fixed.npz",
+          "bytes": 160424
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_initial_checks.npz",
+          "bytes": 277915
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_cached_tau1.npz",
+          "bytes": 228604
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed1_cached_fixed.npz",
+          "bytes": 69462
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_stop_tau1.npz",
+          "bytes": 228436
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_stop_fixed.npz",
+          "bytes": 156053
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_input_tau1.npz",
+          "bytes": 228209
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_input_fixed.npz",
+          "bytes": 155539
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_initial_checks.npz",
+          "bytes": 278260
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_cached_tau1.npz",
+          "bytes": 226181
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation frozen input control\\seed0_cached_fixed.npz",
+          "bytes": 69987
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation affine prediction\\seed4_affine_prediction.npz",
+          "bytes": 2195493
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation affine prediction\\seed3_affine_prediction.npz",
+          "bytes": 2189871
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation affine prediction\\seed2_affine_prediction.npz",
+          "bytes": 2195807
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation affine prediction\\seed1_affine_prediction.npz",
+          "bytes": 2195090
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation affine prediction\\seed0_affine_prediction.npz",
+          "bytes": 2189635
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute loss audit\\seed4_absolute_blocks.npz",
+          "bytes": 297544
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute loss audit\\seed3_absolute_blocks.npz",
+          "bytes": 298205
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute loss audit\\seed2_absolute_blocks.npz",
+          "bytes": 298778
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute loss audit\\seed1_absolute_blocks.npz",
+          "bytes": 297377
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute loss audit\\seed0_absolute_blocks.npz",
+          "bytes": 296844
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_stop_tau20.npz",
+          "bytes": 379300
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_stop_tau1.npz",
+          "bytes": 383961
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_stop_fixed.npz",
+          "bytes": 195743
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_input_tau20.npz",
+          "bytes": 379230
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_input_tau1.npz",
+          "bytes": 383763
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed4_input_fixed.npz",
+          "bytes": 195573
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_stop_tau20.npz",
+          "bytes": 380106
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_stop_tau1.npz",
+          "bytes": 385276
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_stop_fixed.npz",
+          "bytes": 196189
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_input_tau20.npz",
+          "bytes": 379883
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_input_tau1.npz",
+          "bytes": 384526
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed3_input_fixed.npz",
+          "bytes": 196151
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_stop_tau20.npz",
+          "bytes": 381085
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_stop_tau1.npz",
+          "bytes": 387042
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_stop_fixed.npz",
+          "bytes": 196152
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_input_tau20.npz",
+          "bytes": 380854
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_input_tau1.npz",
+          "bytes": 385996
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed2_input_fixed.npz",
+          "bytes": 196141
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_stop_tau20.npz",
+          "bytes": 383067
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_stop_tau1.npz",
+          "bytes": 387512
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_stop_fixed.npz",
+          "bytes": 195610
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_input_tau20.npz",
+          "bytes": 380786
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_input_tau1.npz",
+          "bytes": 386564
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed1_input_fixed.npz",
+          "bytes": 195349
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_stop_tau20.npz",
+          "bytes": 378939
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_stop_tau1.npz",
+          "bytes": 383916
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_stop_fixed.npz",
+          "bytes": 195564
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_input_tau20.npz",
+          "bytes": 378689
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_input_tau1.npz",
+          "bytes": 383668
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation finite response\\seed0_input_fixed.npz",
+          "bytes": 195224
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation feedback decomposition\\seed_4_decomposition.npz",
+          "bytes": 842610
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation feedback decomposition\\seed_3_decomposition.npz",
+          "bytes": 841736
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation feedback decomposition\\seed_2_decomposition.npz",
+          "bytes": 840797
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation feedback decomposition\\seed_1_decomposition.npz",
+          "bytes": 840367
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation feedback decomposition\\seed_0_decomposition.npz",
+          "bytes": 841897
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed4_pair_tau1.npz",
+          "bytes": 554297
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed4_pair_fixed.npz",
+          "bytes": 321966
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed4_input_tau1.npz",
+          "bytes": 242285
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed4_input_fixed.npz",
+          "bytes": 173190
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed3_pair_tau1.npz",
+          "bytes": 553788
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed3_pair_fixed.npz",
+          "bytes": 336647
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed3_input_tau1.npz",
+          "bytes": 242910
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed3_input_fixed.npz",
+          "bytes": 177690
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed2_pair_tau1.npz",
+          "bytes": 554813
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed2_pair_fixed.npz",
+          "bytes": 338036
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed2_input_tau1.npz",
+          "bytes": 244111
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed2_input_fixed.npz",
+          "bytes": 177150
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed1_pair_tau1.npz",
+          "bytes": 542251
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed1_pair_fixed.npz",
+          "bytes": 324368
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed1_input_tau1.npz",
+          "bytes": 243371
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed1_input_fixed.npz",
+          "bytes": 176016
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed0_pair_tau1.npz",
+          "bytes": 549278
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed0_pair_fixed.npz",
+          "bytes": 321395
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed0_input_tau1.npz",
+          "bytes": 242624
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation absolute finite response\\seed0_input_fixed.npz",
+          "bytes": 174833
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\shared_data.npz",
+          "bytes": 16441
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\seed_4.npz",
+          "bytes": 266237
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\seed_3.npz",
+          "bytes": 265888
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\seed_2.npz",
+          "bytes": 265669
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\seed_1.npz",
+          "bytes": 265345
+        },
+        {
+          "path": "C:\\Users\\amita\\.codex\\.chatgpt-projects\\g-p-6a9fa12b13bc8191acd58cbcf6c03aef\\research_notes\\Continual adaptation neural gate\\seed_0.npz",
+          "bytes": 265886
+        }
+      ],
+      "errors": "",
+      "patterns": [
+        "*.pt",
+        "*.pth",
+        "*.ckpt",
+        "*.safetensors",
+        "*.npz",
+        "*.csv",
+        "*boston*",
+        "*Boston*",
+        "*Housing*",
+        "pyvenv.cfg"
+      ]
+    }
+  ],
+  "verified_known_checkpoints": [
+    {
+      "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_0.npz",
+      "parameter_shape": [
+        114
+      ],
+      "sha256": "bcd393f5356b9e0470d5ee7518c1c1223ce302c35b77f094e146a1fbb2fbcf6b",
+      "compatibility": "114-parameter tanh surrogate; not 1291-parameter ReLU tabular model"
+    },
+    {
+      "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_1.npz",
+      "parameter_shape": [
+        114
+      ],
+      "sha256": "8f1da4ea86320a9f9b23bc2ddcfcd860f35ce942657f20fdde004c9f606fd76f",
+      "compatibility": "114-parameter tanh surrogate; not 1291-parameter ReLU tabular model"
+    },
+    {
+      "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_2.npz",
+      "parameter_shape": [
+        114
+      ],
+      "sha256": "37b2218c57921c5e7eb13ba64cd78afb489d382757c67658f767f52c99122997",
+      "compatibility": "114-parameter tanh surrogate; not 1291-parameter ReLU tabular model"
+    },
+    {
+      "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_3.npz",
+      "parameter_shape": [
+        114
+      ],
+      "sha256": "936978330de81e9e8f65a175709129c6163e3c7fd080745f9c330d031e47544a",
+      "compatibility": "114-parameter tanh surrogate; not 1291-parameter ReLU tabular model"
+    },
+    {
+      "path": "C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-22-cycle3\\seed_4.npz",
+      "parameter_shape": [
+        114
+      ],
+      "sha256": "772f099661da5f59e994568be87e1bda5494e653c9bec7d32c606b1d539bb590",
+      "compatibility": "114-parameter tanh surrogate; not 1291-parameter ReLU tabular model"
+    }
+  ],
+  "checkpoint_files_deserialized": false,
+  "labels_loaded": false,
+  "scope_limit": "Only named roots searched; no machine-wide absence claim.",
+  "runtime_discovery": [
+    {
+      "python": "C:\\Users\\amita\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "torch_spec": false,
+      "jax_spec": false,
+      "tensorflow_spec": false
+    },
+    {
+      "python": "C:\\Users\\amita\\anaconda3\\python.exe",
+      "torch_spec": true,
+      "import_and_cpu_fixture": "passed; see conformance_results.json"
+    },
+    {
+      "python": "C:\\Users\\amita\\anaconda3\\envs\\final-dl-env\\python.exe",
+      "torch_spec": true,
+      "import_tested": false
+    },
+    {
+      "python": "C:\\Users\\amita\\anaconda3\\envs\\linearizer\\python.exe",
+      "torch_spec": false
+    }
+  ],
+  "conda_registry_source": "C:\\Users\\amita\\.conda\\environments.txt"
+}

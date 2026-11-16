@@ -1,0 +1,7 @@
+{
+  "kind": "success",
+  "compiler": "built-in compile_latex_document",
+  "source_sha256": "2e0999274cbf21eb4aa2bf0ee0d715416c34edbd3e2bb8b7af6deb7128cd41eb",
+  "evidence_files_verified": 8,
+  "backups_verified": 3
+}

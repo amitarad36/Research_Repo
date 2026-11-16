@@ -1,0 +1,42 @@
+[
+  {
+    "local_file": "rmt.py",
+    "repository": "mariodoebler/test-time-adaptation",
+    "revision": "8b2ed63255d906b6b0afaefc6ae630b9ec4bdaa1",
+    "path": "classification/methods/rmt.py",
+    "url": "https://raw.githubusercontent.com/mariodoebler/test-time-adaptation/8b2ed63255d906b6b0afaefc6ae630b9ec4bdaa1/classification/methods/rmt.py",
+    "sha256": "3f09cadd34764ed422e5b6ddb79c5a46700895415630aca83736b2a78773ca0f",
+    "retrieved": "2026-10-24",
+    "scope": "static inspection only; not executed"
+  },
+  {
+    "local_file": "rmt_losses.py",
+    "repository": "mariodoebler/test-time-adaptation",
+    "revision": "8b2ed63255d906b6b0afaefc6ae630b9ec4bdaa1",
+    "path": "classification/utils/losses.py",
+    "url": "https://raw.githubusercontent.com/mariodoebler/test-time-adaptation/8b2ed63255d906b6b0afaefc6ae630b9ec4bdaa1/classification/utils/losses.py",
+    "sha256": "5b6551338f6eaa685e74e8ac22adfec668044a39ff4b28c848d5f2ff02b7eb21",
+    "retrieved": "2026-10-24",
+    "scope": "static inspection only; not executed"
+  },
+  {
+    "local_file": "fixed_teacher_losstest.py",
+    "repository": "dmn-sjk/intransigent_teacher",
+    "revision": "bd6a4fd9cf45c50b83c10d582172c228c771333f",
+    "path": "methods/losstest.py",
+    "url": "https://raw.githubusercontent.com/dmn-sjk/intransigent_teacher/bd6a4fd9cf45c50b83c10d582172c228c771333f/methods/losstest.py",
+    "sha256": "27f9e9da830004d804f8456c48509df5dbc6665bab9f3b536c065ce1a0532b09",
+    "retrieved": "2026-10-24",
+    "scope": "static inspection only; not executed"
+  },
+  {
+    "local_file": "fixed_teacher_cotta.py",
+    "repository": "dmn-sjk/intransigent_teacher",
+    "revision": "bd6a4fd9cf45c50b83c10d582172c228c771333f",
+    "path": "methods/cotta.py",
+    "url": "https://raw.githubusercontent.com/dmn-sjk/intransigent_teacher/bd6a4fd9cf45c50b83c10d582172c228c771333f/methods/cotta.py",
+    "sha256": "f9872ae0d62abd15377089e85236fcd9f21ad7c9db97f70a35bbed3374678493",
+    "retrieved": "2026-10-24",
+    "scope": "static inspection only; not executed"
+  }
+]

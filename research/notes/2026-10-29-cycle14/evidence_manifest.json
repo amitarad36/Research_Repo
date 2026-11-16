@@ -1,0 +1,11 @@
+{
+  "OUTPUT_OBSTRUCTION_PROTOCOL.md": "f825dd14559ca3eed93e6a27889a44878dc887b35315c5b3d5f87205ec4e158f",
+  "check_output_obstruction.py": "b5411645410e2b4c983cbfddbbdec168e67ff103fcd37f473234ef791e18d1e4",
+  "obstruction_results.json": "3a81af2a3c2a9a73befbc2a8eafcc4f2bf77f3861abb70ba8fbbf4b07b5b855e",
+  "ENCLOSURE_RECIPE.md": "7d2d108760e321a7578b59ade00b1b5632cf99db4f8ae4d4f33744ec905ffa55",
+  "check_enclosure_recipe.py": "bd44f49ffc2e4611ae54dc4fd83af9f30964d8b6a656e0fc642ff6dfb6d72547",
+  "enclosure_results.json": "adde879341513516832dfe30741f0858d7ee36a009544055330d102f3b2113bd",
+  "Certificate_Result.md": "fa17b8d5bbea912d4556d90054a4f33247310ff2b2998398069ee90cf4dfa794",
+  "NEXT_GRAPH_PROTOCOL.md": "729e1353cb53190c5f9cd3443058d20a5679733ceba2c90dc6b620b1bd0de546",
+  "PROTOCOL.md": "a49a2668e2e1a8e06179a84fa4e8c8719b72c02131acd4f36d537101e65c8c7d"
+}

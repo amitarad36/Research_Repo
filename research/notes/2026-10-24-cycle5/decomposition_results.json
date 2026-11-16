@@ -1,0 +1,1018 @@
+{
+  "protocol_sha256": "190389d44d36ea7d145d29f7624b15353cdad50f157b5f893de2f6322d29c47a",
+  "script_sha256": "9caa4fe0e9a54b435e55efc40ffd5a624ca0eaa8172c688381d53fc8ae4c9eeb",
+  "source_script_sha256": "a28b93e5ca4d1acac923279c2cd87c5d3eb097695f0917c87be46d65b6501f88",
+  "source_data_sha256": "05f3ecddce66bcc81786191e87b4286abbd2f4e6edfd4e42129dfc63d12e3336",
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0"
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "primary": true,
+      "checkpoint_sha256": "bcd393f5356b9e0470d5ee7518c1c1223ce302c35b77f094e146a1fbb2fbcf6b",
+      "reference_parameter_jacobian_check_abs": 2.220446049250313e-16,
+      "relative_L_J_difference": 0.547078705920051,
+      "residual_rms": 0.01789499923689947,
+      "rules": {
+        "input": {
+          "decomposition_check_abs": 7.526510404504139e-11,
+          "student_remainder_relative_fro": 0.00476832982533037,
+          "teacher_remainder_relative_fro": 0.0020444752714540997,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.1406129024670918,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8514735191899331,
+                "positive_mode_count": 36,
+                "observable_positive_mode_count": 36,
+                "max_observable_positive_real": 0.1406129024670918,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 8.875033962377746e-16,
+                "discrete_spectral_radius": 1.0028176124573238,
+                "tau": 1
+              },
+              {
+                "max_real": 0.010801481511986948,
+                "leading_imag": 0.0018573262395400797,
+                "leading_mode_observability_ratio": 0.5850432449399229,
+                "positive_mode_count": 36,
+                "observable_positive_mode_count": 36,
+                "max_observable_positive_real": 0.010801481511986948,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.109579060769054e-16,
+                "discrete_spectral_radius": 1.000216075309108,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.138609487569949,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8486746081650568,
+                "positive_mode_count": 9,
+                "observable_positive_mode_count": 9,
+                "max_observable_positive_real": 0.138609487569949,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.572460471768713e-16,
+                "discrete_spectral_radius": 1.0027774546540322,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.01424773162343088
+              },
+              {
+                "max_real": 0.010817941448629107,
+                "leading_imag": 0.0018746102854389282,
+                "leading_mode_observability_ratio": 0.5991115154248691,
+                "positive_mode_count": 9,
+                "observable_positive_mode_count": 9,
+                "max_observable_positive_real": 0.010817941448629107,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.328419627227436e-16,
+                "discrete_spectral_radius": 1.0002164031486858,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.0015238591691235286
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.16708154939265168,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8666798044968453,
+                "positive_mode_count": 15,
+                "observable_positive_mode_count": 15,
+                "max_observable_positive_real": 0.16708154939265168,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.1661627172844149e-15,
+                "discrete_spectral_radius": 1.0033487253215962,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.18823768275286443
+              },
+              {
+                "max_real": 0.014339380132690132,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6405675111470164,
+                "positive_mode_count": 15,
+                "observable_positive_mode_count": 15,
+                "max_observable_positive_real": 0.014339380132690132,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.0349580788860786e-15,
+                "discrete_spectral_radius": 1.0002868652055248,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.3275382748909953
+              }
+            ]
+          }
+        },
+        "stop": {
+          "decomposition_check_abs": 7.038445043808239e-11,
+          "student_remainder_relative_fro": 0.004654879186789263,
+          "teacher_remainder_relative_fro": 0.0,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.14865508710684466,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8169991067259986,
+                "positive_mode_count": 40,
+                "observable_positive_mode_count": 40,
+                "max_observable_positive_real": 0.14865508710684466,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.0733494595106415e-15,
+                "discrete_spectral_radius": 1.0029797205391466,
+                "tau": 1
+              },
+              {
+                "max_real": 0.010992108096116539,
+                "leading_imag": 0.002190012172647371,
+                "leading_mode_observability_ratio": 0.5637779185320426,
+                "positive_mode_count": 40,
+                "observable_positive_mode_count": 40,
+                "max_observable_positive_real": 0.010992108096116539,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.1314500475049255e-16,
+                "discrete_spectral_radius": 1.0002198895732561,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.14857895662634427,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8169392121770969,
+                "positive_mode_count": 9,
+                "observable_positive_mode_count": 9,
+                "max_observable_positive_real": 0.14857895662634427,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.036326945913362e-16,
+                "discrete_spectral_radius": 1.0029782057956862,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.0005121283232351065
+              },
+              {
+                "max_real": 0.011083382285275856,
+                "leading_imag": 0.002193010330031531,
+                "leading_mode_observability_ratio": 0.5768563916274189,
+                "positive_mode_count": 9,
+                "observable_positive_mode_count": 9,
+                "max_observable_positive_real": 0.011083382285275856,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.261206282889396e-16,
+                "discrete_spectral_radius": 1.000221714468616,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.00830361095080242
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.18603331769797574,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.845900411863542,
+                "positive_mode_count": 17,
+                "observable_positive_mode_count": 17,
+                "max_observable_positive_real": 0.18603331769797574,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.722757669710242e-16,
+                "discrete_spectral_radius": 1.0037300051855667,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.25144266044703717
+              },
+              {
+                "max_real": 0.014742759128955172,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6187599084817074,
+                "positive_mode_count": 17,
+                "observable_positive_mode_count": 17,
+                "max_observable_positive_real": 0.014742759128955172,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.471383161426642e-16,
+                "discrete_spectral_radius": 1.000294938148555,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.3412130776046245
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "primary": false,
+      "checkpoint_sha256": "8f1da4ea86320a9f9b23bc2ddcfcd860f35ce942657f20fdde004c9f606fd76f",
+      "reference_parameter_jacobian_check_abs": 3.3306690738754696e-16,
+      "relative_L_J_difference": 0.5199916306703305,
+      "residual_rms": 0.018001790953871426,
+      "rules": {
+        "input": {
+          "decomposition_check_abs": 4.44179588943161e-11,
+          "student_remainder_relative_fro": 0.00977748045507705,
+          "teacher_remainder_relative_fro": 0.0035814893991577266,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.31488507703132945,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.948358676837525,
+                "positive_mode_count": 38,
+                "observable_positive_mode_count": 38,
+                "max_observable_positive_real": 0.31488507703132945,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.206907745468094e-16,
+                "discrete_spectral_radius": 1.0063085285179236,
+                "tau": 1
+              },
+              {
+                "max_real": 0.07542474177844007,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8345972355958131,
+                "positive_mode_count": 38,
+                "observable_positive_mode_count": 38,
+                "max_observable_positive_real": 0.07542474177844007,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.561418904723961e-16,
+                "discrete_spectral_radius": 1.0015099127012967,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.3135711086629666,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9486260730826317,
+                "positive_mode_count": 11,
+                "observable_positive_mode_count": 11,
+                "max_observable_positive_real": 0.3135711086629666,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.0057386000071867e-16,
+                "discrete_spectral_radius": 1.0062821447056123,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.004172850554718748
+              },
+              {
+                "max_real": 0.07531171069878562,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8366005516253969,
+                "positive_mode_count": 11,
+                "observable_positive_mode_count": 11,
+                "max_observable_positive_real": 0.07531171069878562,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.544361646529634e-16,
+                "discrete_spectral_radius": 1.0015076457958911,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.0014985941879188355
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.32346773010195795,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9517381685054639,
+                "positive_mode_count": 20,
+                "observable_positive_mode_count": 20,
+                "max_observable_positive_real": 0.32346773010195795,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.460206024196329e-16,
+                "discrete_spectral_radius": 1.0064816538372616,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.027256461790898297
+              },
+              {
+                "max_real": 0.07396586624508629,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8050767992623056,
+                "positive_mode_count": 20,
+                "observable_positive_mode_count": 20,
+                "max_observable_positive_real": 0.07396586624508629,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.177809664801281e-16,
+                "discrete_spectral_radius": 1.001480685668185,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.019342134940802558
+              }
+            ]
+          }
+        },
+        "stop": {
+          "decomposition_check_abs": 5.1908451495497054e-11,
+          "student_remainder_relative_fro": 0.009967122957698912,
+          "teacher_remainder_relative_fro": 0.0,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.857337859948852,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8788485660339933,
+                "positive_mode_count": 37,
+                "observable_positive_mode_count": 37,
+                "max_observable_positive_real": 0.857337859948852,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.407324890800077e-16,
+                "discrete_spectral_radius": 1.0172814749640808,
+                "tau": 1
+              },
+              {
+                "max_real": 0.1420279236550044,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7413638368590804,
+                "positive_mode_count": 41,
+                "observable_positive_mode_count": 41,
+                "max_observable_positive_real": 0.1420279236550044,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.045045152191537e-16,
+                "discrete_spectral_radius": 1.0028465125040518,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.8573832522475096,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8789065299404722,
+                "positive_mode_count": 11,
+                "observable_positive_mode_count": 11,
+                "max_observable_positive_real": 0.8573832522475096,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.307830723951556e-16,
+                "discrete_spectral_radius": 1.0172824048373301,
+                "tau": 1,
+                "relative_rate_difference_from_full": 5.294563646148632e-05
+              },
+              {
+                "max_real": 0.14201858493639002,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7419986283322303,
+                "positive_mode_count": 11,
+                "observable_positive_mode_count": 11,
+                "max_observable_positive_real": 0.14201858493639002,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.30939811554614e-16,
+                "discrete_spectral_radius": 1.002846323711991,
+                "tau": 20,
+                "relative_rate_difference_from_full": 6.575269407635805e-05
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.8579091042768918,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8748787499333633,
+                "positive_mode_count": 22,
+                "observable_positive_mode_count": 22,
+                "max_observable_positive_real": 0.8579091042768918,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.252857176724638e-16,
+                "discrete_spectral_radius": 1.0172942790002488,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.0006663001305854709
+              },
+              {
+                "max_real": 0.14296908443779022,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7095396328315425,
+                "positive_mode_count": 22,
+                "observable_positive_mode_count": 22,
+                "max_observable_positive_real": 0.14296908443779022,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.150821781531994e-16,
+                "discrete_spectral_radius": 1.0028653464957218,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.006626589747745303
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "primary": true,
+      "checkpoint_sha256": "37b2218c57921c5e7eb13ba64cd78afb489d382757c67658f767f52c99122997",
+      "reference_parameter_jacobian_check_abs": 2.220446049250313e-16,
+      "relative_L_J_difference": 0.5710880170773158,
+      "residual_rms": 0.024739360139632353,
+      "rules": {
+        "input": {
+          "decomposition_check_abs": 9.938414110774452e-11,
+          "student_remainder_relative_fro": 0.0055180748588397055,
+          "teacher_remainder_relative_fro": 0.002268105299695936,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.34261179636481054,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9301942644868896,
+                "positive_mode_count": 45,
+                "observable_positive_mode_count": 45,
+                "max_observable_positive_real": 0.34261179636481054,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.423857411698559e-16,
+                "discrete_spectral_radius": 1.0068673770094343,
+                "tau": 1
+              },
+              {
+                "max_real": 0.057287041304157446,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8795634355489385,
+                "positive_mode_count": 45,
+                "observable_positive_mode_count": 45,
+                "max_observable_positive_real": 0.057287041304157446,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.166593820883517e-16,
+                "discrete_spectral_radius": 1.0011468111050186,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.3417204344635271,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9301729108507126,
+                "positive_mode_count": 13,
+                "observable_positive_mode_count": 13,
+                "max_observable_positive_real": 0.3417204344635271,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 6.141122217389342e-16,
+                "discrete_spectral_radius": 1.0068494407489565,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.002601667282740903
+              },
+              {
+                "max_real": 0.05727751433242239,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8781673612618375,
+                "positive_mode_count": 13,
+                "observable_positive_mode_count": 13,
+                "max_observable_positive_real": 0.05727751433242239,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.5402352418475582e-15,
+                "discrete_spectral_radius": 1.0011466185716917,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.00016630238738415864
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.31690808389809344,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9227127431113458,
+                "positive_mode_count": 19,
+                "observable_positive_mode_count": 19,
+                "max_observable_positive_real": 0.31690808389809344,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.207891300633805e-16,
+                "discrete_spectral_radius": 1.0063519296294001,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.07502284725581361
+              },
+              {
+                "max_real": 0.050332990261993026,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8238602967383758,
+                "positive_mode_count": 19,
+                "observable_positive_mode_count": 19,
+                "max_observable_positive_real": 0.050332990261993026,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.992555519336038e-16,
+                "discrete_spectral_radius": 1.0010074893608956,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.12138960022813658
+              }
+            ]
+          }
+        },
+        "stop": {
+          "decomposition_check_abs": 9.619462301366233e-11,
+          "student_remainder_relative_fro": 0.005432245447693314,
+          "teacher_remainder_relative_fro": 0.0,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.6304034943480925,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9051640109708674,
+                "positive_mode_count": 39,
+                "observable_positive_mode_count": 39,
+                "max_observable_positive_real": 0.6304034943480925,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 6.104452854185636e-16,
+                "discrete_spectral_radius": 1.0126954497280658,
+                "tau": 1
+              },
+              {
+                "max_real": 0.06700707960997707,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8457921194614804,
+                "positive_mode_count": 39,
+                "observable_positive_mode_count": 39,
+                "max_observable_positive_real": 0.06700707960997707,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.2387646847666376e-15,
+                "discrete_spectral_radius": 1.0013417718207944,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.6306121387995705,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.9051619699037774,
+                "positive_mode_count": 19,
+                "observable_positive_mode_count": 19,
+                "max_observable_positive_real": 0.6306121387995705,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 8.49973773673773e-16,
+                "discrete_spectral_radius": 1.0126996687862155,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.00033096969377320444
+              },
+              {
+                "max_real": 0.06708021034013652,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8472258846772484,
+                "positive_mode_count": 19,
+                "observable_positive_mode_count": 19,
+                "max_observable_positive_real": 0.06708021034013652,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 6.201301455242653e-16,
+                "discrete_spectral_radius": 1.0013432363331143,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.0010913881127952115
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.565619054098828,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.8997955609112301,
+                "positive_mode_count": 20,
+                "observable_positive_mode_count": 20,
+                "max_observable_positive_real": 0.565619054098828,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.764002604061898e-16,
+                "discrete_spectral_radius": 1.0113836816458186,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.10276662618480388
+              },
+              {
+                "max_real": 0.06009670731316348,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6898059362313003,
+                "positive_mode_count": 20,
+                "observable_positive_mode_count": 20,
+                "max_observable_positive_real": 0.06009670731316348,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.1667363010657635e-16,
+                "discrete_spectral_radius": 1.0012032069696377,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.10312898781794784
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "primary": true,
+      "checkpoint_sha256": "936978330de81e9e8f65a175709129c6163e3c7fd080745f9c330d031e47544a",
+      "reference_parameter_jacobian_check_abs": 2.220446049250313e-16,
+      "relative_L_J_difference": 0.49106393538765036,
+      "residual_rms": 0.029364889058168576,
+      "rules": {
+        "input": {
+          "decomposition_check_abs": 9.25249909241449e-11,
+          "student_remainder_relative_fro": 0.004606200151729504,
+          "teacher_remainder_relative_fro": 0.002499151752180888,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.21815865482300248,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6975595609997287,
+                "positive_mode_count": 37,
+                "observable_positive_mode_count": 37,
+                "max_observable_positive_real": 0.21815865482300248,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.67221863625804e-16,
+                "discrete_spectral_radius": 1.004373488613283,
+                "tau": 1
+              },
+              {
+                "max_real": 0.025129209693821833,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.4329188644104726,
+                "positive_mode_count": 37,
+                "observable_positive_mode_count": 37,
+                "max_observable_positive_real": 0.025129209693821833,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 8.8447614719500895e-16,
+                "discrete_spectral_radius": 1.0005028062311234,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.21499106954375988,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6962637860281217,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.21499106954375988,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.474505758600565e-16,
+                "discrete_spectral_radius": 1.0043098873430791,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.014519640679910418
+              },
+              {
+                "max_real": 0.024676728451243343,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.42888960020994754,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.024676728451243343,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.3905019727904316e-15,
+                "discrete_spectral_radius": 1.0004937482577818,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.018006186748074887
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.25520531266420354,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7521307376328218,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.25520531266420354,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.061957513281993e-16,
+                "discrete_spectral_radius": 1.0051185547112962,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.1698152102709743
+              },
+              {
+                "max_real": 0.02745198634806777,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.42185467522375053,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.02745198634806777,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.165946451493246e-16,
+                "discrete_spectral_radius": 1.0005492946738905,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.09243333485402074
+              }
+            ]
+          }
+        },
+        "stop": {
+          "decomposition_check_abs": 8.310602677696357e-11,
+          "student_remainder_relative_fro": 0.004078118843064164,
+          "teacher_remainder_relative_fro": 0.0,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.29427045631085896,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7079474574624556,
+                "positive_mode_count": 39,
+                "observable_positive_mode_count": 39,
+                "max_observable_positive_real": 0.29427045631085896,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.169085483180314e-16,
+                "discrete_spectral_radius": 1.0059072061554768,
+                "tau": 1
+              },
+              {
+                "max_real": 0.027896922711581944,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.42594636846797596,
+                "positive_mode_count": 39,
+                "observable_positive_mode_count": 39,
+                "max_observable_positive_real": 0.027896922711581944,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 6.840762965989218e-16,
+                "discrete_spectral_radius": 1.0005582232988444,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.2943374511135531,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7075878013024872,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.2943374511135531,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 8.583791023551716e-16,
+                "discrete_spectral_radius": 1.0059085597919122,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.00022766404597323515
+              },
+              {
+                "max_real": 0.027860094692613524,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.4257402314562973,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.027860094692613524,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.6517087767824155e-16,
+                "discrete_spectral_radius": 1.0005574860566446,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.0013201462881470396
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.34376932790187686,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.7521698780681226,
+                "positive_mode_count": 13,
+                "observable_positive_mode_count": 13,
+                "max_observable_positive_real": 0.34376932790187686,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.256446227762803e-16,
+                "discrete_spectral_radius": 1.0069052271002845,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.16820877029778586
+              },
+              {
+                "max_real": 0.03189275292985455,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.4178442563174823,
+                "positive_mode_count": 13,
+                "observable_positive_mode_count": 13,
+                "max_observable_positive_real": 0.03189275292985455,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.2973314391474937e-16,
+                "discrete_spectral_radius": 1.0006382194064665,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.1432355195440127
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "primary": true,
+      "checkpoint_sha256": "772f099661da5f59e994568be87e1bda5494e653c9bec7d32c606b1d539bb590",
+      "reference_parameter_jacobian_check_abs": 3.3306690738754696e-16,
+      "relative_L_J_difference": 0.3124229717849102,
+      "residual_rms": 0.020580185321800046,
+      "rules": {
+        "input": {
+          "decomposition_check_abs": 1.5741469141638403e-10,
+          "student_remainder_relative_fro": 0.0028430083556492606,
+          "teacher_remainder_relative_fro": 0.0016374061857930184,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.09254560528192847,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6764791573603544,
+                "positive_mode_count": 37,
+                "observable_positive_mode_count": 37,
+                "max_observable_positive_real": 0.09254560528192847,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.397132036615928e-16,
+                "discrete_spectral_radius": 1.0018531865308034,
+                "tau": 1
+              },
+              {
+                "max_real": 0.007725721071293753,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.40703669081827465,
+                "positive_mode_count": 37,
+                "observable_positive_mode_count": 37,
+                "max_observable_positive_real": 0.007725721071293753,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 8.164237877421673e-16,
+                "discrete_spectral_radius": 1.0001545341183466,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.0919816153536168,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6758730070768332,
+                "positive_mode_count": 10,
+                "observable_positive_mode_count": 10,
+                "max_observable_positive_real": 0.0919816153536168,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.412696330483108e-16,
+                "discrete_spectral_radius": 1.0018418849595394,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.0060941837982856194
+              },
+              {
+                "max_real": 0.007196294051977609,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.37023827178635405,
+                "positive_mode_count": 10,
+                "observable_positive_mode_count": 10,
+                "max_observable_positive_real": 0.007196294051977609,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 4.704005702984957e-16,
+                "discrete_spectral_radius": 1.0001439452360978,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.06852784541799228
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.0966786507756565,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6147675809459131,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.0966786507756565,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 5.569723084493431e-16,
+                "discrete_spectral_radius": 1.0019359519970799,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.04465955440171614
+              },
+              {
+                "max_real": 0.008023486395490366,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.3870519156467937,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.008023486395490366,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.755291991140057e-16,
+                "discrete_spectral_radius": 1.0001604938555892,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.038542075419084394
+              }
+            ]
+          }
+        },
+        "stop": {
+          "decomposition_check_abs": 1.4591073019417332e-10,
+          "student_remainder_relative_fro": 0.0031917028580252162,
+          "teacher_remainder_relative_fro": 0.0,
+          "variants": {
+            "full": [
+              {
+                "max_real": 0.09963340669022513,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6722854154342504,
+                "positive_mode_count": 38,
+                "observable_positive_mode_count": 38,
+                "max_observable_positive_real": 0.09963340669022513,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 7.948169143076287e-16,
+                "discrete_spectral_radius": 1.0019954159261846,
+                "tau": 1
+              },
+              {
+                "max_real": 0.007991071949615819,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.39520535413411195,
+                "positive_mode_count": 38,
+                "observable_positive_mode_count": 38,
+                "max_observable_positive_real": 0.007991071949615819,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.1427801210674288e-15,
+                "discrete_spectral_radius": 1.000159841899696,
+                "tau": 20
+              }
+            ],
+            "zero_residual": [
+              {
+                "max_real": 0.09951107883276067,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6706927746106697,
+                "positive_mode_count": 10,
+                "observable_positive_mode_count": 10,
+                "max_observable_positive_real": 0.09951107883276067,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 6.91882182575908e-16,
+                "discrete_spectral_radius": 1.0019929669742391,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.001227779532268742
+              },
+              {
+                "max_real": 0.007404982979920829,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.35606411827839063,
+                "positive_mode_count": 10,
+                "observable_positive_mode_count": 10,
+                "max_observable_positive_real": 0.007404982979920829,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 1.108828625467854e-15,
+                "discrete_spectral_radius": 1.0001481203544291,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.0733429724310224
+              }
+            ],
+            "shared_J": [
+              {
+                "max_real": 0.1048358632404663,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.6106457105465644,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.1048358632404663,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 9.412174945960582e-16,
+                "discrete_spectral_radius": 1.0020996426655864,
+                "tau": 1,
+                "relative_rate_difference_from_full": 0.05221598581303524
+              },
+              {
+                "max_real": 0.008253309721002564,
+                "leading_imag": 0.0,
+                "leading_mode_observability_ratio": 0.37800734155137083,
+                "positive_mode_count": 12,
+                "observable_positive_mode_count": 12,
+                "max_observable_positive_real": 0.008253309721002564,
+                "observable_positive_mode_exists": true,
+                "eigenpair_backward_residual": 3.9858419951405083e-16,
+                "discrete_spectral_radius": 1.0001650919272664,
+                "tau": 20,
+                "relative_rate_difference_from_full": 0.03281634467067363
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "gates": {
+    "zero_residual": {
+      "surviving_seeds": {
+        "input_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "input_tau20": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau20": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      "signature_survives": true,
+      "all_primary_rates_within_10_percent": true,
+      "max_primary_relative_rate_difference": 0.0733429724310224
+    },
+    "shared_J": {
+      "surviving_seeds": {
+        "input_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "input_tau20": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau20": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      "signature_survives": true,
+      "all_primary_rates_within_10_percent": false,
+      "max_primary_relative_rate_difference": 0.3412130776046245
+    }
+  },
+  "wall_seconds": 1.9371857000514865
+}

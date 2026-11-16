@@ -1,0 +1,29 @@
+{
+  "script_sha256": "1f448774b9986d4d9fac6848cec61b102be2e83d7d44879caa0fb76c1f91abcc",
+  "source_manifest": {
+    "retrieved_date": "2026-10-26",
+    "revision": "100524001d890efc08911f3cba8f45f51f4aa7d1",
+    "url": "https://raw.githubusercontent.com/nikitadurasov/ittt/100524001d890efc08911f3cba8f45f51f4aa7d1/exps/tabular/vanilla_model.ipynb",
+    "browser_url": "https://github.com/nikitadurasov/ittt/blob/100524001d890efc08911f3cba8f45f51f4aa7d1/exps/tabular/vanilla_model.ipynb",
+    "file": "tabular_vanilla_model.ipynb",
+    "sha256": "6d583591e7433547c3b8fbb85f2177e51a933596f21709bc30b251be89c1e227",
+    "bytes": 636498,
+    "text_file": "tabular_cells.txt",
+    "text_sha256": "ead7cade66b9df7fa7e90d4c66d986b75cd847d23473d4ea86f80e3737ee46d2",
+    "executed_remote_code": false
+  },
+  "parent_protocol_sha256": "729e1353cb53190c5f9cd3443058d20a5679733ceba2c90dc6b620b1bd0de546",
+  "exact_local_derivative_checks": 96,
+  "matched_gradient_and_moment_checks": 24,
+  "connected_absolute_decomposition_checks": 6,
+  "scalar_witnesses": [
+    "same ReLU region and signs: absolute equal, squared unequal",
+    "activation-only mismatch changes connected absolute field",
+    "residual-sign-only mismatch changes connected absolute field"
+  ],
+  "labels_used": false,
+  "neural_trajectories": 0,
+  "downloaded_code_executed": false,
+  "cpu_seconds": 0.015625,
+  "status": "all checks passed"
+}

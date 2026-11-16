@@ -1,0 +1,49 @@
+{
+  "before": {
+    "research_proposal_main.tex": "b9230f7485346979a872ac91e659ab0b1e7ae6ab998165609e27bbe660681c35",
+    "research_proposal_main.pdf": "aefb92fec9e574a01e1f08ae91f3f5d4aa8bb7a25ef3029ac206ffa901d5cb80",
+    "research/RESEARCH_STATE.md": "7373069240dd6524df66b86b2a75d1098d51db7ffa2ab8936e18afaccb8754b6",
+    "research/RESEARCH_LOG.md": "8771171a030216213729b94ae5ee784e2f66896814e6e3525196b417aa92d979"
+  },
+  "imported": {
+    "research_proposal.pdf": "6718b528ac6d082fb4a5f04454a39a809f4cd3ff9580dff0dce1c05b417f2cc8",
+    "research_proposal_main.tex": "57c041e79c9f678ac7c65d05599a264f37ea59cdd331f159e4bd78f994da5482",
+    "research_backbone.pdf": "5522818f2ae19da6522a0fd5d6e86df2d7fb23d1940fd19b7c43fb1c852f9c05",
+    "README_research_proposal.txt": "f34e08d95895e8ca96c1d3496a1aa494adf14dec8ab3e0ea16e9b916c9b018ff"
+  },
+  "installed": {
+    "research_proposal_main.tex": "ae1a67c6d0d4fd121876157019817f4f36cad6029f099d4dd7365cf6d9ad33c4",
+    "backbone/research_backbone.tex": "eadbf4747b0e8662aba04168fe680d06bd9f8b319e3ba1fdb85b5c65834340dd",
+    "README.md": "ac185bf7f412e66c353c40a8e5b9ae81f62d4a9c5532ef350368e0c818f0ad49",
+    "build_documents.ps1": "7c952ea17a949ac2053d9565b1a3971c8acbc91f8f5938616224d5a0e8127a1a",
+    ".vscode/settings.json": "8cca8f2128f7c4275c0a5e7c5bac17f85ab5642de26272f68088f44a82ba322d"
+  },
+  "final": {
+    "research_proposal_main.tex": "eb563e6d919e2f7ebfcb4ae7f4a3996b57e0cb3578e07824a41354488f42d866",
+    "research_proposal.pdf": "e216aef55fc608b9dc625d5014330fb2484e1b5fd2104e4509906e02ffcda00f",
+    "backbone/research_backbone.tex": "a64d50172a1fa5ff97a00353344a3ab19d82d37189f001f5c9ac063e0b1d1812",
+    "backbone/research_backbone.pdf": "62f1206c63f8d9c723b3ab849fbdb522fcab70edcc5a286020e0b0b52cdc6477",
+    "README.md": "ac185bf7f412e66c353c40a8e5b9ae81f62d4a9c5532ef350368e0c818f0ad49",
+    "build_documents.ps1": "7c952ea17a949ac2053d9565b1a3971c8acbc91f8f5938616224d5a0e8127a1a",
+    ".vscode/settings.json": "8cca8f2128f7c4275c0a5e7c5bac17f85ab5642de26272f68088f44a82ba322d",
+    "research/RESEARCH_STATE.md": "129fbfe37b98aaf012990e63ddef3e1bf44d2cb1200830e936a12e2bd61bcf9e",
+    "research/RESEARCH_LOG.md": "326f3b6168fa91d9bb8ec92f6eef9f44319ce9c4740ee2f9d75c8a0b1aa21187",
+    "archive/imports/2026-11-16/research_proposal_package.zip": "2b9edf8f66aa55b1bba06876449ad9b9797cc8fd426e0efe8868f8adbdeb98d3"
+  },
+  "layout_changes": [
+    "No-indent cover rule",
+    "Start precise-model section on new page",
+    "Backbone emergency line stretch"
+  ],
+  "pdf_pages": {
+    "research_proposal.pdf": 12,
+    "backbone/research_backbone.pdf": 24
+  },
+  "validation": {
+    "builtin_compiler_both": "success",
+    "native_build_both": "success",
+    "exact_vscode_powershell_recipe": "success",
+    "visual_review": "all pages reviewed; changed pages rechecked",
+    "backbone_latest_result_retained": true
+  }
+}

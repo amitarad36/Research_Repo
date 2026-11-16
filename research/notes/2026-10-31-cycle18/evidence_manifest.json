@@ -1,0 +1,12 @@
+{
+  "checkpoint.npz": "edefebb1b00b35ceaf10ee1cb2248594af9909c6ecc8933f0405814fd2669e0e",
+  "preprocessing.npz": "7815dfb04a28e8c2929142e8dc95442fadff37c6501086b67b7475fd9685ec42",
+  "training_results.json": "b70b217de52eadf49a2468009f76c688fa0851c328d3a64ce1249327cd656776",
+  "verify_checkpoint.py": "85b32b82d54f6615cd62332f66cdddaa76c9a4879b3c5f8625752e56b535abb8",
+  "verification_results.json": "3453e99b2a809086cccece172befd97a41886e063db963db77f0326097511332",
+  "Training_Result.md": "cb919dec1d518166cfc022de89c5da50ad7d590efba73e7863d74b5953bb8375",
+  "NEXT_ADAPTATION_PROTOCOL.md": "0ae6d88cb1078b62d3fbaeacdb24ce0ca85b7c650a03dffed402590e23a4ffee",
+  "PROTOCOL.md": "2fbc25fe4814beb51305212823ced4ca146932ad8d1b5c52ed34b1e616018802",
+  "train_registered.py": "cb8cdb7553b5d2e67595ffcee3ef3be09eb82313da37dbf2b30da5b23e491f7f",
+  "HARNESS_PLAN.md": "588697102f0e4ed1c6cbd26117de67e9cdf5cb6c1b8dee138203d470153439db"
+}

@@ -1,0 +1,96 @@
+{
+  "result_sha256": "80fb2fcf7eeebed151c5d959ca967878f732398db2dddc10a960fce40a953878",
+  "verification_script_sha256": "5cf82b5013fa4cc564c4bed90a4ca3bbbe9bae705a09c3747122a15271b97ea6",
+  "prior_cycle4_result_sha256": "463e17630e992d318abbd26a8376b79cd62b55b85fcafa25138c1b5c57066c89",
+  "prior_cycle4_code_data_and_all_checkpoints_match": true,
+  "matrix_count": 60,
+  "primary_matrix_count": 48,
+  "loop_assembly_max_abs": 1.2212453270876722e-15,
+  "reference_parameter_jacobian_max_abs": 3.3306690738754696e-16,
+  "decomposition_max_abs": 1.5741469141638403e-10,
+  "eigenpair_backward_residual_max": 1.5402352418475582e-15,
+  "primary_leading_observability_range": [
+    0.35606411827839063,
+    0.9301942644868896
+  ],
+  "primary_discrete_radius_range": [
+    1.0001439452360978,
+    1.0126996687862155
+  ],
+  "primary_student_remainder_ratio_range": [
+    0.0028430083556492606,
+    0.0055180748588397055
+  ],
+  "primary_input_teacher_remainder_ratio_range": [
+    0.0016374061857930184,
+    0.002499151752180888
+  ],
+  "primary_L_J_difference_range": [
+    0.3124229717849102,
+    0.5710880170773158
+  ],
+  "gates": {
+    "zero_residual": {
+      "surviving_seeds": {
+        "input_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "input_tau20": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau20": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      "signature_survives": true,
+      "all_primary_rates_within_10_percent": true,
+      "max_primary_relative_rate_difference": 0.0733429724310224
+    },
+    "shared_J": {
+      "surviving_seeds": {
+        "input_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "input_tau20": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau1": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "stop_tau20": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      "signature_survives": true,
+      "all_primary_rates_within_10_percent": false,
+      "max_primary_relative_rate_difference": 0.3412130776046245
+    }
+  }
+}

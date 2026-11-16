@@ -1,0 +1,25 @@
+{
+  "endpoints": {
+    "baseline_or_reset": {
+      "at_lower": "0",
+      "at_upper": "0",
+      "maximum": "0"
+    },
+    "projection": {
+      "at_lower": "-5/2",
+      "at_upper": "-25/2",
+      "maximum": "-5/2"
+    },
+    "interval_center": {
+      "at_lower": "0",
+      "at_upper": "-20",
+      "maximum": "0"
+    },
+    "protected_wrong_direction": {
+      "at_lower": "15/2",
+      "at_upper": "35/2",
+      "maximum": "35/2"
+    }
+  },
+  "cpu_seconds": 0
+}

@@ -1,0 +1,138 @@
+{
+  "symbolic": {
+    "metric_identity": true,
+    "balance_identity": true,
+    "tracking_perturbation_identity": true,
+    "modal_jacobian": true
+  },
+  "numerical": {
+    "parameters": {
+      "c": 0.8,
+      "lambda": 0.1,
+      "a": 1.0,
+      "initial": [
+        0.3,
+        0.2,
+        0.5
+      ]
+    },
+    "certificate_constants": {
+      "R": 0.7700000000000001,
+      "E": 1.6,
+      "b": 3.509985754956849,
+      "H": 5.059644256269407,
+      "L": 15.138000000000003
+    },
+    "sufficient_speed_threshold": 84840.57682006386,
+    "checked_speed": 169681.1536401277,
+    "random_points": 10000,
+    "max_dissipation_inequality_violation": -0.04238972921950394,
+    "local_stability_checks": [
+      {
+        "gamma": 0.01,
+        "branch": "lower",
+        "real_parts": [
+          0.011720906543021362,
+          -0.012961314748794821,
+          -0.24808164115469147
+        ]
+      },
+      {
+        "gamma": 0.01,
+        "branch": "upper",
+        "real_parts": [
+          -0.002579795897113271,
+          -0.002579795897113271,
+          -1.0319183588453087
+        ]
+      },
+      {
+        "gamma": 1.0,
+        "branch": "lower",
+        "real_parts": [
+          0.07595917942265425,
+          -0.19999999999999998,
+          -0.24808164115469147
+        ]
+      },
+      {
+        "gamma": 1.0,
+        "branch": "upper",
+        "real_parts": [
+          -0.19999999999999996,
+          -0.3159591794226544,
+          -1.0319183588453087
+        ]
+      },
+      {
+        "gamma": 100.0,
+        "branch": "lower",
+        "real_parts": [
+          0.12128851435646304,
+          -12.525370572091036,
+          -0.24808164115469147
+        ]
+      },
+      {
+        "gamma": 100.0,
+        "branch": "upper",
+        "real_parts": [
+          -0.12276659623912423,
+          -51.473151346026306,
+          -1.0319183588453087
+        ]
+      }
+    ],
+    "simulations": [
+      {
+        "gamma": 0.1,
+        "terminal_state": [
+          0.45604717697075053,
+          0.45604717697075053,
+          0.6449486956154729
+        ],
+        "terminal_velocity_norm": 8.809881798453104e-08,
+        "max_sampled_encoder_norm_squared": 0.8465823131826389,
+        "proved_encoder_bound": 6.400000000000001
+      },
+      {
+        "gamma": 1.0,
+        "terminal_state": [
+          0.4560477932315064,
+          0.4560477932315064,
+          0.6449489742783175
+        ],
+        "terminal_velocity_norm": 9.614813431917819e-17,
+        "max_sampled_encoder_norm_squared": 0.4159591794231642,
+        "proved_encoder_bound": 0.6400000000000001
+      },
+      {
+        "gamma": 10.0,
+        "terminal_state": [
+          0.45604779323150646,
+          0.45604779323150646,
+          0.6449489742783182
+        ],
+        "terminal_velocity_norm": 2.7780544402780394e-15,
+        "max_sampled_encoder_norm_squared": 0.4159591794237405,
+        "proved_encoder_bound": 0.6400000000000002
+      },
+      {
+        "gamma": 169681.1536401277,
+        "terminal_state": [
+          0.45604779323150674,
+          0.45604779323150674,
+          0.644948974278318
+        ],
+        "terminal_velocity_norm": 9.419196180811424e-12,
+        "max_sampled_encoder_norm_squared": 0.4159591794237007,
+        "proved_encoder_bound": 0.6400000000000001
+      }
+    ]
+  },
+  "matrix_identity_checks": {
+    "random_nonsymmetric_states": 1000,
+    "max_balance_identity_error": 6.661338147750939e-14,
+    "max_tracking_identity_error": 3.256115871121665e-14
+  }
+}

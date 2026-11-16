@@ -1,0 +1,255 @@
+{
+  "status": "complete",
+  "protocol_sha256": "8bcf5082b1f334bbb94e7cf9ed9a23ce52427844a2553ef6887d118195f94ff6",
+  "script_sha256": "b35a9bbdbd70b7b402b4c13768d3be846dd63d59f0da175d60b7d12101bfff39",
+  "previous_results_sha256": "bec2eb7dab4713c4ba7910d5ec5bf40642e4346af7e816af01b2c584faf496ac",
+  "source_model_sha256": "a28b93e5ca4d1acac923279c2cd87c5d3eb097695f0917c87be46d65b6501f88",
+  "source_data_sha256": "05f3ecddce66bcc81786191e87b4286abbd2f4e6edfd4e42129dfc63d12e3336",
+  "loss": "mean over all N*d absolute residual entries",
+  "outputs": 2,
+  "zero_convention": "sign(0)=0",
+  "source_manifest_sha256": "1c64eef300f3e923ec640ab5a81f34ca16122512b9065b46ef26128d94e34888",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "openblas_num_threads": "1",
+    "omp_num_threads": "1"
+  },
+  "labels_used": false,
+  "new_adaptation_updates": 0,
+  "seeds": [
+    {
+      "seed": 0,
+      "primary": true,
+      "checkpoint_sha256": "bcd393f5356b9e0470d5ee7518c1c1223ce302c35b77f094e146a1fbb2fbcf6b",
+      "residual_min_abs": 0.00012206208210790992,
+      "exact_zero_count": 0,
+      "near_zero_count_at_1e_minus_10": 0,
+      "step_attempts": [
+        {
+          "h": 1e-05,
+          "halvings": 0,
+          "sign_mismatches": 0,
+          "minimum_probe_residual_abs": 0.00011206208210784441,
+          "residual_evaluations": 912
+        }
+      ],
+      "fd_step": 1e-05,
+      "checks": {
+        "stop_loss_gradient_max_abs": 2.1394136462404845e-12,
+        "cached_loss_gradient_max_abs": 2.1394136462404845e-12,
+        "input_loss_gradient_max_abs": 2.397484988314602e-12,
+        "stop_student_block_max_abs": 4.9567364102109934e-12,
+        "cached_student_block_max_abs": 4.9567364102109934e-12,
+        "stop_teacher_block_max_abs": 0.0,
+        "cached_teacher_block_max_abs": 0.0,
+        "input_student_block_max_abs": 5.29134722149216e-12,
+        "input_teacher_block_max_abs": 6.067715774271676e-12,
+        "stopped_cached_student_difference": 0.0,
+        "stopped_cached_teacher_difference": 0.0,
+        "stopped_cached_velocity_difference": 0.0
+      },
+      "all_checks_pass": true,
+      "checked_fd_residual_evaluations": 2052,
+      "minimum_checked_probe_margin": 0.00011206208210784441,
+      "diagnostics": {
+        "A_max_abs": 0.21324935724710836,
+        "input_teacher_block_frobenius": 0.6652371438891573,
+        "input_student_A_piece_frobenius": 0.09957494936511212,
+        "stopped_student_block_frobenius": 0.7534459598642506,
+        "input_minus_stopped_velocity_norm": 0.03513621177773085
+      },
+      "archive": "seed0_absolute_blocks.npz",
+      "archive_sha256": "824f68528ecb47850d21e8be814c1e32818a24c6d4650c2d8acd3c11f19c59e2",
+      "status": "checked"
+    },
+    {
+      "seed": 1,
+      "primary": false,
+      "checkpoint_sha256": "8f1da4ea86320a9f9b23bc2ddcfcd860f35ce942657f20fdde004c9f606fd76f",
+      "residual_min_abs": 0.00025496259313273484,
+      "exact_zero_count": 0,
+      "near_zero_count_at_1e_minus_10": 0,
+      "step_attempts": [
+        {
+          "h": 1e-05,
+          "halvings": 0,
+          "sign_mismatches": 0,
+          "minimum_probe_residual_abs": 0.0002449625931326693,
+          "residual_evaluations": 912
+        }
+      ],
+      "fd_step": 1e-05,
+      "checks": {
+        "stop_loss_gradient_max_abs": 2.230174378503591e-12,
+        "cached_loss_gradient_max_abs": 2.230174378503591e-12,
+        "input_loss_gradient_max_abs": 2.38162267685027e-12,
+        "stop_student_block_max_abs": 8.193536127354406e-12,
+        "cached_student_block_max_abs": 8.193536127354406e-12,
+        "stop_teacher_block_max_abs": 0.0,
+        "cached_teacher_block_max_abs": 0.0,
+        "input_student_block_max_abs": 6.10213962692896e-12,
+        "input_teacher_block_max_abs": 8.323897127127111e-12,
+        "stopped_cached_student_difference": 0.0,
+        "stopped_cached_teacher_difference": 0.0,
+        "stopped_cached_velocity_difference": 0.0
+      },
+      "all_checks_pass": true,
+      "checked_fd_residual_evaluations": 2052,
+      "minimum_checked_probe_margin": 0.0002449625931326693,
+      "diagnostics": {
+        "A_max_abs": 0.8075418363946916,
+        "input_teacher_block_frobenius": 0.8469487141112727,
+        "input_student_A_piece_frobenius": 0.17387035668455603,
+        "stopped_student_block_frobenius": 1.2511248367329317,
+        "input_minus_stopped_velocity_norm": 0.15141076077806476
+      },
+      "archive": "seed1_absolute_blocks.npz",
+      "archive_sha256": "1f464fad15ed72633f575207f74bf71b9bc30d94bfdb6eee6e6ea447b48d6ace",
+      "status": "checked"
+    },
+    {
+      "seed": 2,
+      "primary": true,
+      "checkpoint_sha256": "37b2218c57921c5e7eb13ba64cd78afb489d382757c67658f767f52c99122997",
+      "residual_min_abs": 3.0145778926793376e-05,
+      "exact_zero_count": 0,
+      "near_zero_count_at_1e_minus_10": 0,
+      "step_attempts": [
+        {
+          "h": 1e-05,
+          "halvings": 0,
+          "sign_mismatches": 0,
+          "minimum_probe_residual_abs": 2.0145778926727864e-05,
+          "residual_evaluations": 912
+        }
+      ],
+      "fd_step": 1e-05,
+      "checks": {
+        "stop_loss_gradient_max_abs": 3.3806429877714095e-12,
+        "cached_loss_gradient_max_abs": 3.3806429877714095e-12,
+        "input_loss_gradient_max_abs": 2.9142972757245644e-12,
+        "stop_student_block_max_abs": 8.330905409970057e-12,
+        "cached_student_block_max_abs": 8.330905409970057e-12,
+        "stop_teacher_block_max_abs": 0.0,
+        "cached_teacher_block_max_abs": 0.0,
+        "input_student_block_max_abs": 8.84325945804676e-12,
+        "input_teacher_block_max_abs": 1.0060598187866532e-11,
+        "stopped_cached_student_difference": 0.0,
+        "stopped_cached_teacher_difference": 0.0,
+        "stopped_cached_velocity_difference": 0.0
+      },
+      "all_checks_pass": true,
+      "checked_fd_residual_evaluations": 2052,
+      "minimum_checked_probe_margin": 2.0145778926727864e-05,
+      "diagnostics": {
+        "A_max_abs": 0.6306495344170683,
+        "input_teacher_block_frobenius": 0.4494478070898425,
+        "input_student_A_piece_frobenius": 0.13264511541180224,
+        "stopped_student_block_frobenius": 0.5518104301838167,
+        "input_minus_stopped_velocity_norm": 0.10970605427214221
+      },
+      "archive": "seed2_absolute_blocks.npz",
+      "archive_sha256": "6b823fb18e066a22cdf5c5ecae182a438ed85533376532c31cd6df1f6d71088f",
+      "status": "checked"
+    },
+    {
+      "seed": 3,
+      "primary": true,
+      "checkpoint_sha256": "936978330de81e9e8f65a175709129c6163e3c7fd080745f9c330d031e47544a",
+      "residual_min_abs": 0.0004839096625051109,
+      "exact_zero_count": 0,
+      "near_zero_count_at_1e_minus_10": 0,
+      "step_attempts": [
+        {
+          "h": 1e-05,
+          "halvings": 0,
+          "sign_mismatches": 0,
+          "minimum_probe_residual_abs": 0.0004739096625050454,
+          "residual_evaluations": 912
+        }
+      ],
+      "fd_step": 1e-05,
+      "checks": {
+        "stop_loss_gradient_max_abs": 2.1144405670803224e-12,
+        "cached_loss_gradient_max_abs": 2.1144405670803224e-12,
+        "input_loss_gradient_max_abs": 2.8390571144010224e-12,
+        "stop_student_block_max_abs": 4.8111827022356835e-12,
+        "cached_student_block_max_abs": 4.8111827022356835e-12,
+        "stop_teacher_block_max_abs": 0.0,
+        "cached_teacher_block_max_abs": 0.0,
+        "input_student_block_max_abs": 5.155154081393221e-12,
+        "input_teacher_block_max_abs": 9.089382024818349e-12,
+        "stopped_cached_student_difference": 0.0,
+        "stopped_cached_teacher_difference": 0.0,
+        "stopped_cached_velocity_difference": 0.0
+      },
+      "all_checks_pass": true,
+      "checked_fd_residual_evaluations": 2052,
+      "minimum_checked_probe_margin": 0.0004739096625050454,
+      "diagnostics": {
+        "A_max_abs": 0.3350973692647793,
+        "input_teacher_block_frobenius": 0.5841180669313946,
+        "input_student_A_piece_frobenius": 0.1872583454770813,
+        "stopped_student_block_frobenius": 0.5025282895756034,
+        "input_minus_stopped_velocity_norm": 0.0865938124971049
+      },
+      "archive": "seed3_absolute_blocks.npz",
+      "archive_sha256": "b54a834204e70e6372e832f76a6d2e8e3f9f9aa9317781d211fae82ff6d867b4",
+      "status": "checked"
+    },
+    {
+      "seed": 4,
+      "primary": true,
+      "checkpoint_sha256": "772f099661da5f59e994568be87e1bda5494e653c9bec7d32c606b1d539bb590",
+      "residual_min_abs": 4.28933317920821e-05,
+      "exact_zero_count": 0,
+      "near_zero_count_at_1e_minus_10": 0,
+      "step_attempts": [
+        {
+          "h": 1e-05,
+          "halvings": 0,
+          "sign_mismatches": 0,
+          "minimum_probe_residual_abs": 3.289333179201659e-05,
+          "residual_evaluations": 912
+        }
+      ],
+      "fd_step": 1e-05,
+      "checks": {
+        "stop_loss_gradient_max_abs": 2.8439750554554166e-12,
+        "cached_loss_gradient_max_abs": 2.8439750554554166e-12,
+        "input_loss_gradient_max_abs": 3.2467396826607597e-12,
+        "stop_student_block_max_abs": 6.465106228148443e-12,
+        "cached_student_block_max_abs": 6.465106228148443e-12,
+        "stop_teacher_block_max_abs": 0.0,
+        "cached_teacher_block_max_abs": 0.0,
+        "input_student_block_max_abs": 6.380028449992636e-12,
+        "input_teacher_block_max_abs": 6.9137542912933725e-12,
+        "stopped_cached_student_difference": 0.0,
+        "stopped_cached_teacher_difference": 0.0,
+        "stopped_cached_velocity_difference": 0.0
+      },
+      "all_checks_pass": true,
+      "checked_fd_residual_evaluations": 2052,
+      "minimum_checked_probe_margin": 3.289333179201659e-05,
+      "diagnostics": {
+        "A_max_abs": 0.13524534572533806,
+        "input_teacher_block_frobenius": 0.7557578668511388,
+        "input_student_A_piece_frobenius": 0.07851160891657627,
+        "stopped_student_block_frobenius": 0.7863026189971308,
+        "input_minus_stopped_velocity_norm": 0.04354353329000959
+      },
+      "archive": "seed4_absolute_blocks.npz",
+      "archive_sha256": "36960b3acf6bb4a8ae7b5c44cef77b812d4f9ccf5c2fe259212595b3d6af72e6",
+      "status": "checked"
+    }
+  ],
+  "cpu_seconds": 7.515625,
+  "wall_seconds": 8.82423479994759,
+  "gates": {
+    "all_seeds_resolved": true,
+    "all_numerical_checks_pass": true,
+    "decision": "local_stopped_cached_identity_verified_for_absolute_loss"
+  }
+}

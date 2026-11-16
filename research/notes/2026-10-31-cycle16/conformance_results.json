@@ -1,0 +1,29 @@
+{
+  "python": "C:\\Users\\amita\\anaconda3\\python.exe",
+  "device": "cpu",
+  "labels_used": false,
+  "trained_checkpoint_loaded": false,
+  "script_sha256": "76859959d4897501d081a12e0934a115a0f59939b0963e2e71fef57f71bca1c3",
+  "torch_version": "2.9.0+cpu",
+  "status": "passed",
+  "dtype": "float64",
+  "batch_size": 2,
+  "parameter_count": 1291,
+  "fixture_optimizer_steps": 9,
+  "gradient_formula_max_abs": 0.0,
+  "cached_forward_max_abs": 0.0,
+  "first_update_pair_checks": {
+    "0": {
+      "gradient_max_abs": 0.0,
+      "parameter_max_abs": 0.0
+    },
+    "1": {
+      "gradient_max_abs": 0.0,
+      "parameter_max_abs": 0.0
+    }
+  },
+  "different_history_update_difference": 3.1565392526883285e-07,
+  "reset_preserves_moments_and_step": true,
+  "cache_unchanged": true,
+  "cpu_seconds": 8.203125
+}
