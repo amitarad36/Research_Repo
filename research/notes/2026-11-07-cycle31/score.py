@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 
 D = Path(__file__).resolve().parent
-RESEARCH = Path("C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes")
+RESEARCH = (Path(__file__).resolve().parents[3] / 'research/notes')
 COHORT = RESEARCH / "2026-11-07-cycle30"
 DATA = RESEARCH / "2026-10-31-cycle17/bostonHousing.txt"
 ARMS = ["no_adaptation", "current-connected", "cached-connected",

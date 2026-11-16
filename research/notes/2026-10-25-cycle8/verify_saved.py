@@ -12,7 +12,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parent
 NOTES=ROOT.parent
 if not (NOTES/'2026-10-25-cycle7').exists():
-    NOTES=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes')
+    NOTES=(Path(__file__).resolve().parents[3] / 'research/notes')
 SRC=NOTES/'2026-10-22-cycle3'; PREV=NOTES/'2026-10-25-cycle7'
 spec=importlib.util.spec_from_file_location('model',SRC/'neural_geometry_gate.py')
 model=importlib.util.module_from_spec(spec);spec.loader.exec_module(model)

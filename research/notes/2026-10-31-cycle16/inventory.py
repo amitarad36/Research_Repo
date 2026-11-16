@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess,json,hashlib,datetime
 import numpy as np
 HERE=Path(__file__).resolve().parent
-PROPOSAL=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation')
+PROPOSAL=Path(__file__).resolve().parents[3]
 roots=[PROPOSAL,Path(r'C:\Users\amita\source\repos\Project with Assaf'),
        Path(r'C:\Users\amita\.codex\.chatgpt-projects\g-p-6a9fa12b13bc8191acd58cbcf6c03aef')]
 patterns=['*.pt','*.pth','*.ckpt','*.safetensors','*.npz','*.csv','*boston*','*Boston*','*Housing*','pyvenv.cfg']

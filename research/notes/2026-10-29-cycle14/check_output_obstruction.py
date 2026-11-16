@@ -7,7 +7,7 @@ from pathlib import Path
 from fractions import Fraction as F
 import numpy as np
 HERE=Path(__file__).resolve().parent
-NOTES=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes')
+NOTES=(Path(__file__).resolve().parents[3] / 'research/notes')
 C3=NOTES/'2026-10-22-cycle3'; C7=NOTES/'2026-10-25-cycle7'; C8=NOTES/'2026-10-25-cycle8'
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def sq(a): return sum((F(float(v))**2 for v in a.flat),F(0))

@@ -1,0 +1,138 @@
+{
+  "scripts": [
+    {
+      "path": "research/notes/2026-10-22-cycle4/finite_response.py",
+      "original_sha256": "cc093b434d52ab9d8e8316db3f2d279fba27dc347d2e58b42cf22319163f3d51",
+      "updated_sha256": "ab59e7f72343d472e103916cfb5fc218638c8905c48eb309fa4303782914f290",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-24-cycle5/decompose_feedback.py",
+      "original_sha256": "9caa4fe0e9a54b435e55efc40ffd5a624ca0eaa8172c688381d53fc8ae4c9eeb",
+      "updated_sha256": "3e779f4dd0d1b3dcf245f72e97d776ad00850dfd7e2ff0c75a8f0f043db446b4",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-25-cycle7/frozen_input_control.py",
+      "original_sha256": "888521cfebd534e70ba12c205526579b3130573175188353189616ba1bfdb4a9",
+      "updated_sha256": "4ef145e2095282ef5cd9bc933d6b4ffc7d4881bf2db4edc618676641e2dbe082",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-25-cycle7/verify_saved.py",
+      "original_sha256": "6cd55fb3a9992dd357278f976accd66f341d7d94fcd4d90b5f66b0150c03d384",
+      "updated_sha256": "a95441b2af2511e457e7b7e84c53c9b79c87b7cb960b90e52a9dd69e3b696e11",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-25-cycle8/affine_prediction.py",
+      "original_sha256": "989dad319f6e02255bf73fd4dea0527e6688fa45980916997479a1ac979b2566",
+      "updated_sha256": "807b753e27235547d67f0cdedf5ca51885e0084cc9cfb4f8d28dc1b5f599f006",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-25-cycle8/initial_attempt.py",
+      "original_sha256": "781a6090d9a441d77db69dabecaab560f23f3284fd4714641fa7b945aad5c2b9",
+      "updated_sha256": "1f517c05bc9091548450c68f13c002ea4edb9ec96d7838eae6af233fe3b7b6c8",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-25-cycle8/verify_saved.py",
+      "original_sha256": "125a5ea395d1eca54d892b986d8dcc8463049ff8ca69f21de8b85e39ec23bd10",
+      "updated_sha256": "63cf101ad6af5bd0beca02ee360533c76a2c17453e4ac64fcad403774417bbcd",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-26-cycle9/absolute_loss_audit.py",
+      "original_sha256": "b35a9bbdbd70b7b402b4c13768d3be846dd63d59f0da175d60b7d12101bfff39",
+      "updated_sha256": "4e9b1a870d534596cc70c3e3212718bc621853f91a3b738311dc5e416f601368",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-26-cycle9/verify_saved.py",
+      "original_sha256": "b6619f8b676dda1e42cb594c2c1fac492b5c311f8c4762213a3d1d635196aeec",
+      "updated_sha256": "ea12cf5229f6531fec7ef40a70379b7b8289e44c3e0a7412be801a130d6395e4",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-27-cycle10/absolute_finite_response.py",
+      "original_sha256": "ea20593ec0cd80c66a37edbe7ac42838ac51d1d7b80856614fd9f506fb3fbea4",
+      "updated_sha256": "3bfb3f1d664b0610734b3cc0d3cf7ea9f5566a37a75041c944fce38a281419f1",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-27-cycle10/verify_absolute_finite.py",
+      "original_sha256": "5b78f7ad06de2cfd49e5e95c5fa7e31e678712048189605f6d7d1fa4e67506a0",
+      "updated_sha256": "67f02cec941a5a19a2d517454ebd5673cfad26548c5594d782920e6f2bb9a6d0",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-29-cycle14/check_enclosure_recipe.py",
+      "original_sha256": "bd44f49ffc2e4611ae54dc4fd83af9f30964d8b6a656e0fc642ff6dfb6d72547",
+      "updated_sha256": "e60175611dc8aebe53ba4f98409327da42ef23c26321094457f1830ea6a99b4b",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-29-cycle14/check_output_obstruction.py",
+      "original_sha256": "b5411645410e2b4c983cbfddbbdec168e67ff103fcd37f473234ef791e18d1e4",
+      "updated_sha256": "495e53ffd576e1149f79e628ee8376fc26f5f5e2c4714072b7228b9eb5451c7b",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-30-cycle15/verify_graphs.py",
+      "original_sha256": "1f448774b9986d4d9fac6848cec61b102be2e83d7d44879caa0fb76c1f91abcc",
+      "updated_sha256": "d40e8fd52e50caf6745aa027ae13a02db325bc32741e818ed9c15c821c00d0e6",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-31-cycle16/inventory.py",
+      "original_sha256": "f86e53c6ad174d036ce581089f97b3c5c2961781ac757b5cb7a3bea4fde914cc",
+      "updated_sha256": "ec1ea5944b62cddab265169ecb35767a50fcd6a62492bc0fc94e12ec0ef7d669",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-10-31-cycle18/verify_checkpoint.py",
+      "original_sha256": "85b32b82d54f6615cd62332f66cdddaa76c9a4879b3c5f8625752e56b535abb8",
+      "updated_sha256": "dac12e78a118a41dfb1f58507ab842c3191f23a7a5b33f4e10169d7378d24e14",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-11-07-cycle30/train_replication.py",
+      "original_sha256": "b0243508f38bbabf21743982eb4674c170715523db20bd72eda0d1f8386704cc",
+      "updated_sha256": "55ec1627b64b22869d91ac2a8fb562d285ea509679bfcfa2b0f5fc3891c0ffa3",
+      "path_expressions_updated": 2
+    },
+    {
+      "path": "research/notes/2026-11-07-cycle30/verify_replication.py",
+      "original_sha256": "e74b807b763160e1d7f71f99c8386e9d531814f9e34808b09af7a49d40eda348",
+      "updated_sha256": "f6d1cb4539dc509359f148cc8f2f9c0ddcb0337c9e6b4d596ef09aac18443263",
+      "path_expressions_updated": 2
+    },
+    {
+      "path": "research/notes/2026-11-07-cycle31/diagnostic.py",
+      "original_sha256": "f5d4592dc4f1ee7bba937211553d7be8ff194c9b1d7306030c886ad5044ab829",
+      "updated_sha256": "4c500a637bd8c3fdedfb78615a7ef67817dc5e763944874658493a6db2e7b349",
+      "path_expressions_updated": 2
+    },
+    {
+      "path": "research/notes/2026-11-07-cycle31/score.py",
+      "original_sha256": "6aa1556016b7fe64890a4d40c12597ef851ad7607399cbbdb29439b90f288034",
+      "updated_sha256": "3b83df36e6eb3ccd5a81a41e977f2fcd7b348cff4039162f8a0e9ea78b58d4eb",
+      "path_expressions_updated": 1
+    },
+    {
+      "path": "research/notes/2026-11-12-cycle32/step_scores.py",
+      "original_sha256": "38f6cbc9c3d9f33e5db3b1056e11255febacc4776e1e2cf3dbf4d737d545f2ba",
+      "updated_sha256": "5e382b87b63c796d99c231ea5ef8361f9103396ae64e1f44b0976fa03d678e5a",
+      "path_expressions_updated": 1
+    }
+  ],
+  "syntax_checks": "passed",
+  "referenced_targets": "all exist",
+  "experiment_reruns": false,
+  "old_junction_removed": true,
+  "files_unchanged_by_link_removal": 563,
+  "original_536_paths_all_present": true,
+  "relative_path_validation": "All relocated roots equal Research_Repo; all referenced paths exist after junction removal",
+  "relative_target_expressions_checked": 22
+}

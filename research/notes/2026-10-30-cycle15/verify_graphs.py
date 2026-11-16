@@ -3,7 +3,7 @@ from pathlib import Path
 from fractions import Fraction as F
 import hashlib,json,time
 HERE=Path(__file__).resolve().parent
-ROOT=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation')
+ROOT=Path(__file__).resolve().parents[3]
 C9=ROOT/'research/notes/2026-10-26-cycle9'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def sign(x):return F((x>0)-(x<0))

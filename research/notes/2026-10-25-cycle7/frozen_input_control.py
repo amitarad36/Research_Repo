@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-NOTES = Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes')
+NOTES = (Path(__file__).resolve().parents[3] / 'research/notes')
 SRC = ROOT.parent / '2026-10-22-cycle3'
 if not SRC.exists():
     SRC = NOTES / '2026-10-22-cycle3'

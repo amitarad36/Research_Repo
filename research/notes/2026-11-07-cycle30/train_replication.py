@@ -16,7 +16,7 @@ def main():
  args=parser.parse_args();seed=args.seed
  out=Path(args.output).resolve();assert not out.exists();out.mkdir(parents=True)
  report={'status':'running','training_steps':0,'held_out_values_parsed':False,
-         'data_sha256':sha(Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt')),'protocol_sha256':sha(HERE/'REPLICATION_PROTOCOL.md'),
+         'data_sha256':sha((Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17/bostonHousing.txt')),'protocol_sha256':sha(HERE/'REPLICATION_PROTOCOL.md'),
          'script_sha256':sha(Path(__file__)),'python':sys.executable,'epochs':[]}
  model=None;scales=None
  def cap():
@@ -32,7 +32,7 @@ def main():
   assert torch.__version__=='2.9.0+cpu', 'Runtime changed; re-audit rather than substitute'
   assert report['data_sha256']=='baadf72995725d76efe787b664e1f083388c79ba21ef9a7990d87f774184735a'
   random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
-  lines=[l for l in (Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt')).read_bytes().splitlines() if l.strip()]
+  lines=[l for l in ((Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17/bostonHousing.txt')).read_bytes().splitlines() if l.strip()]
   assert len(lines)==506
   assert all(len(l.split())==14 for l in lines) # token counts only, no held-out numeric parsing
   arr=np.array([[float(v) for v in l.split()] for l in lines[:455]],dtype=np.float64)

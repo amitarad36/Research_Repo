@@ -14,7 +14,7 @@ import numpy as np
 
 ROOT=Path(__file__).resolve().parent
 SRC=ROOT.parent/'2026-10-22-cycle3'
-if not SRC.exists():SRC=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes\2026-10-22-cycle3')
+if not SRC.exists():SRC=(Path(__file__).resolve().parents[3] / 'research/notes/2026-10-22-cycle3')
 spec=importlib.util.spec_from_file_location('model_cycle3',SRC/'neural_geometry_gate.py')
 model=importlib.util.module_from_spec(spec);spec.loader.exec_module(model)
 ACTIVE=np.r_[0:32,64:114]

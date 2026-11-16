@@ -5,7 +5,7 @@ import json,hashlib,time
 from pathlib import Path
 import numpy as np
 HERE=Path(__file__).resolve().parent
-SOURCE=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes\2026-10-31-cycle17')
+SOURCE=(Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
  start=time.process_time();assert not (HERE/'verification_results.json').exists()

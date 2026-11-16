@@ -14,7 +14,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parent
 NOTES=ROOT.parent
 if not (NOTES/'2026-10-26-cycle9').exists():
-    NOTES=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes')
+    NOTES=(Path(__file__).resolve().parents[3] / 'research/notes')
 AUDIT=NOTES/'2026-10-26-cycle9';SRC=NOTES/'2026-10-22-cycle3';PRIOR=NOTES/'2026-10-25-cycle7'
 PROTOCOL_SHA='081806a9e30ac8ec09466cc4f9a3448a2258ed696dfd51cc0cfb92061da110d1'
 AUDIT_SHA='2e6be33181896316189efae3829abdf352f492402e734c084bdfed8c15ee2043'

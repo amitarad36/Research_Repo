@@ -17,3 +17,7 @@
 
 `before_manifest.json` records the pre-move inventory. Final build and Git upload
 checks are recorded in `validation.json` after completion.
+
+## Follow-up: remove the old folder entry
+
+The user requested that only Research_Repo remain visible. The old entry was verified as a junction to Research_Repo. Legacy Python path expressions were changed to resolve relative to each script, with every original script retained byte-for-byte under original_scripts/. Historical result manifests and hashes remain unchanged and refer to those originals. Syntax and referenced-target existence were checked; experiments were not rerun. alias_cleanup.json records the path-only changes.

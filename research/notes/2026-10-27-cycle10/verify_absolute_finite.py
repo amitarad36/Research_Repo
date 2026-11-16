@@ -3,7 +3,7 @@ import hashlib,json,time
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parent
-SRC=Path(r'C:\Users\amita\source\repos\Detach Proposal Presentation\research\notes\2026-10-22-cycle3')
+SRC=(Path(__file__).resolve().parents[3] / 'research/notes/2026-10-22-cycle3')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def forward(p,x,z):
     u=np.concatenate((x,z),axis=1);h=np.tanh(u@p[:64].reshape(4,16)+p[64:80])

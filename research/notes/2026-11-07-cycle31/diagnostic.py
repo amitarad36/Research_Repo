@@ -16,9 +16,9 @@ args=parser.parse_args()
 assert 0 < args.budget <= 60
 ROOT=Path(__file__).resolve().parent
 D=ROOT/("seed_"+str(args.seed))
-COHORT=Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-11-07-cycle30')
+COHORT=(Path(__file__).resolve().parents[3] / 'research/notes/2026-11-07-cycle30')
 OLD=COHORT/("seed_"+str(args.seed))
-DATA=Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt')
+DATA=(Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17/bostonHousing.txt')
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p): return json.loads(p.read_text())
 def arr(x): return x.detach().numpy().copy()

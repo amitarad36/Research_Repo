@@ -7,7 +7,7 @@ import math
 import time
 from pathlib import Path
 import numpy as np
-ROOT = Path("C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation") / "research/notes"
+ROOT = Path(__file__).resolve().parents[3] / "research/notes"
 start = time.process_time()
 def sha(p):
     return hashlib.sha256(p.read_bytes()).hexdigest()

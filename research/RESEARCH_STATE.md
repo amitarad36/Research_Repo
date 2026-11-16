@@ -51,4 +51,4 @@ The proposal/backbone split requested by the user is installed. Keep the importe
 
 Preserve the original editor/source, hash-check concurrent edits and compile with the editor after TeX changes. Synced chat-project sources are read-only. Keep unique notes, papers, code and results. No paid/cluster work, contact or publication.
 
-Canonical working folder: `C:\Users\amita\source\repos\Research_Repo`. GitHub: https://github.com/amitarad36/Research_Repo. The old folder path is a compatibility junction to the same files; use the new path for ongoing work. Migration preserved all source and evidence bytes; see notes/2026-11-16-repository-migration/MIGRATION.md.
+Canonical working folder: `C:\Users\amita\source\repos\Research_Repo`. GitHub: https://github.com/amitarad36/Research_Repo. The old folder entry has been removed; use only the new path. Legacy Python paths were made relative, with original scripts preserved under the migration record for historical hash checks. Migration preserved all source and evidence bytes; see notes/2026-11-16-repository-migration/MIGRATION.md.

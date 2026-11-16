@@ -16,7 +16,7 @@ def main():
  assert report['status']=='complete' and report['training_steps']==450 and report['cpu_seconds']<=20
  assert report['held_out_values_parsed'] is False and report['adaptation_steps']==0
  for name,key in [('checkpoint.npz','checkpoint_sha256'),('preprocessing.npz','preprocessing_sha256')]:assert sha(HERE/name)==report[key]
- assert sha(Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt'))==report['data_sha256']
+ assert sha((Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17/bostonHousing.txt'))==report['data_sha256']
  assert sha(SOURCE/'train_replication.py')==report['script_sha256']
  assert sha(SOURCE/'REPLICATION_PROTOCOL.md')==report['protocol_sha256']
  weights=np.load(HERE/'checkpoint.npz',allow_pickle=False); prep=np.load(HERE/'preprocessing.npz',allow_pickle=False)
@@ -26,7 +26,7 @@ def main():
  for key,shape in shapes.items():assert weights[key].shape==shape and weights[key].dtype==np.float64 and np.isfinite(weights[key]).all()
  assert sum(weights[k].size for k in weights.files)==1291
  assert np.array_equal(prep['train_rows'],np.arange(455)) and np.array_equal(prep['held_out_rows'],np.arange(455,506))
- lines=[l for l in (Path('C:\\Users\\amita\\source\\repos\\Detach Proposal Presentation\\research\\notes\\2026-10-31-cycle17\\bostonHousing.txt')).read_bytes().splitlines() if l.strip()]
+ lines=[l for l in ((Path(__file__).resolve().parents[3] / 'research/notes/2026-10-31-cycle17/bostonHousing.txt')).read_bytes().splitlines() if l.strip()]
  data=np.array([[float(v) for v in line.split()] for line in lines[:455]],dtype=np.float64)
  rawx,rawy=data[:,:13],data[:,13:]
  independent={'x_mean':rawx.mean(0),'x_std':rawx.std(0,ddof=1),'y_mean':rawy.mean(0),'y_std':rawy.std(0,ddof=1)}

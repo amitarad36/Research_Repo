@@ -45,12 +45,15 @@ Organization record: [research/notes/2026-11-16-document-organization/ORGANIZATI
 GitHub: https://github.com/amitarad36/Research_Repo (public).
 
 The canonical working folder is `C:\Users\amita\source\repos\Research_Repo`.
-Open this folder in VS Code. The former `Detach Proposal Presentation` path is
-a Windows directory junction pointing to this same folder, not a second copy.
-It keeps older experiment scripts and existing editor paths working. Historical
-absolute paths in evidence and hash-verified scripts are intentionally preserved;
-the local junction is not part of Git and would need equivalent setup on a new machine.
-The document build script uses relative paths and works directly from the new folder.
+Open this folder in VS Code. The former folder entry was a compatibility junction;
+it has been removed at the user's request, leaving only Research_Repo.
+Older Python scripts now resolve repository paths relative to their own location.
+Their original bytes are preserved under the migration record's `original_scripts/`
+and in Git history. Existing result manifests and recorded source hashes describe
+the original versions, not the relocated scripts; they have not been rewritten.
+For historical source-hash checks, use those preserved original scripts. These
+changes do not constitute a new experiment or revalidation of earlier results.
+The document build script already uses relative paths.
 
 All original 536 files were verified byte-for-byte after the rename. Git tracks
 the proposal, backbone, PDFs, experiments, data, papers, figures, notes and archives.
