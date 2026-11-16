@@ -1,0 +1,412 @@
+% Research proposal distilled from the November 2026 technical backbone.
+% Standalone source: pdfLaTeX, no external graphics or bibliography files.
+% The accompanying backbone/research_backbone.pdf preserves the full technical record.
+% Public output: research_proposal.pdf; run build_documents.ps1.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[margin=0.92in,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\setstretch{1.055}
+\definecolor{ink}{HTML}{1B2935}
+\definecolor{accent}{HTML}{1B6871}
+\definecolor{muted}{HTML}{55636E}
+\definecolor{line}{HTML}{CCD8DC}
+\definecolor{lightbg}{HTML}{F3F7F7}
+\hypersetup{pdftitle={When Test-Time Consistency Changes Predictions: Research Proposal},pdfauthor={Amit Arad},pdfsubject={Mathematical dynamics of self-referential test-time adaptation}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{muted}Research Proposal \;|\; Continual Test-Time Adaptation}
+\fancyhead[R]{\footnotesize\color{muted}November 2026}
+\fancyfoot[C]{\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\titleformat{\section}{\Large\bfseries\color{ink}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{accent}}{\thesubsection}{0.65em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{ink}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.1em}{0.48em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.32em}
+\setlist[itemize]{itemsep=2pt,topsep=4pt,leftmargin=1.6em}
+\setlist[enumerate]{itemsep=2pt,topsep=4pt,leftmargin=1.7em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\sg}{\operatorname{sg}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\Risk}{\mathcal{R}}
+\newcommand{\Loss}{\mathcal{L}}
+\newcommand{\Proj}{\operatorname{Proj}}
+\newtheorem{remark}{Remark}
+\begin{document}
+\pagenumbering{roman}
+\thispagestyle{empty}
+\vspace*{0.40in}
+\noindent{\color{accent}\rule{\textwidth}{1.6pt}}\\[0.42in]
+{\fontsize{22}{28}\selectfont\bfseries\color{ink} When Test-Time Consistency\\[0.12em] Changes Predictions}\\[0.26in]
+{\large\color{accent} Feedback dynamics and gradient paths in test-time adaptation}\\[0.35in]
+{\normalsize\bfseries Research Proposal}\\[0.16in]
+{\large Amit Arad}\\[0.05in]
+{\small Advisor: Assaf Shocher \;\textbar\; Faculty of Data and Decision Sciences}\\[0.04in]
+{\small November 2026}\\[0.44in]
+\begin{minipage}{\textwidth}
+\color{ink}
+\textbf{Research aim.} This research investigates how prediction feedback and gradient paths shape test-time adaptation. Using IT$^3$ as a concrete setting, we will analyze how fixed and moving references affect learning dynamics and identify conditions for stable adaptation and improved prediction accuracy. The study combines mathematical analysis with controlled experiments on trained models.
+\end{minipage}
+\par\vspace{0.36in}
+\begin{center}
+\begin{tikzpicture}[>=Latex,node distance=1.00cm and 1.12cm,
+ state/.style={draw=accent,rounded corners=3pt,thick,fill=lightbg,align=center,minimum height=1.05cm,minimum width=3.35cm,inner sep=6pt},
+ note/.style={font=\small,align=center,text=muted}]
+ \node[state] (stream) {Unlabeled input stream\\$x_t\sim\rho_t$};
+ \node[state,right=of stream] (student) {Adaptive student\\$q_{\theta_t}(x_t)$};
+ \node[state,right=of student] (teacher) {Reference feedback\\$T_{\phi_t}(x_t,q_{\theta_t})$};
+ \draw[->,thick,accent] (stream)--(student);
+ \draw[->,thick,accent] (student)--(teacher);
+ \draw[->,thick,accent] (teacher.south) |- ++(-3.65,-0.58) -| node[pos=0.20,below,note]{consistency update: derivative path matters} (student.south);
+ \node[note,below=1.35cm of student] {Reference: fixed, or updated by EMA\\[3pt] EMA: $\phi_{t+1}=\alpha\phi_t+(1-\alpha)\theta_{t+1}$\\[3pt] Analyze stability and prediction accuracy};
+\end{tikzpicture}
+\end{center}
+\vfill
+
+\newpage
+\pagenumbering{arabic}
+\begin{abstract}
+Unlabeled test-time adaptation updates a pretrained model while it is deployed, commonly using self-consistency or teacher--student targets in place of unavailable labels. In idempotent test-time training (IT$^3$), a model's prediction becomes an input to a reference network, creating a feedback loop. Crucially, freezing the reference parameters, stopping the gradient through its output, and freezing the value supplied to its input are distinct operations. They can induce different update fields even when the forward discrepancy agrees at initialization. When a reference also follows the student through exponential moving averaging (EMA), the resulting dynamics are coupled and need not decrease the displayed consistency objective. More fundamentally, decreasing consistency does not by itself ensure improved predictive risk or retention of knowledge across changing environments.
+
+We propose a focused mathematical study of these distinctions. Starting with an explicitly specified IT$^3$-style computation graph, we will characterize local stationary behavior and stability under alternative backward rules and reference timescales; investigate Lyapunov and tracking certificates for the coupled learner; and study which additional information is necessary to relate unlabeled updates to current-task accuracy and forgetting in recurring environments. Small, reproducible experiments will test the assumptions and failure modes before any broader claim about neural-network adaptation is made. The intended outcome is a bounded theorem or informative counterexample, paired with an independently evaluated mechanism study.
+\end{abstract}
+
+\section{Motivation and research question}
+
+\subsection{From stop-gradient to continual adaptation}
+A stop-gradient operation leaves forward values intact but deletes selected derivative paths. Consequently, the actual update need not be the gradient of the numerical loss. This distinction motivated our earlier Detach investigation of stationary points, nonconservative fields, and Lyapunov functions. Recent work places important limits on novelty in a general account of the operator: the stop-gradient regression principle identifies broad classes of stationary points and establishes convergence for particular functional semi-gradient flows \cite{shen2026}; PEIRA supplies a rigorous analysis of predictor-based self-distillation and demonstrates that convergence and noncollapse are different questions \cite{peira2026}.
+
+We therefore shift the center of attention from the operator in isolation to a concrete learning problem. In test-time adaptation, a predictor receives a sequence of unlabeled inputs whose distribution may differ from the source training distribution. A consistency signal is available, but correctness labels are not. A frozen or slowly moving reference supplies feedback. Here the choice of backward rule and the temporal evolution of the reference determine an actual dynamical system with operational consequences: a model can become self-consistent while drifting away from a useful prediction rule.
+
+Continual learning raises a further distinction. The appropriate objective is not always perpetual preservation of all historical predictions. When the environment changes, fast adaptation to current risk may be more relevant; when tasks recur or share a stable labeling function, retention and recovery may matter. The supplied position manuscript \emph{Forgetting is not Catastrophic, Our Benchmarks Are} motivates this task-relative view, while the online continual-learning literature shows a variety of existing mechanisms for memory, regularization, and architectural separation \cite{oclreview2025,clposition2026}. We use these papers as motivation, not as proof that an unlabeled adaptation procedure can infer missing labels.
+
+\subsection{Central question}
+\begin{quote}
+\itshape Under what structural and information assumptions can self-referential test-time updates remain stable \emph{and} improve useful predictions as an unlabeled environment changes? What role is played by the forward feedback path, the gradient path, the reference timescale, and the state carried between updates?
+\end{quote}
+
+The proposed work separates three assertions that are often conflated:
+\begin{enumerate}
+\item \textbf{Self-consistency:} the model approximately satisfies the fixed-point relation used as its adaptation signal.
+\item \textbf{Dynamical stability:} trajectories return toward an equilibrium or track a moving solution under the specified update field.
+\item \textbf{Predictive quality:} current-task risk decreases and, where relevant, useful information survives subsequent adaptations.
+\end{enumerate}
+A theorem about the first need not imply the second; a theorem about the second need not imply the third. This separation organizes both the theoretical questions and the experimental evaluation.
+
+\section{Existing foundations and the gap to investigate}
+
+\subsection{\texorpdfstring{IT$^3$}{IT3} as a concrete self-referential mechanism}
+IT$^3$ trains a dual-input predictor $f_\theta(x,z)$ using both a neutral auxiliary input and the target output as auxiliary input, encouraging $f_\theta(x,0)$ and $f_\theta(x,y)$ to approximate $y$ during supervised pretraining \cite{it3}. At test time, an unlabeled instance $x$ produces a first prediction $q_\theta(x)=f_\theta(x,0)$; feeding this prediction into a reference produces a second prediction. Their discrepancy supplies an adaptation signal.
+
+The literature already includes test-time training with auxiliary self-supervision \cite{sun2020}, online teacher--student adaptation and restoration to source weights \cite{cotta2022,eata2022,rmt2023}, and study of recurring test distributions \cite{petta2024}. Recent preprints also compare fixed and moving teachers and combine EMA with source anchoring \cite{sojka2026,desa2026}. Thus, the generic assertions that ``EMA can be unstable,'' ``retention can fail,'' or ``resetting sometimes helps'' would not form a sufficient new contribution.
+
+Our narrower opportunity is a computation-graph-specific analysis of a \emph{dual-input feedback reference}, followed by a test of whether the resulting field geometry predicts anything meaningful about adaptation or retention. This must be evaluated against the closest teacher--student analyses, not only against generic results on stop-gradient or gradient flow.
+
+\subsection{Which earlier results are inputs, not proposed novelties}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{0.26\linewidth}X@{}}
+\toprule
+\textbf{Existing ingredient} & \textbf{Role in the proposed work} \\
+\midrule
+Stop-gradient lift and semi-gradient fields \cite{shen2026,games2019} & Mathematical language for distinguishing forward values from update fields; not an invention of this project. \\
+Self-distillation and PEIRA \cite{peira2026} & Illustrates why equilibrium stability and representation quality must be analyzed separately. \\
+IT$^3$ and continual TTA \cite{it3,cotta2022,rmt2023,petta2024} & Concrete adaptive mechanism, implementation constraints, and essential baselines. \\
+EMA as coupled dynamics \cite{belay2023} & Motivation for timescale analysis; a spring analogy alone is not a novelty claim. \\
+Online learning and shifting distributions \cite{oclreview2025,clposition2026} & Defines evaluation settings and the distinction between present adaptation and retention. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The first task is consequently not to propose another general interpretation of \texttt{detach()}, but to identify a property specific to \emph{prediction-input feedback}, and to determine when that property matters for the behavior of an adaptive learner.
+
+\newpage
+\section{A precise learning model}
+\label{sec:model}
+
+\subsection{Data, predictions, and two reference states}
+Let $x\sim\rho_t$ be an unlabeled test-time input drawn from a distribution that may evolve. The adaptive student has parameters $\theta\in\R^p$; the reference has parameters $\phi\in\R^p$ (the equal-parameter-space model will be the initial setting). Define
+\begin{equation}
+q_\theta(x)=f_\theta(x,0),\qquad
+T_\phi(x,z)=f_\phi(x,z),\qquad
+r(\theta,\phi;x)=T_\phi(x,q_\theta(x))-q_\theta(x).
+\label{eq:residual}
+\end{equation}
+The analysis starts with the smooth squared discrepancy
+\begin{equation}
+D_2(\theta,\phi;\rho)=\frac12\E_{x\sim\rho}\norm{r(\theta,\phi;x)}^2.
+\label{eq:squared}
+\end{equation}
+This is a deliberately chosen theoretical surrogate. The selected IT$^3$ regression implementation uses an absolute discrepancy in the audited path, so results obtained for \eqref{eq:squared} cannot be transferred without additional nonsmooth analysis. We will compare the two losses explicitly rather than silently treating them as interchangeable.
+
+The deployed learner observes the current $x$ but not its label $y$. Labels are used only by an external evaluator to compute predictive risk
+\begin{equation}
+\Risk_t(\theta)=\E_{(x,y)\sim\mu_t}\ell(q_\theta(x),y),\qquad
+\rho_t=\text{the input marginal of }\mu_t.
+\label{eq:risk}
+\end{equation}
+Consistency $D_2$ is therefore available to the adaptation algorithm; $\Risk_t$ is not. This information restriction is fundamental, not a technical inconvenience.
+
+\subsection{The forward value and backward rule are separate choices}
+Introduce the student Jacobian $J_q=\partial_\theta q_\theta(x)$ and reference-input Jacobian
+\begin{equation}
+A_\phi(x,z)=\partial_z T_\phi(x,z),\qquad A=A_\phi(x,q_\theta(x)).
+\end{equation}
+Holding $\phi$ fixed while differentiating \eqref{eq:squared} \emph{does not} stop gradients through the input $q_\theta$ of $T_\phi$. The ordinary student gradient, with reference parameters frozen, is
+\begin{equation}
+G_{\mathrm{input}}
+=\E_\rho\left[J_q^\top(A-I)^\top r\right].
+\label{eq:inputgrad}
+\end{equation}
+If instead the entire reference output is detached from the student computation graph, the same forward discrepancy yields the semi-gradient
+\begin{equation}
+G_{\mathrm{stop}}=-\E_\rho\left[J_q^\top r\right].
+\label{eq:stopgrad}
+\end{equation}
+The two updates agree only under additional conditions. Their difference is
+\begin{equation}
+G_{\mathrm{input}}-G_{\mathrm{stop}}
+=\E_\rho\left[J_q^\top A^\top r\right].
+\label{eq:gradientdifference}
+\end{equation}
+This expression is a chain-rule identity; it is not a guarantee that one rule has better accuracy or stability. In particular, $r=0$ makes both gradients vanish locally without establishing that the shared prediction is correct.
+
+There is a second distinction: the forward reference input can be \emph{refreshed} after each student update, or cached at an earlier value $c(x)$. The latter intervention is useful for isolating the feedback path, but a per-instance cache assumes that the same input can be revisited; it is not automatically a realistic algorithm for fresh online data. A straight-through diagnostic can hold a cached forward value while propagating a chosen derivative; this is an explicitly artificial backward rule, not ordinary differentiation of its forward loss. Together, these choices form a controlled comparison of \emph{what value was supplied} and \emph{which derivative was propagated}.
+
+\subsection{Coupled continuous-time and discrete-time dynamics}
+Our first mathematical model is
+\begin{equation}
+\boxed{\quad \dot\theta=-G(\theta,\phi;\rho_t),\qquad
+\dot\phi=\frac{\theta-\phi}{\tau},\quad \tau>0,\quad}
+\label{eq:jointode}
+\end{equation}
+where $G$ is a specified student field, initially \eqref{eq:inputgrad} or \eqref{eq:stopgrad}. The timescale $\tau$ controls how rapidly the reference follows the student. For reproducible experiments we will also study a student-first discrete update,
+\begin{equation}
+\theta_{n+1}=\theta_n-\eta G(\theta_n,\phi_n;\rho_n),\qquad
+\phi_{n+1}=\alpha\phi_n+(1-\alpha)\theta_{n+1},\quad 0<\alpha<1.
+\label{eq:jointdiscrete}
+\end{equation}
+A continuous-time limit requires a stated relationship between $\alpha$ and $\eta$; the schematic choice $\alpha=\tau/(\tau+\eta)$ gives $1-\alpha\approx\eta/\tau$ as $\eta\to0$. We will not equate stability of \eqref{eq:jointode} with stability of finite-step iterations without checking the actual discrete update map.
+
+\section{Research questions and theoretical program}
+\label{sec:questions}
+
+\subsection{Question I: which computation-graph differences change learning?}
+\textbf{Question.} For a dual-input prediction-feedback model, when does holding a reference's parameters fixed differ qualitatively from detaching its output? When does refreshing the reference input alter a later update? Can these distinctions be characterized in terms of the reference-input Jacobian, residual, and optimizer state?
+
+The starting identities are \eqref{eq:gradientdifference} and the derivatives of the joint vector field. We will develop explicit, checkable conditions for the two rules to agree or differ, first for smooth networks and then, only where necessary, for piecewise-linear networks and absolute discrepancies. These conditions should predict a measurable update event, not merely restate the chain rule. To avoid overstating the result, equality of gradients, equality of finite-step optimizer updates, and equality of predictive risk must be treated as distinct conclusions.
+
+An important complication is optimizer memory. For example, Adam's internal moments satisfy recurrences of the form
+\begin{equation}
+m_n=\beta_1m_{n-1}+(1-\beta_1)g_n,\qquad
+s_n=\beta_2s_{n-1}+(1-\beta_2)g_n^{\odot2}.
+\label{eq:adam}
+\end{equation}
+Two learners with identical current weights can still take different steps if $(m_n,s_n,n)$ differ. The dynamical state must therefore include optimizer history whenever an experimental claim depends on it. This is a control and potential secondary mechanism, rather than a claim that stored moments automatically constitute useful lifelong memory.
+
+\subsection{Question II: can a useful equilibrium be locally stable?}
+\textbf{Question.} Under what structural conditions does the coupled learner converge to a \emph{nondegenerate, prediction-relevant} equilibrium? Can different backward rules or EMA timescales change the linear stability classification?
+
+Suppose $\rho$ is fixed and $(\theta^*,\phi^*)$ is an equilibrium of \eqref{eq:jointode}. Then $\theta^*=\phi^*$, and $G(\theta^*,\theta^*;\rho)=0$. Write $u=\theta-\theta^*$ and $v=\phi-\phi^*$, and define
+\begin{equation}
+H=\partial_\theta G(\theta^*,\phi^*;\rho),\qquad
+K=-\partial_\phi G(\theta^*,\phi^*;\rho).
+\end{equation}
+The linearization is
+\begin{equation}
+\frac{d}{dt}\begin{pmatrix}u\\v\end{pmatrix}
+=\underbrace{\begin{pmatrix}-H&K\\ \tau^{-1}I&-\tau^{-1}I\end{pmatrix}}_{M_\tau}
+\begin{pmatrix}u\\v\end{pmatrix}.
+\label{eq:blockM}
+\end{equation}
+We will examine how the spectrum of $M_\tau$ depends on the feedback Jacobian and reference timescale. For a Hurwitz linearization, a local quadratic Lyapunov certificate can be constructed from
+\begin{equation}
+M_\tau^\top P+PM_\tau=-Q,\qquad P\succ0,\quad Q\succ0.
+\label{eq:lyapeq}
+\end{equation}
+This classical construction certifies local stability under the usual smoothness hypotheses; using it alone is not a novel result. What may be valuable is a structural condition, verifiable from a trained model's dual-input geometry, that predicts a stability boundary or excludes a failure mode.
+
+The equilibrium must also be \emph{useful}. An exactly stable zero predictor is not a success for an adaptation problem. We will therefore require a nonconstant baseline prediction rule, separate evaluator labels, and a clear account of which parameter directions affect predictions. In overparameterized networks, neutral parameter directions may prevent strict stability in the full weight space even when the output behavior is well controlled. Observable or quotient-space stability may be the appropriate statement.
+
+\subsection{Question III: what happens when the data distribution moves?}
+\textbf{Question.} If the input distribution changes over time, can the student--reference system track a useful equilibrium family? How does tracking error depend on drift speed, teacher lag, and choice of backward rule?
+
+For fixed $\rho$, even an ordinary student gradient field need not decrease $D_2$ because the reference moves. Direct differentiation gives
+\begin{equation}
+\frac{d}{dt}D_2(\theta,\phi;\rho)
+=-\norm{\nabla_\theta D_2}^2
++\frac1\tau\ip{\nabla_\phi D_2}{\theta-\phi}
+\qquad (G=G_{\mathrm{input}}).
+\label{eq:Ddot}
+\end{equation}
+The second term has no fixed sign. With a stopped-output field, the first term becomes $-\ip{\nabla_\theta D_2}{G_{\mathrm{stop}}}$. Under distributional drift there is also explicit time dependence in the expectation, where differentiability is available; abrupt changes instead require a switching or jump analysis. Hence an observed decrease in consistency at one instant is not a general Lyapunov property of the coupled process.
+
+A more relevant objective is often a \emph{tracking} certificate. Let $z=(\theta,\phi)$ and let $z^*(t)$ denote a justified desired solution, not merely an arbitrary stationary point. For a candidate $V(z,t)$ measuring $e=z-z^*(t)$, the derivative includes the motion of the target:
+\begin{equation}
+\dot e=F(z;\rho_t)-\dot z^*(t),\qquad
+\dot V=\partial_tV+\nabla_zV^\top F(z;\rho_t).
+\label{eq:tracking}
+\end{equation}
+A possible theorem target is an input-to-state-type estimate
+\begin{equation}
+\norm{e(t)}\ \leq\ C e^{-\gamma t}\norm{e(0)}
++\frac{C}{\gamma}\sup_{0\leq s\leq t}\norm{\dot z^*(s)}
+\label{eq:trackbound}
+\end{equation}
+under explicit uniform stability and regularity conditions. This is a \emph{target form}, not a theorem already established for IT$^3$. In particular, stable Jacobians at individual times do not imply stability under arbitrary switching; a common metric, slow-variation condition, or other suitable hypothesis is needed. Translating state tracking into predictive-risk tracking additionally requires an alignment between the desired state and the unknown labels.
+
+\subsection{Question IV: can stability explain retention or recovery?}
+\textbf{Question.} When domains recur, which parts of the learner's state preserve information relevant to a return task? Does a reference or optimizer history improve \emph{readaptation}, rather than merely delay change?
+
+We will first distinguish compatible distribution shifts (a fixed underlying label rule with changing input marginals) from genuinely conflicting tasks (different labels for indistinguishable inputs). The latter cannot generally be resolved from unlabeled observations alone. For compatible recurring domains, controlled streams such as $A\to B\to A$ can test whether student weights, reference weights, or optimizer history influence later recovery. However, a changed update direction does not by itself demonstrate useful memory. We will require matched baselines, equal adaptation budgets, held-out labels for evaluation only, and evidence that any benefit is specifically attributable to the earlier visit rather than an unrelated intervening update.
+
+\section{Accuracy, information, and the meaning of forgetting}
+\label{sec:accuracy}
+
+\subsection{Why unlabeled consistency cannot certify accuracy in general}
+Let $p\in\R^n$ be current predictions on a set of evaluator inputs, $d\in\R^n$ the change after adaptation, and $y\in\R^n$ the hidden targets. For squared prediction error,
+\begin{equation}
+\Risk(p+d)-\Risk(p)
+=\frac1n\left(\norm{d}^2-2\ip{y-p}{d}\right).
+\label{eq:riskchange}
+\end{equation}
+Thus the update improves accuracy exactly when $\ip{y-p}{d}>\norm{d}^2/2$. The learner can compute $p$ and $d$, but generally does not know $y-p$. A small consistency residual, a stable learning trajectory, or a particular Jacobian sign cannot determine the sign of \eqref{eq:riskchange} without further assumptions.
+
+The technical backbone gives a sharp compatible linear illustration. Let $S$ contain retained source-feature rows and $X$ current unlabeled rows. Choose an update $h$ such that $Sh=0$ yet $Xh\ne0$. Two possible label coefficients $w+h$ and $w-h$ agree on all the retained labels $Sw$ and produce the same unlabeled current inputs. Starting from $p=Xw$ and updating by $d=Xh$ achieves zero error in one possible world and increases error in the other. This is an \emph{identifiability obstruction}: no deterministic rule seeing only the shared information can certify improvement in both worlds. We retain it as a baseline limitation, not as a proposed general impossibility theorem.
+
+\subsection{What additional evidence could make guarantees possible?}
+An instructive positive baseline arises when independently justified information restricts the true linear coefficient to a known compact convex set $\mathcal C$ that preserves selected source predictions. Let $Y=X\mathcal C$ be the corresponding set of possible current predictions. The Euclidean projection $z=\Proj_Y(p)$ satisfies, for every possible true $y\in Y$,
+\begin{equation}
+\norm{z-y}^2\leq\norm{p-y}^2-\norm{p-z}^2.
+\label{eq:projection}
+\end{equation}
+The conclusion relies on the feasibility set containing the truth; unlabeled inputs alone do not supply this fact. Projection-based safe-prediction results are established prior work \cite{li2017}. Their role here is to clarify \emph{which information is missing} from an unconstrained consistency learner and to motivate assumptions that are defensible in future models.
+
+We do not intend to claim that IT$^3$ itself implements \eqref{eq:projection}. Instead, the analytic challenge is to characterize a weaker, realistic condition connecting consistency updates to trustworthy predictions: for example, calibrated source information, a restricted shift family, or a model-based relation between reference fixed points and true labels. An assumption that already encodes the correct answer would not be satisfactory.
+
+\subsection{Retention must be assessed at matched adaptation quality}
+For two distributions $\mu_A$ and $\mu_B$, define $\Risk_A$ and $\Risk_B$ as in \eqref{eq:risk}. During adaptation to $B$, it is possible that $\Risk_B$ decreases while $\Risk_A$ increases, even when the dynamics are stable and both tasks are compatible. This does not yet establish catastrophic failure: the old task may no longer be relevant, or the observed retention may merely reflect slower adaptation.
+
+The evaluation should report both current-task performance and previously relevant performance. When comparing retention interventions, it should also compare old-task error \emph{at matched current-task risk}, not solely at a common iteration count. If a returning domain matters, recovery should be defined operationally, for instance as the number of fresh return samples or updates needed to regain a target level of held-out performance, under a shared evaluation protocol.
+
+\section{Research plan and empirical design}
+\label{sec:work}
+
+\subsection{Work package A: establish the exact algorithm and graph}
+We begin with one reproducible regression-style IT$^3$ implementation and declare: its two inputs and neutral signal; pretrained checkpoint; trainable parameters and reference copy; loss (absolute or squared); backward rule; optimizer state; and the ordering of student and EMA updates. We will verify automatic derivatives against the derived $J_q$ and $A$ formulas. In the two-update setting, we will compare four controlled forward/backward variants, with identical initialization and optimizer history, and record precisely when their second gradients and outputs begin to differ.
+
+\textbf{Deliverable:} a tested computation-graph specification and a reproducible first-order mechanism result. \textbf{Rejection condition:} if a proposed distinction disappears when the actual loss and official graph are used, or depends only on mismatched optimizer states, we will narrow or abandon that claim.
+
+\subsection{Work package B: build a genuine dynamics result}
+We will analyze low-dimensional smooth dual-input models where the source solution gives distinct, correct predictions. The first objective is a nontrivial stability comparison of the two backward rules for the same forward architecture and teacher update; the second is to identify assumptions that can be checked or at least measured in a trained model.
+
+The technical backbone already contains a constructed local stability distinction, as well as counterexamples to overly broad monotonicity claims. These examples are useful proof tests, but they do not establish generic properties of pretrained neural networks. We will check whether the mechanism persists when the reference-input map is close to an idempotent projection, when parameter directions commute or fail to commute, and when the loss is nonsmooth. If a useful certificate exists, we will specify the metric, basin, equilibrium assumptions, and whether it controls parameters or predictions.
+
+\textbf{Deliverable:} one exact theorem with transparent assumptions, or a counterexample sharply delimiting a tempting extension. \textbf{Rejection condition:} if the result is only a generic linear-system fact, relies on a planted correct equilibrium without empirical relevance, or reduces to a change of time scale, it is not sufficient as a standalone contribution.
+
+\subsection{Work package C: connect stability to a changing environment}
+Only after the fixed-distribution mechanism is understood will we introduce a controlled covariate shift $\rho_t$ and then recurring domains. The initial target is a restricted family with a shared, known-for-evaluation labeling rule; a separate conflicting-label experiment will illustrate the information limit. We will seek tracking estimates under drift conditions that are explicitly related to the student--reference field, rather than assuming contraction as a free property.
+
+For recurrence experiments, compare a return to $A$ after an earlier visit to $A$ with a matched return after a different earlier domain $C$, passing through the same bridge $B$. Keep the bridge duration, evaluation inputs, step counter, training budget, and randomization aligned. Include no adaptation, fresh optimizer state, carried optimizer state, fixed reference, moving EMA, and a suitable established restoration or anchoring baseline. Track both the pre-return state and the post-return response. A reported memory benefit must survive the controls that remove earlier-visit information without changing other resources.
+
+\textbf{Deliverable:} a prediction about tracking or return adaptation that can be independently tested. \textbf{Rejection condition:} a change in trajectories without a reproducible benefit to held-out accuracy, or an effect also produced by a neutral earlier history, will not be interpreted as meaningful retention.
+
+\subsection{Work package D: selective extension to the actual optimizer}
+If the graph and dynamics studies suggest a useful principle, we will test whether optimizer memory, normalization state, or EMA schedule changes its predictions. Since the local implementation may reset student weights while retaining Adam moments, the state of the adaptation algorithm must be modeled as $(\theta,\phi,m,s,n)$ rather than just $(\theta,\phi)$. This branch is conditional: a striking dependence on optimizer history is not enough; it must survive controls with matched parameters, counters, and adaptation budgets and must reveal an effect not already covered by continual-learning optimizer-state work \cite{kang2024,petta2024}.
+
+\section{Evaluation protocol and criteria for success}
+
+\subsection{A deliberately small progression of settings}
+\begin{enumerate}
+\item \textbf{Analytic models.} Linear or low-dimensional smooth dual-input predictors with transparent covariance and reference-input derivatives. Use exact eigenvalue tests, small-time calculations, and, where appropriate, Lyapunov equations.
+\item \textbf{Trained synthetic networks.} Nonconstant regression tasks with separately held-out labels and several independent initializations. Record the actual residual and Jacobian geometry rather than assuming the trained network resembles the analytic example.
+\item \textbf{Specified IT$^3$ regression implementation.} Reproduce its particular loss, auxiliary-input convention, frozen-reference pathway, and optimizer policy before making claims about practical behavior. The technical backbone's exploratory surrogates are not substitutes for this reproduction.
+\item \textbf{Continuous and recurring streams.} Start with one fixed labeling function and changing covariate distributions, then controlled recurring domains. Only later investigate label changes that create a fundamentally different identification problem.
+\end{enumerate}
+
+\subsection{Quantities to record}
+The primary outcome is held-out current-task risk, measured both before and after each adaptation batch. We will additionally track consistency discrepancy, prediction variance or other collapse indicators, reference lag $\norm{\theta-\phi}$, finite-step perturbation amplification, and return-domain error or recovery. Whenever a Jacobian spectrum is reported, we must distinguish a true equilibrium from a moving checkpoint: positive instantaneous eigenvalues at nonstationary points are diagnostics, not asymptotic stability certificates. For nonsmooth absolute losses, we will distinguish the literal discrete algorithm from any ODE or differential-inclusion approximation, and verify step-size sensitivity before asserting a continuous-time interpretation.
+
+\subsection{Prospective comparison rather than retrospective explanation}
+Experiments will use fixed data splits, predetermined model configurations, paired seeds, and explicit success thresholds before evaluating new outcomes. The comparison must separate (i) the effect of refreshing a reference input, (ii) the effect of propagating its derivative, (iii) movement of reference parameters, and (iv) optimizer memory. Matching only forward weights is insufficient when an adaptive optimizer carries hidden state. Failures of predicted stability ordering, collapse prevention, numerical robustness, or accuracy improvement will be reported as outcomes; they will not be repaired by silent changes to step sizes, models, or evaluation populations.
+
+\section{Expected contribution, risks, and decisions}
+
+\subsection{A realistic hierarchy of possible contributions}
+The project has several scientifically useful endpoints, with different novelty requirements:
+\begin{enumerate}
+\item \textbf{Mechanism theorem.} A precise structural condition, specific to prediction-fed reference models, that distinguishes backward rules or predicts a bounded stability regime beyond generic Lyapunov linearization.
+\item \textbf{Tracking or retention result.} A theorem or counterexample stating when a learner can follow a changing solution under explicitly justified task assumptions, with a corresponding observable test.
+\item \textbf{Validated computational mechanism.} A reproducible causal comparison on a faithful adaptation graph, showing when prediction-input feedback or retained optimizer state meaningfully changes adaptation and where the effect fails.
+\end{enumerate}
+No one item is guaranteed. A classical certificate rederived for an arbitrary field, another demonstration of EMA instability, or an unlabeled loss reduction without a measurable accuracy consequence is not an adequate standalone contribution.
+
+\subsection{Principal risks and how they shape scope}
+\textbf{Incorrect objective alignment.} Self-consistency may stabilize an inaccurate predictor. We will never infer accuracy from discrepancy alone; evaluator labels and explicit identifiability assumptions are necessary.\\
+\textbf{Unrealistic geometry.} Constructed rotating reference-input Jacobians may be absent in pretrained idempotent networks. We will measure the geometry of trained models and abandon assumptions that fail their test.\\
+\textbf{Nonsmoothness and discretization.} Actual absolute-loss and ReLU/Adam implementations can exhibit finite-step behavior not captured by a smooth ODE. Those systems will be studied directly or excluded from a smooth theorem's scope.\\
+\textbf{Overlapping prior work.} Continual TTA already contains moving teachers, restoration, replay, recovery analyses, and parameter-memory mechanisms. A novelty audit focused on the exact graph, information budget, and evaluation protocol is part of every work package.\\
+\textbf{Insufficient evidence.} Preliminary synthetic patterns may be initialization-sensitive or fail independent tests. A negative or bounded result can still sharpen the thesis, but will not be advertised as a successful adaptation method.
+
+\subsection{Proposed sequence of decisions}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{0.19\linewidth}p{0.37\linewidth}X@{}}
+\toprule
+\textbf{Stage} & \textbf{Question to resolve} & \textbf{Go / narrow decision}\\
+\midrule
+Graph & What exact update does the selected IT$^3$ implementation perform? & Derivatives and state transitions independently reproducible.\\
+Geometry & Is a noncollapsed useful state stable, or can the backward rule change its classification? & Condition survives checks beyond a planted toy example.\\
+Drift & Can a measurable model property support a tracking bound? & A stated hypothesis links equilibrium motion, feedback, and error.\\
+Recurrence & Does earlier history help readaptation at controlled current-task quality? & Benefits survive matched histories and independent test data.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The first group discussion should choose which of the first two stages is most promising as a narrow theorem target, and which practical IT$^3$ implementation should be treated as authoritative. A move to continual-learning claims should follow, not precede, that decision.
+
+\section{Conclusion}
+The proposed pivot preserves the most useful lesson of Detach research: a training objective's forward value does not determine its update dynamics. IT$^3$ makes this lesson concrete because a student prediction enters a reference network whose parameters may be frozen or slowly moving, while derivative paths can be independently connected or blocked. Our aim is to understand that feedback mechanism with dynamical-systems tools, then establish what additional assumptions are required for stability to say anything about useful online predictions.
+
+The near-term goal is intentionally modest: a fully specified computation graph, a sharp analytic question about its coupled dynamics, and a reproducible experiment capable of refuting the proposed mechanism. The longer-term ambition is to relate such a result to tracking and retention in changing environments, without conflating consistency, convergence, and predictive correctness.
+
+\vspace{0.6em}
+\noindent{\small\itshape Research developed through discussion and collaboration with Shoham Grunblat. The longer technical record is preserved separately as \emph{Research Backbone} and is not part of the submission argument.}
+
+\begin{thebibliography}{99}\small\setlength{\itemsep}{2pt}
+\bibitem{it3} N. Durasov et al., ``IT$^3$: Idempotent Test-Time Training,'' \emph{International Conference on Machine Learning}, 2025.
+\bibitem{shen2026} M. W. Shen et al., ``How I Learned to Stop Worrying and Love StopGrads: Stationarity, Convergence, and a Case Study on Flow Map Learning,'' arXiv:2609.16222, 2026.
+\bibitem{peira2026} M. Arbel, B. Terver, and J. Ponce, ``PEIRA: Learning Predictive Encoders through Inter-View Regressor Alignment,'' arXiv:2605.17671, 2026.
+\bibitem{games2019} L. Letcher et al., ``Differentiable Game Mechanics,'' \emph{Journal of Machine Learning Research}, 2019.
+\bibitem{sun2020} Y. Sun et al., ``Test-Time Training with Self-Supervision for Generalization under Distribution Shifts,'' \emph{ICML}, 2020.
+\bibitem{cotta2022} Q. Wang et al., ``Continual Test-Time Domain Adaptation,'' \emph{CVPR}, 2022.
+\bibitem{eata2022} S. Niu et al., ``Efficient Test-Time Model Adaptation without Forgetting,'' \emph{ICML}, 2022.
+\bibitem{rmt2023} M. Doebler, R. A. Marsden, and B. Yang, ``Robust Mean Teacher for Continual and Gradual Test-Time Adaptation,'' \emph{CVPR}, 2023.
+\bibitem{petta2024} T.-H. Hoang, D. M. Vo, and M. N. Do, ``Persistent Test-Time Adaptation in Recurring Testing Scenarios,'' \emph{NeurIPS}, 2024.
+\bibitem{sojka2026} D. Sojka et al., ``Rethinking the Teacher--Student Framework for Test-Time Adaptation,'' preprint, arXiv:2609.02507, 2026.
+\bibitem{desa2026} A. Belal et al., ``DESA-TTA: Dynamic EMA and Source Anchoring for Test-Time Adaptation,'' preprint, arXiv:2609.01795, 2026.
+\bibitem{belay2023} J. Patsenker, H. Li, and Y. Kluger, ``Exponential Weight Averaging as Damped Harmonic Motion,'' ICML Workshop, 2023.
+\bibitem{li2017} Y.-F. Li, H.-W. Zha, and Z.-H. Zhou, ``Learning Safe Prediction for Semi-Supervised Regression,'' \emph{AAAI}, 2017.
+\bibitem{kang2024} L. Kang and W. S. Lee, ``Continual Learning of Numerous Tasks from Long-tail Distributions,'' arXiv:2404.02754, 2024.
+\bibitem{oclreview2025} S. A. Bidaki et al., ``Online Continual Learning: A Systematic Literature Review of Approaches, Challenges, and Benchmarks,'' arXiv:2501.04897, 2025.
+\bibitem{clposition2026} ``Forgetting is not Catastrophic, Our Benchmarks Are,'' position manuscript supplied for group reading, 2026.
+\end{thebibliography}
+\end{document}

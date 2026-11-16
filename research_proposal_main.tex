@@ -84,33 +84,34 @@
 \newpage
 \pagenumbering{arabic}
 \begin{abstract}
-Unlabeled test-time adaptation updates a pretrained model while it is deployed, commonly using self-consistency or teacher--student targets in place of unavailable labels. In idempotent test-time training (IT$^3$), a model's prediction becomes an input to a reference network, creating a feedback loop. Crucially, freezing the reference parameters, stopping the gradient through its output, and freezing the value supplied to its input are distinct operations. They can induce different update fields even when the forward discrepancy agrees at initialization. When a reference also follows the student through exponential moving averaging (EMA), the resulting dynamics are coupled and need not decrease the displayed consistency objective. More fundamentally, decreasing consistency does not by itself ensure improved predictive risk or retention of knowledge across changing environments.
+Test-time adaptation allows a pretrained model to learn from incoming data without additional labels. In idempotent test-time training (IT$^3$), the model's prediction becomes an input to a reference network, creating a feedback loop. The resulting learning dynamics depend on which gradients pass through the reference and whether its parameters remain fixed or follow the adapting model.
 
-We propose a focused mathematical study of these distinctions. Starting with an explicitly specified IT$^3$-style computation graph, we will characterize local stationary behavior and stability under alternative backward rules and reference timescales; investigate Lyapunov and tracking certificates for the coupled learner; and study which additional information is necessary to relate unlabeled updates to current-task accuracy and forgetting in recurring environments. Small, reproducible experiments will test the assumptions and failure modes before any broader claim about neural-network adaptation is made. The intended outcome is a bounded theorem or informative counterexample, paired with an independently evaluated mechanism study.
+This research will analyze how these choices affect stability and prediction accuracy. We will characterize the update fields induced by different gradient paths, study the coupled dynamics of the model and reference, and investigate their behavior under changing input distributions. Mathematical analysis, including local stability and Lyapunov methods, will guide controlled experiments on trained models. The goal is to identify conditions that support stable, useful adaptation and explain when consistency-driven updates improve predictions.
 \end{abstract}
 
 \section{Motivation and research question}
 
 \subsection{From stop-gradient to continual adaptation}
-A stop-gradient operation leaves forward values intact but deletes selected derivative paths. Consequently, the actual update need not be the gradient of the numerical loss. This distinction motivated our earlier Detach investigation of stationary points, nonconservative fields, and Lyapunov functions. Recent work places important limits on novelty in a general account of the operator: the stop-gradient regression principle identifies broad classes of stationary points and establishes convergence for particular functional semi-gradient flows \cite{shen2026}; PEIRA supplies a rigorous analysis of predictor-based self-distillation and demonstrates that convergence and noncollapse are different questions \cite{peira2026}.
+Test-time adaptation uses incoming unlabeled data to adjust a model to conditions that may differ from its training environment. A reference network can supply a consistency signal for these updates. How this feedback is differentiated, and how the reference evolves, determine the learner's dynamics.
 
-We therefore shift the center of attention from the operator in isolation to a concrete learning problem. In test-time adaptation, a predictor receives a sequence of unlabeled inputs whose distribution may differ from the source training distribution. A consistency signal is available, but correctness labels are not. A frozen or slowly moving reference supplies feedback. Here the choice of backward rule and the temporal evolution of the reference determine an actual dynamical system with operational consequences: a model can become self-consistent while drifting away from a useful prediction rule.
+Stop-gradient leaves forward values intact while removing selected derivative paths. The same forward loss can therefore produce different update fields. Analyses of stop-gradient regression and predictor-based self-distillation provide foundations for studying stationary behavior, convergence, and representation quality \cite{shen2026,peira2026}. We build on these foundations to study prediction-input feedback in IT$^3$ and extensions with a moving reference.
 
-Continual learning raises a further distinction. The appropriate objective is not always perpetual preservation of all historical predictions. When the environment changes, fast adaptation to current risk may be more relevant; when tasks recur or share a stable labeling function, retention and recovery may matter. The supplied position manuscript \emph{Forgetting is not Catastrophic, Our Benchmarks Are} motivates this task-relative view, while the online continual-learning literature shows a variety of existing mechanisms for memory, regularization, and architectural separation \cite{oclreview2025,clposition2026}. We use these papers as motivation, not as proof that an unlabeled adaptation procedure can infer missing labels.
+As the input distribution changes, adaptation should improve predictions in the current environment. When earlier environments recur, retention and recovery also become relevant \cite{oclreview2025,clposition2026}. This motivates studying both the immediate effects of feedback-driven updates and their behavior over time.
 
 \subsection{Central question}
 \begin{quote}
-\itshape Under what structural and information assumptions can self-referential test-time updates remain stable \emph{and} improve useful predictions as an unlabeled environment changes? What role is played by the forward feedback path, the gradient path, the reference timescale, and the state carried between updates?
+\itshape How do gradient paths and reference-update timescales shape the stability and predictive performance of test-time adaptation under distribution shift?
 \end{quote}
 
-The proposed work separates three assertions that are often conflated:
+The study evaluates three properties:
 \begin{enumerate}
 \item \textbf{Self-consistency:} the model approximately satisfies the fixed-point relation used as its adaptation signal.
 \item \textbf{Dynamical stability:} trajectories return toward an equilibrium or track a moving solution under the specified update field.
-\item \textbf{Predictive quality:} current-task risk decreases and, where relevant, useful information survives subsequent adaptations.
+\item \textbf{Predictive quality:} adaptation improves accuracy on the current task and, when tasks recur, preserves performance on previously encountered tasks.
 \end{enumerate}
-A theorem about the first need not imply the second; a theorem about the second need not imply the third. This separation organizes both the theoretical questions and the experimental evaluation.
+Self-consistency and stability do not by themselves establish predictive accuracy; we will evaluate these properties separately.
 
+\newpage
 \section{Existing foundations and the gap to investigate}
 
 \subsection{\texorpdfstring{IT$^3$}{IT3} as a concrete self-referential mechanism}
