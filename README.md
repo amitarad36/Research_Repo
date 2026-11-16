@@ -39,3 +39,25 @@ Keep the proposal concise and forward-looking. Put new derivations, exploratory 
 The recurring research task uses these two roles. Original user-supplied content and prior source versions are preserved in the archive. Nothing under the synced ChatGPT project's `sources/` was changed.
 
 Organization record: [research/notes/2026-11-16-document-organization/ORGANIZATION.md](research/notes/2026-11-16-document-organization/ORGANIZATION.md).
+
+## Repository and local folder
+
+GitHub: https://github.com/amitarad36/Research_Repo (public).
+
+The canonical working folder is `C:\Users\amita\source\repos\Research_Repo`.
+Open this folder in VS Code. The former `Detach Proposal Presentation` path is
+a Windows directory junction pointing to this same folder, not a second copy.
+It keeps older experiment scripts and existing editor paths working. Historical
+absolute paths in evidence and hash-verified scripts are intentionally preserved;
+the local junction is not part of Git and would need equivalent setup on a new machine.
+The document build script uses relative paths and works directly from the new folder.
+
+All original 536 files were verified byte-for-byte after the rename. Git tracks
+the proposal, backbone, PDFs, experiments, data, papers, figures, notes and archives.
+Generated `build/` output and Python caches remain on disk but are excluded from Git.
+Git attributes disable line-ending conversion to preserve evidence hashes.
+The first commit preserves the imported documents before migration-note updates
+and PDF regeneration. The twice-daily research task now targets the new folder;
+its schedule is unchanged. This migration does not enable automatic GitHub pushes.
+
+Migration record: [research/notes/2026-11-16-repository-migration/MIGRATION.md](research/notes/2026-11-16-repository-migration/MIGRATION.md).

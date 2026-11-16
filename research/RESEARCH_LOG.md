@@ -293,3 +293,14 @@ Registered and completed the saved-state Adam direction-versus-scale diagnostic 
 ## 16 November 2026 — proposal/backbone organization
 
 At the user’s request, read the supplied ZIP and its README, installed the distilled proposal at the existing open source path, and preserved the latest detailed source as backbone/research_backbone.tex. Imported proposal wording retained; changes limited to path/build comments. Backbone subtitle identifies its role. Preserved prior source/PDF, original ZIP and supplied backbone PDF; moved known root build artifacts into build/legacy. Added a folder README and repeatable two-document build/VS Code recipes. Updated document-role priorities; automation should target the backbone for detailed work. This is document organization, not a new experiment or scientific claim. Compilation and output validation recorded in research/notes/2026-11-16-document-organization.
+
+## 16 November 2026 — repository migration
+
+At the user's request, renamed the working folder to Research_Repo and connected it
+to https://github.com/amitarad36/Research_Repo. The first attempt was blocked by an
+open application; after the user closed VS Code, the rename succeeded. Verified
+all 536 pre-migration files by SHA-256. Kept the old path as a directory junction
+to preserve editor and historical script compatibility. Imported all unique
+research work into Git, excluding only build output and Python caches. Updated
+the research automation's folder path while preserving its schedule. No scientific
+or TeX content was changed. See the migration record for build and upload validation.

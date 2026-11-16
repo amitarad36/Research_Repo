@@ -1,0 +1,13 @@
+{
+  "proposal_build": "passed",
+  "backbone_build": "passed",
+  "tex_content_changed": false,
+  "branch": "main",
+  "automation_new_path_verified": true,
+  "remote": "https://github.com/amitarad36/Research_Repo.git",
+  "old_path_kind": "Junction",
+  "unchanged_original_files_rechecked": 512,
+  "build_overfull_or_undefined_warnings": false,
+  "upload": "Pending push after committing this validation record",
+  "original_files_verified_after_rename": 536
+}
