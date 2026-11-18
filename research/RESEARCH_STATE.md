@@ -1,6 +1,6 @@
 # Research state
 
-Updated 18 November 2026, cycle 36. Concise proposal source: ../research_proposal_main.tex. Detailed research source: ../backbone/research_backbone.tex. Title: **When Test-Time Consistency Changes Predictions**. Author Amit Arad, advisor Assaf Shocher, acknowledgment Shoham Grunblat. Existing twice-daily automation.
+Updated 18 November 2026, cycle 37. Concise proposal source: ../research_proposal_main.tex. Detailed research source: ../backbone/research_backbone.tex. Title: **When Test-Time Consistency Changes Predictions**. Author Amit Arad, advisor Assaf Shocher, acknowledgment a fellow master's student from the Faculty of Data and Decision Sciences. Existing twice-daily automation.
 
 ## Document roles (user decision, 16 November 2026)
 
@@ -14,9 +14,15 @@ The user supplied research_proposal_package.zip with a distilled 12-page proposa
 
 ## Next action
 
-The user has reviewed and edited all of Section 3; preserve the approved definitions and equations. Cycle 36 closed the attempted full-state robustness argument based only on a positive disagreement margin and a small diagonal derivative defect: an arbitrarily small positive defect destabilizes both rules even with exactly orthogonal reference geometry at the baseline. Conditional frozen-reference/disagreement bounds remain available. Next require a model-specific restoring condition on common student/reference directions, or explicitly target disagreement contraction only. A full-block certificate on prediction-relevant coordinates must precede trained-model validation; positive/negative epsilon fixtures are rejection tests. Keep these derivations in research notes during the user's submission review. No additional retrospective accuracy sweep on the same 40 examples.
+Submission ver no1 was committed and pushed by explicit user request as 0289fd6404c40d7f0f57f71097d92b1441575e9a on 18 November. Preserve the submission proposal and backbone sources/PDFs during review. Cycles 35-37 are supporting research notes, not incorporated submission text. Do not automatically commit or push research cycles.
+
+Cycle 37 supplies a positive restoring condition after cycle 36's obstruction. With H symmetric positive semidefinite and L=H-K symmetric, the joint continuous linearization is Hurwitz exactly when L>0. For L>0, the student-first discrete map is Schur exactly below eta=2(1+alpha)/lambda_max(2*alpha*H+(1-alpha)*L), without requiring H and L to commute. This is a checked analytic control using classical tools, not verified novelty or trained-model evidence.
+
+Next bounded action: audit eligibility on one archived trained model before any new training or accuracy sweep. Check equilibrium/residual assumptions and parameter rank, then actual H,L symmetry and restoring signs under a declared tolerance. A nonstationary checkpoint or nonsymmetric L means this theorem abstains, not that the model is unstable. At nonzero residual use full field Jacobians, including second derivatives. Alternatively study a bounded skew-L extension using a strict full-state margin; do not reuse the failed transverse-only robustness argument. No further retrospective accuracy sweep on the same 40 examples.
 
 ## Evidence and boundaries
+
+- Cycle 37. Derived a full-state restoring criterion and an exact finite-step boundary for symmetric H>=0 and symmetric L=H-K, with no commutation assumption. Continuous stability is equivalent to L>0; with L>0, the precise student-first EMA step bound is 2(1+alpha)/lambda_max(2*alpha*H+(1-alpha)*L). A shared two-parameter architecture realizes noncommuting H,L at a nonconstant planted correct baseline; both backward rules agree locally in this positive control. Exact symbolic identities, eight finite-difference columns, 240 continuous and 1,200 discrete matrix cases passed; maximum -1 boundary error 1.78e-14, CPU .625s excluding imports. Classical energy/Schur machinery; no verified novelty, trained-model, or accuracy claim. See notes/2026-11-18-cycle37/Restoring_Geometry_Result.md. Submission sources and PDFs unchanged.
 
 - Cycle 36. Derived zero-residual norm bounds for backward-rule differences and diagonal coupling defects. A positive transverse margin supports disagreement contraction when K=H, but not full-state robustness to arbitrary small K-H. Shared smooth scalar architecture has A=0, H=1, K=1+epsilon at a useful matched baseline; every epsilon>0 creates a positive continuous eigenvalue for every tau and a discrete multiplier above one for every eta>0, 0<alpha<1. Opposite-sign defects restore local stability, subject to discrete step-size control. Exact symbolic checks, 36 rational fixtures, 40 finite-difference probes and 50 matrix fixtures passed; max gradient discrepancy 1.337e-11, CPU .515625s. No trained-model or novelty claim. See notes/2026-11-18-cycle36/Neutral_Robustness_Result.md. Both TeX sources preserved.
 

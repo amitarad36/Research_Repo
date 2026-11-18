@@ -1,0 +1,19 @@
+{
+  "submission_commit": "0289fd6404c40d7f0f57f71097d92b1441575e9a",
+  "unchanged_document_sha256": {
+    "research_proposal_main.tex": "4b14a2253637415d195dc0a0841c7b7c6ec291883678435ed21ae3f6d2c0df86",
+    "research_proposal.pdf": "21c37f9d0d287a8b93514b07f0beb54404d0b78dbc5de472398b5fa98b4de8d4",
+    "backbone/research_backbone.tex": "33bfcf2bcb1c5e515558fee62a13dee013caad5052accc070aa793b9f4d56414",
+    "backbone/research_backbone.pdf": "2fa6bad683bb4d9cd76d6cf1d4c8605e5c0640278f49b4da9e654c4c1d9e6c18"
+  },
+  "artifact_sha256": {
+    "RESEARCH_LOG.before.md": "9e4333013167ab21122440ab6035f474bd763c9d200a2607edc0bd2f6c471914",
+    "RESEARCH_STATE.before.md": "ea9656aff364c73492fbe9247c0b2f5dbc7288c4fc5bd9367a1e14dcffa703b1",
+    "Restoring_Geometry_Result.md": "04f93d3adcc2cd466b0c28df888887418dee6c9e953494a16b2393d202c78858",
+    "verification.json": "3dde59f23b21f3773527d66b7171e0553a9ecf2d3e8b2d4a57058ead0680626f",
+    "verify_restoring.py": "29df2434e54fe887b78814a656ddeaab7ee3af70dc739b145f13a4e697d3e385"
+  },
+  "tex_modified": false,
+  "compiled": false,
+  "reason": "No TeX changes; submission version preserved."
+}
