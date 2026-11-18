@@ -1,0 +1,17 @@
+{
+  "tex_edited": false,
+  "compile_required": false,
+  "read_source_hashes": {
+    "research\\RESEARCH_STATE.md": "c082d2eaf766f181d7a507413f3d310ac7fe2e28749da30fe9e2368e00a14122",
+    "research\\RESEARCH_LOG.md": "9a2d9c7193fe8b082aeffa2652634cde413f8bd811a211736184ea4238c2e455",
+    "research_proposal_main.tex": "dc705a4c5775ec713b182610d9c291305c6a72967c8c49a1d8e81f74292e4951",
+    "backbone\\research_backbone.tex": "a64d50172a1fa5ff97a00353344a3ab19d82d37189f001f5c9ac063e0b1d1812"
+  },
+  "files": {
+    "Neutral_Robustness_Result.md": "6b43b8ab86bcd459eb51de9a32d23443d0b71f94be65cd4e638856a38a7836a1",
+    "RESEARCH_LOG.md.before": "9a2d9c7193fe8b082aeffa2652634cde413f8bd811a211736184ea4238c2e455",
+    "RESEARCH_STATE.md.before": "c082d2eaf766f181d7a507413f3d310ac7fe2e28749da30fe9e2368e00a14122",
+    "verification.json": "b1246a9a1eb71000e5875b718b2042db9bf7eb29fe40cff026f84d7e73bc921d",
+    "verify_neutral_robustness.py": "a26b678ad59d871b512132d0c2ef3b8e8b7da82a703a00068ab8430add5c9112"
+  }
+}

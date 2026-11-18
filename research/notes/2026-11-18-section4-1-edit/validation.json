@@ -1,0 +1,9 @@
+{
+  "before_sha256": "dc705a4c5775ec713b182610d9c291305c6a72967c8c49a1d8e81f74292e4951",
+  "after_sha256": "626a07f70e17dff727919c26f9c22aa67661c26e4ede403e50e53a9bcbf9904e",
+  "scope": "Section 4.1 only",
+  "equation_and_label_preserved": true,
+  "builtin_compile": "passed",
+  "native_build": "passed",
+  "visual_review": "PDF pages 5-6 inspected; no clipping or overlap"
+}

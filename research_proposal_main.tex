@@ -143,85 +143,93 @@ The first task is consequently not to propose another general interpretation of 
 \section{A precise learning model}
 \label{sec:model}
 
-\subsection{Data, predictions, and two reference states}
-Let $x\sim\rho_t$ be an unlabeled test-time input drawn from a distribution that may evolve. The adaptive student has parameters $\theta\in\R^p$; the reference has parameters $\phi\in\R^p$ (the equal-parameter-space model will be the initial setting). Define
+\subsection{Data, predictions, and model parameters}
+Let $x\sim\rho_t$ be a test input, where $\rho_t$ is the input distribution at time $t$. The student and reference share the architecture $f(x,z)$ and have parameter vectors $\theta,\phi\in\R^p$. The auxiliary input $z$ and the model output lie in $\R^d$; $p$ is the number of parameters and $d$ the prediction dimension. Using $0$ to denote the neutral auxiliary signal, define
 \begin{equation}
 q_\theta(x)=f_\theta(x,0),\qquad
 T_\phi(x,z)=f_\phi(x,z),\qquad
 r(\theta,\phi;x)=T_\phi(x,q_\theta(x))-q_\theta(x).
 \label{eq:residual}
 \end{equation}
-The analysis starts with the smooth squared discrepancy
+Thus $q_\theta$ is the student's initial prediction, $T_\phi$ is the reference response, and $r$ measures their disagreement after feeding the prediction into the reference. Our initial smooth model uses the squared discrepancy
 \begin{equation}
-D_2(\theta,\phi;\rho)=\frac12\E_{x\sim\rho}\norm{r(\theta,\phi;x)}^2.
+D_2(\theta,\phi;\rho)=\frac12\E_{x\sim\rho}\norm{r(\theta,\phi;x)}^2,
 \label{eq:squared}
 \end{equation}
-This is a deliberately chosen theoretical surrogate. The selected IT$^3$ regression implementation uses an absolute discrepancy in the audited path, so results obtained for \eqref{eq:squared} cannot be transferred without additional nonsmooth analysis. We will compare the two losses explicitly rather than silently treating them as interchangeable.
+where $\norm{\cdot}$ is the Euclidean norm and $\E$ denotes expectation. The audited IT$^3$ regression implementation uses an absolute discrepancy; we will examine that loss separately using nonsmooth analysis.
 
-The deployed learner observes the current $x$ but not its label $y$. Labels are used only by an external evaluator to compute predictive risk
+During adaptation, the learner observes $x$ but not its correct target $y$. Predictive risk is the expected error against that target:
 \begin{equation}
 \Risk_t(\theta)=\E_{(x,y)\sim\mu_t}\ell(q_\theta(x),y),\qquad
 \rho_t=\text{the input marginal of }\mu_t.
 \label{eq:risk}
 \end{equation}
-Consistency $D_2$ is therefore available to the adaptation algorithm; $\Risk_t$ is not. This information restriction is fundamental, not a technical inconvenience.
+Here $\mu_t$ describes input--target pairs, and $\ell$ is a prediction loss, such as squared error. The consistency objective can be estimated from unlabeled inputs; predictive risk is evaluated using held-out labels.
 
-\subsection{The forward value and backward rule are separate choices}
-Introduce the student Jacobian $J_q=\partial_\theta q_\theta(x)$ and reference-input Jacobian
+\subsection{Gradient paths and reference inputs}
+For the smooth model, assume differentiation may pass through the expectation. Define the student Jacobian $J_q=\partial_\theta q_\theta(x)\in\R^{d\times p}$ and the reference-input Jacobian
 \begin{equation}
-A_\phi(x,z)=\partial_z T_\phi(x,z),\qquad A=A_\phi(x,q_\theta(x)).
+A_\phi(x,z)=\partial_z T_\phi(x,z),\qquad A=A_\phi(x,q_\theta(x))\in\R^{d\times d}.
 \end{equation}
-Holding $\phi$ fixed while differentiating \eqref{eq:squared} \emph{does not} stop gradients through the input $q_\theta$ of $T_\phi$. The ordinary student gradient, with reference parameters frozen, is
+They measure how the student prediction responds to its parameters and how the reference responds to its auxiliary input, respectively. With $\phi$ held fixed, the prediction contributes through both appearances in \eqref{eq:residual}. The chain rule gives
+\[
+\partial_\theta r=AJ_q-J_q=(A-I)J_q,
+\]
+where $I$ is the $d\times d$ identity matrix. The resulting student gradient is
 \begin{equation}
-G_{\mathrm{input}}
+G_{\mathrm{input}}=\nabla_\theta D_2
 =\E_\rho\left[J_q^\top(A-I)^\top r\right].
 \label{eq:inputgrad}
 \end{equation}
-If instead the entire reference output is detached from the student computation graph, the same forward discrepancy yields the semi-gradient
+Freezing the reference parameters therefore retains the derivative through its input. If its entire output is instead detached, that output is treated as constant during the backward pass. Only the direct $-q_\theta$ term contributes, yielding the semi-gradient
 \begin{equation}
 G_{\mathrm{stop}}=-\E_\rho\left[J_q^\top r\right].
 \label{eq:stopgrad}
 \end{equation}
-The two updates agree only under additional conditions. Their difference is
+Both rules use the same forward discrepancy at a shared state. Their gradient difference is
 \begin{equation}
 G_{\mathrm{input}}-G_{\mathrm{stop}}
 =\E_\rho\left[J_q^\top A^\top r\right].
 \label{eq:gradientdifference}
 \end{equation}
-This expression is a chain-rule identity; it is not a guarantee that one rule has better accuracy or stability. In particular, $r=0$ makes both gradients vanish locally without establishing that the shared prediction is correct.
+They agree exactly when this expected contribution vanishes. A nonzero $A$ alone does not ensure a difference, since the residual, student Jacobian, and averaging also enter the expression. A gradient-style update moves in direction $-G$.
 
-There is a second distinction: the forward reference input can be \emph{refreshed} after each student update, or cached at an earlier value $c(x)$. The latter intervention is useful for isolating the feedback path, but a per-instance cache assumes that the same input can be revisited; it is not automatically a realistic algorithm for fresh online data. A straight-through diagnostic can hold a cached forward value while propagating a chosen derivative; this is an explicitly artificial backward rule, not ordinary differentiation of its forward loss. Together, these choices form a controlled comparison of \emph{what value was supplied} and \emph{which derivative was propagated}.
+For repeated updates on the same input, we can also compare \emph{refreshing} the reference input with the current $q_\theta(x)$ against \emph{caching} an earlier prediction $c(x)$. Ordinary differentiation treats the cached value as constant. A straight-through diagnostic can instead retain a cached forward value while prescribing its backward derivative. These controls separate the effect of the supplied value from that of the gradient path.
 
 \subsection{Coupled continuous-time and discrete-time dynamics}
-Our first mathematical model is
+For a fixed reference, $\phi$ remains constant. To study a moving reference, we couple the student update field $G$, initially \eqref{eq:inputgrad} or \eqref{eq:stopgrad}, to a reference that follows the student:
 \begin{equation}
 \boxed{\quad \dot\theta=-G(\theta,\phi;\rho_t),\qquad
-\dot\phi=\frac{\theta-\phi}{\tau},\quad \tau>0,\quad}
+\dot\phi=\frac{\theta-\phi}{\tau},\quad \tau>0.\quad}
 \label{eq:jointode}
 \end{equation}
-where $G$ is a specified student field, initially \eqref{eq:inputgrad} or \eqref{eq:stopgrad}. The timescale $\tau$ controls how rapidly the reference follows the student. For reproducible experiments we will also study a student-first discrete update,
+Dots denote derivatives with respect to continuous time. The timescale $\tau$ controls the reference's response: larger $\tau$ means slower movement toward the student.
+
+In discrete time, let $n$ index updates, $\eta>0$ be the student learning rate, and $\rho_n$ the input distribution at step $n$. A student-first update followed by exponential moving averaging (EMA) is
 \begin{equation}
 \theta_{n+1}=\theta_n-\eta G(\theta_n,\phi_n;\rho_n),\qquad
 \phi_{n+1}=\alpha\phi_n+(1-\alpha)\theta_{n+1},\quad 0<\alpha<1.
 \label{eq:jointdiscrete}
 \end{equation}
-A continuous-time limit requires a stated relationship between $\alpha$ and $\eta$; the schematic choice $\alpha=\tau/(\tau+\eta)$ gives $1-\alpha\approx\eta/\tau$ as $\eta\to0$. We will not equate stability of \eqref{eq:jointode} with stability of finite-step iterations without checking the actual discrete update map.
+Larger $\alpha$ retains more of the previous reference; $\alpha=1$ recovers the fixed-reference case. The displayed field uses a population expectation, estimated from the adaptation batch in experiments. Choosing $\alpha=\tau/(\tau+\eta)$ gives $(1-\alpha)/\eta\to1/\tau$ as $\eta\to0$, consistent with \eqref{eq:jointode} under the time scaling $t=n\eta$ and suitable regularity. We will analyze the finite-step map alongside this continuous-time model, with optimizer-state extensions addressed below.
 
 \section{Research questions and theoretical program}
 \label{sec:questions}
 
-\subsection{Question I: which computation-graph differences change learning?}
-\textbf{Question.} For a dual-input prediction-feedback model, when does holding a reference's parameters fixed differ qualitatively from detaching its output? When does refreshing the reference input alter a later update? Can these distinctions be characterized in terms of the reference-input Jacobian, residual, and optimizer state?
+\subsection{Question I: how do feedback and gradient paths affect adaptation?}
+\textbf{Question.} Which properties of the reference-input Jacobian and residual determine whether connecting or stopping the reference-output gradient changes a student update? How does refreshing the reference input affect subsequent updates and predictions?
 
-The starting identities are \eqref{eq:gradientdifference} and the derivatives of the joint vector field. We will develop explicit, checkable conditions for the two rules to agree or differ, first for smooth networks and then, only where necessary, for piecewise-linear networks and absolute discrepancies. These conditions should predict a measurable update event, not merely restate the chain rule. To avoid overstating the result, equality of gradients, equality of finite-step optimizer updates, and equality of predictive risk must be treated as distinct conclusions.
+Using \eqref{eq:gradientdifference} and derivatives of the joint update field, we will derive conditions that predict changes in update direction and subsequent predictions. We will begin with smooth models, then examine piecewise-linear networks and absolute discrepancies. The analysis and experiments will distinguish three outcomes: changes in gradients, changes in parameter steps, and changes in prediction error.
 
-An important complication is optimizer memory. For example, Adam's internal moments satisfy recurrences of the form
+Optimizer state is part of this comparison. For Adam, let $g_n$ be the gradient used at step $n$. Its moment estimates satisfy
 \begin{equation}
 m_n=\beta_1m_{n-1}+(1-\beta_1)g_n,\qquad
 s_n=\beta_2s_{n-1}+(1-\beta_2)g_n^{\odot2}.
 \label{eq:adam}
 \end{equation}
-Two learners with identical current weights can still take different steps if $(m_n,s_n,n)$ differ. The dynamical state must therefore include optimizer history whenever an experimental claim depends on it. This is a control and potential secondary mechanism, rather than a claim that stored moments automatically constitute useful lifelong memory.
+Here $m_n$ averages past gradients, $s_n$ averages their componentwise squares, and $\beta_1,\beta_2\in[0,1)$ control how much history is retained. The notation $g_n^{\odot2}$ denotes componentwise squaring.
+
+Identical weights can therefore produce different parameter steps when moment estimates or step counts differ. We will match weights, optimizer state, and step counts when isolating gradient-path effects, and use separate controlled comparisons to measure the contribution of optimizer history.
 
 \subsection{Question II: can a useful equilibrium be locally stable?}
 \textbf{Question.} Under what structural conditions does the coupled learner converge to a \emph{nondegenerate, prediction-relevant} equilibrium? Can different backward rules or EMA timescales change the linear stability classification?

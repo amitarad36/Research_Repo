@@ -1,0 +1,10 @@
+{
+  "before_sha256": "598a4cc7aa81d254009aab0d69765dfecf77eb975d8c08036273778c6ea269a4",
+  "after_sha256": "dc705a4c5775ec713b182610d9c291305c6a72967c8c49a1d8e81f74292e4951",
+  "labels_and_equation_count_preserved": true,
+  "outside_section3_unchanged": true,
+  "builtin_compile": "passed",
+  "native_build": "passed",
+  "visual_review": "PDF pages 4-6 inspected; no clipping or overlap",
+  "compiler_overfull_or_undefined_warnings": false
+}

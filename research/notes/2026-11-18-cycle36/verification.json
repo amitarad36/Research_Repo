@@ -1,0 +1,306 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "epsilon": "-1/10",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.08132267551043482,
+      "spectral_radius": 0.9991868989063957,
+      "discrete_characteristic_at_one": "1/26000"
+    },
+    {
+      "epsilon": "-1/10",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.08132267551043482,
+      "spectral_radius": 0.9918803570593718,
+      "discrete_characteristic_at_one": "1/350"
+    },
+    {
+      "epsilon": "-1/10",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.05131670194948623,
+      "spectral_radius": 0.9994869646516047,
+      "discrete_characteristic_at_one": "1/101000"
+    },
+    {
+      "epsilon": "-1/10",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.05131670194948623,
+      "spectral_radius": 0.9948814976469028,
+      "discrete_characteristic_at_one": "1/1100"
+    },
+    {
+      "epsilon": "-1/10",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.020330668877608777,
+      "spectral_radius": 0.9997967267908373,
+      "discrete_characteristic_at_one": "1/401000"
+    },
+    {
+      "epsilon": "-1/10",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.020330668877608777,
+      "spectral_radius": 0.9979702772965325,
+      "discrete_characteristic_at_one": "1/4100"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.008012841124577452,
+      "spectral_radius": 0.999919872866735,
+      "discrete_characteristic_at_one": "1/260000"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.008012841124577452,
+      "spectral_radius": 0.9991988437412243,
+      "discrete_characteristic_at_one": "1/3500"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.005012562893380035,
+      "spectral_radius": 0.9999498756273556,
+      "discrete_characteristic_at_one": "1/1010000"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.005012562893380035,
+      "spectral_radius": 0.9994988693396671,
+      "discrete_characteristic_at_one": "1/11000"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -0.002003210281144391,
+      "spectral_radius": 0.9999799682185999,
+      "discrete_characteristic_at_one": "1/4010000"
+    },
+    {
+      "epsilon": "-1/100",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -0.002003210281144391,
+      "spectral_radius": 0.999799711109533,
+      "discrete_characteristic_at_one": "1/41000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -8.00000127920697e-07,
+      "spectral_radius": 0.9999999919999987,
+      "discrete_characteristic_at_one": "1/2600000000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -8.00000127920697e-07,
+      "spectral_radius": 0.9999999199999885,
+      "discrete_characteristic_at_one": "1/35000000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": -5.000001249699793e-07,
+      "spectral_radius": 0.9999999949999987,
+      "discrete_characteristic_at_one": "1/10100000000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": -5.000001249699793e-07,
+      "spectral_radius": 0.9999999499999888,
+      "discrete_characteristic_at_one": "1/110000000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": -2.0000003199240058e-07,
+      "spectral_radius": 0.9999999979999996,
+      "discrete_characteristic_at_one": "1/40100000000"
+    },
+    {
+      "epsilon": "-1/1000000",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": -2.0000003199240058e-07,
+      "spectral_radius": 0.9999999799999971,
+      "discrete_characteristic_at_one": "1/410000000"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.07875939164552559,
+      "spectral_radius": 1.0007877236026204,
+      "discrete_characteristic_at_one": "-1/26000"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.07875939164552559,
+      "spectral_radius": 1.0078888555279106,
+      "discrete_characteristic_at_one": "-1/350"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.04880884817015163,
+      "spectral_radius": 1.000488207597554,
+      "discrete_characteristic_at_one": "-1/101000"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.04880884817015163,
+      "spectral_radius": 1.0048927969440729,
+      "discrete_characteristic_at_one": "-1/1100"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.019689847911381342,
+      "spectral_radius": 1.0001969291426336,
+      "discrete_characteristic_at_one": "-1/401000"
+    },
+    {
+      "epsilon": "1/10",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.019689847911381342,
+      "spectral_radius": 1.0019720543229733,
+      "discrete_characteristic_at_one": "-1/4100"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.00798724079688995,
+      "spectral_radius": 1.0000798736899232,
+      "discrete_characteristic_at_one": "-1/260000"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.00798724079688995,
+      "spectral_radius": 1.0007988522201412,
+      "discrete_characteristic_at_one": "-1/3500"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.00498756211208895,
+      "spectral_radius": 1.0000498768649098,
+      "discrete_characteristic_at_one": "-1/1010000"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.00498756211208895,
+      "spectral_radius": 1.0004988805901573,
+      "discrete_characteristic_at_one": "-1/11000"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 0.001996810199222654,
+      "spectral_radius": 1.0000199684205953,
+      "discrete_characteristic_at_one": "-1/4010000"
+    },
+    {
+      "epsilon": "1/100",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 0.001996810199222654,
+      "spectral_radius": 1.0001997128836424,
+      "discrete_characteristic_at_one": "-1/41000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "1/4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 7.999998716812229e-07,
+      "spectral_radius": 1.0000000079999987,
+      "discrete_characteristic_at_one": "-1/2600000000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "1/4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 7.999998716812229e-07,
+      "spectral_radius": 1.0000000799999884,
+      "discrete_characteristic_at_one": "-1/35000000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "1",
+      "eta": "1/100",
+      "max_real_eigenvalue": 4.999998750587764e-07,
+      "spectral_radius": 1.0000000049999989,
+      "discrete_characteristic_at_one": "-1/10100000000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "1",
+      "eta": "1/10",
+      "max_real_eigenvalue": 4.999998750587764e-07,
+      "spectral_radius": 1.0000000499999888,
+      "discrete_characteristic_at_one": "-1/110000000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "4",
+      "eta": "1/100",
+      "max_real_eigenvalue": 1.9999996797581687e-07,
+      "spectral_radius": 1.0000000019999997,
+      "discrete_characteristic_at_one": "-1/40100000000"
+    },
+    {
+      "epsilon": "1/1000000",
+      "tau": "4",
+      "eta": "1/10",
+      "max_real_eigenvalue": 1.9999996797581687e-07,
+      "spectral_radius": 1.0000000199999972,
+      "discrete_characteristic_at_one": "-1/410000000"
+    }
+  ],
+  "case_count": 36,
+  "gradient_probes": 40,
+  "max_gradient_error": 1.3362894124568925e-11,
+  "matrix_fixtures": 50,
+  "max_matrix_identity_error": 8.129481483616763e-15,
+  "symbolic_checks": "both fields, both joint Jacobians, characteristic polynomial, discrete chi(1), projection-defect identity",
+  "cpu_seconds": 0.515625,
+  "limitations": [
+    "Constructed local smooth squared-loss model.",
+    "Idempotence is exact only at baseline when epsilon is nonzero.",
+    "No theorem-level novelty claim; no trained data or accuracy experiment.",
+    "Fails full-state robustness from a neutral baseline; conditional disagreement bound remains valid."
+  ]
+}

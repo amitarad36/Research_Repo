@@ -1,0 +1,254 @@
+{
+  "status": "passed",
+  "symbolic_checks": "idempotence, residual, both fields, both Jacobians and characteristic polynomials",
+  "frozen_reference_linear_eigenvalues": {
+    "input": -2,
+    "stop": 1
+  },
+  "exact_parameter_cases": [
+    {
+      "rule": "input",
+      "tau": "1/4",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-6",
+      "transverse_multiplier": "49/52",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "1/4",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-6",
+      "transverse_multiplier": "4/7",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "1/2",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-4",
+      "transverse_multiplier": "49/51",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "1/2",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-4",
+      "transverse_multiplier": "2/3",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "2",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-5/2",
+      "transverse_multiplier": "196/201",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "2",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-5/2",
+      "transverse_multiplier": "16/21",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "5",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-11/5",
+      "transverse_multiplier": "490/501",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "input",
+      "tau": "5",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-11/5",
+      "transverse_multiplier": "40/51",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "1/4",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-3",
+      "transverse_multiplier": "101/104",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "1/4",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-3",
+      "transverse_multiplier": "11/14",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "1/2",
+      "eta": "1/100",
+      "transverse_eigenvalue": "-1",
+      "transverse_multiplier": "101/102",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "1/2",
+      "eta": "1/10",
+      "transverse_eigenvalue": "-1",
+      "transverse_multiplier": "11/12",
+      "transverse_stable": true,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "2",
+      "eta": "1/100",
+      "transverse_eigenvalue": "1/2",
+      "transverse_multiplier": "202/201",
+      "transverse_stable": false,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "2",
+      "eta": "1/10",
+      "transverse_eigenvalue": "1/2",
+      "transverse_multiplier": "22/21",
+      "transverse_stable": false,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "5",
+      "eta": "1/100",
+      "transverse_eigenvalue": "4/5",
+      "transverse_multiplier": "505/501",
+      "transverse_stable": false,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    },
+    {
+      "rule": "stop",
+      "tau": "5",
+      "eta": "1/10",
+      "transverse_eigenvalue": "4/5",
+      "transverse_multiplier": "55/51",
+      "transverse_stable": false,
+      "neutral_eigenvalue": 0,
+      "neutral_multiplier": 1
+    }
+  ],
+  "finite_difference_probes": 40,
+  "max_gradient_error": 3.1500746455748185e-11,
+  "small_nonlinear_diagnostics": [
+    {
+      "rule": "input",
+      "tau": 0.5,
+      "eta": 0.1,
+      "horizon": 2,
+      "gap_ratio": 0.00030073019362249095,
+      "theta_final": 4.0018058200796277e-07,
+      "phi_final": 3.998798518143403e-07
+    },
+    {
+      "rule": "input",
+      "tau": 0.5,
+      "eta": 0.05,
+      "horizon": 2,
+      "gap_ratio": 0.00032658423677307845,
+      "theta_final": 4.5017978827154346e-07,
+      "phi_final": 4.498532040347704e-07
+    },
+    {
+      "rule": "input",
+      "tau": 2.0,
+      "eta": 0.1,
+      "horizon": 2,
+      "gap_ratio": 0.004345248144742105,
+      "theta_final": 1.6365004296340647e-07,
+      "phi_final": 1.5930479481866436e-07
+    },
+    {
+      "rule": "input",
+      "tau": 2.0,
+      "eta": 0.05,
+      "horizon": 2,
+      "gap_ratio": 0.005504863970861278,
+      "theta_final": 1.8451402937470986e-07,
+      "phi_final": 1.7900916540384858e-07
+    },
+    {
+      "rule": "stop",
+      "tau": 0.5,
+      "eta": 0.1,
+      "horizon": 2,
+      "gap_ratio": 0.17548141432113623,
+      "theta_final": 1.989429584483181e-06,
+      "phi_final": 1.813948170162045e-06
+    },
+    {
+      "rule": "stop",
+      "tau": 0.5,
+      "eta": 0.05,
+      "horizon": 2,
+      "gap_ratio": 0.15554887042702772,
+      "theta_final": 1.9289028325954192e-06,
+      "phi_final": 1.7733539621683915e-06
+    },
+    {
+      "rule": "stop",
+      "tau": 2.0,
+      "eta": 0.1,
+      "horizon": 2,
+      "gap_ratio": 2.5355685741533533,
+      "theta_final": 4.224660598664078e-06,
+      "phi_final": 1.6890920245107248e-06
+    },
+    {
+      "rule": "stop",
+      "tau": 2.0,
+      "eta": 0.05,
+      "horizon": 2,
+      "gap_ratio": 2.6219572025089932,
+      "theta_final": 4.324976572262813e-06,
+      "phi_final": 1.7030193697538205e-06
+    }
+  ],
+  "cpu_seconds": 0.421875,
+  "limitations": [
+    "Constructed smooth squared-loss model, not trained IT3.",
+    "Neutral direction changes predictions: no full-state or accuracy recovery guarantee.",
+    "Matched initialization is stationary for both rules.",
+    "Local transverse classification only; no boundary classification or global stopped result.",
+    "No novelty claim; residual versus semi-gradient separation has extensive prior art."
+  ]
+}
