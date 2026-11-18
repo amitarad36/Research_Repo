@@ -1,10 +1,11 @@
 % Research proposal distilled from the November 2026 technical backbone.
-% Standalone source: pdfLaTeX, no external graphics or bibliography files.
+% !TeX program = xelatex
+% Standalone source: XeLaTeX (Hebrew title), no external graphics or bibliography files.
 % The accompanying backbone/research_backbone.pdf preserves the full technical record.
 % Public output: research_proposal.pdf; run build_documents.ps1.
 \documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\newfontfamily\hebrewtitlefont[Script=Hebrew]{Arial}
 \usepackage[english]{babel}
 \usepackage{lmodern}
 \usepackage[margin=0.92in,headheight=15pt]{geometry}
@@ -20,6 +21,7 @@
 \usepackage{titlesec}
 \usepackage{setspace}
 \setstretch{1.055}
+\setlength{\emergencystretch}{2em}
 \definecolor{ink}{HTML}{1B2935}
 \definecolor{accent}{HTML}{1B6871}
 \definecolor{muted}{HTML}{55636E}
@@ -55,7 +57,8 @@
 \thispagestyle{empty}
 \vspace*{0.40in}
 \noindent{\color{accent}\rule{\textwidth}{1.6pt}}\\[0.42in]
-{\fontsize{22}{28}\selectfont\bfseries\color{ink} When Test-Time Consistency\\[0.12em] Changes Predictions}\\[0.26in]
+{\fontsize{22}{28}\selectfont\bfseries\color{ink} When Test-Time Consistency\\[0.12em] Changes Predictions}\\[0.12in]
+{\fontsize{16}{20}\selectfont\hebrewtitlefont\color{ink}\TeXXeTstate=1\beginR מתי עקביות בזמן בדיקה משנה תחזיות\endR}\\[0.24in]
 {\large\color{accent} Feedback dynamics and gradient paths in test-time adaptation}\\[0.35in]
 {\normalsize\bfseries Research Proposal}\\[0.16in]
 {\large Amit Arad}\\[0.05in]

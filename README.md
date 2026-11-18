@@ -30,7 +30,7 @@ From this folder in PowerShell:
 .\build_documents.ps1 -Document backbone
 ```
 
-The script runs pdfLaTeX twice, puts intermediate files under `build/`, and refreshes the named PDFs above. It uses an installed `pdflatex` on PATH and disables shell escape. In VS Code, use the **Build current research document** recipe; **Build both research documents** refreshes both PDFs. The automatic recipe selects the backbone when its source is active, otherwise the proposal.
+The script runs XeLaTeX for the bilingual proposal and pdfLaTeX for the backbone, twice each, puts intermediate files under `build/`, and refreshes the named PDFs above. It uses installed `xelatex` and `pdflatex` on PATH and disables shell escape. The Hebrew title uses Arial, available on this Windows system. In VS Code, use the **Build current research document** recipe; **Build both research documents** refreshes both PDFs. The automatic recipe selects the backbone when its source is active, otherwise the proposal.
 
 ## Editing policy
 

@@ -4,7 +4,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
-$compiler = (Get-Command pdflatex -ErrorAction Stop).Source
+# XeLaTeX supports the proposal's Hebrew title; the backbone keeps pdfLaTeX.
 if ($Document -eq 'auto') {
     if ([IO.Path]::GetFileNameWithoutExtension($Source) -eq 'research_backbone') { $Document = 'backbone' }
     else { $Document = 'proposal' }
@@ -20,6 +20,8 @@ try {
         $buildDir = Join-Path $projectRoot 'build'
         New-Item -ItemType Directory -Path $buildDir -Force | Out-Null
         $sourcePath = Join-Path $projectRoot $target.Input
+        $engine = if ($target.Name -eq 'proposal') { 'xelatex' } else { 'pdflatex' }
+        $compiler = (Get-Command $engine -ErrorAction Stop).Source
         for ($pass = 1; $pass -le 2; $pass++) {
             $consolePath = Join-Path $buildDir ("$($target.Name)-pass-$pass.txt")
             & $compiler '-interaction=nonstopmode' '-halt-on-error' '-file-line-error' '-no-shell-escape' '-synctex=1' "-jobname=$($target.Job)" "-output-directory=$buildDir" $sourcePath *> $consolePath
